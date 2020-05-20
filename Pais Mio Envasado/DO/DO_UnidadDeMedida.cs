@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    public class UnidadDeMedida
+    public class DO_UnidadDeMedida
     {
         public String unidad { set; get; }
 
-        public UnidadDeMedida(string unidad)
+        public DO_UnidadDeMedida(string unidad)
         {
             this.unidad = unidad;
         }
 
-        public UnidadDeMedida()
+        public DO_UnidadDeMedida()
         {
         }
     }

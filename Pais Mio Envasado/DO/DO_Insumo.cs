@@ -11,9 +11,9 @@ namespace DO
         public DO_EstadoHabilitacion estado { set; get; }
         public String nombre { set; get; }
         public Int32 cantMinStock { set; get; }
-        public UnidadDeMedida unidad { set; get; }
+        public DO_UnidadDeMedida unidad { set; get; }
 
-        public DO_Insumo(DO_EstadoHabilitacion estado, string nombre, int cantMinStock, UnidadDeMedida unidad)
+        public DO_Insumo(DO_EstadoHabilitacion estado, string nombre, int cantMinStock, DO_UnidadDeMedida unidad)
         {
             this.estado = estado;
             this.nombre = nombre;
