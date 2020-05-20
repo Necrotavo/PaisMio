@@ -1,18 +1,18 @@
 <nav class="store-navbar">
     <div class="container">
       <div class="section-top clearfix">
-        <a href="index-pm-app.html" class="logo float-left">
+        <a routerLink="/index-pm-app/" class="logo float-left">
           País mío
         </a>
         <ul class="menu-right float-right">
           <li>
-            <a href="input-request.html" class="cart">
+            <a routerLink="/order-view/" class="cart">
               <i class="ion-ios-wineglass"></i>
               <span>X Pedidos activos</span>
             </a>
           </li>
           <li>
-            <a href="user-view.html" class="account">
+            <a routerLink="/user-view/" class="account">
               <i class="ion-person"></i>
               Cuenta
             </a>
@@ -34,8 +34,8 @@
                   <i class="ion-chevron-down"></i>
                 </a>
                 <div class="dropdown-menu" role="menu">
-                  <a class="dropdown-item" href="input-request.html">Pedido 1</a>
-                  <a class="dropdown-item" href="input-request-2.html">Pedido 2</a>
+                  <a class="dropdown-item" routerLink="/order-view/">Pedido 1</a>
+                  <a class="dropdown-item" routerLink="/order-view/">Pedido 2</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -44,9 +44,9 @@
                   <i class="ion-chevron-down"></i>
                 </a>
                 <div class="dropdown-menu" role="menu">
-                  <a class="dropdown-item" href="invenrory-control.html">Todas las bodegas</a>
-                  <a class="dropdown-item" href="invenrory-control.html">Bodega grecia</a>
-                  <a class="dropdown-item" href="invenrory-control.html">Bodega San Ramon</a>
+                  <a class="dropdown-item" routerLink="/inventory-control/">Todas las bodegas</a>
+                  <a class="dropdown-item" routerLink="/inventory-control/">Bodega grecia</a>
+                  <a class="dropdown-item" routerLink="/inventory-control/">Bodega San Ramon</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -55,7 +55,7 @@
                   <i class="ion-chevron-down"></i>
                 </a>
                 <div class="dropdown-menu" role="menu">
-                  <a class="dropdown-item" href="admin-view.html">Panel de administración</a>
+                  <a class="dropdown-item" href="/admin-view/">Panel de administración</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -64,8 +64,8 @@
                   <i class="ion-chevron-down"></i>
                 </a>
                 <div class="dropdown-menu" role="menu">
-                  <a class="dropdown-item" href="report-monthly.html">Reporte mensual</a>
-                  <a class="dropdown-item" href="report-comparative.html">Reporte comparativo</a>
+                  <a class="dropdown-item" routerLink="/report-monthly/">Reporte mensual</a>
+                  <a class="dropdown-item" routerLink="/report-comparative/">Reporte comparativo</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -74,12 +74,12 @@
                   <i class="ion-chevron-down"></i>
                 </a>
                 <div class="dropdown-menu" role="menu">
-                  <a class="dropdown-item" href="user-view.html">Ver perfil</a>
-                  <a class="dropdown-item" href="change-password.html">Cambiar contraseña</a>
+                  <a class="dropdown-item" routerLink="/user-view/">Ver perfil</a>
+                  <a class="dropdown-item" routerLink="/change-password/">Cambiar contraseña</a>
                 </div>
               </li>
               <li class="nav-item">
-                  <a class="nav-link dropdown-toggle" href="index.html">Cerrar sesión</a>
+                  <a class="nav-link dropdown-toggle" routerLink="/index.html/">Cerrar sesión</a>
               </li>
             </ul>
           </div>
