@@ -1,0 +1,120 @@
+<div class="account-page">
+  <div class="container">
+
+    <div id="accordion">
+
+      <!--Start of option one-->
+      <div class="card bg-dark text-white text-center mb-3">
+        <div class="card-header" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          <br>
+          <i class="ion-stats-bars"></i>
+          <h5 class="mb-0">
+            Pedidos
+          </h5>
+          <br>
+        </div>
+
+        <!--you can add "show" class if you want to show the active orders when someone opens the app-->
+        <div id="collapseOne" class="collapse" role="tabpanel">
+          <div class="card-body">
+
+            <!--Buttons here are the ACTIVE orders so it should get the order ID-->
+            <a routerLink="/order-view/" class="btn btn-lg btn-outline-light btn-block">
+              <div class="row">
+                <div class="col-1">
+                  001
+                </div>
+                <div class="col-6">
+                  Lico X
+                </div>
+                <div class="col">
+                  15/5/2020
+                </div>
+              </div>
+            </a>
+
+            <a routerLink="/order-view/" class="btn btn-lg btn-outline-light btn-block">
+              <div class="row">
+                <div class="col-1">
+                  002
+                </div>
+                <div class="col-6">
+                  Florida
+                </div>
+                <div class="col">
+                  15/5/2020
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!--End of option one-->
+
+      <!--Start of option two-->
+      <div class="card bg-primary text-white text-center mb-3">
+        <div class="card-header" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          <br>
+          <i class="ion-monitor"></i>
+          <h5 class="mb-0">
+            Inventario
+          </h5>
+          <br>
+        </div>
+        <div id="collapseTwo" class="collapse">
+          <div class="card-body">
+            <a routerLink="/inventory-control/" class="btn-shadow btn-shadow-primary btn-block">Todas las bodegas</a>
+            <a routerLink="/inventory-control/" class="btn-shadow btn-shadow-primary btn-block">Bodega grecia</a>
+            <a routerLink="/inventory-control/" class="btn-shadow btn-shadow-primary btn-block">Bodega San Ramon</a>
+          </div>
+        </div>
+      </div>
+      <!--End of option one-->
+
+      <!--Start of option three-->
+      <div class="card bg-success text-white text-center mb-3">
+        <div class="card-header" id="headingThree" data-toggle="collapse" data-parent="#accordion"
+          href="#collapseThree">
+          <br>
+          <i class="ion-settings"></i>
+          <h5 class="mb-0">
+            <a class="collapsed">
+              Administración
+            </a>
+          </h5>
+          <br>
+        </div>
+        <div id="collapseThree" class="collapse">
+          <div class="card-body">
+            <a routerLink="/admin-view/" class="btn-shadow btn-shadow-success btn-block">Panel de Administración</a>
+          </div>
+        </div>
+      </div>
+      <!--End of option three-->
+
+      <!--Start of option four-->
+      <div class="card bg-info text-white text-center mb-3">
+        <div class="card-header" id="headingFour" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+          <br>
+          <i class="ion-pie-graph"></i>
+          <h5 class="mb-0">
+            <a class="collapsed">
+              Reportes
+            </a>
+          </h5>
+          <br>
+        </div>
+        <div id="collapseFour" class="collapse">
+          <div class="card-body">
+
+            <a routerLink="/report-monthly/" class="btn-shadow btn-shadow-info btn-block">Reporte mensual</a>
+            <a routerLink="/report-comparative/" class="btn-shadow btn-shadow-info btn-block">Reporte comparativo</a>
+
+          </div>
+        </div>
+      </div>
+      <!--End of option four-->
+
+    </div>
+  </div>
+</div>

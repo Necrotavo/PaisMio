@@ -1,0 +1,972 @@
+<div class="account-page">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="index-pm-app.html">Inicio</a>
+            </li>
+            <li class="breadcrumb-item active">Administrar</li>
+        </ol>
+
+        <div class="description">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#orders" role="tab" data-toggle="tab">Pedidos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#inputs" role="tab" data-toggle="tab">Insumos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#users" role="tab" data-toggle="tab">Usuarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#clients" role="tab" data-toggle="tab">Clientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#products" role="tab" data-toggle="tab">Productos</a>
+                </li>
+            </ul>
+
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="orders">
+                    <div class="tab-header clearfix">
+                        <div class="float-left">
+                            <div class="search-field">
+                                <i class="ion-android-search"></i>
+                                <input type="text" class="input-search" placeholder="Buscar...">
+                            </div>
+                            <br>
+                            <a href="#">
+                                <button type="button" class="btn btn-success" data-toggle="modal"
+                                    data-target="#ordersModal">
+                                    <i class="icon ion-plus">
+                                    </i>
+                                    Crear pedido
+                                </button>
+                            </a>
+                        </div>
+                        <select class="custom-select float-right">
+                            <option>Ultimos 6 meses</option>
+                            <option>Ultimos 3 meses</option>
+                            <option>Todas las ordenes</option>
+                        </select>
+                    </div>
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Cliente</th>
+                                <th>Detalles</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>
+                                    001
+                                </td>
+                                <td>
+                                    Nombre del Cliente
+                                </td>
+                                <td>
+                                    <a href="#">Ver detalles</a>
+                                </td>
+                                <td>
+                                    <span class="badge badge-success">Enviado</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    002
+                                </td>
+                                <td>
+                                    Nombre del Cliente
+                                </td>
+                                <td>
+                                    <a href="#">Ver detalles</a>
+                                </td>
+                                <td>
+                                    <span class="badge badge-primary">En proceso</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    003
+                                </td>
+                                <td>
+                                    Nombre del Cliente
+                                </td>
+                                <td>
+                                    <a href="#">Ver detalles</a>
+                                </td>
+                                <td>
+                                    <span class="badge badge-danger">Rechazado</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    004
+                                </td>
+                                <td>
+                                    Nombre del Cliente
+                                </td>
+                                <td>
+                                    <a href="#">Ver detalles</a>
+                                </td>
+                                <td>
+                                    <span class="badge badge-danger">Rechazado</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    005
+                                </td>
+                                <td>
+                                    Nombre del Cliente
+                                </td>
+                                <td>
+                                    <a href="#">Ver detalles</a>
+                                </td>
+                                <td>
+                                    <span class="badge badge-success">Enviado</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div role="tabpane1" class="tab-pane" id="inputs">
+                    <div class="tab-header clearfix">
+                        <div class="float-left">
+                            <div class="search-field">
+                                <i class="ion-android-search"></i>
+                                <input type="text" class="input-search" placeholder="Buscar...">
+                            </div>
+                            <br>
+                            <a href="#">
+                                <button type="button" class="btn btn-success" data-toggle="modal"
+                                    data-target="#inputsModal">
+                                    <i class="icon ion-plus">
+                                    </i>
+                                    Crear insumo
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Stock</th>
+                                <th>Min</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    001
+                                </td>
+                                <td>
+                                    Tapa de pacha
+                                </td>
+                                <td>
+                                    300
+                                </td>
+                                <td>
+                                    20
+                                </td>
+                                <td>
+                                    <span class="badge badge-success">Habilitado</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    002
+                                </td>
+                                <td>
+                                    Pacha
+                                </td>
+                                <td>
+                                    300
+                                </td>
+                                <td>
+                                    20
+                                </td>
+                                <td>
+                                    <span class="badge badge-success">Habilitado</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    003
+                                </td>
+                                <td>
+                                    Botella
+                                </td>
+                                <td>
+                                    300
+                                </td>
+                                <td>
+                                    20
+                                </td>
+                                <td>
+                                    <span class="badge badge-danger">Deshabilitado</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="users">
+
+                    <div class="tab-header clearfix">
+                        <div class="float-left">
+                            <div class="search-field">
+                                <i class="ion-android-search"></i>
+                                <input type="text" class="input-search" placeholder="Buscar...">
+                            </div>
+                            <br>
+                            <a href="#">
+                                <button type="button" class="btn btn-success" data-toggle="modal"
+                                    data-target="#usersModal">
+                                    <i class="icon ion-plus">
+                                    </i>
+                                    Crear usuario
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Rol</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Admin
+                                </td>
+                                <td>
+                                    Admin@mail.com
+                                </td>
+                                <td>
+                                    Administrador
+                                </td>
+                                <td>
+                                    <span class="badge badge-success">Habilitado</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Sup
+                                </td>
+                                <td>
+                                    sup@mail.com
+                                </td>
+                                <td>
+                                    Supervisor
+                                </td>
+                                <td>
+                                    <span class="badge badge-success">Habilitado</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Op
+                                </td>
+                                <td>
+                                    op@mail.com
+                                </td>
+                                <td>
+                                    Operario
+                                </td>
+                                <td>
+                                    <span class="badge badge-success">Habilitado</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Bad Op
+                                </td>
+                                <td>
+                                    badop@mail.com
+                                </td>
+                                <td>
+                                    Operario
+                                </td>
+                                <td>
+                                    <span class="badge badge-danger">Deshabilitado</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="clients">
+
+                    <div class="tab-header clearfix">
+                        <div class="float-left">
+                            <div class="search-field">
+                                <i class="ion-android-search"></i>
+                                <input type="text" class="input-search" placeholder="Buscar...">
+                            </div>
+                            <br>
+                            <a href="#">
+                                <button type="button" class="btn btn-success" data-toggle="modal"
+                                    data-target="#clientsModal">
+                                    <i class="icon ion-plus">
+                                    </i>
+                                    Crear cliente
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Parametro</th>
+                                <th>Datos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Cédula jurídica</th>
+                                <td>
+                                    3-101-XXX
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Nombre</th>
+                                <td>
+                                    Lico X
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Dirección</th>
+                                <td>
+                                    San Ramon, Alajuela
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Teléfono</th>
+                                <td>
+                                    +506 XXXX XXXX
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Correo electronico</th>
+                                <td>
+                                    LicoX@mail.com
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Estado</th>
+                                <td>
+                                    <span class="badge badge-success">Habilitado</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <br>
+                        <thead>
+                            <tr>
+                                <th>Parametro</th>
+                                <th>Datos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Cédula jurídica</th>
+                                <td>
+                                    3-101-XXX
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Nombre</th>
+                                <td>
+                                    Lico X
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Dirección</th>
+                                <td>
+                                    San Ramon, Alajuela
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Teléfono</th>
+                                <td>
+                                    +506 XXXX XXXX
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Correo electronico</th>
+                                <td>
+                                    LicoX@mail.com
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Estado</th>
+                                <td>
+                                    <span class="badge badge-danger">Deshabilitado</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div role="tabpane1" class="tab-pane" id="products">
+                    <div class="tab-header clearfix">
+                        <div class="float-left">
+                            <div class="search-field">
+                                <i class="ion-android-search"></i>
+                                <input type="text" class="input-search" placeholder="Buscar...">
+                            </div>
+                            <br>
+                            <a href="#">
+                                <button type="button" class="btn btn-success" data-toggle="modal"
+                                    data-target="#productsModal">
+                                    <i class="icon ion-plus">
+                                    </i>
+                                    Crear producto
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    001
+                                </td>
+                                <td>
+                                    Litro
+                                </td>
+                                <td>
+                                    <a href="#">Descripción</a>
+                                </td>
+                                <td>
+                                    <span class="badge badge-success">Habilitado</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    002
+                                </td>
+                                <td>
+                                    Pacha
+                                </td>
+                                <td>
+                                    <a href="#">Descripción</a>
+                                </td>
+                                <td>
+                                    <span class="badge badge-success">Habilitado</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    003
+                                </td>
+                                <td>
+                                    Botella
+                                </td>
+                                <td>
+                                    <a href="#">Descripción</a>
+                                </td>
+                                <td>
+                                    <span class="badge badge-danger">Deshabilitado</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal orders-->
+
+<!-- Modal start -->
+
+<div class="modal fade" id="ordersModal" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="ordersModallabel1">Crear pedido</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="tab-header clearfix">
+                            <div class="float-left">
+                                <a href="#">
+                                    <button type="button" class="btn btn-success">
+                                        <i class="icon ion-plus">
+                                        </i>
+                                        Agregar producto
+                                    </button>
+                                </a>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Cliente
+                                </th>
+                                <td>
+                                    <select>
+                                        <option selected>Seleccionar cliente</option>
+                                        <option value="1">Pacha</option>
+                                        <option value="2">Litro</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <div class="form-field">
+                                        <select>
+                                            <option selected>Producto</option>
+                                            <option value="1">Pacha</option>
+                                            <option value="2">Litro</option>
+                                        </select>
+                                    </div>
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="number" placeholder="Cantidad...">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <div class="form-field">
+                                        <select>
+                                            <option selected>Producto</option>
+                                            <option value="1">Pacha</option>
+                                            <option value="2">Litro</option>
+                                        </select>
+                                    </div>
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="number" placeholder="Cantidad...">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Crear</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal end -->
+
+
+<!-- Modal inputs -->
+
+<!-- Modal start -->
+
+<div class="modal fade" id="inputsModal" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="inputsModallabel1">Crear insumo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="tab-header clearfix">
+                            <div class="float-left">
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Nombre
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" placeholder="Ingresar datos...">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Mínimo en stock
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" placeholder="Ingresar datos...">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Unidad de medida
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <select>
+                                            <option selected>Seleccionar unidad</option>
+                                            <option value="1">Unidad</option>
+                                            <option value="2">Litros</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Crear</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal end -->
+
+<!-- Modal users ** -->
+
+<!-- Modal start -->
+
+<div class="modal fade" id="usersModal" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="usersModallabel1">Crear usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="tab-header clearfix">
+                            <div class="float-left">
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Nombre
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" placeholder="Ingresar datos...">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Apellidos
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" placeholder="Ingresar datos...">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Correo electronico
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="email" placeholder="Ingresar datos...">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Rol
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <select>
+                                            <option selected>Seleccionar</option>
+                                            <option value="1">Operario</option>
+                                            <option value="2">Supervisor</option>
+                                            <option value="3">Administrador</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Crear</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal end -->
+
+<!-- Modal clients ** -->
+
+<!-- Modal start -->
+
+<div class="modal fade" id="clientsModal" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="clientsModallabel1">Crear cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="tab-header clearfix">
+                            <div class="float-left">
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Cédula jurídica:
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" placeholder="Ingresar datos...">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Dirección:
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" placeholder="Ingresar datos...">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Nombre:
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" placeholder="Ingresar datos...">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Teléfono:
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" placeholder="Ingresar datos...">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Correo electronico:
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="email" placeholder="Ingresar datos...">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Crear</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal end -->
+
+<!-- Modal products *****-->
+
+<!-- Modal start -->
+
+<div class="modal fade" id="productsModal" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="productsModallabel1">Crear producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="tab-header clearfix">
+                            <div class="float-left">
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Nombre
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" placeholder="Ingresar datos...">
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>
+                                    Descripción
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <textarea id="message-text"></textarea>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Crear</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal end -->
