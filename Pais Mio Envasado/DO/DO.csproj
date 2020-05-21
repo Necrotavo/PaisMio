@@ -48,6 +48,7 @@
     <Compile Include="DO_Insumo.cs" />
     <Compile Include="DO_InsumoEnBodega.cs" />
     <Compile Include="DO_Operario.cs" />
+    <Compile Include="DO_SolicitudInsumos.cs" />
     <Compile Include="DO_Supervisor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DO_UnidadDeMedida.cs" />
