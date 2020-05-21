@@ -12,8 +12,6 @@ namespace BL
     {
         public bool guardarFactura(DO_Insumo doInsumo)
         {
-
-            //calcularTotal(factura);
             DAO_Insumo daoInsumo = new DAO_Insumo();
             if (daoInsumo.guardarInsumo(doInsumo) <= 0)
             {

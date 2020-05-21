@@ -79,5 +79,31 @@ namespace DAO
             }
         }
 
+        public int buscarCodigoInsumo(String nombre) {
+            SqlCommand obtenerCodigo = new SqlCommand("SELECT INS_CODIGO FROM INSUMO WHERE INS_NOMBRE = @nombre;", conexion);
+            obtenerCodigo.Parameters.AddWithValue("@nombre", nombre);
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                return Convert.ToInt32(obtenerCodigo.ExecuteScalar());
+
+            }
+            catch (SqlException e)
+            {
+                return 0;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
     }
 }
