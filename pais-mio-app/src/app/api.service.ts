@@ -4,6 +4,11 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { User } from '../models/user';
 import { Input } from '../models/input';
+import { InputRequest } from '../models/inputRequest';
+import { Analysis } from '../models/analysis';
+import { Product } from '../models/product';
+import { ReportC } from '../models/reportC';
+import { ReportM } from '../models/reportM';
 
 
 const HttpOptions = {
@@ -25,6 +30,7 @@ export class ApiService {
     };
   }
 
+  /** Users CRUD */
   getUser(): Observable<User[]> {
     return this.http.get<User[]>(`${apiURL}`)
     .pipe(
@@ -33,6 +39,38 @@ export class ApiService {
     );
   }
 
+  getUserByEmail(email: string): Observable<User> {
+    const url = `${apiURL}/${email}`;
+    return this.http.get<User>(url).pipe(
+      tap(_ => console.log(`fetch user id=${email}`)),
+      catchError(this.handleErrors<User>(`getUserByEmail id=${email}`))
+    );
+  }
+
+  addUser(user: User): Observable<User> {
+    return this.http.post<User>(apiURL, user, HttpOptions).pipe(
+      tap((i: User) => console.log(`added user w/ id=${i.name}`)),
+      catchError(this.handleErrors<User>(`addUser`))
+    );
+  }
+
+  updateUser(id: string, user: User): Observable<any> {
+    const url = `${apiURL}/${id}`;
+    return this.http.put(url, user, HttpOptions).pipe(
+      tap(_ => console.log(`updated user id=${id}`)),
+      catchError(this.handleErrors<any>(`updateUser`))
+    );
+  }
+
+  deleteUser(id: string): Observable<User> {
+    const url = `${apiURL}/${id}`;
+    return this.http.delete<User>(url, HttpOptions).pipe(
+      tap(_ => console.log(`deleted user id=${id}`)),
+      catchError(this.handleErrors<User>(`deletedUser`))
+    );
+  }
+
+  /** Inputs CRUD */
   getInput(): Observable<Input[]> {
     return this.http.get<Input[]>(`${apiURL}`)
     .pipe(
@@ -71,4 +109,204 @@ export class ApiService {
       catchError(this.handleErrors<Input>(`deletedInput`))
     );
   }
+
+  /** Input Requests CRUD */
+  getInputRequest(): Observable<InputRequest[]> {
+    return this.http.get<InputRequest[]>(`${apiURL}`)
+    .pipe(
+      tap(inputRequest => console.log(`fetch input request`)),
+      catchError(this.handleErrors(`getInputRequest`, []))
+    );
+  }
+
+  getInputRequestByID(id: string): Observable<InputRequest> {
+    const url = `${apiURL}/${id}`;
+    return this.http.get<InputRequest>(url).pipe(
+      tap(_ => console.log(`fetch input request id=${id}`)),
+      catchError(this.handleErrors<InputRequest>(`getInputRequestByID id=${id}`))
+    );
+  }
+
+  addInputRequest(input: InputRequest): Observable<InputRequest> {
+    return this.http.post<InputRequest>(apiURL, input, HttpOptions).pipe(
+      tap((i: InputRequest) => console.log(`added input request w/ id=${i.id}`)),
+      catchError(this.handleErrors<InputRequest>(`addInputRequest`))
+    );
+  }
+
+  updateInputRequest(id: string, inputRequest: InputRequest): Observable<any> {
+    const url = `${apiURL}/${id}`;
+    return this.http.put(url, inputRequest, HttpOptions).pipe(
+      tap(_ => console.log(`updated input request id=${id}`)),
+      catchError(this.handleErrors<any>(`updateInputRequest`))
+    );
+  }
+
+  deleteInputRequest(id: string): Observable<InputRequest> {
+    const url = `${apiURL}/${id}`;
+    return this.http.delete<InputRequest>(url, HttpOptions).pipe(
+      tap(_ => console.log(`deleted input request id=${id}`)),
+      catchError(this.handleErrors<InputRequest>(`deletedInputRequest`))
+    );
+  }
+
+  /** Products CRUD */
+  getProduct(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${apiURL}`)
+    .pipe(
+      tap(analysis => console.log(`fetch input`)),
+      catchError(this.handleErrors(`getInput`, []))
+    );
+  }
+
+  getProductByID(id: string): Observable<Product> {
+    const url = `${apiURL}/${id}`;
+    return this.http.get<Product>(url).pipe(
+      tap(_ => console.log(`fetch product id=${id}`)),
+      catchError(this.handleErrors<Product>(`getProductByID id=${id}`))
+    );
+  }
+
+  addProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(apiURL, product, HttpOptions).pipe(
+      tap((i: Product) => console.log(`added product w/ id=${i.id}`)),
+      catchError(this.handleErrors<Product>(`addProduct`))
+    );
+  }
+
+  updateProduct(id: string, product: Product): Observable<any> {
+    const url = `${apiURL}/${id}`;
+    return this.http.put(url, product, HttpOptions).pipe(
+      tap(_ => console.log(`updated product id=${id}`)),
+      catchError(this.handleErrors<any>(`updateProduct`))
+    );
+  }
+
+  deleteProduct(id: string): Observable<Product> {
+    const url = `${apiURL}/${id}`;
+    return this.http.delete<Product>(url, HttpOptions).pipe(
+      tap(_ => console.log(`deleted product id=${id}`)),
+      catchError(this.handleErrors<Product>(`deletedProduct`))
+    );
+  }
+
+    /** Analysis CRUD */
+    getAnalysis(): Observable<Analysis[]> {
+      return this.http.get<Analysis[]>(`${apiURL}`)
+      .pipe(
+        tap(analysis => console.log(`fetch analysis`)),
+        catchError(this.handleErrors(`getAnalysis`, []))
+      );
+    }
+
+    getAnalysisByID(id: string): Observable<Analysis> {
+      const url = `${apiURL}/${id}`;
+      return this.http.get<Analysis>(url).pipe(
+        tap(_ => console.log(`fetch analysis id=${id}`)),
+        catchError(this.handleErrors<Analysis>(`getAnalysisByID id=${id}`))
+      );
+    }
+
+    addAnalysis(analysis: Analysis): Observable<Analysis> {
+      return this.http.post<Analysis>(apiURL, analysis, HttpOptions).pipe(
+        tap((i: Analysis) => console.log(`added analysis w/ id=${i.id}`)),
+        catchError(this.handleErrors<Analysis>(`addAnalysis`))
+      );
+    }
+
+    updateAnalysis(id: string, analysis: Analysis): Observable<any> {
+      const url = `${apiURL}/${id}`;
+      return this.http.put(url, analysis, HttpOptions).pipe(
+        tap(_ => console.log(`updated analysis id=${id}`)),
+        catchError(this.handleErrors<any>(`updateAnalysis`))
+      );
+    }
+
+    deleteAnalysis(id: string): Observable<Analysis> {
+      const url = `${apiURL}/${id}`;
+      return this.http.delete<Analysis>(url, HttpOptions).pipe(
+        tap(_ => console.log(`deleted analysis id=${id}`)),
+        catchError(this.handleErrors<Analysis>(`deletedAnalysis`))
+      );
+    }
+
+    /** Monthly Reports CRUD */
+    getReportM(): Observable<ReportM[]> {
+      return this.http.get<ReportM[]>(`${apiURL}`)
+      .pipe(
+        tap(reportM => console.log(`fetch report monthly`)),
+        catchError(this.handleErrors(`getReportM`, []))
+      );
+    }
+
+    getReportMByID(id: string): Observable<ReportM> {
+      const url = `${apiURL}/${id}`;
+      return this.http.get<ReportM>(url).pipe(
+        tap(_ => console.log(`fetch report monthly id=${id}`)),
+        catchError(this.handleErrors<ReportM>(`getReportMByID id=${id}`))
+      );
+    }
+
+    addReportM(reportM: ReportM): Observable<ReportM> {
+      return this.http.post<ReportM>(apiURL, reportM, HttpOptions).pipe(
+        tap((i: ReportM) => console.log(`added reporth monthly w/ id=${i.id}`)),
+        catchError(this.handleErrors<ReportM>(`addReportM`))
+      );
+    }
+
+    updateReportM(id: string, reportM: ReportM): Observable<any> {
+      const url = `${apiURL}/${id}`;
+      return this.http.put(url, reportM, HttpOptions).pipe(
+        tap(_ => console.log(`updated report Monthly id=${id}`)),
+        catchError(this.handleErrors<any>(`updateReportM`))
+      );
+    }
+
+    deleteReportM(id: string): Observable<ReportM> {
+      const url = `${apiURL}/${id}`;
+      return this.http.delete<ReportM>(url, HttpOptions).pipe(
+        tap(_ => console.log(`deleted report Monthly id=${id}`)),
+        catchError(this.handleErrors<ReportM>(`deletedReportM`))
+      );
+    }
+
+    /** Comparative Reports CRUD */
+    getReportC(): Observable<ReportC[]> {
+      return this.http.get<ReportC[]>(`${apiURL}`)
+      .pipe(
+        tap(reportC => console.log(`fetch report comparative`)),
+        catchError(this.handleErrors(`getReportC`, []))
+      );
+    }
+
+    getReportCByID(id: string): Observable<ReportC> {
+      const url = `${apiURL}/${id}`;
+      return this.http.get<ReportC>(url).pipe(
+        tap(_ => console.log(`fetch report comparative id=${id}`)),
+        catchError(this.handleErrors<ReportC>(`getReportCByID id=${id}`))
+      );
+    }
+
+    addReportC(reportC: ReportC): Observable<ReportM> {
+      return this.http.post<ReportC>(apiURL, reportC, HttpOptions).pipe(
+        tap((i: ReportC) => console.log(`added reporth comparative w/ id=${i.id}`)),
+        catchError(this.handleErrors<ReportC>(`addReportC`))
+      );
+    }
+
+    updateReportC(id: string, reportC: ReportC): Observable<any> {
+      const url = `${apiURL}/${id}`;
+      return this.http.put(url, reportC, HttpOptions).pipe(
+        tap(_ => console.log(`updated report comparative id=${id}`)),
+        catchError(this.handleErrors<any>(`updateReportC`))
+      );
+    }
+
+    deleteReportC(id: string): Observable<ReportC> {
+      const url = `${apiURL}/${id}`;
+      return this.http.delete<ReportC>(url, HttpOptions).pipe(
+        tap(_ => console.log(`deleted report comparative id=${id}`)),
+        catchError(this.handleErrors<ReportC>(`deletedReportC`))
+      );
+    }
 }
