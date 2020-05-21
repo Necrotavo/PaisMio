@@ -8,7 +8,7 @@ namespace DO
 {
     public class DO_InsumoEnBodega
     {
-        DO_Insumo insumo { set; get; }
-        Int32 cantidadDisponible { set; get; }
+        public DO_Insumo insumo { set; get; }
+        public Int32 cantidadDisponible { set; get; }
     }
 }

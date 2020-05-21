@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO_Bodega.cs" />
     <Compile Include="DAO_Cliente.cs" />
     <Compile Include="DAO_Insumo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
