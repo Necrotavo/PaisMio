@@ -9,6 +9,7 @@ namespace DO
     public class DO_SolicitudInsumos
     {
         private readonly string[] estados = new string[] { "En proceso", "Rechazada", "Aprobada" };
+        public int codigoSolicitud { get; set; }
         public string correoOperario { get; set; }
         public int codigoPedido { get; set; }
         public string correoAdministrador { get; set; }
@@ -16,11 +17,13 @@ namespace DO
         public DateTime fechaSolicitud { get; set; }
         public List<DO_InsumoEnBodega> listaConsumo { set; get; }
         public List<DO_InsumoEnBodega> listaDescarte { set; get; }
-        DO_SolicitudInsumos(string operarioId)
+        public int codigoBodega { get; set; }
+        DO_SolicitudInsumos(string operarioId, int bodega)
         {
             fechaSolicitud = System.DateTime.Now;
             correoOperario = operarioId;
             estado = estados[0];
+            codigoBodega = bodega;
         }
 
 
