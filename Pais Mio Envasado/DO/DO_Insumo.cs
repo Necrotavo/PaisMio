@@ -8,6 +8,7 @@ namespace DO
 {
     public class DO_Insumo
     {
+        public Int32 codigo { set; get; }
         public DO_EstadoHabilitacion estado { set; get; }
         public String nombre { set; get; }
         public Int32 cantMinStock { set; get; }
