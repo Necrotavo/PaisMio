@@ -26,10 +26,10 @@ export class ApiService {
   }
 
   getUser(): Observable<User[]> {
-    return this.http.get<User[]>('${apiURL}')
+    return this.http.get<User[]>(`${apiURL}`)
     .pipe(
       tap(user => console.log('fetch user')),
-      catchError(this.handleErrors('getUser', []))
+      catchError(this.handleErrors(`getUser`, []))
     );
   }
 
