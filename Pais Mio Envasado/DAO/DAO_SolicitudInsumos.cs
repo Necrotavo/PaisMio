@@ -44,8 +44,36 @@ namespace DAO
                 }
                 if (!agregarInsumosSolicitud(solicitudInsumos))
                 {
+                    borrarSolicitud(solicitudInsumos.codigoSolicitud);
                     return false;
                 }
+                return true;
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
+        private bool borrarSolicitud(int codigo)
+        {
+            SqlCommand borrar = new SqlCommand("DELETE FROM SOLICITUD_INSUMO WHERE SOL_CODIGO = @codigo)", conexion);
+            borrar.Parameters.AddWithValue("@codigo", codigo);
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                borrar.ExecuteNonQuery();
                 return true;
             }
             catch (SqlException)
