@@ -24,9 +24,8 @@ namespace WebService
         /// <param name="direccion">Dirección del cliente (String)</param>
         /// <returns>(True) si se registró el cliente correctamente. (False) si no se registró</returns>
         public bool agregarCliente(String cedula, String estado, String nombre, String telefono, String correo, String direccion)
-        {
-            DO_EstadoHabilitacion estadoInicial = new DO_EstadoHabilitacion(estado);
-            DO_Cliente doCliente = new DO_Cliente(cedula,estadoInicial,nombre,telefono,correo,direccion);
+        {          
+            DO_Cliente doCliente = new DO_Cliente(cedula,estado,nombre,telefono,correo,direccion);
             BL_Cliente blCliente = new BL_Cliente();
 
             return blCliente.agregarCliente(doCliente);
@@ -75,8 +74,8 @@ namespace WebService
         /// <returns>(True) si se modificar los datos. (False) si ocurrió algún error.</returns>
         public bool modificarCliente(String cedula, String estado, String nombre, String telefono, String correo, String direccion)
         {
-            DO_EstadoHabilitacion estadoInicial = new DO_EstadoHabilitacion(estado);
-            DO_Cliente doCliente = new DO_Cliente(cedula, estadoInicial, nombre, telefono, correo, direccion);
+           
+            DO_Cliente doCliente = new DO_Cliente(cedula, estado, nombre, telefono, correo, direccion);
             BL_Cliente blCliente = new BL_Cliente();
 
             return blCliente.modificarCliente(doCliente);

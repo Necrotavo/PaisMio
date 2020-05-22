@@ -111,7 +111,7 @@ namespace DAO
         public List<DO_Cliente> listarClientesHabilitados()
         {
             List<DO_Cliente> listaClientes = new List<DO_Cliente>();
-            SqlCommand comandoBuscar = new SqlCommand("SELECT * FROM CLIENTE WHERE EST_HAB_ESTADO = 'Habilitado'");
+            SqlCommand comandoBuscar = new SqlCommand("SELECT * FROM CLIENTE WHERE EST_HAB_ESTADO = 'Habilitado'", conexion);
 
             try
             {
@@ -128,13 +128,11 @@ namespace DAO
                         DO_Cliente cliente = new DO_Cliente();
 
                         cliente.cedula = (String)lector["CLI_CEDULA"];
-                        String estado = (String)lector["EST_HAB_ESTADO"];
-                        DO_EstadoHabilitacion estadoHabilitado = new DO_EstadoHabilitacion(estado);
-                        cliente.estado = estadoHabilitado;
+                        cliente.estado = (String)lector["EST_HAB_ESTADO"];
                         cliente.nombre = (String)lector["CLI_NOMBRE"];
-                        cliente.cedula = (String)lector["CLI_TELEFONO"];
-                        cliente.cedula = (String)lector["CLI_CORREO"];
-                        cliente.cedula = (String)lector["CLI_DIRECCION"];
+                        cliente.telefono = (String)lector["CLI_TELEFONO"];
+                        cliente.correo = (String)lector["CLI_CORREO"];
+                        cliente.direccion = (String)lector["CLI_DIRECCION"];
                         listaClientes.Add(cliente);
                     }
                 }
@@ -162,7 +160,7 @@ namespace DAO
             DataTable datatable = new DataTable();
             List<DO_Cliente> listaClientes = new List<DO_Cliente>();
 
-            adaptador.SelectCommand = new SqlCommand("SELECT * FROM CLIENTE");
+            adaptador.SelectCommand = new SqlCommand("SELECT * FROM CLIENTE",conexion);
 
             try
             {
@@ -176,11 +174,9 @@ namespace DAO
                 foreach (DataRow fila in datatable.Rows)
                 {
                     DO_Cliente doCliente = new DO_Cliente();
-                    DO_EstadoHabilitacion estadoActual = new DO_EstadoHabilitacion();
 
-                    doCliente.cedula = (String)fila["CLI_NOMBRE"];
-                    estadoActual.estado = (String)fila["EST_HAB_ESTADO"];
-                    doCliente.estado = estadoActual;
+                    doCliente.cedula = (String)fila["CLI_CEDULA"];                   
+                    doCliente.estado = (String)fila["EST_HAB_ESTADO"];
                     doCliente.nombre = (String)fila["CLI_NOMBRE"];
                     doCliente.telefono = (String)fila["CLI_TELEFONO"];
                     doCliente.correo = (String)fila["CLI_CORREO"];
@@ -211,7 +207,7 @@ namespace DAO
         public DO_Cliente buscarCliente(String nombre)
         {
             DO_Cliente cliente = new DO_Cliente();
-            SqlCommand comandoBuscar = new SqlCommand("SELECT * FROM CLIENTE WHERE CLI_NOMBRE = @nombre");
+            SqlCommand comandoBuscar = new SqlCommand("SELECT * FROM CLIENTE WHERE CLI_NOMBRE = @nombre",conexion);
 
             try
             {
@@ -226,15 +222,13 @@ namespace DAO
                     while (lector.Read())
                     {
                         
-
-                        cliente.cedula = (String)lector["CLI_CEDULA"];
-                        String estado = (String)lector["EST_HAB_ESTADO"];
-                        DO_EstadoHabilitacion estadoHabilitado = new DO_EstadoHabilitacion(estado);
-                        cliente.estado = estadoHabilitado;
+                        
+                        cliente.cedula = (String)lector["CLI_CEDULA"];                       
+                        cliente.estado = (String)lector["EST_HAB_ESTADO"];
                         cliente.nombre = (String)lector["CLI_NOMBRE"];
-                        cliente.cedula = (String)lector["CLI_TELEFONO"];
-                        cliente.cedula = (String)lector["CLI_CORREO"];
-                        cliente.cedula = (String)lector["CLI_DIRECCION"];
+                        cliente.telefono = (String)lector["CLI_TELEFONO"];
+                        cliente.correo = (String)lector["CLI_CORREO"];
+                        cliente.direccion = (String)lector["CLI_DIRECCION"];
 
                        
                     }
