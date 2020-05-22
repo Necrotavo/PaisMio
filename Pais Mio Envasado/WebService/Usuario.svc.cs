@@ -13,6 +13,12 @@ namespace WebService
     // NOTE: In order to launch WCF Test Client for testing this service, please select Usuario.svc or Usuario.svc.cs at the Solution Explorer and start debugging.
     public class Usuario : IUsuario
     {
+        public bool crearUsuario(string correo, string nombre, string apellidos, string contrasena, string tipo)
+        {
+            if (tipo.Equals("admin")) { }
+            throw new NotImplementedException();
+        }
+
         public List<string> getLista()
         {
             List<string> list = new List<string>();
