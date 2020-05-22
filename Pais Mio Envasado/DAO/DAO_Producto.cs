@@ -138,12 +138,9 @@ namespace DAO
                 SqlDataReader lector = consultaCredito.ExecuteReader();
                 if (lector.HasRows)
                 {
-                    while (lector.Read())
-                    {
-                        doProducto.estado = new DO_EstadoHabilitacion((String)(lector["EST_HAB_ESTADO"]));
-                        doProducto.nombre = (String)(lector["PRO_NOMBRE"]);
-                        doProducto.descripcion = (String)(lector["PRO_DESCRIPCION"]);
-                    }
+                    doProducto.estado = new DO_EstadoHabilitacion((String)(lector["EST_HAB_ESTADO"]));
+                    doProducto.nombre = (String)(lector["PRO_NOMBRE"]);
+                    doProducto.descripcion = (String)(lector["PRO_DESCRIPCION"]);
                     return doProducto;
                 }
                 else {
