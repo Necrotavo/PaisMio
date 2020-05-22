@@ -70,6 +70,12 @@ namespace BL
             DAO_Cliente daoCliente = new DAO_Cliente();
             return daoCliente.buscarCliente(nombre);
         }
+        /// <summary>
+        /// Permite modificar el estado actual del cliente.
+        /// </summary>
+        /// <param name="estado">El nuevo estado (String)</param>
+        /// <param name="cedula">La cédula del cliente (String)</param>
+        /// <returns>(True) si se actualizó el estado.(False)si no se actualizó</returns>
         public bool modificarEstado(String estado, String cedula)
         {
             DAO_Cliente daoCliente = new DAO_Cliente();
