@@ -12,34 +12,14 @@ namespace DAO
     public class DAO_SolicitudInsumos
     {
         private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ConnectionString);
-        public bool guardarSolicitudConInsumos(DO_SolicitudInsumos solicitudInsumos)
+
+        /// <summary>
+        /// Permite guardar la solicitud de insumos junto a la lista de descarte y consumo en la base de datos.
+        /// </summary>
+        /// <param name="solicitudInsumos">La solicitud de insumos</param>
+        /// <returns></returns>
+        public bool guardarSolicitudInsumos(DO_SolicitudInsumos solicitudInsumos)
         {
-            if (guardarSolicitudSinInsumos(solicitudInsumos))
-            {
-
-                foreach (DO_InsumoEnBodega insumo in solicitudInsumos.listaConsumo)
-                {
-                    guardarInsumoConsumido(insumo, solicitudInsumos.codigoSolicitud);
-                }
-
-                foreach (DO_InsumoEnBodega insumo in solicitudInsumos.listaConsumo)
-                {
-                    guardarInsumoDescartado(insumo, solicitudInsumos.codigoSolicitud);
-                }
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-
-        }
-
-        private bool guardarSolicitudSinInsumos(DO_SolicitudInsumos solicitudInsumos)
-        {
-
             SqlCommand insert = new SqlCommand("INSERT INTO SOLICITUD_INSUMO (OPE_CORREO, PED_CODIGO, SUP_OPE_CORREO, EST_SOL_ESTADO, SOL_FECHA)" +
                 "VALUES (@operadorId, @codigoPedido, @correoAdmin, @estado, @fecha)", conexion);
             insert.Parameters.AddWithValue("@operadorId", solicitudInsumos.correoOperario);
@@ -54,13 +34,15 @@ namespace DAO
                 {
                     conexion.Open();
                 }
-
                 if (insert.ExecuteNonQuery() > 0)
                 {
                     SqlCommand tomarCodigo = new SqlCommand("SELECT SOL_CODIGO FROM SOLICITUD_INSUMO ORDER BY SOL_CODIGO DESC");
                     solicitudInsumos.codigoSolicitud = (int)tomarCodigo.ExecuteScalar();
                 }
-                
+                if (!agregarInsumosSolicitud(solicitudInsumos))
+                {
+                    return false;
+                }
                 return true;
             }
             catch (SqlException)
@@ -75,47 +57,11 @@ namespace DAO
                 }
             }
         }
-
-        private bool guardarInsumoConsumido(DO_InsumoEnBodega insumo, int codigoSolicitud)
+        private bool agregarInsumosSolicitud(DO_SolicitudInsumos solicitud)
         {
-                SqlCommand insert = new SqlCommand("INSERT INTO SOL_A_CONSUMIR (INS_CODIGO, SOL_CODIGO, ACS_CANTIDAD)" +
-                "VALUES (@codigoInsumo, @codigoSolicitud, @cantidad)", conexion);
-                insert.Parameters.AddWithValue("@codigoInsumo", insumo.insumo.codigo);
-                insert.Parameters.AddWithValue("@codigoSolicitud", codigoSolicitud);
-                insert.Parameters.AddWithValue("@cantidad", insumo.cantidadDisponible);
-
-                try
-                {
-                    if (conexion.State != ConnectionState.Open)
-                    {
-                        conexion.Open();
-                    }
-
-                    insert.ExecuteNonQuery();
-                    return true;
-                }
-                catch (SqlException)
-                {
-                    return false;
-                }
-                finally
-                {
-                    if (conexion.State != ConnectionState.Closed)
-                    {
-                        conexion.Close();
-                    }
-                }
-            
-        }
-
-        private bool guardarInsumoDescartado(DO_InsumoEnBodega insumo, int codigoSolicitud)
-        {
-            SqlCommand insert = new SqlCommand("INSERT INTO POR_DESCARTE (INS_CODIGO, SOL_CODIGO, PDS_CANTIDAD)" +
-            "VALUES (@codigoInsumo, @codigoSolicitud, @cantidad)", conexion);
-            insert.Parameters.AddWithValue("@codigoInsumo", insumo.insumo.codigo);
-            insert.Parameters.AddWithValue("@codigoSolicitud", codigoSolicitud);
-            insert.Parameters.AddWithValue("@cantidad", insumo.cantidadDisponible);
-
+            string query = consumidosConstructor(solicitud) + " ";
+            query += descartadosConstructor(solicitud);
+            SqlCommand comando = new SqlCommand(query, conexion);
             try
             {
                 if (conexion.State != ConnectionState.Open)
@@ -123,7 +69,7 @@ namespace DAO
                     conexion.Open();
                 }
 
-                insert.ExecuteNonQuery();
+                comando.ExecuteNonQuery();
                 return true;
             }
             catch (SqlException)
@@ -137,30 +83,65 @@ namespace DAO
                     conexion.Close();
                 }
             }
-
         }
-        public void reducirInsumos(DO_SolicitudInsumos solicitud)
+        private string consumidosConstructor(DO_SolicitudInsumos solicitud)
         {
-
+            string query;
+            if (solicitud.listaConsumo.Count == 0)
+            {
+                return "";
+            }
+            else
+            {
+                query = "INSERT INTO SOL_A_CONSUMIR (INS_CODIGO, SOL_CODIGO, ACS_CANTIDAD) VALUES ";
+            }
+            
             foreach (DO_InsumoEnBodega insumo in solicitud.listaConsumo)
             {
-                reducirUnInsumo(insumo.insumo.codigo, solicitud.codigoBodega, insumo.cantidadDisponible);
+                query += "("+insumo.insumo.codigo+solicitud.codigoSolicitud+insumo.cantidadDisponible+"),";
+            }
+
+            return query.Substring(0,query.Length-1);
+        }
+        private string descartadosConstructor(DO_SolicitudInsumos solicitud)
+        {
+            string query;
+            if (solicitud.listaConsumo.Count == 0)
+            {
+                return "";
+            }
+            else
+            {
+                query = "INSERT INTO POR_DESCARTE (INS_CODIGO, SOL_CODIGO, PDS_CANTIDAD) VALUES ";
             }
 
             foreach (DO_InsumoEnBodega insumo in solicitud.listaDescarte)
             {
-                reducirUnInsumo(insumo.insumo.codigo, solicitud.codigoBodega, insumo.cantidadDisponible);
+                query += "(" + insumo.insumo.codigo + solicitud.codigoSolicitud + insumo.cantidadDisponible + "),";
             }
 
+            return query.Substring(0, query.Length - 1);
         }
-        private bool reducirUnInsumo (int codInsumo, int codigoBodega, int cantidad)
+        /// <summary>
+        /// Reduce los insumos de la base de datos según la cantidad que tenga la solicitud de insumos
+        /// </summary>
+        /// <param name="solicitud">La solicitud de insumos</param>
+        /// <returns></returns>
+        public bool reducirInsumos (DO_SolicitudInsumos solicitud)
         {
-            SqlCommand reducirCantidad = new SqlCommand("UPDATE INS_ESTA_BOD SET IEB_CANTIDAD_DISPONIBLE = IEB_CANTIDAD_DISPONIBLE - @cantIngresa " +
-                "WHERE BOD_CODIGO = @codigoBodega AND INS_CODIGO = @codigoInsumo");
-            reducirCantidad.Parameters.AddWithValue("@cantIngresa", cantidad);
-            reducirCantidad.Parameters.AddWithValue("@codigoBodega", codigoBodega);
-            reducirCantidad.Parameters.AddWithValue("@codigoInsumo", codInsumo);
+            string query = "";
+            foreach (DO_InsumoEnBodega insumo in solicitud.listaConsumo)
+            {
+                query += "UPDATE INS_ESTA_BOD SET IEB_CANTIDAD_DISPONIBLE = IEB_CANTIDAD_DISPONIBLE - " + insumo.cantidadDisponible +
+                "WHERE BOD_CODIGO = " + solicitud.codigoBodega + " AND INS_CODIGO = "+ insumo.insumo.codigo + " ";
+            }
+            foreach (DO_InsumoEnBodega insumo in solicitud.listaDescarte)
+            {
+                query += "UPDATE INS_ESTA_BOD SET IEB_CANTIDAD_DISPONIBLE = IEB_CANTIDAD_DISPONIBLE - " + insumo.cantidadDisponible +
+                "WHERE BOD_CODIGO = " + solicitud.codigoBodega + " AND INS_CODIGO = " + insumo.insumo.codigo + " ";
+            }
 
+            SqlCommand reducirCantidad = new SqlCommand(query, conexion);
             try
             {
                 if (conexion.State != ConnectionState.Open)
@@ -182,8 +163,15 @@ namespace DAO
                     conexion.Close();
                 }
             }
-        }
 
+        }
+        /// <summary>
+        /// Refleja en la base de datos la aceptación o rechazo de la solicitud de insumos
+        /// </summary>
+        /// <param name="admin"> Objeto DO de administrador </param>
+        /// <param name="estado"> Nombre del estado a asignar(Debe ser un estado valido) </param>
+        /// <param name="solicitud">La solicitud de insumos</param>
+        /// <returns></returns>
         public bool decisionSolicitud(DO_Administrador admin, string estado, DO_SolicitudInsumos solicitud)
         {
             SqlCommand actualizarSolicitud = new SqlCommand("UPDATE SOLICITUD_INSUMO " +
@@ -215,8 +203,6 @@ namespace DAO
                 }
             }
         }
-
-
 
     }
 }
