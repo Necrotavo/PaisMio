@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DO
 {
+    /// <summary>
+    /// Representa a las solicitudes de insumo que realizan los operarios
+    /// </summary>
     public class DO_SolicitudInsumos
     {
         private readonly string[] estados = new string[] { "En proceso", "Rechazada", "Aprobada" };

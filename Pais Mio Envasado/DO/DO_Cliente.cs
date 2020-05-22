@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DO
 {
+    /// <summary>
+    /// Esta clse representa a los clientes de País mío
+    /// </summary>
     public class DO_Cliente
     {
         public String cedula { set; get;}
@@ -14,7 +17,7 @@ namespace DO
         public String telefono { set; get; }
         public String correo { set; get; }
         public String direccion { set; get; }
-
+        
         public DO_Cliente(string cedula, DO_EstadoHabilitacion estado, string nombre, 
             string telefono, string correo, string direccion)
         {

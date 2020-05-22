@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DO
 {
+    /// <summary>
+    /// Esta clase sirve para representar un insumo y una cantidad del mismo, para hacer listas
+    /// </summary>
     public class DO_InsumoEnBodega
     {
         public DO_Insumo insumo { set; get; }

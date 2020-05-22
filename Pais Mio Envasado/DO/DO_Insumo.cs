@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DO
 {
+    /// <summary>
+    /// Con esta clase se representa a los insumos que se utilizan en el proceso de embotellado
+    /// </summary>
     public class DO_Insumo
     {
         public Int32 codigo { set; get; }

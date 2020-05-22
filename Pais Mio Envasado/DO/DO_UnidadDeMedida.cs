@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace DO
 {
+    /// <summary>
+    /// En esta clase se representa a las unidades de medida de los insumos
+    /// </summary>
     public class DO_UnidadDeMedida
     {
         public String unidad { set; get; }

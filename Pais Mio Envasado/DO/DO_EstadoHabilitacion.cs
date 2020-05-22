@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DO
 {
+    /// <summary>
+    /// Esta clase sirve para tener los estados de habilitación para diversos objetos
+    /// </summary>
     public class DO_EstadoHabilitacion
     {
         public String estado { set; get; }

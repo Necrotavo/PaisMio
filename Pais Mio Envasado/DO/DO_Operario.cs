@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DO
 {
+    /// <summary>
+    /// En esta classe se representa a los operarios, son los usuarios base del sistema por lo que heredan a los supervisores
+    /// </summary>
     public class DO_Operario
     {
         public String correo { set; get; }
