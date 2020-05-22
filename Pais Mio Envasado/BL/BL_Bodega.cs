@@ -18,11 +18,12 @@ namespace BL
         /// <summary>
         /// Este método permite la entrada de insumos al inventario
         /// </summary>
-        /// <param name="doBodega"></param>
+        /// <param name="doBodega">Bodega con la lista de insumos entrantes</param> 
+        /// <param name="correoOperario">Correo del operario que realiza la entrada</param>
         /// <returns>True si se ingresan los insumos en la bodega, false si sucede un error</returns>
-        public bool entradaInsumos(DO_Bodega doBodega) {
+        public bool entradaInsumos(DO_Bodega doBodega, String correoOperario) {
             DAO_Bodega daoBodega = new DAO_Bodega();
-            return daoBodega.entradaInsumos(doBodega);
+            return daoBodega.entradaInsumos(doBodega, correoOperario);
         }
     }
 }
