@@ -20,12 +20,16 @@ namespace WebService
         [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         string getNombre();
 
-        //public String correo { set; get; }
-        //public DO_EstadoHabilitacion estado { set; get; }
-        //public String nombre { set; get; }
-        //public String apellidos { set; get; }
-        //public String contrasena { set; get; }
-
+       
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="correo"></param>
+        /// <param name="nombre"></param>
+        /// <param name="apellidos"></param>
+        /// <param name="contrasena"></param>
+        /// <param name="tipo"></param>
+        /// <returns> True si el usuario se insertó correctamente, false si no se insertó</returns>
         [OperationContract]
         [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         Boolean crearUsuario(String correo,String nombre, String apellidos, String contrasena, String tipo);
