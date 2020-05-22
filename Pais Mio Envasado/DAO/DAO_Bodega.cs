@@ -74,12 +74,13 @@ namespace DAO
                     }
                     if (existeInsumoEnbodega(insumoEnBodega, bodega.codigo)) // Ya hay registro de ese insumo en la bodega
                     {
-                        comando += "UPDATE INS_ESTA_BOD COLUMN IEB_CANTIDAD_DISPONIBLE = IEB_CANTIDAD_DISPONIBLE + " + insumoEnBodega.cantidadDisponible + ") ";
+                        comando += "UPDATE INS_ESTA_BOD COLUMN IEB_CANTIDAD_DISPONIBLE = IEB_CANTIDAD_DISPONIBLE + " + insumoEnBodega.cantidadDisponible 
+                            + " WHERE BOD_CODIGO = "+ bodega.codigo +"AND INS_CODIGO = "+ insumoEnBodega.insumo.codigo + " ";
                     }
                     else
                     { //No hay registro del insumo en la bodega por lo que se crea e ingresa la cantidad
                         comando += "INSERT INTO INS_ESTA_BOD (BOD_CODIGO, INS_CODIGO, IEB_CANTIDAD_DISPONIBLE)"
-                                + "VALUES (" + bodega.codigo + ", " + insumoEnBodega.insumo + ", " + insumoEnBodega.cantidadDisponible + ") ";
+                                + "VALUES (" + bodega.codigo + ", " + insumoEnBodega.insumo.codigo + ", " + insumoEnBodega.cantidadDisponible + ") ";
                     }
                 }
 
