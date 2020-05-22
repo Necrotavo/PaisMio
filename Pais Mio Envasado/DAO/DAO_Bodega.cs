@@ -66,7 +66,7 @@ namespace DAO
 
                 Int32 eniCodigo = registrarEntradaInsumo(correoOperario, bodega.codigo);
 
-                String comando = "";
+                String comando = "BEGIN TRANSACTION ";
 
                 foreach (DO_InsumoEnBodega insumoEnBodega in bodega.listaInsumosEnBodega)
                 {
@@ -88,6 +88,8 @@ namespace DAO
                                 + "VALUES (" + bodega.codigo + ", " + insumoEnBodega.insumo.codigo + ", " + insumoEnBodega.cantidadDisponible + ") ";
                 }
 
+
+                comando += "COMMIT";
                 SqlCommand ingresarLista = new SqlCommand(comando, conexion);
 
                 if (ingresarLista.ExecuteNonQuery() <= 0)
