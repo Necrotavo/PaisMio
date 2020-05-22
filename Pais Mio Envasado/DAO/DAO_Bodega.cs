@@ -55,7 +55,7 @@ namespace DAO
         /// </summary>
         /// <param name="bodega">Bodega con la lista de insumos entrantes</param>
         /// <returns>True si logra ingresar los insumos, false si sucede un error</returns>
-        public bool entradaInsumos(DO_Bodega bodega)
+        public bool entradaInsumos(DO_Bodega bodega, String correoOperario)
         {
             try
             {
@@ -64,7 +64,9 @@ namespace DAO
                     conexion.Open();
                 }
 
-                String comando = "";
+                Int32 eniCodigo = registrarEntradaInsumo(correoOperario, bodega.codigo);
+
+                String comando = "BEGIN TRANSACTION ";
 
                 foreach (DO_InsumoEnBodega insumoEnBodega in bodega.listaInsumosEnBodega)
                 {
@@ -75,19 +77,29 @@ namespace DAO
                     if (existeInsumoEnbodega(insumoEnBodega, bodega.codigo)) // Ya hay registro de ese insumo en la bodega
                     {
                         comando += "UPDATE INS_ESTA_BOD COLUMN IEB_CANTIDAD_DISPONIBLE = IEB_CANTIDAD_DISPONIBLE + " + insumoEnBodega.cantidadDisponible 
-                            + " WHERE BOD_CODIGO = "+ bodega.codigo +"AND INS_CODIGO = "+ insumoEnBodega.insumo.codigo + " ";
+                            + " WHERE BOD_CODIGO = "+ bodega.codigo +" AND INS_CODIGO = "+ insumoEnBodega.insumo.codigo + " ";
                     }
                     else
                     { //No hay registro del insumo en la bodega por lo que se crea e ingresa la cantidad
                         comando += "INSERT INTO INS_ESTA_BOD (BOD_CODIGO, INS_CODIGO, IEB_CANTIDAD_DISPONIBLE)"
                                 + "VALUES (" + bodega.codigo + ", " + insumoEnBodega.insumo.codigo + ", " + insumoEnBodega.cantidadDisponible + ") ";
                     }
+                    comando += "INSERT INTO INSUMO_ENTRANTE (BOD_CODIGO, INS_CODIGO, IENT_CANTIDAD)"
+                                + "VALUES (" + bodega.codigo + ", " + insumoEnBodega.insumo.codigo + ", " + insumoEnBodega.cantidadDisponible + ") ";
                 }
 
-                SqlCommand ingresarLista = new SqlCommand(comando, conexion);
-                ingresarLista.ExecuteNonQuery();
 
-                return true;
+                comando += "COMMIT";
+                SqlCommand ingresarLista = new SqlCommand(comando, conexion);
+
+                if (ingresarLista.ExecuteNonQuery() <= 0)
+                {
+                    eliminarEntradaInsumo(eniCodigo);
+                    return false;
+                }
+                else {
+                    return true;
+                }
             }
             catch (SqlException e)
             {
@@ -156,6 +168,114 @@ namespace DAO
             catch (SqlException e)
             {
                 return 0;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Registra una entrada de insumo de la base de datos
+        /// </summary>
+        /// <param name="correoOperario">Correo del operario que realiza la entrada</param>
+        /// <param name="codigoBodega">Codigo de la bodega a la que entran los insumos</param>
+        /// <returns>El código de la entrada de insumo registrada, 0 si sucede un error</returns>
+        public Int32 registrarEntradaInsumo(String correoOperario, Int32 codigoBodega) {
+
+            SqlCommand registrarEntrada = new SqlCommand("INSERT INTO ENTRADA_INSUMO (OPE_CORREO, ENI_FECHA) " +
+                "VALUES (@correoOperario, @codigoBodega");
+            registrarEntrada.Parameters.AddWithValue("@codigoInsumo", correoOperario);
+            registrarEntrada.Parameters.AddWithValue("@codigoBodega", codigoBodega);
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                if (registrarEntrada.ExecuteNonQuery() > 0)
+                {
+                    return obtenerCodigoUltimaEntrada();
+                }
+                else {
+                    return 0;
+                }
+            }
+            catch (SqlException e)
+            {
+                return 0;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Con este método se obtiene el código de la última entrada registrada
+        /// </summary>
+        /// <returns>El código de la entrada, 0 si sucede un error</returns>
+        public Int32 obtenerCodigoUltimaEntrada() {
+            SqlCommand obtenerCodigo = new SqlCommand("SELECT ENI_CODIGO FROM ENTRADA_INSUMO ORDER BY BOD_CODIGO DESC", conexion);
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                return Convert.ToInt32(obtenerCodigo.ExecuteScalar());
+
+            }
+            catch (SqlException e)
+            {
+                return 0;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Con este método se elimina una entrada de la base de datos
+        /// </summary>
+        /// <param name="codigoEntrada">Codigo de la entrada que se va a eliminar</param>
+        /// <returns>True si se elimina, False si hay un error</returns>
+        public bool eliminarEntradaInsumo(Int32 codigoEntrada) {
+            SqlCommand eliminarEntrada = new SqlCommand("DELETE FROM ENTRADA_INSUMO WHERE ENI_CODIGO = @codigoEntrada", conexion);
+            eliminarEntrada.Parameters.AddWithValue("@codigoEntrada", codigoEntrada);
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                if (eliminarEntrada.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            catch (SqlException e)
+            {
+                return false;
             }
             finally
             {

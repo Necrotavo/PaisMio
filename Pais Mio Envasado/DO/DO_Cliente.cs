@@ -12,13 +12,13 @@ namespace DO
     public class DO_Cliente
     {
         public String cedula { set; get;}
-        public DO_EstadoHabilitacion estado { set; get; }
+        public String estado { set; get; }
         public String nombre { set; get; }
         public String telefono { set; get; }
         public String correo { set; get; }
         public String direccion { set; get; }
         
-        public DO_Cliente(string cedula, DO_EstadoHabilitacion estado, string nombre, 
+        public DO_Cliente(string cedula, String estado, string nombre, 
             string telefono, string correo, string direccion)
         {
             this.cedula = cedula;

@@ -12,7 +12,7 @@ namespace DAO.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.6.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -26,10 +26,8 @@ namespace DAO.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQL5005.site4now.net;Initial\nCatalog=DB_A6158F_spePaismio;User Id=DB_" +
-            "A6158F_spePaismio_admin;Password=\nData Source=SQL5005.site4now.net;Initial\nCatal" +
-            "og=DB_A6158F_spePaismio;User Id=DB_A6158F_spePaismio_admin;Password=\nspepaismio1" +
-            ".;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=sql5005.site4now.net;Initial Catalog=DB_A6158F_spePaismio;Persist Sec" +
+            "urity Info=True;User ID=DB_A6158F_spePaismio_admin;Password=spepaismio1.")]
         public string ConnectionString {
             get {
                 return ((string)(this["ConnectionString"]));
