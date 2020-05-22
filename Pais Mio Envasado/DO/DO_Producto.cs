@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DO
 {
+    /// <summary>
+    /// Representa a los productos finales del proceso de embotellado
+    /// </summary>
     public class DO_Producto
     {
         public Int32 codigo { set; get; }

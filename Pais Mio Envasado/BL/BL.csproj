@@ -45,6 +45,7 @@
     <Compile Include="BL_Bodega.cs" />
     <Compile Include="BL_Insumo.cs" />
     <Compile Include="BL_Producto.cs" />
+    <Compile Include="BL_SolicitudInsumos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

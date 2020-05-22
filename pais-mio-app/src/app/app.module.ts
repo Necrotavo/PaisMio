@@ -17,6 +17,9 @@ import { OrderViewComponent } from './order-view/order-view.component';
 import { UserViewComponent } from './user-view/user-view.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +39,10 @@ import { ErrorPageComponent } from './error-page/error-page.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

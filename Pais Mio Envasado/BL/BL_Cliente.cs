@@ -7,6 +7,9 @@ using DO;
 using DAO;
 namespace BL
 {
+    /// <summary>
+    /// En esta clase se encuentra la logica de negocio de los clientes
+    /// </summary>
     public class BL_Cliente
     {
         private DO_Cliente cliente;

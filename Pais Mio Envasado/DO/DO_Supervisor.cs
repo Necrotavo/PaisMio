@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DO
 {
+    /// <summary>
+    /// Clase para los supervisores, heredan los atributos de la clase Operario
+    /// </summary>
     public class DO_Supervisor : DO_Operario
     {
         public DO_Supervisor()

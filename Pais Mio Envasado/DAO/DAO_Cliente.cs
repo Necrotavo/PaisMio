@@ -13,6 +13,9 @@ using DO;
 
 namespace DAO
 {
+    /// <summary>
+    /// Esta clase comprende el acceso a dato relacionado a los clientes
+    /// </summary>
     public class DAO_Cliente
     {
         private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ConnectionString);

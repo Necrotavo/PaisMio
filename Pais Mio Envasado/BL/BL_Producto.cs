@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace BL
 {
+    /// <summary>
+    /// En esta clase se encuentra la logica de negocio de los productos
+    /// </summary>
     public class BL_Producto
     {
         /// <summary>
