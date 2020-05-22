@@ -8,9 +8,17 @@ using System.Threading.Tasks;
 
 namespace BL
 {
+    /// <summary>
+    /// En esta clase se encuentra la logica de negocio de los insumos
+    /// </summary>
     public class BL_Insumo
     {
-        public bool guardarFactura(DO_Insumo doInsumo)
+        /// <summary>
+        /// Con este método se puede guardar un insumo en la base de datos
+        /// </summary>
+        /// <param name="doInsumo">El insumo que se va a guardar</param>
+        /// <returns></returns>
+        public bool guardarInsumo(DO_Insumo doInsumo)
         {
             DAO_Insumo daoInsumo = new DAO_Insumo();
             if (daoInsumo.guardarInsumo(doInsumo) <= 0)

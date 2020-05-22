@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace DAO
 {
+    /// <summary>
+    /// Esta clase comprende los accesos a datos relacionados a las solicitudes de insumos creadas por los insumos
+    /// </summary>
     public class DAO_SolicitudInsumos
     {
         private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ConnectionString);
@@ -57,6 +60,12 @@ namespace DAO
                 }
             }
         }
+
+        /// <summary>
+        /// Este método agrega los insumos de la solicitud de insumos a la base de datos
+        /// </summary>
+        /// <param name="solicitud">Solicitud con las listas de insumos que se van a agregar</param>
+        /// <returns>True si se ingresan los insumos, False si sucede un error</returns>
         private bool agregarInsumosSolicitud(DO_SolicitudInsumos solicitud)
         {
             string query = consumidosConstructor(solicitud) + " ";
@@ -84,6 +93,12 @@ namespace DAO
                 }
             }
         }
+
+        /// <summary>
+        /// En este método se formula el comando para insertar los insumos por consumir de la solicitud de insumos
+        /// </summary>
+        /// <param name="solicitud">Solicitud con la lista de insumos por consumir que se van a agregar en la base de datos</param>
+        /// <returns>El comando creado o una cadena de texto vacía si sucede un error</returns>
         private string consumidosConstructor(DO_SolicitudInsumos solicitud)
         {
             string query;
@@ -103,6 +118,12 @@ namespace DAO
 
             return query.Substring(0,query.Length-1);
         }
+
+        /// <summary>
+        /// En este método se formula el comando para insertar los insumos por descarte de la solicitud de insumos
+        /// </summary>
+        /// <param name="solicitud">Solicitud con la lista de insumos por descarte que se van a agregar en la base de datos</param>
+        /// <returns>El comando creado o una cadena de texto vacía si sucede un error</returns>
         private string descartadosConstructor(DO_SolicitudInsumos solicitud)
         {
             string query;
@@ -122,6 +143,7 @@ namespace DAO
 
             return query.Substring(0, query.Length - 1);
         }
+
         /// <summary>
         /// Reduce los insumos de la base de datos según la cantidad que tenga la solicitud de insumos
         /// </summary>
@@ -165,6 +187,7 @@ namespace DAO
             }
 
         }
+
         /// <summary>
         /// Refleja en la base de datos la aceptación o rechazo de la solicitud de insumos
         /// </summary>

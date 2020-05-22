@@ -8,7 +8,10 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    class BL_SolicitudInsumos
+    /// <summary>
+    /// En esta clase se encuentra la logica de negocio para las solicitudes de insumo
+    /// </summary>
+    public class BL_SolicitudInsumos
     {
         /// <summary>
         /// Metodo para crear una nueva solicitud de insumos.

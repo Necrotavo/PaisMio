@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace DAO
 {
+    /// <summary>
+    /// Esta clase contiene el acceso a base de datos de los productos
+    /// </summary>
     public class DAO_Producto
     {
         private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ConnectionString);
