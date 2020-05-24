@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
 using System.ServiceModel;
-using System.Text;
+using System.ServiceModel.Web;
+using DO;
 
 namespace WebService
 {
@@ -12,6 +10,7 @@ namespace WebService
     public interface IWS_SolicitudInsumo
     {
         [OperationContract]
-        void DoWork();
+        [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        List<DO_SolicitudInsumos> listarInsumos();
     }
 }

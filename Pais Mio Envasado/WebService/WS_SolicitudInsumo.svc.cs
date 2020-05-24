@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BL;
+using DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -11,8 +13,10 @@ namespace WebService
     // NOTE: In order to launch WCF Test Client for testing this service, please select WS_SolicitudInsumo.svc or WS_SolicitudInsumo.svc.cs at the Solution Explorer and start debugging.
     public class WS_SolicitudInsumo : IWS_SolicitudInsumo
     {
-        public void DoWork()
+        public List<DO_SolicitudInsumos> listarInsumos()
         {
+            BL_SolicitudInsumos blSolicitud = new BL_SolicitudInsumos();
+            return blSolicitud.listaSolicitudes();
         }
     }
 }
