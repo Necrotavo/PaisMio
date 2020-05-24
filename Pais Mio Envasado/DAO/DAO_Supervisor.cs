@@ -9,6 +9,9 @@ using DO;
 
 namespace DAO
 {
+    /// <summary>
+    /// Esta clase comprende el acceso y manejo a los datos correspondientes a los Operarios
+    /// </summary>
     public class DAO_Supervisor
     {
 
@@ -17,7 +20,7 @@ namespace DAO
         private String queryInsertar = "";
 
         public DAO_Supervisor() {
-            this.queryInsertar = "INSERT INTO SUPERVISOR (OPE_CORREO) VALUES (@correo)";
+            this.queryInsertar = " INSERT INTO SUPERVISOR (OPE_CORREO) VALUES (@correo)";
         }
 
         public String getQueryInsertar()
@@ -26,14 +29,18 @@ namespace DAO
         }
 
         /// <summary>
-        /// Método para insertar Supervisores a la tabla SUPERVISORES de la base de datos
+        /// Método encargado de insertar Operarios en la tabla SUPERVISOR de la base de datos
         /// </summary>
-        /// <param name="operario"> true se añnadió correctamente a la tabla OPERARIO,false si no se añadió correctamente</param>
-        /// <param name="correo"> Correo del supervisor</param>
-        /// <returns> true si el supervisor se añadió correctamente, falso si no se añadió</returns>
+        /// <param name="correo"> correo del supervisor</param>
+        /// <param name="estado"> estado del supervisor, HABILITADO o DESHABILITADO</param>
+        /// <param name="nombre"> nombre del supervisor</param>
+        /// <param name="apellidos"> apellidos del supervisor</param>
+        /// <param name="contrasena"> contrasena del supervisor</param>
+        /// <param name="queryOperario"> query del operario para concatenarlo al comando</param>
+        /// <returns>true si se agregó correctamente, false si ocurrió algún error</returns>
         public bool agregarSupervisor(string correo, DO_EstadoHabilitacion estado, string nombre, string apellidos, string contrasena, string queryOperario) {
 
-         
+            Console.WriteLine("BEGIN TRANSACTION " + queryOperario + queryInsertar + " COMMIT");
             SqlCommand comandoInsertar = new SqlCommand("BEGIN TRANSACTION "+queryOperario+queryInsertar+" COMMIT", conexion);
             comandoInsertar.Parameters.AddWithValue("@correo", correo);
             comandoInsertar.Parameters.AddWithValue("@estado", estado.estado);
@@ -48,7 +55,6 @@ namespace DAO
                     conexion.Open();
                 }
 
-                comandoInsertar.Transaction.Commit();
                 comandoInsertar.ExecuteNonQuery();
 
                 return true;

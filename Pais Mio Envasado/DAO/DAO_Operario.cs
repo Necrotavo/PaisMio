@@ -23,11 +23,11 @@ namespace DAO
                 + " OPE_NOMBRE,"
                 + " OPE_APELLIDOS, "
                 + "OPE_CONTRASENA)"
-                + "VALUES(@correo, @estado, @nombre, @apellidos, @contrasena) ";
+                + "VALUES(@correo, @estado, @nombre, @apellidos, @contrasena)";
         }
 
         public String getQueryInsertar() {
-            return queryInsertar;
+            return this.queryInsertar;
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace DAO
         /// <param name="nombre"> nombre del operario</param>
         /// <param name="apellidos"> apellidos del operario</param>
         /// <param name="contrasena"> contrasena del operario</param>
-        /// <returns></returns>
+        /// <returns>true si se agregó correctamente, false si ocurrió algún error</returns>
         public bool agregarOperario(string correo, DO_EstadoHabilitacion estado, string nombre,string apellidos, string contrasena) {
 
             SqlCommand comandoInsertar = new SqlCommand("BEGIN TRANSACTION " + queryInsertar+" COMMIT", conexion);

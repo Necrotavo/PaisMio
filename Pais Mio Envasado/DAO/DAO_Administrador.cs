@@ -21,16 +21,19 @@ namespace DAO
         private string queryInsertar = "";
 
         public DAO_Administrador() {
-            this.queryInsertar= "INSERT INTO ADMINISTRADOR (OPE_CORREO) VALUES (@correo)";
+            this.queryInsertar= " INSERT INTO ADMINISTRADOR (OPE_CORREO) VALUES (@correo)";
         }
 
         /// <summary>
-        /// Método para insertar administradores en la tabla Administradores
+        /// Método encargado de insertar Operarios en la tabla OPERARIO de la base de datos
         /// </summary>
-        /// <param name="supervisor"> true si se insertó correctamente en la tabla OPERARIO y SUPERVISOR, false 
-        /// si no se insertó correctamente</param>
-        /// <param name="correo"></param>
-        /// <returns></returns>
+        /// <param name="correo"> correo del administrador</param>
+        /// <param name="estado"> estado del administrador, HABILITADO o DESHABILITADO</param>
+        /// <param name="nombre"> nombre del administrador</param>
+        /// <param name="apellidos"> apellidos del administrador</param>
+        /// <param name="contrasena"> contrasena del administrador</param>
+        /// <param name="querySupervisor">string que contiene el query de operario y supervisor</param>
+        /// <returns>true si se agregó correctamente, false si ocurrió algún error</returns>
         public bool agregarAdministrador(string correo, DO_EstadoHabilitacion estado, string nombre, string apellidos, string contrasena, string querySupervisor) {
 
 

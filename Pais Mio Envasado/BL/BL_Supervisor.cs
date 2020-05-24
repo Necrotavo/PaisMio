@@ -14,14 +14,14 @@ namespace BL
     public class BL_Supervisor
     {
         /// <summary>
-        /// 
+        /// Metodo para llamar al meétodo agregarOperario del DAO_Supervisor
         /// </summary>
-        /// <param name="correo"></param>
-        /// <param name="estado"></param>
-        /// <param name="nombre"></param>
-        /// <param name="apellidos"></param>
-        /// <param name="contrasena"></param>
-        /// <returns></returns>
+        /// <param name="correo"> correo del supervisor</param>
+        /// <param name="estado"> estado del supervisor, HABILITADO o DESHABILITADO</param>
+        /// <param name="nombre"> nombre del supervisor</param>
+        /// <param name="apellidos"> apellidos del supervisor</param>
+        /// <param name="contrasena"> contrasena del supervisor</param>
+        /// <returns>true si se agregó correctamente, false si ocurrió algún error</returns>
         public bool agregarSupervisor(string correo, DO_EstadoHabilitacion estado, string nombre, string apellidos, string contrasena) {
             DAO_Operario DAOoperario = new DAO_Operario();
             DAO_Supervisor DAOsupervisor = new DAO_Supervisor();
