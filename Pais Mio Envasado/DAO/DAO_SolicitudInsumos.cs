@@ -278,17 +278,31 @@ namespace DAO
                     {
                         DO_SolicitudInsumos insumo = new DO_SolicitudInsumos();
                         
-                        insumo.codigoSolicitud = (int)lector["SOL_CODIGO"];
+                        insumo.codigoSolicitud = Convert.ToInt32(lector["SOL_CODIGO"]);
                         insumo.correoOperario = (string)lector["OPE_CORREO"];
-                        insumo.codigoPedido = (int)lector["PED_CODIGO"];
-                        insumo.correoAdministrador = (string)lector["SUP_OPE_CORREO"];
+                        insumo.codigoPedido = Convert.ToInt32(lector["PED_CODIGO"]);
+                        if (lector["SUP_OPE_CORREO"] is System.DBNull)
+                        {
+                            insumo.correoAdministrador = "";
+                        }
+                        else
+                        {
+                            insumo.correoAdministrador = (string)lector["SUP_OPE_CORREO"];
+                        }
                         insumo.estado = (string)lector["EST_SOL_ESTADO"];
-                        insumo.fechaSolicitud = (DateTime)lector["SOL_FECHA"];
-                        insumo.codigoBodega = (int)lector["BODEGA"];
-                        insumo.listaConsumo =listaConsumo(insumo.codigoSolicitud);
-                        insumo.listaDescarte =listaDescarte(insumo.codigoSolicitud);
+                        insumo.fechaSolicitud = Convert.ToDateTime(lector["SOL_FECHA"]);
+                        insumo.codigoBodega = Convert.ToInt32(lector["BODEGA"]);
                         listaSolicitud.Add(insumo);
                     }
+                }
+                conexion.Close();
+                foreach (DO_SolicitudInsumos item in listaSolicitud)
+                {
+                    item.listaConsumo = listaConsumo(item.codigoSolicitud);
+                }
+                foreach (DO_SolicitudInsumos item in listaSolicitud)
+                {
+                    item.listaDescarte = listaDescarte(item.codigoSolicitud);
                 }
                 return listaSolicitud;
             }
@@ -330,7 +344,7 @@ namespace DAO
                     {
                         DO_InsumoEnBodega insumo = new DO_InsumoEnBodega();
 
-                        insumo.cantidadDisponible = (int)lector["ACS_CANTIDAD"];
+                        insumo.cantidadDisponible = Convert.ToInt32(lector["ACS_CANTIDAD"]);
                         //NECESITO UN METODO QUE ME DEVUELVA UN DO_INSUMOS POR CODIGO (int)lector["INS_CODIGO"];
                         listaConsumidos.Add(insumo);
                     }
@@ -375,7 +389,7 @@ namespace DAO
                     {
                         DO_InsumoEnBodega insumo = new DO_InsumoEnBodega();
 
-                        insumo.cantidadDisponible = (int)lector["PDS_CANTIDAD"];
+                        insumo.cantidadDisponible = Convert.ToInt32(lector["PDS_CANTIDAD"]);
                         //NECESITO UN METODO QUE ME DEVUELVA UN DO_INSUMOS POR CODIGO (int)lector["INS_CODIGO"];
                         listaConsumidos.Add(insumo);
                     }
