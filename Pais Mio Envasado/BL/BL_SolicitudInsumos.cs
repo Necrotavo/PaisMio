@@ -43,5 +43,28 @@ namespace BL
                 return false;
             }
         }
+        /// <summary>
+        /// Metodo para obtener la lista de solicitudes de insumos
+        /// </summary>
+        /// <returns></returns>
+        public List<DO_SolicitudInsumos> listaSolicitudes()
+        {
+            List<DO_SolicitudInsumos> lista = new List<DO_SolicitudInsumos>();
+            DAO_SolicitudInsumos dao_Solicitud = new DAO_SolicitudInsumos();
+            lista = dao_Solicitud.listarSolicitudes();
+            return lista;
+        }
+        /// <summary>
+        /// Metodo para obtener una solicitud de insumos
+        /// </summary>
+        /// <param name="codigoSolicitud">Codigo de la solicitud de insumos</param>
+        /// <returns></returns>
+        public DO_SolicitudInsumos consultaSolicitud(int codigoSolicitud)
+        {
+            DAO_SolicitudInsumos dao_Solicitud = new DAO_SolicitudInsumos();
+            return dao_Solicitud.consultarSolicitud(codigoSolicitud);
+        }
+
     }
+
 }
