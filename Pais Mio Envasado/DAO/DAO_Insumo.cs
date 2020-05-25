@@ -122,5 +122,50 @@ namespace DAO
                 }
             }
         }
+
+        /// <summary>
+        /// Este método permite recuperar un insumo buscado por código
+        /// </summary>
+        /// <param name="codigo">Código por el que se va a buscar el insumo</param>
+        /// <returns>El insumo si lo encuentra, null si no existe el insumo</returns>
+        public DO_Insumo buscarInsumoPorCódigo(Int32 codigo) {
+            SqlCommand consulta = new SqlCommand("SELECT * FROM INSUMO WHERE INS_CODIGO = @codigo ", conexion);
+            consulta.Parameters.AddWithValue("@codigo", codigo);
+            DO_Insumo insumo = new DO_Insumo();
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                SqlDataReader lector = consulta.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        insumo.codigo = codigo;
+                        insumo.estado = new DO_EstadoHabilitacion((String)lector["EST_HAB_ESTADO"]);
+                        insumo.unidad = new DO_UnidadDeMedida((String)(lector["UDM_UNIDAD"]));
+                        insumo.nombre = (String)lector["INS_NOMBRE"];
+                        insumo.cantMinStock = Convert.ToInt32(lector["INS_CANT_MIN_STOCK"]);
+                    }
+                    return insumo;
+                }
+                else {
+                    return null;
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
     }
 }
