@@ -18,5 +18,10 @@ namespace WebService
             BL_SolicitudInsumos blSolicitud = new BL_SolicitudInsumos();
             return blSolicitud.listaSolicitudes();
         }
+
+        public bool ingresarSolicitud(string operadorId, int codigoPedido, int bodega, List<DO_InsumoEnBodega> consumidos, List<DO_Insumo> descartados)
+        {
+            DO_SolicitudInsumos solicitud = new DO_SolicitudInsumos(operadorId, bodega)
+        }
     }
 }

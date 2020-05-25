@@ -12,5 +12,15 @@ namespace WebService
         [OperationContract]
         [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         List<DO_SolicitudInsumos> listarInsumos();
+
+        [OperationContract]
+        [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        bool ingresarSolicitud(
+            string operadorId,
+            int codigoPedido,
+            int bodega,
+            List<DO_InsumoEnBodega> consumidos,
+            List<DO_Insumo> descartados
+            );
     }
 }

@@ -23,14 +23,13 @@ namespace DAO
         /// <returns></returns>
         public bool guardarSolicitudInsumos(DO_SolicitudInsumos solicitudInsumos)
         {
-            SqlCommand insert = new SqlCommand("INSERT INTO SOLICITUD_INSUMO (OPE_CORREO, PED_CODIGO, SUP_OPE_CORREO, EST_SOL_ESTADO, SOL_FECHA)" +
-                "VALUES (@operadorId, @codigoPedido, @correoAdmin, @estado, @fecha)", conexion);
+            SqlCommand insert = new SqlCommand("INSERT INTO SOLICITUD_INSUMO (OPE_CORREO, PED_CODIGO, SUP_OPE_CORREO, EST_SOL_ESTADO, SOL_FECHA, BODEGA)" +
+                "VALUES (@operadorId, @codigoPedido, @estado, @fecha, @bodega)", conexion);
             insert.Parameters.AddWithValue("@operadorId", solicitudInsumos.correoOperario);
             insert.Parameters.AddWithValue("@codigoPedido", solicitudInsumos.codigoPedido);
-            insert.Parameters.AddWithValue("@correoAdmin", solicitudInsumos.correoAdministrador);
             insert.Parameters.AddWithValue("@estado", solicitudInsumos.estado);
             insert.Parameters.AddWithValue("@fecha", solicitudInsumos.fechaSolicitud);
-
+            insert.Parameters.AddWithValue("@bodega", solicitudInsumos.codigoBodega);
             try
             {
                 if (conexion.State != ConnectionState.Open)
