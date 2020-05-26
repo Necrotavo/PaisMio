@@ -19,9 +19,19 @@ namespace WebService
             return blSolicitud.listaSolicitudes();
         }
 
-        public bool ingresarSolicitud(string operadorId, int codigoPedido, int bodega, List<DO_InsumoEnBodega> consumidos, List<DO_Insumo> descartados)
+        public DO_SolicitudInsumos ingresarSolicitud(string operadorId, int codigoPedido, int bodega, DO_InsumoEnBodega[] consumidos, DO_InsumoEnBodega[] descartados)
         {
-            DO_SolicitudInsumos solicitud = new DO_SolicitudInsumos(operadorId, bodega)
+            DO_SolicitudInsumos solicitud = new DO_SolicitudInsumos(operadorId, bodega);
+            solicitud.codigoBodega = bodega;
+            solicitud.codigoPedido = codigoPedido;
+            solicitud.correoOperario = operadorId;
+            solicitud.estado = "TESTING WS";
+            solicitud.fechaSolicitud = DateTime.Now;
+            solicitud.listaConsumo=consumidos.ToList();
+            solicitud.listaDescarte = descartados.ToList();
+            solicitud.codigoSolicitud = 666;
+            
+        return solicitud;
         }
     }
 }
