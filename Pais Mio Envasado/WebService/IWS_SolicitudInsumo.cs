@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using DO;
@@ -14,13 +15,10 @@ namespace WebService
         List<DO_SolicitudInsumos> listarInsumos();
 
         [OperationContract]
-        [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        DO_SolicitudInsumos ingresarSolicitud(
-            string operadorId,
-            int codigoPedido,
-            int bodega,
-            DO_InsumoEnBodega[] consumidos,
-            DO_InsumoEnBodega[] descartados
-            );
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json,
+            Method = "POST",
+            UriTemplate = "/solicitud",
+            BodyStyle = WebMessageBodyStyle.WrappedRequest)]
+        string ingresarSolicitud(Stream data);
     }
 }

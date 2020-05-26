@@ -2,6 +2,7 @@
 using DO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -19,19 +20,13 @@ namespace WebService
             return blSolicitud.listaSolicitudes();
         }
 
-        public DO_SolicitudInsumos ingresarSolicitud(string operadorId, int codigoPedido, int bodega, DO_InsumoEnBodega[] consumidos, DO_InsumoEnBodega[] descartados)
+        public string ingresarSolicitud(Stream data)
         {
-            DO_SolicitudInsumos solicitud = new DO_SolicitudInsumos(operadorId, bodega);
-            solicitud.codigoBodega = bodega;
-            solicitud.codigoPedido = codigoPedido;
-            solicitud.correoOperario = operadorId;
-            solicitud.estado = "TESTING WS";
-            solicitud.fechaSolicitud = DateTime.Now;
-            solicitud.listaConsumo=consumidos.ToList();
-            solicitud.listaDescarte = descartados.ToList();
-            solicitud.codigoSolicitud = 666;
-            
-        return solicitud;
+            StreamReader reader = new StreamReader(data);
+            string res = reader.ReadToEnd();
+            reader.Close();
+            reader.Dispose();
+            return "Received: " + res;
         }
     }
 }
