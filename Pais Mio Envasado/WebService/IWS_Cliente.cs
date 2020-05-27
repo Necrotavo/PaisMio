@@ -37,5 +37,10 @@ namespace WebService
         [OperationContract]
         [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         bool modificarEstado(String estado, String cedula);
+
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, Method ="POST", UriTemplate ="Agregar")]
+        bool agregarClienteV2(DO_Cliente doCliente);
+
     }
 }

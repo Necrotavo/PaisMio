@@ -30,6 +30,15 @@ namespace WebService
 
             return blCliente.agregarCliente(doCliente);
         }
+
+        public bool agregarClienteV2(DO_Cliente doCliente)
+        {
+
+            BL_Cliente blCliente = new BL_Cliente();
+
+            return blCliente.agregarCliente(doCliente);
+        }
+
         /// <summary>
         /// WS para buscar clientes en el sistema.
         /// </summary>
