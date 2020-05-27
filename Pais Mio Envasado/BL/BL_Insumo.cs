@@ -21,7 +21,7 @@ namespace BL
         public bool guardarInsumo(DO_Insumo doInsumo)
         {
             DAO_Insumo daoInsumo = new DAO_Insumo();
-            if (daoInsumo.guardarInsumo(doInsumo) <= 0)
+            if (daoInsumo.guardarInsumo(doInsumo) > 0)
             {
                 return true;
             }
@@ -29,6 +29,15 @@ namespace BL
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Con este método se perminte sacar toda la lista de insumos
+        /// </summary>
+        /// <returns>La lista de insumos existentes</returns>
+        public List<DO_Insumo> obtenerListaIsumos() {
+            DAO_Insumo daoInsumo = new DAO_Insumo();
+            return daoInsumo.obtenerListaIsumos();
         }
     }
 }

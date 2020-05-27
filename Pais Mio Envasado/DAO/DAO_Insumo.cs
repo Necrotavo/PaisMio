@@ -25,8 +25,8 @@ namespace DAO
         {
             SqlCommand insert = new SqlCommand("INSERT INTO INSUMO (EST_HAB_ESTADO, UDM_UNIDAD, INS_NOMBRE, INS_CANT_MIN_STOCK)" +
                 "VALUES (@estado, @unidad, @nombre, @cantMinStock", conexion);
-            insert.Parameters.AddWithValue("@estado", insumo.estado.estado);
-            insert.Parameters.AddWithValue("@unidad", insumo.unidad.unidad);
+            insert.Parameters.AddWithValue("@estado", insumo.estado);
+            insert.Parameters.AddWithValue("@unidad", insumo.unidad);
             insert.Parameters.AddWithValue("@nombre", insumo.nombre);
             insert.Parameters.AddWithValue("@cantMinStock", insumo.cantMinStock);
 
@@ -144,8 +144,8 @@ namespace DAO
                     while (lector.Read())
                     {
                         insumo.codigo = codigo;
-                        insumo.estado = new DO_EstadoHabilitacion((String)lector["EST_HAB_ESTADO"]);
-                        insumo.unidad = new DO_UnidadDeMedida((String)(lector["UDM_UNIDAD"]));
+                        insumo.estado = (String)lector["EST_HAB_ESTADO"];
+                        insumo.unidad = (String)(lector["UDM_UNIDAD"]);
                         insumo.nombre = (String)lector["INS_NOMBRE"];
                         insumo.cantMinStock = Convert.ToInt32(lector["INS_CANT_MIN_STOCK"]);
                     }
@@ -154,6 +154,54 @@ namespace DAO
                 else {
                     return null;
                 }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Este método retorna la lista de insummos completa
+        /// </summary>
+        /// <returns>La lista de insumos que hay</returns>
+        public List<DO_Insumo> obtenerListaIsumos() {
+            SqlDataAdapter adaptador = new SqlDataAdapter();
+            DataTable datatable = new DataTable();
+            List<DO_Insumo> listaInsumos = new List<DO_Insumo>();
+
+            adaptador.SelectCommand = new SqlCommand("SELECT * FROM INSUMO", conexion);
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                adaptador.Fill(datatable);
+
+                foreach (DataRow fila in datatable.Rows)
+                {
+                    DO_Insumo doCliente = new DO_Insumo();
+
+                    doCliente.codigo = Convert.ToInt32(fila["INS_CODIGO"]);
+                    doCliente.estado = (String)fila["EST_HAB_ESTADO"];
+                    doCliente.unidad = (String)fila["UDM_UNIDAD"];
+                    doCliente.nombre = (String)fila["INS_NOMBRE"];
+                    doCliente.cantMinStock = Convert.ToInt32(fila["INS_CANT_MIN_STOCK"]);
+
+                    listaInsumos.Add(doCliente);
+
+                }
+                return listaInsumos;
             }
             catch (SqlException)
             {
