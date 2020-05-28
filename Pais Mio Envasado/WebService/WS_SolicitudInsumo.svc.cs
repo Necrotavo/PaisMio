@@ -20,13 +20,19 @@ namespace WebService
             return blSolicitud.listaSolicitudes();
         }
 
-        public string ingresarSolicitud(Stream data)
+        public bool ingresarSolicitud(DO_SolicitudInsumos solicitud)
         {
-            StreamReader reader = new StreamReader(data);
-            string res = reader.ReadToEnd();
-            reader.Close();
-            reader.Dispose();
-            return "Received: " + res;
+            BL_SolicitudInsumos blSolicitud = new BL_SolicitudInsumos();
+            solicitud.fechaSolicitud = DateTime.Now;
+            solicitud.estado = "PENDIENTE";
+            if (blSolicitud.crearNuevaSolicitud(solicitud))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

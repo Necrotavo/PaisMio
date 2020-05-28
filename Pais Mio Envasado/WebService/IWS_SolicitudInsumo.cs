@@ -15,10 +15,12 @@ namespace WebService
         List<DO_SolicitudInsumos> listarInsumos();
 
         [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json,
-            Method = "POST",
-            UriTemplate = "/solicitud",
-            BodyStyle = WebMessageBodyStyle.WrappedRequest)]
-        string ingresarSolicitud(Stream data);
+        [WebInvoke(
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json, 
+            BodyStyle = WebMessageBodyStyle.Bare, 
+            Method = "POST", 
+            UriTemplate = "ingresoSolicitud")]
+        bool ingresarSolicitud(DO_SolicitudInsumos solicitud);
     }
 }
