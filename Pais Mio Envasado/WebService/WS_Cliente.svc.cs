@@ -23,15 +23,7 @@ namespace WebService
         /// <param name="correo">Correo del cliente (String)</param>
         /// <param name="direccion">Dirección del cliente (String)</param>
         /// <returns>(True) si se registró el cliente correctamente. (False) si no se registró</returns>
-        public bool agregarCliente(String cedula, String estado, String nombre, String telefono, String correo, String direccion)
-        {          
-            DO_Cliente doCliente = new DO_Cliente(cedula,estado,nombre,telefono,correo,direccion);
-            BL_Cliente blCliente = new BL_Cliente();
-
-            return blCliente.agregarCliente(doCliente);
-        }
-
-        public bool agregarClienteV2(DO_Cliente doCliente)
+        public bool agregarCliente(DO_Cliente doCliente)
         {
 
             BL_Cliente blCliente = new BL_Cliente();
@@ -42,13 +34,13 @@ namespace WebService
         /// <summary>
         /// WS para buscar clientes en el sistema.
         /// </summary>
-        /// <param name="nombre">El nombre del cliente a buscar</param>
+        /// <param name="cedula">El nombre del cliente a buscar</param>
         /// <returns>El cliente con sus respectivos datos (DO_Cliente)</returns>
-        public DO_Cliente buscarCliente(String nombre)
+        public DO_Cliente buscarCliente(String cedula)
         {
             BL_Cliente blCliente = new BL_Cliente();
 
-            return blCliente.buscarCliente(nombre);
+            return blCliente.buscarCliente(cedula);
         }
         /// <summary>
         /// WS para listar los clientes totales en el sistema.
@@ -81,10 +73,8 @@ namespace WebService
         /// <param name="correo">Correo del cliente (String)</param>
         /// <param name="direccion">Dirección del cliente (String)</param>
         /// <returns>(True) si se modificar los datos. (False) si ocurrió algún error.</returns>
-        public bool modificarCliente(String cedula, String estado, String nombre, String telefono, String correo, String direccion)
-        {
-           
-            DO_Cliente doCliente = new DO_Cliente(cedula, estado, nombre, telefono, correo, direccion);
+        public bool modificarCliente(DO_Cliente doCliente) { 
+        
             BL_Cliente blCliente = new BL_Cliente();
 
             return blCliente.modificarCliente(doCliente);

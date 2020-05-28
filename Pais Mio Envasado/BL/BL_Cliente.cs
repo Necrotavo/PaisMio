@@ -63,12 +63,12 @@ namespace BL
         /// <summary>
         /// Muestra los datos de un cliente específico.
         /// </summary>
-        /// <param name="nombre">Nombre del cliente a buscar</param>
+        /// <param name="cedula">Cdula del cliente a buscar</param>
         /// <returns>Cliente con sus respectivos datos(DO_Cliente).(Null) si no se encontro ninguna coincidencia.</returns>
-        public DO_Cliente buscarCliente(String nombre)
+        public DO_Cliente buscarCliente(String cedula)
         {
             DAO_Cliente daoCliente = new DAO_Cliente();
-            return daoCliente.buscarCliente(nombre);
+            return daoCliente.buscarCliente(cedula);
         }
         /// <summary>
         /// Permite modificar el estado actual del cliente.
