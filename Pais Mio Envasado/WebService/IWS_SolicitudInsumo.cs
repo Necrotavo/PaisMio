@@ -18,7 +18,7 @@ namespace WebService
         [WebInvoke(
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json, 
-            BodyStyle = WebMessageBodyStyle.Bare, 
+            BodyStyle = WebMessageBodyStyle.Wrapped, 
             Method = "POST", 
             UriTemplate = "ingresoSolicitud")]
         bool ingresarSolicitud(DO_SolicitudInsumos solicitud);
