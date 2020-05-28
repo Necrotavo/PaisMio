@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using System.ServiceModel.Web;
+using DO;
 
 namespace WebService
 {
@@ -16,18 +17,39 @@ namespace WebService
     public interface IWS_Usuario
     {
 
+
+        //[OperationContract]
+        //[WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        //bool crearUsuario(string tipoUsuario,string correo, string estado, string nombre, string apellidos, string contrasena);
+
         /// <summary>
-        /// Método para crear usuarios ya sea Operario, Supervisor o Administrador
+        /// Método para crear usuarios, ya sea Operario, Supervisor o Administrador
         /// </summary>
-        /// <param name="tipoUsuario"> tipo de usuario</param>
-        /// <param name="correo"> correo del usuario</param>
-        /// <param name="estado"> estado del usuario</param>
-        /// <param name="nombre"> nombre del usuario</param>
-        /// <param name="apellidos"> apellidos del usuario</param>
-        /// <param name="contrasena"> contraseña del usuario</param>
-        /// <returns>True si se agregó correctamente, false si no se agregó</returns>
+        /// <param name="usuario">Objeto usuario</param>
+        /// <param name="tipo">Tipo del usuario</param>
+        /// <returns></returns>
         [OperationContract]
-        [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        bool crearUsuario(string tipoUsuario,string correo, string estado, string nombre, string apellidos, string contrasena);
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.WrappedRequest, Method = "POST", UriTemplate = "CrearOperario")]
+        bool crearUsuario(DO_Operario usuario, String tipo);
+
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, Method = "POST", UriTemplate = "CrearOperario2")]
+        bool crearUsuario2(DO_Operario usuario);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="correo"></param>
+        /// <returns></returns>
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, Method = "POST", UriTemplate = "Consultar")]
+        DO_Operario consultarUsuario(String correo);
+
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, Method = "GET", UriTemplate = "Lista")]
+        List<DO_Operario> obtenerListaOperario();
+
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, Method = "POST", UriTemplate = "ListaOperarios")]
+        List<DO_Operario> recibirLista(List<DO_Operario> lista);
     }
 }

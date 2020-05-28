@@ -68,6 +68,75 @@ namespace DAO
                 }
             }
             
+        }
+
+        public DO_Operario buscarOperario(String correo) {
+            DO_Operario operario = new DO_Operario();
+
+            try
+            {
+                SqlCommand comandoSelect = new SqlCommand("Select * from OPERARIO where OPE_CORREO = @correo", conexion);
+                comandoSelect.Parameters.AddWithValue("@correo",correo);
+
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                SqlDataReader lector = comandoSelect.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+
+
+                        operario.correo = (String)lector["OPE_CORREO"];
+                        operario.estado = new DO_EstadoHabilitacion((String)lector["EST_HAB_ESTADO"]);
+                        operario.nombre = (String)lector["OPE_NOMBRE"];
+                        operario.apellidos = (String)lector["OPE_APELLIDOS"];
+                        operario.contrasena = (String)lector["OPE_CONTRASENA"];
+
+                    }
+
+                    return operario;
+                }
+            }
+            catch
+            {
+
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+
+            return operario;
         } 
+
+        public List<DO_Operario> obtenerListaOperarios()
+        {
+            List<DO_Operario> lista = new List<DO_Operario>();
+            SqlDataAdapter adaptador = new SqlDataAdapter();
+            adaptador.SelectCommand = new SqlCommand("Select * from OPERARIO",conexion);
+            DataTable datatable = new DataTable();
+            adaptador.Fill(datatable);
+
+            foreach (DataRow row in datatable.Rows)
+            {
+                DO_Operario operario = new DO_Operario();
+                operario.correo = (String)row["OPE_CORREO"];
+                operario.estado = new DO_EstadoHabilitacion((String)row["EST_HAB_ESTADO"]);
+                operario.nombre = (String)row["OPE_NOMBRE"];
+                operario.apellidos = (String)row["OPE_APELLIDOS"];
+                operario.contrasena = (String)row["OPE_CONTRASENA"];
+                lista.Add(operario);
+            }
+
+            return lista;
+        }
     }
 }
