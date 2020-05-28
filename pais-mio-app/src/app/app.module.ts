@@ -19,6 +19,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { ClientComponent } from './client/client.component';
+import { ApiService } from './api.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import {HttpClientModule} from '@angular/common/http';
     InventoryControlComponent,
     OrderViewComponent,
     UserViewComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    ClientComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,7 @@ import {HttpClientModule} from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
