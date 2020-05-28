@@ -24,7 +24,7 @@ namespace DAO
         public int guardarInsumo(DO_Insumo insumo)
         {
             SqlCommand insert = new SqlCommand("INSERT INTO INSUMO (EST_HAB_ESTADO, UDM_UNIDAD, INS_NOMBRE, INS_CANT_MIN_STOCK)" +
-                "VALUES (@estado, @unidad, @nombre, @cantMinStock", conexion);
+                "VALUES (@estado, @unidad, @nombre, @cantMinStock)", conexion);
             insert.Parameters.AddWithValue("@estado", insumo.estado);
             insert.Parameters.AddWithValue("@unidad", insumo.unidad);
             insert.Parameters.AddWithValue("@nombre", insumo.nombre);

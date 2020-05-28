@@ -20,6 +20,13 @@ namespace WebService
             return blInsumo.guardarInsumo(doInsumo);
         }
 
+        public bool entradaInsumos(DO_Bodega doBodega, string correoAdministrador)
+        {
+            BL_Bodega blBodega = new BL_Bodega();
+
+            return blBodega.entradaInsumos(doBodega, correoAdministrador);
+        }
+
         public List<DO_Insumo> obtenerListaInsumos()
         {
             BL_Insumo blInsumo = new BL_Insumo();
