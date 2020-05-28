@@ -285,5 +285,94 @@ namespace DAO
                 }
             }
         }
+
+
+        /// <summary>
+        /// Este metodo permite sacar los datos de una bodega y la lista de insumos que contiene
+        /// </summary>
+        /// <param name="codigoBodega">Codigo de la bodega</param>
+        /// <returns>La bodega con todos sus datos</returns>
+        public DO_Bodega obtenerBodega(Int32 codigoBodega) {
+            SqlCommand consultaBodega = new SqlCommand("SELECT * FROM BODEGA WHERE BOD_CODIGO = @codigoBodega", conexion);
+            consultaBodega.Parameters.AddWithValue("@codigoBodega", codigoBodega);
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                DO_Bodega doBodega = new DO_Bodega();
+
+                SqlDataReader lectorConsultaBodega = consultaBodega.ExecuteReader();
+                if (lectorConsultaBodega.HasRows)
+                {
+                    while (lectorConsultaBodega.Read())
+                    {
+                        doBodega.codigo = Convert.ToInt32(lectorConsultaBodega["BOD_CODIGO"]);
+                        doBodega.estado = (String)lectorConsultaBodega["EST_HAB_ESTADO"];
+                        doBodega.nombre = (String)lectorConsultaBodega["BOD_NOMBRE"];
+                        doBodega.direccion = (String)lectorConsultaBodega["BOD_DIRECCION"];
+                        doBodega.telefono = (String)lectorConsultaBodega["BOD_TELEFONO"];
+                    }//Ya se sacaron los datos de la bodega, faltan los insumos que tiene
+                    lectorConsultaBodega.Close();
+                    doBodega.listaInsumosEnBodega = obtenerInsumosBodega(new List<DO_InsumoEnBodega>(), codigoBodega);
+                }
+                return doBodega;
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
+        public List<DO_InsumoEnBodega> obtenerInsumosBodega(List<DO_InsumoEnBodega> listaInsumosEnBodega, Int32 codigoBodega) {
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                
+                SqlDataAdapter adaptador = new SqlDataAdapter();
+                DataTable datatable = new DataTable();
+                adaptador.SelectCommand = new SqlCommand("SELECT * FROM INS_ESTA_BOD WHERE BOD_CODIGO = @codigoBodega", conexion);
+                adaptador.SelectCommand.Parameters.AddWithValue("@codigoBodega", codigoBodega);
+
+                adaptador.Fill(datatable);
+
+                listaInsumosEnBodega = new List<DO_InsumoEnBodega>();
+                foreach (DataRow row in datatable.Rows)
+                {
+                    DO_InsumoEnBodega insumoBodega = new DO_InsumoEnBodega();
+                    insumoBodega.insumo = new DO_Insumo();
+
+                    insumoBodega.insumo.codigo = Convert.ToInt32(row["INS_CODIGO"]);
+                    insumoBodega.cantidadDisponible = Convert.ToInt32(row["IEB_CANTIDAD_DISPONIBLE"]);
+
+                    listaInsumosEnBodega.Add(insumoBodega);
+                }
+                return listaInsumosEnBodega;
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
     }
 }
