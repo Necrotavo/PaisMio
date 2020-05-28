@@ -23,7 +23,7 @@ namespace DAO
         /// <returns></returns>
         public bool guardarSolicitudInsumos(DO_SolicitudInsumos solicitudInsumos)
         {
-            SqlCommand insert = new SqlCommand("INSERT INTO SOLICITUD_INSUMO (OPE_CORREO, PED_CODIGO, SUP_OPE_CORREO, EST_SOL_ESTADO, SOL_FECHA, BODEGA)" +
+            SqlCommand insert = new SqlCommand("INSERT INTO SOLICITUD_INSUMO (OPE_CORREO, PED_CODIGO, EST_SOL_ESTADO, SOL_FECHA, BODEGA)" +
                 "VALUES (@operadorId, @codigoPedido, @estado, @fecha, @bodega)", conexion);
             insert.Parameters.AddWithValue("@operadorId", solicitudInsumos.correoOperario);
             insert.Parameters.AddWithValue("@codigoPedido", solicitudInsumos.codigoPedido);

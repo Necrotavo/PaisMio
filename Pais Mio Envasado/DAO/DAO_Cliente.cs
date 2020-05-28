@@ -67,13 +67,12 @@ namespace DAO
         /// <returns>(True) si se resgistró el cambio en la base.(False) si ocurrió algún error y no se registró</returns>
         public bool modificarCliente(DO_Cliente cliente)
         {
-            SqlCommand comandoModificar = new SqlCommand("UPDATE CLIENTE SET" +
-                "CLI_CEDULA = @cedula" +
-                "EST_HAB_ESTADO = @estado" +
-                ",CLI_NOMBRE = @nombre" +
-                ",CLI_TELEFONO = @telefono" +
-                ",CLI_CORREO = @correo" +
-                ",CLI_DIRECCION = @direccion WHERE CLI_CEDULA = @cedula", conexion);
+            SqlCommand comandoModificar = new SqlCommand("UPDATE CLIENTE SET "+
+                "EST_HAB_ESTADO = @estado " +
+                ",CLI_NOMBRE = @nombre " +
+                ",CLI_TELEFONO = @telefono " +
+                ",CLI_CORREO = @correo " +
+                ",CLI_DIRECCION = @direccion WHERE CLI_CEDULA = @cedula ", conexion);
 
             comandoModificar.Parameters.AddWithValue("@estado", cliente.estado);
             comandoModificar.Parameters.AddWithValue("@nombre", cliente.nombre);
@@ -89,8 +88,12 @@ namespace DAO
                     conexion.Open();
                 }
 
-                comandoModificar.ExecuteNonQuery();
-                return true;
+                if (comandoModificar.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+
+                return false;
             }
             catch (SqlException)
             {
@@ -204,10 +207,11 @@ namespace DAO
         /// </summary>
         /// <param name="nombre">Nombre del cliente a buscar</param>
         /// <returns>El cliente encontrado (DO_Cliente). (Null) si no existe algún cliente con ese nombre</returns>
-        public DO_Cliente buscarCliente(String nombre)
+        public DO_Cliente buscarCliente(String cedula)
         {
             DO_Cliente cliente = new DO_Cliente();
-            SqlCommand comandoBuscar = new SqlCommand("SELECT * FROM CLIENTE WHERE CLI_NOMBRE = @nombre",conexion);
+            SqlCommand comandoBuscar = new SqlCommand("SELECT * FROM CLIENTE WHERE CLI_CEDULA = @cedula",conexion);
+            comandoBuscar.Parameters.AddWithValue("@cedula", cedula);
 
             try
             {
@@ -217,6 +221,7 @@ namespace DAO
                 }
 
                 SqlDataReader lector = comandoBuscar.ExecuteReader();
+
                 if (lector.HasRows)
                 {
                     while (lector.Read())
@@ -233,6 +238,7 @@ namespace DAO
                        
                     }
                 }
+
                 return cliente;
             }
             catch (SqlException)
@@ -255,8 +261,8 @@ namespace DAO
         /// <returns>(True) si el cambió se registró correctamente.(False)si no se pudo registrar el cambio.</returns>
         public bool modificarEstado(String estado, String cedula)
         {
-            SqlCommand comandoModificar = new SqlCommand("UPDATE CLIENTE SET" +
-                "EST_HAB_ESTADO = @estado" +
+            SqlCommand comandoModificar = new SqlCommand("UPDATE CLIENTE SET " +
+                "EST_HAB_ESTADO = @estado " +
                 "WHERE CLI_CEDULA = @cedula", conexion);
 
             comandoModificar.Parameters.AddWithValue("@estado", estado);

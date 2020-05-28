@@ -1,8 +1,11 @@
-﻿using System;
+﻿using DO;
+using BL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 using System.Text;
 
 namespace WebService
@@ -12,6 +15,15 @@ namespace WebService
     public interface IWS_Insumo
     {
         [OperationContract]
-        void DoWork();
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, 
+            ResponseFormat = WebMessageFormat.Json, 
+            BodyStyle = WebMessageBodyStyle.Bare, 
+            Method = "POST", 
+            UriTemplate = "agregarInsumo")]
+        bool agregarInsumo(DO_Insumo doInsumo);
+
+        [OperationContract]
+        [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        List<DO_Insumo> obtenerListaInsumos();
     }
 }
