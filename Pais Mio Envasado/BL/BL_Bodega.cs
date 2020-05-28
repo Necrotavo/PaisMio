@@ -25,5 +25,11 @@ namespace BL
             DAO_Bodega daoBodega = new DAO_Bodega();
             return daoBodega.entradaInsumos(doBodega, correoOperario);
         }
+
+        public DO_Bodega obtenerBodega(int codigoBodega) {
+            DAO_Bodega daoBodega = new DAO_Bodega();
+
+            return daoBodega.obtenerBodega(codigoBodega);
+        }
     }
 }
