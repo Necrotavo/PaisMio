@@ -15,14 +15,17 @@ namespace DO
     {
         [DataMember(Name ="codigo")]
         public Int32 codigo { set; get; }
+
         [DataMember(Name = "nombre")]
         public String nombre { set; get; }
+
         [DataMember(Name = "descripcion")]
         public String descripcion { set; get; }
-        [DataMember(Name = "estado")]
-        public DO_EstadoHabilitacion estado { set; get; }
 
-        public DO_Producto(int codigo, string nombre, string descripcion, DO_EstadoHabilitacion estado)
+        [DataMember(Name = "estado")]
+        public String estado { set; get; }
+
+        public DO_Producto(int codigo, string nombre, string descripcion, String estado)
         {
             this.codigo = codigo;
             this.nombre = nombre;
