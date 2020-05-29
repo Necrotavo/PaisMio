@@ -147,9 +147,8 @@ namespace DAO
                         DO_ProductoEnPedido producto = new DO_ProductoEnPedido();
 
                         producto.cantidad = Convert.ToInt32(lector["PPP_CANTIDAD"]);
-                        producto.producto.codigo = Convert.ToInt32(lector["PRO_CODIGO"]);
-                        DO_EstadoHabilitacion estado = new DO_EstadoHabilitacion((String)(lector["EST_HAB_ESTADO"]));
-                        producto.producto.estado = estado;
+                        producto.producto.codigo = Convert.ToInt32(lector["PRO_CODIGO"]);                        
+                        producto.producto.estado = (String)(lector["EST_HAB_ESTADO"]);
                         producto.producto.nombre = (String)(lector["PRO_NOMBRE"]);
                         producto.producto.descripcion = (String)(lector["PRO_DESCRIPCION"]);
 
