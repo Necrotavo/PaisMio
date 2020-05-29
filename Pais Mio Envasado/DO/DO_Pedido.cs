@@ -27,13 +27,11 @@ namespace DO
         [DataMember(Name = "listaProductos")]
         public List<DO_ProductoEnPedido>listaProductos { set; get; }
 
-        public DO_Pedido(int codigo, string cedulaCliente, string correoAdminIngreso, string estado, DateTime fechaIngreso, List<DO_ProductoEnPedido> listaProductos)
+        public DO_Pedido(int codigo, string cedulaCliente, string correoAdminIngreso,List<DO_ProductoEnPedido> listaProductos)
         {
             this.codigo = codigo;
             this.cedulaCliente = cedulaCliente;
             this.correoAdminIngreso = correoAdminIngreso;
-            this.estado = estado;
-            this.fechaIngreso = fechaIngreso;
             this.listaProductos = listaProductos;
         }
 

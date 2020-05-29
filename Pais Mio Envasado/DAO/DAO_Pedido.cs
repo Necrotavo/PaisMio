@@ -21,12 +21,12 @@ namespace DAO
         public bool guardarPedido(DO_Pedido pedido)
         {
             SqlCommand comandoInsertar = new SqlCommand("INSERT INTO PEDIDO (CLI_CEDU , OPE_CORREO, ESTADO" +
-           ", PED_FECHA_INGRESO) VALUES (@cedula,@correoAdmin,@estado, @fechaIngreso)");
+           ", PED_FECHA_INGRESO) VALUES (@cedula,@correoAdmin,@estado, @fechaIngreso)", conexion);
 
             comandoInsertar.Parameters.AddWithValue("@cedula", pedido.cedulaCliente);
             comandoInsertar.Parameters.AddWithValue("@correoAdmin", pedido.correoAdminIngreso);
             comandoInsertar.Parameters.AddWithValue("@estado", pedido.estado);
-            comandoInsertar.Parameters.AddWithValue("@fechaIngreso", pedido.fechaIngreso);
+            comandoInsertar.Parameters.AddWithValue("@fechaIngreso", pedido.fechaIngreso.ToString("dd/MM/yyyy"));
 
             try
             {
