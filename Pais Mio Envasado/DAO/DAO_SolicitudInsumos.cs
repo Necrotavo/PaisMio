@@ -38,8 +38,8 @@ namespace DAO
                 }
                 if (insert.ExecuteNonQuery() > 0)
                 {
-                    SqlCommand tomarCodigo = new SqlCommand("SELECT SOL_CODIGO FROM SOLICITUD_INSUMO ORDER BY SOL_CODIGO DESC");
-                    solicitudInsumos.codigoSolicitud = (int)tomarCodigo.ExecuteScalar();
+                    SqlCommand tomarCodigo = new SqlCommand("SELECT SOL_CODIGO FROM SOLICITUD_INSUMO ORDER BY SOL_CODIGO DESC", conexion);
+                    solicitudInsumos.codigoSolicitud = Convert.ToInt32(tomarCodigo.ExecuteScalar());
                 }
                 if (!agregarInsumosSolicitud(solicitudInsumos))
                 {
@@ -63,8 +63,7 @@ namespace DAO
 
         private bool borrarSolicitud(int codigo)
         {
-            SqlCommand borrar = new SqlCommand("DELETE FROM SOLICITUD_INSUMO WHERE SOL_CODIGO = @codigo)", conexion);
-            borrar.Parameters.AddWithValue("@codigo", codigo);
+            SqlCommand borrar = new SqlCommand("DELETE FROM SOLICITUD_INSUMO WHERE SOL_CODIGO = "+codigo, conexion);
             try
             {
                 if (conexion.State != ConnectionState.Open)
@@ -75,8 +74,9 @@ namespace DAO
                 borrar.ExecuteNonQuery();
                 return true;
             }
-            catch (SqlException)
+            catch (SqlException ex)
             {
+                Console.WriteLine(ex);
                 return false;
             }
             finally
@@ -135,12 +135,12 @@ namespace DAO
             }
             else
             {
-                query = "INSERT INTO SOL_A_CONSUMIR (INS_CODIGO, SOL_CODIGO, ACS_CANTIDAD) VALUES ";
+                query = "INSERT INTO SOL_A_CONSUMIR_INS (INS_CODIGO, SOL_CODIGO, ACS_CANTIDAD) VALUES ";
             }
             
             foreach (DO_InsumoEnBodega insumo in solicitud.listaConsumo)
             {
-                query += "("+insumo.insumo.codigo+solicitud.codigoSolicitud+insumo.cantidadDisponible+"),";
+                query += "("+insumo.insumo.codigo+","+solicitud.codigoSolicitud+","+insumo.cantidadDisponible+"),";
             }
 
             return query.Substring(0,query.Length-1);
@@ -165,7 +165,7 @@ namespace DAO
 
             foreach (DO_InsumoEnBodega insumo in solicitud.listaDescarte)
             {
-                query += "(" + insumo.insumo.codigo + solicitud.codigoSolicitud + insumo.cantidadDisponible + "),";
+                query += "(" + insumo.insumo.codigo +","+ solicitud.codigoSolicitud +","+ insumo.cantidadDisponible + "),";
             }
 
             return query.Substring(0, query.Length - 1);
