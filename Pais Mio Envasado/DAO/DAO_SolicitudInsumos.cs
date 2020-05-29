@@ -341,11 +341,11 @@ namespace DAO
                 {
                     while (lector.Read())
                     {
-                        DO_InsumoEnBodega insumo = new DO_InsumoEnBodega();
-
-                        insumo.cantidadDisponible = Convert.ToInt32(lector["ACS_CANTIDAD"]);
-                        //NECESITO UN METODO QUE ME DEVUELVA UN DO_INSUMOS POR CODIGO (int)lector["INS_CODIGO"];
-                        listaConsumidos.Add(insumo);
+                        DO_InsumoEnBodega insumoBodega = new DO_InsumoEnBodega();
+                        DAO_Insumo insumo = new DAO_Insumo();
+                        insumoBodega.cantidadDisponible = Convert.ToInt32(lector["ACS_CANTIDAD"]);
+                        insumoBodega.insumo = insumo.buscarInsumoPorCódigo(Convert.ToInt32(lector["INS_CODIGO"]));
+                        listaConsumidos.Add(insumoBodega);
                     }
                 }
                 return listaConsumidos;
@@ -386,11 +386,11 @@ namespace DAO
                 {
                     while (lector.Read())
                     {
-                        DO_InsumoEnBodega insumo = new DO_InsumoEnBodega();
-
-                        insumo.cantidadDisponible = Convert.ToInt32(lector["PDS_CANTIDAD"]);
-                        //NECESITO UN METODO QUE ME DEVUELVA UN DO_INSUMOS POR CODIGO (int)lector["INS_CODIGO"];
-                        listaConsumidos.Add(insumo);
+                        DO_InsumoEnBodega insumoBodega = new DO_InsumoEnBodega();
+                        DAO_Insumo insumo = new DAO_Insumo();
+                        insumoBodega.cantidadDisponible = Convert.ToInt32(lector["PDS_CANTIDAD"]);
+                        insumoBodega.insumo = insumo.buscarInsumoPorCódigo(Convert.ToInt32(lector["INS_CODIGO"]));
+                        listaConsumidos.Add(insumoBodega);
                     }
                 }
                 return listaConsumidos;
