@@ -13,7 +13,7 @@ namespace DO
     [DataContract]
     public class DO_Bodega
     {
-        [DataMember(Name = "cedula")]
+        [DataMember(Name = "codigo")]
         public Int32 codigo { set; get; }
 
         [DataMember(Name = "estado")]
