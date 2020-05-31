@@ -4,6 +4,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using BL;
+using DO;
 
 namespace WebService
 {
@@ -11,8 +13,34 @@ namespace WebService
     // NOTE: In order to launch WCF Test Client for testing this service, please select WS_Producto.svc or WS_Producto.svc.cs at the Solution Explorer and start debugging.
     public class WS_Producto : IWS_Producto
     {
-        public void DoWork()
+        public DO_Producto buscarProducto(int codigoProducto)
         {
+            BL_Producto blProducto = new BL_Producto();
+            return blProducto.obtenerProducto(codigoProducto);
+        }
+
+        public bool ingresarProducto(DO_Producto doProducto)
+        {
+            BL_Producto blProducto = new BL_Producto();
+            return blProducto.ingresarProducto(doProducto);
+        }
+
+        public List<DO_Producto> listaProductos()
+        {
+            BL_Producto blProducto = new BL_Producto();
+            return blProducto.obtenerListaProductos();
+        }
+
+        public List<DO_Producto> listaProductosHabilitados()
+        {
+            BL_Producto blProducto = new BL_Producto();
+            return blProducto.obtenerListaProductosHabilitados();
+        }
+
+        public bool modificarProducto(DO_Producto doProducto)
+        {
+            BL_Producto blProducto = new BL_Producto();
+            return blProducto.modificarProducto(doProducto);
         }
     }
 }
