@@ -13,11 +13,12 @@ import { Client } from '../models/client';
 
 
 const HttpOptions = {
-  headers: new HttpHeaders({'Content-type': 'application/json'})
+  headers: new HttpHeaders({'Content-type': 'application/json', 'Access-Control-Allow-Origin': '**'})
 };
-const apiURL = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/Agregar';
-const clientWS = apiURL + 'WS_Cliente.svc/Agregar';
+const apiURL = '';
+const clientPOST = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/Agregar';
 const clientGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+const inputGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/obtenerinsumos';
 
 @Injectable({
   providedIn: 'root'
@@ -75,7 +76,7 @@ export class ApiService {
 
   /** Inputs CRUD */
   getInput(): Observable<Input[]> {
-    return this.http.get<Input[]>(`${apiURL}`)
+    return this.http.get<Input[]>(`${inputGET}`)
     .pipe(
       tap(input => console.log(`fetch input`)),
       catchError(this.handleErrors(`getInput`, []))
@@ -92,7 +93,7 @@ export class ApiService {
 
   addInput(input: Input): Observable<Input> {
     return this.http.post<Input>(apiURL, input, HttpOptions).pipe(
-      tap((i: Input) => console.log(`added input w/ id=${i.id}`)),
+      tap((i: Input) => console.log(`added input w/ id=${i.codigo}`)),
       catchError(this.handleErrors<Input>(`addInput`))
     );
   }
@@ -330,7 +331,7 @@ export class ApiService {
   }
 
   addClient(client: Client): Observable<Client> {
-    return this.http.post<Client>(apiURL, client, HttpOptions).pipe(
+    return this.http.post<Client>(clientPOST, client, HttpOptions).pipe(
       tap((i: Client) => console.log(`added client w/ id=${i.cedula}`)),
       catchError(this.handleErrors<Client>(`addClient`))
     );
