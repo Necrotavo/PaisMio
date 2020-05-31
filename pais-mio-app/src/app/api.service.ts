@@ -13,8 +13,10 @@ import { Client } from '../models/client';
 
 
 const HttpOptions = {
-  headers: new HttpHeaders({'Content-type': 'application/json', 'Access-Control-Allow-Origin': '**'})
+  headers: new HttpHeaders({'Content-type': 'application/json', 'Access-Control-Allow-Origin': '**',
+   }), rejectUnauthorized: 'false'
 };
+
 const apiURL = '';
 const clientPOST = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/Agregar';
 const clientGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
