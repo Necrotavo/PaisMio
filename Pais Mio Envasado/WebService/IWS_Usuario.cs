@@ -18,9 +18,9 @@ namespace WebService
     {
 
 
-        //[OperationContract]
-        //[WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        //bool crearUsuario(string tipoUsuario,string correo, string estado, string nombre, string apellidos, string contrasena);
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest, UriTemplate ="Crear")]
+        bool crearUsuarioP(string tipoUsuario, string correo, string estado, string nombre, string apellidos, string contrasena);
 
         /// <summary>
         /// Método para crear usuarios, ya sea Operario, Supervisor o Administrador

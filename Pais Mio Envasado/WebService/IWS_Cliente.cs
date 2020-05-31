@@ -25,7 +25,7 @@ namespace WebService
         List<DO_Cliente> listaClientesHabilitados();
 
         [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, Method = "POST", UriTemplate = "ListarClientes")]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, Method = "GET", UriTemplate = "ListarClientes")]
         List<DO_Cliente> listaClientes();
 
         [OperationContract]
@@ -37,7 +37,7 @@ namespace WebService
         bool modificarEstado(String estado, String cedula);
 
         [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, Method ="POST", UriTemplate ="Agregar")]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, Method ="POST", UriTemplate ="Agregar")]
         bool agregarCliente(DO_Cliente doCliente);
 
     }
