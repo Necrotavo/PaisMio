@@ -23,7 +23,7 @@ namespace DAO
         /// <param name="codigoBodega">Bodega en la que se va a buscar</param>
         /// <returns>True si existe registro de ese insumo en bodega, false si no hay registro de este en la bodega</returns>
         public bool existeInsumoEnbodega(DO_InsumoEnBodega insumoEnBodega, Int32 codigoBodega) {
-            SqlCommand insumoExiste = new SqlCommand("SELECT IEB_CANTIDAD_DISPONIBLE FROM INS_ESTA_BOD WHERE INS_CODIGO = @codigoInsumo AND BOD_CODIGO = @codigoBodega)");
+            SqlCommand insumoExiste = new SqlCommand("SELECT IEB_CANTIDAD_DISPONIBLE FROM INS_ESTA_BOD WHERE INS_CODIGO = @codigoInsumo AND BOD_CODIGO = @codigoBodega", conexion);
             insumoExiste.Parameters.AddWithValue("@codigoInsumo", insumoEnBodega.insumo.codigo);
             insumoExiste.Parameters.AddWithValue("@codigoBodega", codigoBodega);
             
@@ -33,9 +33,14 @@ namespace DAO
                 {
                     conexion.Open();
                 }
-
-                insumoExiste.ExecuteNonQuery();
-                return true;
+                Object obj = insumoExiste.ExecuteScalar();
+                if (obj is null)
+                {
+                    return false;
+                }
+                else {
+                    return true;
+                }
             }
             catch (SqlException e)
             {
@@ -64,19 +69,15 @@ namespace DAO
                     conexion.Open();
                 }
 
-                Int32 eniCodigo = registrarEntradaInsumo(correoOperario, bodega.codigo);
+                Int32 eniCodigo = registrarEntradaInsumo(correoOperario);
 
                 String comando = "BEGIN TRANSACTION ";
 
                 foreach (DO_InsumoEnBodega insumoEnBodega in bodega.listaInsumosEnBodega)
                 {
-                    if (conexion.State != ConnectionState.Open)
-                    {
-                        conexion.Open();
-                    }
                     if (existeInsumoEnbodega(insumoEnBodega, bodega.codigo)) // Ya hay registro de ese insumo en la bodega
                     {
-                        comando += "UPDATE INS_ESTA_BOD COLUMN IEB_CANTIDAD_DISPONIBLE = IEB_CANTIDAD_DISPONIBLE + " + insumoEnBodega.cantidadDisponible 
+                        comando += "UPDATE INS_ESTA_BOD SET IEB_CANTIDAD_DISPONIBLE = IEB_CANTIDAD_DISPONIBLE + " + insumoEnBodega.cantidadDisponible 
                             + " WHERE BOD_CODIGO = "+ bodega.codigo +" AND INS_CODIGO = "+ insumoEnBodega.insumo.codigo + " ";
                     }
                     else
@@ -84,13 +85,17 @@ namespace DAO
                         comando += "INSERT INTO INS_ESTA_BOD (BOD_CODIGO, INS_CODIGO, IEB_CANTIDAD_DISPONIBLE)"
                                 + "VALUES (" + bodega.codigo + ", " + insumoEnBodega.insumo.codigo + ", " + insumoEnBodega.cantidadDisponible + ") ";
                     }
-                    comando += "INSERT INTO INSUMO_ENTRANTE (BOD_CODIGO, INS_CODIGO, IENT_CANTIDAD)"
-                                + "VALUES (" + bodega.codigo + ", " + insumoEnBodega.insumo.codigo + ", " + insumoEnBodega.cantidadDisponible + ") ";
+                    comando += "INSERT INTO INSUMO_ENTRANTE (ENI_CODIGO, BOD_CODIGO, INS_CODIGO, IENT_CANTIDAD)"
+                                + "VALUES (" + eniCodigo + "," + bodega.codigo + ", " + insumoEnBodega.insumo.codigo + ", " + insumoEnBodega.cantidadDisponible + ") ";
                 }
-
 
                 comando += "COMMIT";
                 SqlCommand ingresarLista = new SqlCommand(comando, conexion);
+
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
 
                 if (ingresarLista.ExecuteNonQuery() <= 0)
                 {
@@ -184,39 +189,37 @@ namespace DAO
         /// <param name="correoOperario">Correo del operario que realiza la entrada</param>
         /// <param name="codigoBodega">Codigo de la bodega a la que entran los insumos</param>
         /// <returns>El código de la entrada de insumo registrada, 0 si sucede un error</returns>
-        public Int32 registrarEntradaInsumo(String correoOperario, Int32 codigoBodega) {
+        public Int32 registrarEntradaInsumo(String correoOperario) {
+            return 6;
+            //SqlCommand registrarEntrada = new SqlCommand("INSERT INTO ENTRADA_INSUMO (OPE_CORREO, ENI_FECHA) VALUES (@correoOperario,"+ DateTime.Now.ToString("dd/MM/yyyy")+")", conexion);
+            //registrarEntrada.Parameters.AddWithValue("@correoOperario", correoOperario);
 
-            SqlCommand registrarEntrada = new SqlCommand("INSERT INTO ENTRADA_INSUMO (OPE_CORREO, ENI_FECHA) " +
-                "VALUES (@correoOperario, @codigoBodega");
-            registrarEntrada.Parameters.AddWithValue("@codigoInsumo", correoOperario);
-            registrarEntrada.Parameters.AddWithValue("@codigoBodega", codigoBodega);
+            //try
+            //{
+            //    if (conexion.State != ConnectionState.Open)
+            //    {
+            //        conexion.Open();
+            //    }
 
-            try
-            {
-                if (conexion.State != ConnectionState.Open)
-                {
-                    conexion.Open();
-                }
-
-                if (registrarEntrada.ExecuteNonQuery() > 0)
-                {
-                    return obtenerCodigoUltimaEntrada();
-                }
-                else {
-                    return 0;
-                }
-            }
-            catch (SqlException e)
-            {
-                return 0;
-            }
-            finally
-            {
-                if (conexion.State != ConnectionState.Closed)
-                {
-                    conexion.Close();
-                }
-            }
+            //    if (registrarEntrada.ExecuteNonQuery() > 0)
+            //    {
+            //        return obtenerCodigoUltimaEntrada();
+            //    }
+            //    else {
+            //        return 0;
+            //    }
+            //}
+            //catch (SqlException e)
+            //{
+            //    return 0;
+            //}
+            //finally
+            //{
+            //    if (conexion.State != ConnectionState.Closed)
+            //    {
+            //        conexion.Close();
+            //    }
+            //}
         }
 
         /// <summary>
@@ -224,7 +227,7 @@ namespace DAO
         /// </summary>
         /// <returns>El código de la entrada, 0 si sucede un error</returns>
         public Int32 obtenerCodigoUltimaEntrada() {
-            SqlCommand obtenerCodigo = new SqlCommand("SELECT ENI_CODIGO FROM ENTRADA_INSUMO ORDER BY BOD_CODIGO DESC", conexion);
+            SqlCommand obtenerCodigo = new SqlCommand("SELECT ENI_CODIGO FROM ENTRADA_INSUMO ORDER BY ENI_CODIGO DESC", conexion);
 
             try
             {

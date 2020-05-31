@@ -54,10 +54,18 @@ namespace DAO
         /// <summary>
         /// Saca la lista de los productos de la base de datos
         /// </summary>
+        /// <param name="todos">Booleano para identificar si se necesita todos o solo los habilitados</param>
         /// <returns>La lista de productos, si no se sacan objetos, retorna un null</returns>
-        public List<DO_Producto> obtenerListaProductos() {
+        public List<DO_Producto> obtenerListaProductos(bool todos) {
+            String comando;
+            if (todos) {
+                comando = "SELECT * FROM PRODUCTO";
+            }
+            else {
+                comando = "SELECT * FROM PRODUCTO WHERE EST_HAB_ESTADO = 'HABILITADO'";
+            }
             SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = new SqlCommand("SELECT * FROM PRODUCTO", conexion);
+            adapter.SelectCommand = new SqlCommand(comando, conexion);
             DataTable datatable = new DataTable();
             List<DO_Producto> listaProductos = new List<DO_Producto>();
 
@@ -75,7 +83,7 @@ namespace DAO
                     DO_Producto nuevoProducto = new DO_Producto();
 
                     nuevoProducto.codigo = Convert.ToInt32(row["PRO_CODIGO"]);
-                    nuevoProducto.estado = new DO_EstadoHabilitacion((String)row["EST_HAB_ESTADO"]);
+                    nuevoProducto.estado = (String)row["EST_HAB_ESTADO"];
                     nuevoProducto.nombre = (String)row["PRO_NOMBRE"];
                     nuevoProducto.descripcion = (String)row["PRO_DESCRIPCION"];
 
@@ -141,9 +149,12 @@ namespace DAO
                 SqlDataReader lector = consultaCredito.ExecuteReader();
                 if (lector.HasRows)
                 {
-                    doProducto.estado = new DO_EstadoHabilitacion((String)(lector["EST_HAB_ESTADO"]));
-                    doProducto.nombre = (String)(lector["PRO_NOMBRE"]);
-                    doProducto.descripcion = (String)(lector["PRO_DESCRIPCION"]);
+                    doProducto.codigo = codigoProducto;
+                    while (lector.Read()) {
+                        doProducto.nombre = (String)(lector["PRO_NOMBRE"]);
+                        doProducto.estado = (String)(lector["EST_HAB_ESTADO"]);
+                        doProducto.descripcion = (String)(lector["PRO_DESCRIPCION"]);
+                    }
                     return doProducto;
                 }
                 else {
@@ -171,12 +182,13 @@ namespace DAO
         public bool modificarProducto(DO_Producto doProducto) {
             SqlCommand comandoModificar = new SqlCommand("UPDATE PRODUCTO SET PRO_NOMBRE = @nombreProducto, " +
                 "PRO_DESCRIPCION = @descripcionProducto, " +
-                "EST_HAB_ESTADO = @estado" +
+                "EST_HAB_ESTADO = @estado " +
                 "where PRO_CODIGO = @codigoProducto", conexion);
 
+            comandoModificar.Parameters.AddWithValue("@nombreProducto", doProducto.nombre);
             comandoModificar.Parameters.AddWithValue("@descripcionProducto", doProducto.descripcion);
-            comandoModificar.Parameters.AddWithValue("@estado", doProducto.estado.estado);
-            comandoModificar.Parameters.AddWithValue("@nombreProveedor", doProducto.nombre);
+            comandoModificar.Parameters.AddWithValue("@estado", doProducto.estado);
+            comandoModificar.Parameters.AddWithValue("@codigoProducto", doProducto.codigo);
 
             try
             {

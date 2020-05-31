@@ -46,6 +46,7 @@
     <Compile Include="DAO_Cliente.cs" />
     <Compile Include="DAO_Insumo.cs" />
     <Compile Include="DAO_Operario.cs" />
+    <Compile Include="DAO_Pedido.cs" />
     <Compile Include="DAO_SolicitudInsumos.cs" />
     <Compile Include="DAO_Producto.cs" />
     <Compile Include="DAO_Supervisor.cs" />

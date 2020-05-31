@@ -1,4 +1,4 @@
-export class User {
+export class Client {
     cedula: string;
     correo: string;
     direccion: string;
@@ -15,3 +15,5 @@ export class User {
         this.telefono = telefono;
     }
 }
+
+

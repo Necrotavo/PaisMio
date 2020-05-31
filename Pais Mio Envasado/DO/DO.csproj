@@ -49,7 +49,9 @@
     <Compile Include="DO_Insumo.cs" />
     <Compile Include="DO_InsumoEnBodega.cs" />
     <Compile Include="DO_Operario.cs" />
+    <Compile Include="DO_Pedido.cs" />
     <Compile Include="DO_Producto.cs" />
+    <Compile Include="DO_ProductoEnPedido.cs" />
     <Compile Include="DO_SolicitudInsumos.cs" />
     <Compile Include="DO_Supervisor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

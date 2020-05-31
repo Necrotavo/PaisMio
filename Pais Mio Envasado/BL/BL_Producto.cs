@@ -29,7 +29,17 @@ namespace BL
         /// <returns>La lista de productos existentes, null si no hay o no se pudo sacar la lista</returns>
         public List<DO_Producto> obtenerListaProductos() {
             DAO_Producto daoProducto = new DAO_Producto();
-            return daoProducto.obtenerListaProductos();
+            return daoProducto.obtenerListaProductos(true);
+        }
+
+        /// <summary>
+        /// Retorna la lista de productos habilitados
+        /// </summary>
+        /// <returns>Lista de productos habilitados</returns>
+        public List<DO_Producto> obtenerListaProductosHabilitados()
+        {
+            DAO_Producto daoProducto = new DAO_Producto();
+            return daoProducto.obtenerListaProductos(false);
         }
 
         /// <summary>

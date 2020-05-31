@@ -57,84 +57,32 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Cliente</th>
-                                <th>Detalles</th>
+                                <th>Correo</th>
+                                <th>Dirección</th>
+                                <th>Telefono</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            <tr>
+                            <tr *ngFor="let com of clientList">
                                 <td>
-                                    001
+                                    {{com.cedula}}
                                 </td>
                                 <td>
-                                    Nombre del Cliente
+                                    {{com.nombre}}
                                 </td>
                                 <td>
-                                    <a href="#">Ver detalles</a>
+                                    {{com.correo}}
                                 </td>
                                 <td>
-                                    <span class="badge badge-success">Enviado</span>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    002
+                                    {{com.direccion}}
                                 </td>
                                 <td>
-                                    Nombre del Cliente
+                                    {{com.telefono}}
                                 </td>
                                 <td>
-                                    <a href="#">Ver detalles</a>
-                                </td>
-                                <td>
-                                    <span class="badge badge-primary">En proceso</span>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    003
-                                </td>
-                                <td>
-                                    Nombre del Cliente
-                                </td>
-                                <td>
-                                    <a href="#">Ver detalles</a>
-                                </td>
-                                <td>
-                                    <span class="badge badge-danger">Rechazado</span>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    004
-                                </td>
-                                <td>
-                                    Nombre del Cliente
-                                </td>
-                                <td>
-                                    <a href="#">Ver detalles</a>
-                                </td>
-                                <td>
-                                    <span class="badge badge-danger">Rechazado</span>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    005
-                                </td>
-                                <td>
-                                    Nombre del Cliente
-                                </td>
-                                <td>
-                                    <a href="#">Ver detalles</a>
-                                </td>
-                                <td>
-                                    <span class="badge badge-success">Enviado</span>
+                                    {{com.estado}}
                                 </td>
                             </tr>
                         </tbody>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpErrorResponse, HttpRequest } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { User } from '../models/user';
@@ -9,12 +9,15 @@ import { Analysis } from '../models/analysis';
 import { Product } from '../models/product';
 import { ReportC } from '../models/reportC';
 import { ReportM } from '../models/reportM';
+import { Client } from '../models/client';
 
 
 const HttpOptions = {
   headers: new HttpHeaders({'Content-type': 'application/json'})
 };
-const apiURL = 'http://localhost:3000/api';
+const apiURL = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/Agregar';
+const clientWS = apiURL + 'WS_Cliente.svc/Agregar';
+const clientGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
 
 @Injectable({
   providedIn: 'root'
@@ -49,7 +52,7 @@ export class ApiService {
 
   addUser(user: User): Observable<User> {
     return this.http.post<User>(apiURL, user, HttpOptions).pipe(
-      tap((i: User) => console.log(`added user w/ id=${i.name}`)),
+      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
       catchError(this.handleErrors<User>(`addUser`))
     );
   }
@@ -309,4 +312,43 @@ export class ApiService {
         catchError(this.handleErrors<ReportC>(`deletedReportC`))
       );
     }
+      /** Client CRUD */
+  getClient(): Observable<Client[]> {
+    return this.http.get<Client[]>(`${clientGET}`)
+    .pipe(
+      tap(user => console.log('fetch client')),
+      catchError(this.handleErrors(`getClient`, []))
+    );
+  }
+
+  getClientByEmail(email: string): Observable<Client> {
+    const url = `${apiURL}/${email}`;
+    return this.http.get<Client>(url).pipe(
+      tap(_ => console.log(`fetch client id=${email}`)),
+      catchError(this.handleErrors<Client>(`getClientByEmail id=${email}`))
+    );
+  }
+
+  addClient(client: Client): Observable<Client> {
+    return this.http.post<Client>(apiURL, client, HttpOptions).pipe(
+      tap((i: Client) => console.log(`added client w/ id=${i.cedula}`)),
+      catchError(this.handleErrors<Client>(`addClient`))
+    );
+  }
+
+  updateClient(id: string, client: Client): Observable<any> {
+    const url = `${apiURL}/${id}`;
+    return this.http.put(url, client, HttpOptions).pipe(
+      tap(_ => console.log(`updated user id=${id}`)),
+      catchError(this.handleErrors<any>(`updateUser`))
+    );
+  }
+
+  deleteClient(id: string): Observable<Client> {
+    const url = `${apiURL}/${id}`;
+    return this.http.delete<Client>(url, HttpOptions).pipe(
+      tap(_ => console.log(`deleted client id=${id}`)),
+      catchError(this.handleErrors<Client>(`deletedClient`))
+    );
+  }
 }

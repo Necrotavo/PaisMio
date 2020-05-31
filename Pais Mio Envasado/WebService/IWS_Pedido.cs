@@ -4,6 +4,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.ServiceModel.Web;
+using DO;
 
 namespace WebService
 {
@@ -12,6 +14,12 @@ namespace WebService
     public interface IWS_Pedido
     {
         [OperationContract]
-        void DoWork();
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, Method = "POST", UriTemplate = "Agregar")]
+        bool agregarPedido(DO_Pedido doPedido);
+
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.WrappedRequest, Method = "POST", UriTemplate = "Eliminar")]
+        bool eliminarPedido(Int32 codigoPedido);
+
     }
 }
