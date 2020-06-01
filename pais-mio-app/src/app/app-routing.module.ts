@@ -16,6 +16,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 
 const routes: Routes = [
   {path: '', component: IndexPmAppComponent},
+  {path: 'index-pm-app', component: IndexPmAppComponent},
   {path: 'admin-view', component: AdminViewComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   {path: 'inventory-control', component: InventoryControlComponent},

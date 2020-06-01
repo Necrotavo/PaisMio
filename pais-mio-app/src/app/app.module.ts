@@ -1,6 +1,8 @@
+/** Main imports */
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+/** Routing imports */
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IndexPmAppComponent } from './index-pm-app/index-pm-app.component';
@@ -17,10 +19,12 @@ import { OrderViewComponent } from './order-view/order-view.component';
 import { UserViewComponent } from './user-view/user-view.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 
+/** Extra modules imports */
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { ClientComponent } from './client/client.component';
 import { ApiService } from './api.service';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -45,7 +49,8 @@ import { ApiService } from './api.service';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    Ng2SearchPipeModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]
