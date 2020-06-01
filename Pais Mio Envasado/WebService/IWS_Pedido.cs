@@ -14,7 +14,7 @@ namespace WebService
     public interface IWS_Pedido
     {
         [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, Method = "POST", UriTemplate = "Agregar")]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, Method = "POST", UriTemplate = "agregarPedido")]
         bool agregarPedido(DO_Pedido doPedido);
 
         [OperationContract]

@@ -20,13 +20,13 @@ namespace DAO
         /// <returns>(True) si la operación se realizó correctamente. (False) si no se registró el pedido</returns>
         public bool guardarPedido(DO_Pedido pedido)
         {
-            SqlCommand comandoInsertar = new SqlCommand("INSERT INTO PEDIDO (CLI_CEDU , OPE_CORREO, ESTADO" +
+            SqlCommand comandoInsertar = new SqlCommand("INSERT INTO PEDIDO (CLI_CEDUla , OPE_CORREO, ESTADO" +
            ", PED_FECHA_INGRESO) VALUES (@cedula,@correoAdmin,@estado, @fechaIngreso)", conexion);
 
             comandoInsertar.Parameters.AddWithValue("@cedula", pedido.cedulaCliente);
             comandoInsertar.Parameters.AddWithValue("@correoAdmin", pedido.correoAdminIngreso);
             comandoInsertar.Parameters.AddWithValue("@estado", pedido.estado);
-            comandoInsertar.Parameters.AddWithValue("@fechaIngreso", pedido.fechaIngreso.ToString("dd/MM/yyyy"));
+            comandoInsertar.Parameters.AddWithValue("@fechaIngreso", pedido.fechaIngreso.ToString("dd/MM/yyyy hh:mm:ss"));
 
             try
             {
@@ -37,8 +37,8 @@ namespace DAO
 
                 if (comandoInsertar.ExecuteNonQuery() > 0)
                 {
-                    SqlCommand obtenerCodigo = new SqlCommand("SELECT PED_CODIGO FROM PEDIDO ORDER BY PED_CODIGO DESC");
-                    pedido.codigo = (int)obtenerCodigo.ExecuteScalar();
+                    SqlCommand obtenerCodigo = new SqlCommand("SELECT PED_CODIGO FROM PEDIDO ORDER BY PED_CODIGO DESC",conexion);
+                    pedido.codigo = Convert.ToInt32(obtenerCodigo.ExecuteScalar());
                 }
 
                 if (!agregarProductos(pedido))
@@ -78,13 +78,15 @@ namespace DAO
 
                 foreach (DO_ProductoEnPedido producto in pedido.listaProductos)
                 {
-                    comandoInsertarProductos += "(" + producto.producto.codigo + ", " + pedido.codigo + ", " + producto.cantidad + "), ";
+                    comandoInsertarProductos += "(" + producto.producto.codigo + ", " + pedido.codigo + ", " + producto.cantidad + "),";
                 }
             }
             else
             {
                 return false;
             }
+
+            comandoInsertarProductos = comandoInsertarProductos.Substring(0, comandoInsertarProductos.Length - 1);
 
             SqlCommand comandoInsertar = new SqlCommand(comandoInsertarProductos, conexion);
 
@@ -182,7 +184,7 @@ namespace DAO
         /// <returns>(True) si se eliminó el pedido. (False) si no se pudo eliminar</returns>
         public bool eliminarPedido(Int32 codigoPedido)
         {
-            SqlCommand comandoBorrar = new SqlCommand("DELETE FROM PEDIDO WHERE PED_CODIGO = @codigo)", conexion);
+            SqlCommand comandoBorrar = new SqlCommand("DELETE FROM PEDIDO WHERE PED_CODIGO = @codigo", conexion);
             comandoBorrar.Parameters.AddWithValue("@codigo", codigoPedido);
             try
             {
