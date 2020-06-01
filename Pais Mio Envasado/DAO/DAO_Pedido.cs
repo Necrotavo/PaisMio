@@ -145,12 +145,13 @@ namespace DAO
                     while (lector.Read())
                     {
                         DO_ProductoEnPedido producto = new DO_ProductoEnPedido();
-
+                        DO_Producto detallesProducto = new DO_Producto();
                         producto.cantidad = Convert.ToInt32(lector["PPP_CANTIDAD"]);
-                        producto.producto.codigo = Convert.ToInt32(lector["PRO_CODIGO"]);                        
-                        producto.producto.estado = (String)(lector["EST_HAB_ESTADO"]);
-                        producto.producto.nombre = (String)(lector["PRO_NOMBRE"]);
-                        producto.producto.descripcion = (String)(lector["PRO_DESCRIPCION"]);
+                        detallesProducto.codigo = Convert.ToInt32(lector["PRO_CODIGO"]);
+                        detallesProducto.estado = (String)(lector["EST_HAB_ESTADO"]);
+                        detallesProducto.nombre = (String)(lector["PRO_NOMBRE"]);
+                        detallesProducto.descripcion = (String)(lector["PRO_DESCRIPCION"]);
+                        producto.producto = detallesProducto;
 
 
                         listaProductos.Add(producto);
@@ -255,7 +256,9 @@ namespace DAO
         /// <returns>El pedido con sus respetivos detalles (DO_Pedido)</returns>
         public DO_Pedido consultarDetalles(Int32 codigoPedido)
         {
-            SqlCommand comandoConsultar = new SqlCommand("SELECT * FROM PEDIDO", conexion);
+            SqlCommand comandoConsultar = new SqlCommand("SELECT * FROM PEDIDO WHERE PED_CODIGO = @codigo", conexion);
+
+            comandoConsultar.Parameters.AddWithValue("codigo", codigoPedido);
             DO_Pedido pedido = new DO_Pedido();
 
             try
