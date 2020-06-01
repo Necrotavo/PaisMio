@@ -14,13 +14,26 @@ import { Client } from '../models/client';
 
 const HttpOptions = {
   headers: new HttpHeaders({'Content-type': 'application/json', 'Access-Control-Allow-Origin': '**',
-   }), rejectUnauthorized: 'false'
+   })
 };
 
-const apiURL = '';
+const apiURL = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
 const clientPOST = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/Agregar';
 const clientGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
-const inputGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/obtenerinsumos';
+//const inputGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/obtenerinsumos';
+const inputPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+const inputGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+const productPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+const productGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+const inputRequestPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+const inputRequestGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+const mReportPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+const mReportGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+const cReportPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+const cReportGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+const analysisPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+const analysisGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+
 
 @Injectable({
   providedIn: 'root'
@@ -118,7 +131,7 @@ export class ApiService {
 
   /** Input Requests CRUD */
   getInputRequest(): Observable<InputRequest[]> {
-    return this.http.get<InputRequest[]>(`${apiURL}`)
+    return this.http.get<InputRequest[]>(`${inputGET}`)
     .pipe(
       tap(inputRequest => console.log(`fetch input request`)),
       catchError(this.handleErrors(`getInputRequest`, []))
