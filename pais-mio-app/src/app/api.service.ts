@@ -10,6 +10,7 @@ import { Product } from '../models/product';
 import { ReportC } from '../models/reportC';
 import { ReportM } from '../models/reportM';
 import { Client } from '../models/client';
+import { Order } from '../models/order';
 
 
 const HttpOptions = {
@@ -17,6 +18,7 @@ const HttpOptions = {
    })
 };
 
+/*** Api URL constants */
 const apiURL = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
 const clientPOST = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/Agregar';
 const clientGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
@@ -33,7 +35,8 @@ const cReportPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/lis
 const cReportGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
 const analysisPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
 const analysisGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
-
+const orderPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+const orderGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +50,46 @@ export class ApiService {
       console.error(error);
       return of(result as T);
     };
+  }
+
+  /** Users CRUD */
+  getOrder(): Observable<Order[]> {
+    return this.http.get<Order[]>(`${apiURL}`)
+    .pipe(
+      tap(order => console.log('fetch order')),
+      catchError(this.handleErrors(`getOrder`, []))
+    );
+  }
+
+  getOrderByClient(client: string): Observable<User> {
+    const url = `${apiURL}/${client}`;
+    return this.http.get<User>(url).pipe(
+      tap(_ => console.log(`fetch order id=${client}`)),
+      catchError(this.handleErrors<User>(`getOrderByClient id=${client}`))
+    );
+  }
+
+  addOrder(order: Order): Observable<Order> {
+    return this.http.post<Order>(apiURL, order, HttpOptions).pipe(
+      tap((i: Order) => console.log(`added order w/ id=${i.id}`)),
+      catchError(this.handleErrors<Order>(`addOrder`))
+    );
+  }
+
+  updateOrder(id: string, order: Order): Observable<any> {
+    const url = `${apiURL}/${id}`;
+    return this.http.put(url, order, HttpOptions).pipe(
+      tap(_ => console.log(`updated order id=${id}`)),
+      catchError(this.handleErrors<any>(`updateOrder`))
+    );
+  }
+
+  deleteOrder(id: string): Observable<Order> {
+    const url = `${apiURL}/${id}`;
+    return this.http.delete<Order>(url, HttpOptions).pipe(
+      tap(_ => console.log(`deleted order id=${id}`)),
+      catchError(this.handleErrors<Order>(`deletedOrder`))
+    );
   }
 
   /** Users CRUD */

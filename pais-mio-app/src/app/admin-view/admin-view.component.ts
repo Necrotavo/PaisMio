@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ApiService } from '../api.service';
-import { Client } from '../../models/client';
-import { User } from '../../models/user';
-import { Input } from '../../models/input';
+import { Client } from 'src/models/client';
+import { User } from 'src/models/user';
+import { Input } from 'src/models/input';
 import { Product } from 'src/models/product';
+import { Order } from 'src/models/order';
+
 
 @Component({
   selector: 'app-admin-view',
@@ -15,13 +17,27 @@ export class AdminViewComponent implements OnInit {
 
   constructor(private apiService: ApiService) { }
 
-  /** Object declarations for Post and Get */
-  clientList: Client[];
-  userList: User[];
+  /** Declarations for Post and Get web services */
+  /** Object declarations */
+  order: Order;
+  input: Input;
+  user: User;
   client: Client;
-  objClient: Client;
+  product: Product;
+
+  /** Object Lists */
+  orderList: Order[];
   inputList: Input[];
+  userList: User[];
+  clientList: Client[];
   productList: Product[];
+
+  /** Data return objects */
+  objOrder: Order;
+  objInput: Input;
+  objUser: User;
+  objClient: Client;
+  objProduct: Product;
 
   /** Filter terms */
   termO: string; // for Orders
@@ -33,25 +49,78 @@ export class AdminViewComponent implements OnInit {
 
 
   ngOnInit(): void {
-    /** Client */
+
+    /** Gets all Orders on Init */
+    this.apiService.getOrder().subscribe(
+      data => {
+        this.orderList = data;
+      }
+    );
+
+    /** Gets all Inputs on Init */
+    this.apiService.getInput().subscribe(
+      data => {
+        this.inputList = data;
+      }
+    );
+
+    /** Gets all Users on Init */
+    this.apiService.getUser().subscribe(
+      data => {
+        this.userList = data;
+      }
+    );
+
+    /** Gets all clients on Init */
     this.apiService.getClient().subscribe(
       data => {
         this.clientList = data;
       }
     );
 
-    /** User */
-    this.apiService.getUser().subscribe(
+    /** Gets all products on Init */
+    this.apiService.getProduct().subscribe(
       data => {
-        this.userList = data;
+        this.productList = data;
       }
     );
+
   }
 
   getAllClient(){
     this.apiService.getClient().subscribe(
       data => {
         this.clientList = data;
+      }
+    );
+  }
+
+  postOrder(){
+    const newClient = new Client('333333', 'prueba@mail.com', 'grecia', 'HABILITADO', 'Random.INC', '(+506) 131313123');
+
+    this.apiService.addClient(newClient).subscribe(
+      data => {
+        this.objClient = data;
+      }
+    );
+  }
+
+  postInput(){
+    const newClient = new Client('333333', 'prueba@mail.com', 'grecia', 'HABILITADO', 'Random.INC', '(+506) 131313123');
+
+    this.apiService.addClient(newClient).subscribe(
+      data => {
+        this.objClient = data;
+      }
+    );
+  }
+
+  postUser(){
+    const newClient = new Client('333333', 'prueba@mail.com', 'grecia', 'HABILITADO', 'Random.INC', '(+506) 131313123');
+
+    this.apiService.addClient(newClient).subscribe(
+      data => {
+        this.objClient = data;
       }
     );
   }
@@ -66,7 +135,14 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-  postClient2(){
-    const test = '';
+  postProduct(){
+    const newClient = new Client('333333', 'prueba@mail.com', 'grecia', 'HABILITADO', 'Random.INC', '(+506) 131313123');
+
+    this.apiService.addClient(newClient).subscribe(
+      data => {
+        this.objClient = data;
+      }
+    );
   }
+
 }
