@@ -34,5 +34,18 @@ namespace WebService
                 return false;
             }
         }
+
+        public DO_SolicitudInsumos solicitarSolicitud(int idSolicitud)
+        {
+            BL_SolicitudInsumos blSolicitud = new BL_SolicitudInsumos();
+            return blSolicitud.consultaSolicitud(idSolicitud);
+        }
+
+        public bool decision(DO_SolicitudInsumos solicitud, DO_Administrador admin, string estado)
+        {
+
+            BL_SolicitudInsumos blSolicitud = new BL_SolicitudInsumos();
+            return blSolicitud.decisionAdmin(solicitud,admin,estado);
+        }
     }
 }

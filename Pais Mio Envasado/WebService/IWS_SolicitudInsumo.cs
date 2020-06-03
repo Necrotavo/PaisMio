@@ -22,5 +22,23 @@ namespace WebService
             Method = "POST", 
             UriTemplate = "ingresoSolicitud")]
         bool ingresarSolicitud(DO_SolicitudInsumos solicitud);
+
+        [OperationContract]
+        [WebInvoke(
+           RequestFormat = WebMessageFormat.Json,
+           ResponseFormat = WebMessageFormat.Json,
+           BodyStyle = WebMessageBodyStyle.Wrapped,
+           Method = "POST",
+           UriTemplate = "solicitudSingular")]
+        DO_SolicitudInsumos solicitarSolicitud(int idSolicitud);
+
+        [OperationContract]
+        [WebInvoke(
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped,
+            Method = "POST",
+            UriTemplate = "ingresoSolicitud")]
+        bool decision(DO_SolicitudInsumos solicitud, DO_Administrador admin, string estado);
     }
 }
