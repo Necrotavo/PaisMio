@@ -113,62 +113,28 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Stock</th>
+                                <th>Name</th>
                                 <th>Min</th>
+                                <th>Medida</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor= "let com of inputList">
                                 <td>
-                                    001
+                                    {{com.codigo}}
                                 </td>
                                 <td>
-                                    Tapa de pacha
+                                    {{com.nombre}}
                                 </td>
                                 <td>
-                                    300
+                                    {{com.cantMinStock}}
                                 </td>
                                 <td>
-                                    20
+                                    {{com.unidad}}
                                 </td>
                                 <td>
-                                    <span class="badge badge-success">Habilitado</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    002
-                                </td>
-                                <td>
-                                    Pacha
-                                </td>
-                                <td>
-                                    300
-                                </td>
-                                <td>
-                                    20
-                                </td>
-                                <td>
-                                    <span class="badge badge-success">Habilitado</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    003
-                                </td>
-                                <td>
-                                    Botella
-                                </td>
-                                <td>
-                                    300
-                                </td>
-                                <td>
-                                    20
-                                </td>
-                                <td>
-                                    <span class="badge badge-danger">Deshabilitado</span>
+                                    <span class="badge badge-success">{{com.estado}}</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -288,6 +254,7 @@
                         </div>
                     </div>
 
+                    <div *ngFor="let com of clientList">
                     <table class="table table-striped table-responsive">
                         <thead>
                             <tr>
@@ -299,86 +266,43 @@
                             <tr>
                                 <th>Cédula jurídica</th>
                                 <td>
-                                    3-101-XXX
+                                    {{com.cedula}}
                                 </td>
                             </tr>
                             <tr>
                                 <th>Nombre</th>
                                 <td>
-                                    Lico X
+                                    {{com.nombre}}
                                 </td>
                             </tr>
                             <tr>
                                 <th>Dirección</th>
                                 <td>
-                                    San Ramon, Alajuela
+                                    {{com.direccion}}
                                 </td>
                             </tr>
                             <tr>
                                 <th>Teléfono</th>
                                 <td>
-                                    +506 XXXX XXXX
+                                    {{com.telefono}}
                                 </td>
                             </tr>
                             <tr>
                                 <th>Correo electronico</th>
                                 <td>
-                                    LicoX@mail.com
+                                    {{com.correo}}
                                 </td>
                             </tr>
                             <tr>
                                 <th>Estado</th>
                                 <td>
-                                    <span class="badge badge-success">Habilitado</span>
+                                    <span class="badge badge-success">{{com.estado}}</span>
                                 </td>
                             </tr>
                         </tbody>
                         <br>
-                        <thead>
-                            <tr>
-                                <th>Parametro</th>
-                                <th>Datos</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th>Cédula jurídica</th>
-                                <td>
-                                    3-101-XXX
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Nombre</th>
-                                <td>
-                                    Lico X
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Dirección</th>
-                                <td>
-                                    San Ramon, Alajuela
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Teléfono</th>
-                                <td>
-                                    +506 XXXX XXXX
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Correo electronico</th>
-                                <td>
-                                    LicoX@mail.com
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Estado</th>
-                                <td>
-                                    <span class="badge badge-danger">Deshabilitado</span>
-                                </td>
-                            </tr>
-                        </tbody>
                     </table>
+                    </div>
 
                 </div>
 
@@ -792,7 +716,7 @@
                             </tr>
                             <tr>
                                 <th>
-                                    Dirección:
+                                    Nombre:
                                 </th>
                                 <td>
                                     <div class="form-field">
@@ -802,7 +726,7 @@
                             </tr>
                             <tr>
                                 <th>
-                                    Nombre:
+                                    Dirección:
                                 </th>
                                 <td>
                                     <div class="form-field">
@@ -837,7 +761,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Crear</button>
+                <button type="button" class="btn btn-primary" (click)="postClient()">Crear</button>
             </div>
 
         </div>

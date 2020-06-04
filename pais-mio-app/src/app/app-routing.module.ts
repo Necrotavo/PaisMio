@@ -26,7 +26,7 @@ const routes: Routes = [
   {path: 'sign-in', component: SignInComponent},
   {path: 'sign-up', component: SignUpComponent},
   {path: 'user-view', component: UserViewComponent},
-  {path: '', component: ErrorPageComponent}
+  {path: '**', component: ErrorPageComponent}
 ];
 
 @NgModule({
