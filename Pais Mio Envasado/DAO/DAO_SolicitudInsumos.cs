@@ -317,6 +317,11 @@ namespace DAO
                 }
             }
         }
+        /// <summary>
+        /// Retorna las solicitudes de insumos por pedido de la base de datos en una lista
+        /// </summary>
+        /// <param name="idPedido">Codigo del pedido</param>
+        /// <returns></returns>
         public List<DO_SolicitudInsumos> listarSolicitudesPorPedido(int idPedido)
         {
             List<DO_SolicitudInsumos> listaSolicitud = new List<DO_SolicitudInsumos>();
@@ -376,6 +381,11 @@ namespace DAO
                 }
             }
         }
+        /// <summary>
+        /// Retorna las solicitudes de insumos por operario de la base de datos en una lista
+        /// </summary>
+        /// <param name="operario">Correo del operario</param>
+        /// <returns></returns>
         public List<DO_SolicitudInsumos> listarSolicitudesPorOperario(string operario)
         {
             List<DO_SolicitudInsumos> listaSolicitud = new List<DO_SolicitudInsumos>();
