@@ -23,7 +23,7 @@ namespace DO
         [DataMember(Name = "fechaIngreso")]
         public DateTime fechaIngreso { set; get; }
         [DataMember(Name = "fechaDespacho")]
-        public DateTime fechaDespacho { set; get; } //Fecha de despacho, null al inicio
+        public DateTime? fechaDespacho { set; get; } //Fecha de despacho, null al inicio
         [DataMember(Name = "listaProductos")]
         public List<DO_ProductoEnPedido>listaProductos { set; get; }
 
