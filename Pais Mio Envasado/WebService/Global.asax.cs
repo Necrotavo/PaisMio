@@ -11,7 +11,8 @@ namespace WebService
     {
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "https://pais-mio.web.app");
+            //La siguiente linea define el origen, en caso de usar diferentes apps realizar un metodo para filtrar y crear el header
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
             if (HttpContext.Current.Request.HttpMethod == "OPTIONS")
             {
                 HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "POST, GET");
