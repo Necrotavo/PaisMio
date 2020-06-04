@@ -190,36 +190,37 @@ namespace DAO
         /// <param name="codigoBodega">Codigo de la bodega a la que entran los insumos</param>
         /// <returns>El código de la entrada de insumo registrada, 0 si sucede un error</returns>
         public Int32 registrarEntradaInsumo(String correoOperario) {
-            return 6;
-            //SqlCommand registrarEntrada = new SqlCommand("INSERT INTO ENTRADA_INSUMO (OPE_CORREO, ENI_FECHA) VALUES (@correoOperario,"+ DateTime.Now.ToString("dd/MM/yyyy")+")", conexion);
-            //registrarEntrada.Parameters.AddWithValue("@correoOperario", correoOperario);
+            //return 6;
+            SqlCommand registrarEntrada = new SqlCommand("INSERT INTO ENTRADA_INSUMO (OPE_CORREO, ENI_FECHA) VALUES (@correoOperario," + DateTime.Now.ToString("dd/MM/yyyy") + ")", conexion);
+            registrarEntrada.Parameters.AddWithValue("@correoOperario", correoOperario);
 
-            //try
-            //{
-            //    if (conexion.State != ConnectionState.Open)
-            //    {
-            //        conexion.Open();
-            //    }
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
 
-            //    if (registrarEntrada.ExecuteNonQuery() > 0)
-            //    {
-            //        return obtenerCodigoUltimaEntrada();
-            //    }
-            //    else {
-            //        return 0;
-            //    }
-            //}
-            //catch (SqlException e)
-            //{
-            //    return 0;
-            //}
-            //finally
-            //{
-            //    if (conexion.State != ConnectionState.Closed)
-            //    {
-            //        conexion.Close();
-            //    }
-            //}
+                if (registrarEntrada.ExecuteNonQuery() > 0)
+                {
+                    return obtenerCodigoUltimaEntrada();
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch (SqlException e)
+            {
+                return 0;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
         }
 
         /// <summary>
@@ -257,7 +258,7 @@ namespace DAO
         /// </summary>
         /// <param name="codigoEntrada">Codigo de la entrada que se va a eliminar</param>
         /// <returns>True si se elimina, False si hay un error</returns>
-        public bool eliminarEntradaInsumo(Int32 codigoEntrada) {
+        private bool eliminarEntradaInsumo(Int32 codigoEntrada) {
             SqlCommand eliminarEntrada = new SqlCommand("DELETE FROM ENTRADA_INSUMO WHERE ENI_CODIGO = @codigoEntrada", conexion);
             eliminarEntrada.Parameters.AddWithValue("@codigoEntrada", codigoEntrada);
 
@@ -289,7 +290,6 @@ namespace DAO
             }
         }
 
-
         /// <summary>
         /// Este metodo permite sacar los datos de una bodega y la lista de insumos que contiene
         /// </summary>
@@ -320,7 +320,7 @@ namespace DAO
                         doBodega.telefono = (String)lectorConsultaBodega["BOD_TELEFONO"];
                     }//Ya se sacaron los datos de la bodega, faltan los insumos que tiene
                     lectorConsultaBodega.Close();
-                    doBodega.listaInsumosEnBodega = obtenerInsumosBodega(new List<DO_InsumoEnBodega>(), codigoBodega);
+                    doBodega.listaInsumosEnBodega = obtenerInsumosBodega(codigoBodega);
                 }
                 return doBodega;
             }
@@ -337,7 +337,14 @@ namespace DAO
             }
         }
 
-        public List<DO_InsumoEnBodega> obtenerInsumosBodega(List<DO_InsumoEnBodega> listaInsumosEnBodega, Int32 codigoBodega) {
+        /// <summary>
+        /// Permite obtener los insumos que están en una bodega
+        /// </summary>
+        /// <param name="codigoBodega">Codigo de la bodega de la que se quieren los insumos</param>
+        /// <returns>La lista de los insumos de la bodega, null si no encuentra la bodega, o la bodega no tiene insumos</returns>
+        public List<DO_InsumoEnBodega> obtenerInsumosBodega(Int32 codigoBodega) {
+            List<DO_InsumoEnBodega> listaInsumosEnBodega = new List<DO_InsumoEnBodega>();
+
             try
             {
                 if (conexion.State != ConnectionState.Open)
@@ -364,6 +371,234 @@ namespace DAO
                     listaInsumosEnBodega.Add(insumoBodega);
                 }
                 return listaInsumosEnBodega;
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Permite registrar una bodega en la base de datos
+        /// </summary>
+        /// <param name="doBodega">Bodega que se va a ingresar</param>
+        /// <returns>True si se ingresa, False si ocurre un error</returns>
+        public bool registrarBodega(DO_Bodega doBodega) {
+            
+            SqlCommand insertBodega = new SqlCommand("INSERT BODEGA (EST_HAB_ESTADO, BOD_NOMBRE, BOD_DIRECCION, BOD_TELEFONO)" +
+                "VALUES('HABILITADO',@nombre,@direccion,@telefono)", conexion);
+            insertBodega.Parameters.AddWithValue("@nombre", doBodega.nombre);
+            insertBodega.Parameters.AddWithValue("@direccion", doBodega.direccion);
+            insertBodega.Parameters.AddWithValue("@telefono", doBodega.telefono);
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open) {
+                    conexion.Open();
+                }
+                if (insertBodega.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+            finally {
+                if (conexion.State != ConnectionState.Closed) {
+                    conexion.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Permite modificar los datos de una bodega
+        /// </summary>
+        /// <param name="doBodega">Bodega con los datos a modificar</param>
+        /// <returns>True si se modifica, false si no se modifica</returns>
+        public bool modificarBodega(DO_Bodega doBodega) {
+            SqlCommand modificarBodega = new SqlCommand("UPDATE BODEGA SET " +
+                "BOD_NOMBRE = @nombre" +
+                "BOD_DIRECCION = @direccion" +
+                "BOD_TELEFONO = @telefono" +
+                "WHERE BOD_CODIGO = @codigoBodega", conexion);
+            modificarBodega.Parameters.AddWithValue("@nombre", doBodega.nombre);
+            modificarBodega.Parameters.AddWithValue("@direccion", doBodega.direccion);
+            modificarBodega.Parameters.AddWithValue("@telefono", doBodega.telefono);
+            modificarBodega.Parameters.AddWithValue("@codigoBodega", doBodega.codigo);
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                if (modificarBodega.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Cambia el estado de las bodegas
+        /// </summary>
+        /// <param name="codigoBodega">Codigo de la bodega que se va a modificar</param>
+        /// <param name="estado">El estado al que se va a cambiar</param>
+        /// <returns>True si modifica el estado, false si no</returns>
+        public bool cambiarEstadoBodega(Int32 codigoBodega, String estado) {
+            SqlCommand modificarBodega = new SqlCommand("UPDATE BODEGA SET " +
+                "EST_HAB_ESTADO = @estado" +
+                "WHERE BOD_CODIGO = @codigoBodega", conexion);
+            modificarBodega.Parameters.AddWithValue("@estado", estado);
+            modificarBodega.Parameters.AddWithValue("@codigoBodega", codigoBodega);
+
+            try
+            {
+                if (estado == "DESHABILITADO") {
+                    if (tieneInsumosAsociados(codigoBodega)) { //No se podria deshabilitar porque tiene insumos asociados
+                        return false;
+                    }
+                }
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                if (modificarBodega.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Confirma si la bodega aún tiene insumos asociados
+        /// </summary>
+        /// <param name="codigoBodega">Código de la bodega</param>
+        /// <returns>True si tiene insumos asociados, false si no</returns>
+        private bool tieneInsumosAsociados(Int32 codigoBodega)
+        {
+            SqlCommand modificarBodega = new SqlCommand("SELECT COUNT(INS_CODIGO) FROM INS_ESTA_BOD " +
+                "WHERE (BOD_CODIGO = @codigoBodega AND IEB_CANTIDAD_DISPONIBLE > 0)", conexion);
+            modificarBodega.Parameters.AddWithValue("@codigoBodega", codigoBodega);
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                Object resultado = modificarBodega.ExecuteScalar();
+                Int32 cantInsumosAsociados = 0;
+                if (resultado != null)
+                {
+                    cantInsumosAsociados = Convert.ToInt32(resultado);
+                }
+                else {
+                    return false;
+                }
+                
+                if (cantInsumosAsociados <= 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
+        public List<DO_Bodega> obtenerListaProductos(bool todos)
+        {
+            String comando;
+            if (todos)
+            {
+                comando = "SELECT * FROM BODEGA";
+            }
+            else
+            {
+                comando = "SELECT * FROM BODEGA WHERE EST_HAB_ESTADO = 'HABILITADO'";
+            }
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = new SqlCommand(comando, conexion);
+            DataTable datatable = new DataTable();
+            List<DO_Bodega> listaBodega = new List<DO_Bodega>();
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                adapter.Fill(datatable);
+
+                foreach (DataRow row in datatable.Rows)
+                {
+                    DO_Bodega doBodega = new DO_Bodega();
+
+                    doBodega.codigo = Convert.ToInt32(row["BOD_CODIGO"]);
+                    doBodega.estado = (String)row["EST_HAB_ESTADO"];
+                    doBodega.nombre = (String)row["BOD_NOMBRE"];
+                    doBodega.telefono = (String)row["BOD_NOMBRE"];
+                    doBodega.direccion = (String)row["BOD_DIRECCION"];
+
+                    listaBodega.Add(doBodega);
+                }
+                return listaBodega;
             }
             catch (SqlException)
             {

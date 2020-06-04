@@ -24,8 +24,7 @@ namespace DAO
         public int guardarInsumo(DO_Insumo insumo)
         {
             SqlCommand insert = new SqlCommand("INSERT INTO INSUMO (EST_HAB_ESTADO, UDM_UNIDAD, INS_NOMBRE, INS_CANT_MIN_STOCK)" +
-                "VALUES (@estado, @unidad, @nombre, @cantMinStock)", conexion);
-            insert.Parameters.AddWithValue("@estado", insumo.estado);
+                "VALUES ('HABILITADO', @unidad, @nombre, @cantMinStock)", conexion);
             insert.Parameters.AddWithValue("@unidad", insumo.unidad);
             insert.Parameters.AddWithValue("@nombre", insumo.nombre);
             insert.Parameters.AddWithValue("@cantMinStock", insumo.cantMinStock);
@@ -48,7 +47,7 @@ namespace DAO
                 }
 
             }
-            catch (SqlException e)
+            catch (SqlException)
             {
                 return 0;
             }
@@ -206,6 +205,101 @@ namespace DAO
             catch (SqlException)
             {
                 return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Este método recupera la lista de insumos habilitados
+        /// </summary>
+        /// <returns>La lista de insumos habilitados, null si ha ocurrido un problema</returns>
+        public List<DO_Insumo> obtenerListaIsumosHabilitados()
+        {
+            SqlDataAdapter adaptador = new SqlDataAdapter();
+            DataTable datatable = new DataTable();
+            List<DO_Insumo> listaInsumos = new List<DO_Insumo>();
+
+            adaptador.SelectCommand = new SqlCommand("SELECT * FROM INSUMO WHERE EST_HAB_ESTADO = 'HABILITADO'", conexion);
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                adaptador.Fill(datatable);
+
+                foreach (DataRow fila in datatable.Rows)
+                {
+                    DO_Insumo doCliente = new DO_Insumo();
+
+                    doCliente.codigo = Convert.ToInt32(fila["INS_CODIGO"]);
+                    doCliente.estado = (String)fila["EST_HAB_ESTADO"];
+                    doCliente.unidad = (String)fila["UDM_UNIDAD"];
+                    doCliente.nombre = (String)fila["INS_NOMBRE"];
+                    doCliente.cantMinStock = Convert.ToInt32(fila["INS_CANT_MIN_STOCK"]);
+
+                    listaInsumos.Add(doCliente);
+
+                }
+                return listaInsumos;
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Permite modificar el nombre, la cantidad minima, el estado y la unidad de un insumo
+        /// </summary>
+        /// <param name="doInsumo">Insumo con los datos que se van a modificar</param>
+        /// <returns>True si es ingresado, false si sucede un error</returns>
+        public bool modificarInsumo(DO_Insumo doInsumo) {
+            SqlCommand comandoModificar = new SqlCommand("UPDATE INSUMO SET INS_NOMBRE = @nombreInsumo, " +
+                "INS_CANT_MIN_STOCK = @cantMin, " +
+                "EST_HAB_ESTADO = @estado ," +
+                "UDM_UNIDAD = @unidad " +
+                "where INS_CODIGO = @codigoInsumo", conexion);
+
+            comandoModificar.Parameters.AddWithValue("@nombreInsumo", doInsumo.nombre);
+            comandoModificar.Parameters.AddWithValue("@cantMin", doInsumo.cantMinStock);
+            comandoModificar.Parameters.AddWithValue("@estado", doInsumo.estado);
+            comandoModificar.Parameters.AddWithValue("@unidad", doInsumo.unidad);
+            comandoModificar.Parameters.AddWithValue("@codigoInsumo", doInsumo.codigo);
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                if (comandoModificar.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
             }
             finally
             {
