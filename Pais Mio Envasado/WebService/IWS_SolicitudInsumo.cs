@@ -12,7 +12,35 @@ namespace WebService
     {
         [OperationContract]
         [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        List<DO_SolicitudInsumos> listarInsumos();
+        List<DO_SolicitudInsumos> listarSolicitudes();
+
+        [OperationContract]
+        [WebInvoke(
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped,
+            Method = "POST",
+            UriTemplate = "solicitudPorPedido")]
+        List<DO_SolicitudInsumos> listarSolicitudesPorPedido(int pedido);
+        /*
+         {
+	"pedido":1
+         }
+         */
+
+        [OperationContract]
+        [WebInvoke(
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped,
+            Method = "POST",
+            UriTemplate = "solicitudPorOperario")]
+        List<DO_SolicitudInsumos> listarSolicitudesPorOperario(string operario);
+        /*
+         {
+        "operario":"jm_rc@yahoo.es"
+         }
+        */
 
         [OperationContract]
         [WebInvoke(
@@ -22,6 +50,7 @@ namespace WebService
             Method = "POST", 
             UriTemplate = "ingresoSolicitud")]
         bool ingresarSolicitud(DO_SolicitudInsumos solicitud);
+
 
         [OperationContract]
         [WebInvoke(
@@ -38,7 +67,7 @@ namespace WebService
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Wrapped,
             Method = "POST",
-            UriTemplate = "ingresoSolicitud")]
+            UriTemplate = "decisionAdmin")]
         bool decision(DO_SolicitudInsumos solicitud, DO_Administrador admin, string estado);
     }
 }

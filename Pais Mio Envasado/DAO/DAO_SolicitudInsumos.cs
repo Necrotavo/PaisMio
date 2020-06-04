@@ -317,6 +317,125 @@ namespace DAO
                 }
             }
         }
+        public List<DO_SolicitudInsumos> listarSolicitudesPorPedido(int idPedido)
+        {
+            List<DO_SolicitudInsumos> listaSolicitud = new List<DO_SolicitudInsumos>();
+            SqlCommand comandoBuscar = new SqlCommand("SELECT * FROM SOLICITUD_INSUMO WHERE PED_CODIGO = " + idPedido, conexion);
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                SqlDataReader lector = comandoBuscar.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        DO_SolicitudInsumos insumo = new DO_SolicitudInsumos();
+
+                        insumo.codigoSolicitud = Convert.ToInt32(lector["SOL_CODIGO"]);
+                        insumo.correoOperario = (string)lector["OPE_CORREO"];
+                        insumo.codigoPedido = Convert.ToInt32(lector["PED_CODIGO"]);
+                        if (lector["SUP_OPE_CORREO"] is System.DBNull)
+                        {
+                            insumo.correoAdministrador = "";
+                        }
+                        else
+                        {
+                            insumo.correoAdministrador = (string)lector["SUP_OPE_CORREO"];
+                        }
+                        insumo.estado = (string)lector["EST_SOL_ESTADO"];
+                        insumo.fechaSolicitud = Convert.ToDateTime(lector["SOL_FECHA"]);
+                        insumo.codigoBodega = Convert.ToInt32(lector["BODEGA"]);
+                        listaSolicitud.Add(insumo);
+                    }
+                }
+                conexion.Close();
+                foreach (DO_SolicitudInsumos item in listaSolicitud)
+                {
+                    item.listaConsumo = listaConsumo(item.codigoSolicitud);
+                }
+                foreach (DO_SolicitudInsumos item in listaSolicitud)
+                {
+                    item.listaDescarte = listaDescarte(item.codigoSolicitud);
+                }
+                return listaSolicitud;
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+        public List<DO_SolicitudInsumos> listarSolicitudesPorOperario(string operario)
+        {
+            List<DO_SolicitudInsumos> listaSolicitud = new List<DO_SolicitudInsumos>();
+            SqlCommand comandoBuscar = new SqlCommand("SELECT * FROM SOLICITUD_INSUMO WHERE OPE_CORREO = @operario", conexion);
+            comandoBuscar.Parameters.AddWithValue("@operario", operario);
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                SqlDataReader lector = comandoBuscar.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        DO_SolicitudInsumos insumo = new DO_SolicitudInsumos();
+
+                        insumo.codigoSolicitud = Convert.ToInt32(lector["SOL_CODIGO"]);
+                        insumo.correoOperario = (string)lector["OPE_CORREO"];
+                        insumo.codigoPedido = Convert.ToInt32(lector["PED_CODIGO"]);
+                        if (lector["SUP_OPE_CORREO"] is System.DBNull)
+                        {
+                            insumo.correoAdministrador = "";
+                        }
+                        else
+                        {
+                            insumo.correoAdministrador = (string)lector["SUP_OPE_CORREO"];
+                        }
+                        insumo.estado = (string)lector["EST_SOL_ESTADO"];
+                        insumo.fechaSolicitud = Convert.ToDateTime(lector["SOL_FECHA"]);
+                        insumo.codigoBodega = Convert.ToInt32(lector["BODEGA"]);
+                        listaSolicitud.Add(insumo);
+                    }
+                }
+                conexion.Close();
+                foreach (DO_SolicitudInsumos item in listaSolicitud)
+                {
+                    item.listaConsumo = listaConsumo(item.codigoSolicitud);
+                }
+                foreach (DO_SolicitudInsumos item in listaSolicitud)
+                {
+                    item.listaDescarte = listaDescarte(item.codigoSolicitud);
+                }
+                return listaSolicitud;
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
 
         /// <summary>
         /// Retorna los insumos consumidos de una solicitud de insumos en específico
