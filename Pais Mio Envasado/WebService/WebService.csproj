@@ -17,7 +17,7 @@
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44329</IISExpressSSLPort>
+    <IISExpressSSLPort>44361</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -62,6 +62,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="WS_Bodega.svc" />
     <Content Include="WS_Cliente.svc" />
@@ -72,6 +73,9 @@
     <Content Include="WS_Usuario.svc" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="IWS_Bodega.cs" />
     <Compile Include="IWS_Cliente.cs" />
     <Compile Include="IWS_Insumo.cs" />
@@ -139,11 +143,10 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>7208</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44329/</IISUrl>
+          <IISUrl>https://localhost:44361/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>https://localhost:44361/</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
