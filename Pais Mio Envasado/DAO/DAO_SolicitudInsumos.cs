@@ -317,6 +317,135 @@ namespace DAO
                 }
             }
         }
+        /// <summary>
+        /// Retorna las solicitudes de insumos por pedido de la base de datos en una lista
+        /// </summary>
+        /// <param name="idPedido">Codigo del pedido</param>
+        /// <returns></returns>
+        public List<DO_SolicitudInsumos> listarSolicitudesPorPedido(int idPedido)
+        {
+            List<DO_SolicitudInsumos> listaSolicitud = new List<DO_SolicitudInsumos>();
+            SqlCommand comandoBuscar = new SqlCommand("SELECT * FROM SOLICITUD_INSUMO WHERE PED_CODIGO = " + idPedido, conexion);
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                SqlDataReader lector = comandoBuscar.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        DO_SolicitudInsumos insumo = new DO_SolicitudInsumos();
+
+                        insumo.codigoSolicitud = Convert.ToInt32(lector["SOL_CODIGO"]);
+                        insumo.correoOperario = (string)lector["OPE_CORREO"];
+                        insumo.codigoPedido = Convert.ToInt32(lector["PED_CODIGO"]);
+                        if (lector["SUP_OPE_CORREO"] is System.DBNull)
+                        {
+                            insumo.correoAdministrador = "";
+                        }
+                        else
+                        {
+                            insumo.correoAdministrador = (string)lector["SUP_OPE_CORREO"];
+                        }
+                        insumo.estado = (string)lector["EST_SOL_ESTADO"];
+                        insumo.fechaSolicitud = Convert.ToDateTime(lector["SOL_FECHA"]);
+                        insumo.codigoBodega = Convert.ToInt32(lector["BODEGA"]);
+                        listaSolicitud.Add(insumo);
+                    }
+                }
+                conexion.Close();
+                foreach (DO_SolicitudInsumos item in listaSolicitud)
+                {
+                    item.listaConsumo = listaConsumo(item.codigoSolicitud);
+                }
+                foreach (DO_SolicitudInsumos item in listaSolicitud)
+                {
+                    item.listaDescarte = listaDescarte(item.codigoSolicitud);
+                }
+                return listaSolicitud;
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+        /// <summary>
+        /// Retorna las solicitudes de insumos por operario de la base de datos en una lista
+        /// </summary>
+        /// <param name="operario">Correo del operario</param>
+        /// <returns></returns>
+        public List<DO_SolicitudInsumos> listarSolicitudesPorOperario(string operario)
+        {
+            List<DO_SolicitudInsumos> listaSolicitud = new List<DO_SolicitudInsumos>();
+            SqlCommand comandoBuscar = new SqlCommand("SELECT * FROM SOLICITUD_INSUMO WHERE OPE_CORREO = @operario", conexion);
+            comandoBuscar.Parameters.AddWithValue("@operario", operario);
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                SqlDataReader lector = comandoBuscar.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        DO_SolicitudInsumos insumo = new DO_SolicitudInsumos();
+
+                        insumo.codigoSolicitud = Convert.ToInt32(lector["SOL_CODIGO"]);
+                        insumo.correoOperario = (string)lector["OPE_CORREO"];
+                        insumo.codigoPedido = Convert.ToInt32(lector["PED_CODIGO"]);
+                        if (lector["SUP_OPE_CORREO"] is System.DBNull)
+                        {
+                            insumo.correoAdministrador = "";
+                        }
+                        else
+                        {
+                            insumo.correoAdministrador = (string)lector["SUP_OPE_CORREO"];
+                        }
+                        insumo.estado = (string)lector["EST_SOL_ESTADO"];
+                        insumo.fechaSolicitud = Convert.ToDateTime(lector["SOL_FECHA"]);
+                        insumo.codigoBodega = Convert.ToInt32(lector["BODEGA"]);
+                        listaSolicitud.Add(insumo);
+                    }
+                }
+                conexion.Close();
+                foreach (DO_SolicitudInsumos item in listaSolicitud)
+                {
+                    item.listaConsumo = listaConsumo(item.codigoSolicitud);
+                }
+                foreach (DO_SolicitudInsumos item in listaSolicitud)
+                {
+                    item.listaDescarte = listaDescarte(item.codigoSolicitud);
+                }
+                return listaSolicitud;
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
 
         /// <summary>
         /// Retorna los insumos consumidos de una solicitud de insumos en específico
@@ -341,11 +470,11 @@ namespace DAO
                 {
                     while (lector.Read())
                     {
-                        DO_InsumoEnBodega insumo = new DO_InsumoEnBodega();
-
-                        insumo.cantidadDisponible = Convert.ToInt32(lector["ACS_CANTIDAD"]);
-                        //NECESITO UN METODO QUE ME DEVUELVA UN DO_INSUMOS POR CODIGO (int)lector["INS_CODIGO"];
-                        listaConsumidos.Add(insumo);
+                        DO_InsumoEnBodega insumoBodega = new DO_InsumoEnBodega();
+                        DAO_Insumo insumo = new DAO_Insumo();
+                        insumoBodega.cantidadDisponible = Convert.ToInt32(lector["ACS_CANTIDAD"]);
+                        insumoBodega.insumo = insumo.buscarInsumoPorCódigo(Convert.ToInt32(lector["INS_CODIGO"]));
+                        listaConsumidos.Add(insumoBodega);
                     }
                 }
                 return listaConsumidos;
@@ -386,11 +515,11 @@ namespace DAO
                 {
                     while (lector.Read())
                     {
-                        DO_InsumoEnBodega insumo = new DO_InsumoEnBodega();
-
-                        insumo.cantidadDisponible = Convert.ToInt32(lector["PDS_CANTIDAD"]);
-                        //NECESITO UN METODO QUE ME DEVUELVA UN DO_INSUMOS POR CODIGO (int)lector["INS_CODIGO"];
-                        listaConsumidos.Add(insumo);
+                        DO_InsumoEnBodega insumoBodega = new DO_InsumoEnBodega();
+                        DAO_Insumo insumo = new DAO_Insumo();
+                        insumoBodega.cantidadDisponible = Convert.ToInt32(lector["PDS_CANTIDAD"]);
+                        insumoBodega.insumo = insumo.buscarInsumoPorCódigo(Convert.ToInt32(lector["INS_CODIGO"]));
+                        listaConsumidos.Add(insumoBodega);
                     }
                 }
                 return listaConsumidos;

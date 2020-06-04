@@ -23,13 +23,32 @@ namespace WebService
 
         }
 
-        
+        public DO_Pedido consultarDetallesPedido(Int32 codigoPedido)
+        {
+            BL_Pedido blPedido = new BL_Pedido();
 
-        public bool eliminarPedido(int codigoPedido)
+            return blPedido.consultarDatosPedido(codigoPedido);
+        }
+
+        public bool despacharPedido(Int32 codigoPedido, String correoAdmin, String estado)
+        {
+            BL_Pedido blPedido = new BL_Pedido();
+
+            return blPedido.despacharPedido(codigoPedido, correoAdmin, DateTime.Now, estado);
+        }
+
+        public bool eliminarPedido(Int32 codigoPedido)
         {
             BL_Pedido blPedido = new BL_Pedido();
 
             return blPedido.eliminarPedido(codigoPedido);
+        }
+
+        public bool modificarEstado(Int32 codigoPedido, String estado)
+        {
+            BL_Pedido blPedido = new BL_Pedido();
+
+            return blPedido.modificarEstado(codigoPedido, estado);
         }
     }
 }

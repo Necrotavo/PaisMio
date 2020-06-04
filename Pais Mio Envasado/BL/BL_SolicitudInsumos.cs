@@ -54,6 +54,20 @@ namespace BL
             lista = dao_Solicitud.listarSolicitudes();
             return lista;
         }
+        public List<DO_SolicitudInsumos> listaSolicitudesPorPedido(int idPedido)
+        {
+            List<DO_SolicitudInsumos> lista = new List<DO_SolicitudInsumos>();
+            DAO_SolicitudInsumos dao_Solicitud = new DAO_SolicitudInsumos();
+            lista = dao_Solicitud.listarSolicitudesPorPedido(idPedido);
+            return lista;
+        }
+        public List<DO_SolicitudInsumos> listaSolicitudesPorOperario(string idOpe)
+        {
+            List<DO_SolicitudInsumos> lista = new List<DO_SolicitudInsumos>();
+            DAO_SolicitudInsumos dao_Solicitud = new DAO_SolicitudInsumos();
+            lista = dao_Solicitud.listarSolicitudesPorOperario(idOpe);
+            return lista;
+        }
         /// <summary>
         /// Metodo para obtener una solicitud de insumos
         /// </summary>

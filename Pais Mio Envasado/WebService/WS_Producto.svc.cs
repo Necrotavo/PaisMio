@@ -13,6 +13,7 @@ namespace WebService
     // NOTE: In order to launch WCF Test Client for testing this service, please select WS_Producto.svc or WS_Producto.svc.cs at the Solution Explorer and start debugging.
     public class WS_Producto : IWS_Producto
     {
+
         public DO_Producto buscarProducto(int codigoProducto)
         {
             BL_Producto blProducto = new BL_Producto();
@@ -21,6 +22,16 @@ namespace WebService
 
         public bool ingresarProducto(DO_Producto doProducto)
         {
+            BL_Producto blProducto = new BL_Producto();
+            return blProducto.ingresarProducto(doProducto);
+        }
+
+        public bool ingresarProductoV2(string nombre, string descripcion)
+        {
+            DO_Producto doProducto = new DO_Producto();
+            doProducto.nombre = nombre;
+            doProducto.descripcion = descripcion;
+
             BL_Producto blProducto = new BL_Producto();
             return blProducto.ingresarProducto(doProducto);
         }

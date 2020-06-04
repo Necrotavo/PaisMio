@@ -7,15 +7,12 @@ using System.Text;
 using System.ServiceModel.Web;
 using DO;
 
-
-namespace WebService
+namespace W_S
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IWS_Cliente" in both code and config file together.
     [ServiceContract]
     public interface IWS_Cliente
     {
-
-
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, Method = "POST", UriTemplate = "Modificar")]
         bool modificarCliente(DO_Cliente cliente);
@@ -37,8 +34,7 @@ namespace WebService
         bool modificarEstado(String estado, String cedula);
 
         [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, Method ="POST", UriTemplate ="Agregar")]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, Method = "POST", UriTemplate = "Agregar")]
         bool agregarCliente(DO_Cliente doCliente);
-
     }
 }

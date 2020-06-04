@@ -31,5 +31,42 @@ namespace BL
             DAO_Pedido daoPedido = new DAO_Pedido();
             return daoPedido.eliminarPedido(codigoPedido);
         }
+
+        /// <summary>
+        /// Método para modificar el estado de un pedido
+        /// </summary>
+        /// <param name="codigoPedido">(Int32) Código del pedido.</param>
+        /// <param name="estado">(String) Nuevo estado</param>
+        /// <returns></returns>
+        public bool modificarEstado(Int32 codigoPedido, String estado)
+        {
+            DAO_Pedido daoPedido = new DAO_Pedido();
+            return daoPedido.modificarEstado(codigoPedido, estado);
+        }
+
+        /// <summary>
+        /// Método para consultar los datos de un determinado pedido.
+        /// </summary>
+        /// <param name="codigoPedido">(Int32) Código del pedido a consultar</param>
+        /// <returns>(DO_Pedido) Pedido con sus respectivos datos.</returns>
+        public DO_Pedido consultarDatosPedido(Int32 codigoPedido)
+        {
+            DAO_Pedido daoPedido = new DAO_Pedido();
+            return daoPedido.consultarDetalles(codigoPedido);
+        }
+
+        /// <summary>
+        /// Método para realizar el despacho del producto.
+        /// </summary>
+        /// <param name="codigoPedido">(Int32) Código del pedido.</param>
+        /// <param name="correoAdmin">(String) Correo del administrador que despacha el producto.</param>
+        /// <param name="fechaDespacho">(DateTime)Fecha de despacho.</param>
+        /// <param name="estado">(String) Estado del pedido.</param>
+        /// <returns></returns>
+        public bool despacharPedido(Int32 codigoPedido, String correoAdmin, DateTime fechaDespacho, String estado)
+        {
+            DAO_Pedido daoPedido = new DAO_Pedido();
+            return daoPedido.despacharPedido (codigoPedido, correoAdmin, fechaDespacho,estado);
+        }
     }
 }
