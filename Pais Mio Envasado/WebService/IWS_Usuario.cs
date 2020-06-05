@@ -51,5 +51,9 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, Method = "POST", UriTemplate = "ListaOperarios")]
         List<DO_Operario> recibirLista(List<DO_Operario> lista);
+
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, Method = "POST", UriTemplate = "modificarEstado")]
+        bool modificarEstado(string correo, String estado);
     }
 }

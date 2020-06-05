@@ -117,5 +117,17 @@ namespace WebService
 
             return lista;
         }
+
+        /// <summary>
+        /// Método para modificar el estado de un usuario
+        /// </summary>
+        /// <param name="correo">(String) Correo del usuario a modificar</param>
+        /// <param name="estado">(String) Nuevo estado del usuario</param>
+        /// <returns></returns>
+        public bool modificarEstado(String correo, String estado)
+        {
+            BL_Operario blOperario = new BL_Operario();
+            return blOperario.modificarEstadoUsuario(correo, estado);
+        }
     }
 }
