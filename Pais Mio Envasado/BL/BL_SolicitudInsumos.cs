@@ -34,9 +34,18 @@ namespace BL
         public bool decisionAdmin(DO_SolicitudInsumos solicitud, DO_Administrador admin, string estado)
         {
             DAO_SolicitudInsumos dao_Solicitud = new DAO_SolicitudInsumos();
+            solicitud = dao_Solicitud.consultarSolicitud(solicitud.codigoSolicitud);
             if (dao_Solicitud.decisionSolicitud(admin,estado,solicitud))
             {
-                return (dao_Solicitud.reducirInsumos(solicitud));
+                if (estado.Equals("APROBADA"))
+                {
+                    return (dao_Solicitud.reducirInsumos(solicitud));
+                }
+                else
+                {
+                    return true;
+                }
+                
             }
             else
             {

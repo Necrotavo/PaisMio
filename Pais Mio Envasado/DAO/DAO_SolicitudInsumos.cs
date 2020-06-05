@@ -226,7 +226,7 @@ namespace DAO
         {
             SqlCommand actualizarSolicitud = new SqlCommand("UPDATE SOLICITUD_INSUMO " +
                 "SET SUP_OPE_CORREO = @adminId, EST_SOL_ESTADO = @estado" +
-               "WHERE SOL_CODIGO = @codigoSolicitud");
+               " WHERE SOL_CODIGO = @codigoSolicitud", conexion);
             actualizarSolicitud.Parameters.AddWithValue("@adminId", admin.correo);
             actualizarSolicitud.Parameters.AddWithValue("@estado", estado);
             actualizarSolicitud.Parameters.AddWithValue("@codigoSolicitud", solicitud.codigoSolicitud);
