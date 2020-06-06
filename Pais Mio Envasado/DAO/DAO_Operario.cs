@@ -30,6 +30,7 @@ namespace DAO
             return this.queryInsertar;
         }
 
+
         /// <summary>
         /// Método encargado de insertar Operarios en la tabla OPERARIO de la base de datos
         /// </summary>
@@ -88,22 +89,19 @@ namespace DAO
                 {
                     while (lector.Read())
                     {
-
-
                         operario.correo = (String)lector["OPE_CORREO"];
                         operario.estado = new DO_EstadoHabilitacion((String)lector["EST_HAB_ESTADO"]);
                         operario.nombre = (String)lector["OPE_NOMBRE"];
                         operario.apellidos = (String)lector["OPE_APELLIDOS"];
                         operario.contrasena = (String)lector["OPE_CONTRASENA"];
-
                     }
 
                     return operario;
                 }
             }
-            catch
+            catch (Exception e)
             {
-
+                Console.WriteLine(e);
                 return null;
             }
             finally
@@ -137,6 +135,46 @@ namespace DAO
             }
 
             return lista;
+        }
+
+        /// <summary>
+        /// Método para cambiar el estado de un determinado usuario.
+        /// </summary>
+        /// <param name="estado">Nuevo estado del usuario(String)</param>
+        /// <param name="correo">Correo del uusario a modificar(String)</param>
+        /// <returns>(True) si se modificó correctamente. (False) si no se modificó.</returns>
+        public bool modificarEstado(String estado, String correo)
+        {
+            SqlCommand comandoActualizar = new SqlCommand("UPDATE OPERARIO SET EST_HAB_ESTADO = @nuevoEstado WHERE OPE_CORREO = @correo", conexion);
+            comandoActualizar.Parameters.AddWithValue("@nuevoEstado", estado );
+            comandoActualizar.Parameters.AddWithValue("@correo", correo);
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                if (comandoActualizar.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+
+            return false;
+
         }
     }
 }

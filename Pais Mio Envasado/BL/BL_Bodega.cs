@@ -87,7 +87,7 @@ namespace BL
         /// <returns>True si se ingresa la bodega</returns>
         public bool registrarBodega(DO_Bodega doBodega)
         {
-            if (doBodega is null)
+            if (doBodega is null || bodegaVacia(doBodega))
             {
                 return false;
             }
@@ -95,6 +95,17 @@ namespace BL
             {
                 DAO_Bodega daoBodega = new DAO_Bodega();
                 return daoBodega.registrarBodega(doBodega);
+            }
+        }
+
+        private bool bodegaVacia(DO_Bodega doBodega) {
+            if (doBodega.nombre is null || doBodega.direccion is null || doBodega.telefono is null 
+                || doBodega.nombre == "" || doBodega.direccion == "" || doBodega.telefono == "")
+            {
+                return true;
+            }
+            else {
+                return false;
             }
         }
 
@@ -124,8 +135,7 @@ namespace BL
         /// <returns>True si se altera el estado</returns>
         public bool cambiarEstadoBodega(Int32 codigoBodega, String estado)
         {
-            if (codigoBodega <= 0 || estado is null || estado == ""
-                || estado != "HABILITADO" || estado != "DESHABILITADO")
+            if (codigoBodega <= 0 || estado is null)
             {
                 return false;
             }
@@ -140,20 +150,59 @@ namespace BL
         /// Saca la lista de todas las bodegas
         /// </summary>
         /// <returns></returns>
-        public List<DO_Bodega> obtenerListaProductos()
+        public List<DO_Bodega> obtenerListaBodegas()
         {
             DAO_Bodega daoBodega = new DAO_Bodega();
-            return daoBodega.obtenerListaProductos(true);
+            return daoBodega.obtenerListaBodegas(true);
         }
 
         /// <summary>
         /// Saca la lista de las bodegas habilitadas
         /// </summary>
         /// <returns></returns>
-        public List<DO_Bodega> obtenerListaProductosHabilitados()
+        public List<DO_Bodega> obtenerListaBodegasHabilitados()
         {
             DAO_Bodega daoBodega = new DAO_Bodega();
-            return daoBodega.obtenerListaProductos(false);
+            return daoBodega.obtenerListaBodegas(false);
         }
+
+        /// <summary>
+        /// Permite mover una cantidad de un insumo de una bodega a otra
+        /// </summary>
+        /// <param name="codigoDesdeBodega">Código de la bodega de donde se sacan los insumos</param>
+        /// <param name="codigoHastaBodega">Código de la bodega donde se van a depositar los insumos</param>
+        /// <param name="codigoInsumo">Código del insumo que se moverá de bodega</param>
+        /// <param name="cantidad">Cantidad de insumos que se van a mover</param>
+        /// <returns>True si se mueven los insumos correctamente</returns>
+        public bool moverInsumoDeBodega(Int32 codigoDesdeBodega, Int32 codigoHastaBodega, Int32 codigoInsumo, Int32 cantidad) {
+            if (codigoDesdeBodega <= 0 || codigoHastaBodega <= 0  || codigoInsumo <= 0  || cantidad <= 0)
+            {
+                return false;
+            }
+            else
+            {
+                DAO_Bodega daoBodega = new DAO_Bodega();
+                return daoBodega.moverInsumoDeBodega(codigoDesdeBodega, codigoHastaBodega, codigoInsumo, cantidad);
+            }
+        }
+
+        /// <summary>
+        /// Permite mover todos los insumos de una bodega a otra
+        /// </summary>
+        /// <param name="codigoDesdeBodega">Código de la bodega de donde se sacan los insumos</param>
+        /// <param name="codigoHastaBodega">Código de la bodega donde se van a depositar los insumos</param>
+        /// <returns>True si se mueven los insumos correctamente</returns>
+        //public bool moverTodosInsumosDeBodega(Int32 codigoDesdeBodega, Int32 codigoHastaBodega)
+        //{
+        //    if (codigoDesdeBodega <= 0 || codigoHastaBodega <= 0)
+        //    {
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        DAO_Bodega daoBodega = new DAO_Bodega();
+        //        return daoBodega.moverTodosInsumosDeBodega(codigoDesdeBodega, codigoHastaBodega);
+        //    }
+        //}
     }
 }

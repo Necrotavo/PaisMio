@@ -21,21 +21,49 @@ namespace DO
         [DataMember(Name = "ipmCodigo")]
         public int ipmCodigo { get; set; }
 
+        [DataMember(Name = "aSensorial")]
+        public int aSensorial { get; set; }
 
-        public String aSensorial { get; set; }
+        [DataMember(Name = "exGustativo")]
+        public int exGustativo { get; set; }
 
-        public String exOlfativo { get; set; }
+        [DataMember(Name = "exOlfativo")]
+        public int exOlfativo { get; set; }
 
-        public String exVisual { get; set; }
+        [DataMember(Name = "exVisual")]
+        public int exVisual { get; set; }
 
+        [DataMember(Name = "fechaEmision")]
         public String fechaEmision { get; set; }
 
+        [DataMember(Name = "fechaVigencia")]
         public String fechaVigencia { get; set; }
 
-        public String producto { get; set; }
+        [DataMember(Name = "nombreProducto")]
+        public String nombreProducto { get; set; }
 
+        [DataMember(Name = "notas")]
         public String notas { get; set; }
 
+        [DataMember(Name = "analisisFQs")]
+        public List<DO_Analisis_FQ> analisisFQs {get; set;}
+
+        public DO_Analisis_AA(int pedCodigo, int impCodigo, int aSensorial, int exGustativo,int exOlfativo, int exVisual, String fechaEmision,
+            String fechaVigencia, String nombreProducto, String notas, List<DO_Analisis_FQ> analisisFQs){
+            this.pedCodigo = pedCodigo;
+            this.ipmCodigo = impCodigo;
+            this.aSensorial = aSensorial;
+            this.exGustativo = exGustativo;
+            this.exOlfativo = exOlfativo;
+            this.exVisual = exVisual;
+            this.fechaEmision = fechaEmision;
+            this.fechaVigencia = fechaVigencia;
+            this.nombreProducto = nombreProducto;
+            this.notas = notas;
+            this.analisisFQs = analisisFQs;
+        }
+
+        public DO_Analisis_AA () { }
 
     }
 }
