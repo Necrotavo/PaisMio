@@ -29,7 +29,11 @@ namespace DAO
         public String getQueryInsertar() {
             return this.queryInsertar;
         }
-
+        /// <summary>
+        /// Ejecuta el procedure de generar contraseña de la base de datos
+        /// </summary>
+        /// <param name="correo">correo del operario del cual se quiere generar una nueva contraseña</param>
+        /// <returns></returns>
         public bool generarContrasena(string correo)
         {
             SqlCommand ejecutarProcedimiento = new SqlCommand("EXEC newPass @correo", conexion);
@@ -59,7 +63,35 @@ namespace DAO
             }
 
         }
+        public bool cambiarContrasena(string correo, string contrasena)
+        {
+            SqlCommand comando = new SqlCommand("UPDATE OPERARIO SET OPE_CONTRASENA = @contrasena WHERE OPE_CORREO = @correo", conexion);
+            comando.Parameters.AddWithValue("@correo", correo);
+            comando.Parameters.AddWithValue("@contrasena", Encrypt.GetSHA256(contrasena));
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                comando.ExecuteNonQuery();
 
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+            finally
+            {
+
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
         /// <summary>
         /// Método encargado de insertar Operarios en la tabla OPERARIO de la base de datos
         /// </summary>
