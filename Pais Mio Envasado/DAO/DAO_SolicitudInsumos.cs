@@ -226,7 +226,7 @@ namespace DAO
         {
             SqlCommand actualizarSolicitud = new SqlCommand("UPDATE SOLICITUD_INSUMO " +
                 "SET SUP_OPE_CORREO = @adminId, EST_SOL_ESTADO = @estado" +
-               "WHERE SOL_CODIGO = @codigoSolicitud");
+               " WHERE SOL_CODIGO = @codigoSolicitud", conexion);
             actualizarSolicitud.Parameters.AddWithValue("@adminId", admin.correo);
             actualizarSolicitud.Parameters.AddWithValue("@estado", estado);
             actualizarSolicitud.Parameters.AddWithValue("@codigoSolicitud", solicitud.codigoSolicitud);
@@ -317,6 +317,135 @@ namespace DAO
                 }
             }
         }
+        /// <summary>
+        /// Retorna las solicitudes de insumos por pedido de la base de datos en una lista
+        /// </summary>
+        /// <param name="idPedido">Codigo del pedido</param>
+        /// <returns></returns>
+        public List<DO_SolicitudInsumos> listarSolicitudesPorPedido(int idPedido)
+        {
+            List<DO_SolicitudInsumos> listaSolicitud = new List<DO_SolicitudInsumos>();
+            SqlCommand comandoBuscar = new SqlCommand("SELECT * FROM SOLICITUD_INSUMO WHERE PED_CODIGO = " + idPedido, conexion);
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                SqlDataReader lector = comandoBuscar.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        DO_SolicitudInsumos insumo = new DO_SolicitudInsumos();
+
+                        insumo.codigoSolicitud = Convert.ToInt32(lector["SOL_CODIGO"]);
+                        insumo.correoOperario = (string)lector["OPE_CORREO"];
+                        insumo.codigoPedido = Convert.ToInt32(lector["PED_CODIGO"]);
+                        if (lector["SUP_OPE_CORREO"] is System.DBNull)
+                        {
+                            insumo.correoAdministrador = "";
+                        }
+                        else
+                        {
+                            insumo.correoAdministrador = (string)lector["SUP_OPE_CORREO"];
+                        }
+                        insumo.estado = (string)lector["EST_SOL_ESTADO"];
+                        insumo.fechaSolicitud = Convert.ToDateTime(lector["SOL_FECHA"]);
+                        insumo.codigoBodega = Convert.ToInt32(lector["BODEGA"]);
+                        listaSolicitud.Add(insumo);
+                    }
+                }
+                conexion.Close();
+                foreach (DO_SolicitudInsumos item in listaSolicitud)
+                {
+                    item.listaConsumo = listaConsumo(item.codigoSolicitud);
+                }
+                foreach (DO_SolicitudInsumos item in listaSolicitud)
+                {
+                    item.listaDescarte = listaDescarte(item.codigoSolicitud);
+                }
+                return listaSolicitud;
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+        /// <summary>
+        /// Retorna las solicitudes de insumos por operario de la base de datos en una lista
+        /// </summary>
+        /// <param name="operario">Correo del operario</param>
+        /// <returns></returns>
+        public List<DO_SolicitudInsumos> listarSolicitudesPorOperario(string operario)
+        {
+            List<DO_SolicitudInsumos> listaSolicitud = new List<DO_SolicitudInsumos>();
+            SqlCommand comandoBuscar = new SqlCommand("SELECT * FROM SOLICITUD_INSUMO WHERE OPE_CORREO = @operario", conexion);
+            comandoBuscar.Parameters.AddWithValue("@operario", operario);
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                SqlDataReader lector = comandoBuscar.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        DO_SolicitudInsumos insumo = new DO_SolicitudInsumos();
+
+                        insumo.codigoSolicitud = Convert.ToInt32(lector["SOL_CODIGO"]);
+                        insumo.correoOperario = (string)lector["OPE_CORREO"];
+                        insumo.codigoPedido = Convert.ToInt32(lector["PED_CODIGO"]);
+                        if (lector["SUP_OPE_CORREO"] is System.DBNull)
+                        {
+                            insumo.correoAdministrador = "";
+                        }
+                        else
+                        {
+                            insumo.correoAdministrador = (string)lector["SUP_OPE_CORREO"];
+                        }
+                        insumo.estado = (string)lector["EST_SOL_ESTADO"];
+                        insumo.fechaSolicitud = Convert.ToDateTime(lector["SOL_FECHA"]);
+                        insumo.codigoBodega = Convert.ToInt32(lector["BODEGA"]);
+                        listaSolicitud.Add(insumo);
+                    }
+                }
+                conexion.Close();
+                foreach (DO_SolicitudInsumos item in listaSolicitud)
+                {
+                    item.listaConsumo = listaConsumo(item.codigoSolicitud);
+                }
+                foreach (DO_SolicitudInsumos item in listaSolicitud)
+                {
+                    item.listaDescarte = listaDescarte(item.codigoSolicitud);
+                }
+                return listaSolicitud;
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
 
         /// <summary>
         /// Retorna los insumos consumidos de una solicitud de insumos en específico
@@ -432,17 +561,21 @@ namespace DAO
                     {
                         
 
-                        insumo.codigoSolicitud = (int)lector["SOL_CODIGO"];
+                        insumo.codigoSolicitud = Convert.ToInt32(lector["SOL_CODIGO"]);
                         insumo.correoOperario = (string)lector["OPE_CORREO"];
-                        insumo.codigoPedido = (int)lector["PED_CODIGO"];
-                        insumo.correoAdministrador = (string)lector["SUP_OPE_CORREO"];
+                        insumo.codigoPedido = Convert.ToInt32(lector["PED_CODIGO"]);
+                        if (!(lector["SUP_OPE_CORREO"] is System.DBNull))
+                        {
+                            insumo.correoAdministrador = (string)lector["SUP_OPE_CORREO"];
+                        }
                         insumo.estado = (string)lector["EST_SOL_ESTADO"];
                         insumo.fechaSolicitud = (DateTime)lector["SOL_FECHA"];
-                        insumo.codigoBodega = (int)lector["BODEGA"];
-                        insumo.listaConsumo = listaConsumo(insumo.codigoSolicitud);
-                        insumo.listaDescarte = listaDescarte(insumo.codigoSolicitud);
+                        insumo.codigoBodega = Convert.ToInt32(lector["BODEGA"]);
                     }
                 }
+                conexion.Close();
+                insumo.listaConsumo = listaConsumo(insumo.codigoSolicitud);
+                insumo.listaDescarte = listaDescarte(insumo.codigoSolicitud);
                 return insumo;
             }
             catch (SqlException)

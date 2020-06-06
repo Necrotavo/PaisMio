@@ -17,7 +17,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json, 
             ResponseFormat = WebMessageFormat.Json, 
-            BodyStyle = WebMessageBodyStyle.Bare, 
+            BodyStyle = WebMessageBodyStyle.WrappedRequest, 
             Method = "POST", 
             UriTemplate = "agregarInsumo")]
         bool agregarInsumo(DO_Insumo doInsumo);
@@ -25,5 +25,25 @@ namespace WebService
         [OperationContract]
         [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         List<DO_Insumo> obtenerListaInsumos();
+
+        [OperationContract]
+        [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        List<DO_Insumo> obtenerListaInsumosHabilitados();
+
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            Method = "POST",
+            UriTemplate = "modificarInsumo")]
+        bool modificarInsumo(DO_Insumo doInsumo);
+
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            Method = "POST",
+            UriTemplate = "buscarInsumo")]
+        DO_Insumo buscarInsumo(int codigoInsumo);
     }
 }

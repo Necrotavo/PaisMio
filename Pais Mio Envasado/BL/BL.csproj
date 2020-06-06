@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BL_Administrador.cs" />
+    <Compile Include="BL_Analisis_AA.cs" />
     <Compile Include="BL_Cliente.cs" />
     <Compile Include="BL_Bodega.cs" />
     <Compile Include="BL_Insumo.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="BL_Producto.cs" />
     <Compile Include="BL_SolicitudInsumos.cs" />
     <Compile Include="BL_Supervisor.cs" />
+    <Compile Include="BL_UnidadDeMedida.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

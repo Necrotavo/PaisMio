@@ -13,6 +13,12 @@ namespace WebService
     // NOTE: In order to launch WCF Test Client for testing this service, please select WS_Pedido.svc or WS_Pedido.svc.cs at the Solution Explorer and start debugging.
     public class WS_Pedido : IWS_Pedido
     {
+        public bool agregarAnalisisAA(DO_Analisis_AA analisisAA)
+        {
+            BL_Analisis_AA blAnalisisAA = new BL_Analisis_AA();
+            return blAnalisisAA.agregarAnalisisAA(analisisAA);
+        }
+
         public bool agregarPedido(DO_Pedido pedido)
         {
             BL_Pedido blPedido = new BL_Pedido();
@@ -23,13 +29,39 @@ namespace WebService
 
         }
 
-        
+        public DO_Analisis_AA buscarAnalisisAA(int pedCodigo)
+        {
+            BL_Analisis_AA BLanalisAA = new BL_Analisis_AA();
 
-        public bool eliminarPedido(int codigoPedido)
+            return BLanalisAA.buscarAnalisisAAporPedCodigo(pedCodigo);
+        }
+
+        public DO_Pedido consultarDetallesPedido(Int32 codigoPedido)
+        {
+            BL_Pedido blPedido = new BL_Pedido();
+
+            return blPedido.consultarDatosPedido(codigoPedido);
+        }
+
+        public bool despacharPedido(Int32 codigoPedido, String correoAdmin, String estado)
+        {
+            BL_Pedido blPedido = new BL_Pedido();
+
+            return blPedido.despacharPedido(codigoPedido, correoAdmin, DateTime.Now, estado);
+        }
+
+        public bool eliminarPedido(Int32 codigoPedido)
         {
             BL_Pedido blPedido = new BL_Pedido();
 
             return blPedido.eliminarPedido(codigoPedido);
+        }
+
+        public bool modificarEstado(Int32 codigoPedido, String estado)
+        {
+            BL_Pedido blPedido = new BL_Pedido();
+
+            return blPedido.modificarEstado(codigoPedido, estado);
         }
     }
 }

@@ -29,6 +29,12 @@ namespace BL
             return DAOoperario.agregarOperario(correo, estado, nombre, apellidos, contrasena);
         }
 
+        public bool generarContrasena(string correo)
+        {
+            DAO_Operario DAOoperario = new DAO_Operario();
+            return DAOoperario.generarContrasena(correo);
+        }
+
         public DO_Operario buscarOperario(String correo) {
             DAO_Operario DAOoperario = new DAO_Operario();
 
@@ -39,6 +45,17 @@ namespace BL
 
             DAO_Operario  DAOoperario = new DAO_Operario();
             return DAOoperario.obtenerListaOperarios();
+        }
+        /// <summary>
+        /// Método para modificar el estado de un usuario.
+        /// </summary>
+        /// <param name="correo">Correo del usuario a modificar</param>
+        /// <param name="estado">Nuevo estado del usuario</param>
+        /// <returns>(True) si se modificó correctamente. (False) si no se modificó.</returns>
+        public bool modificarEstadoUsuario(String correo, String estado)
+        {
+            DAO_Operario daoOperario = new DAO_Operario();
+            return daoOperario.modificarEstado(estado,correo);
         }
     }
 }

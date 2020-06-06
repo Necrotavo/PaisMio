@@ -31,41 +31,43 @@ namespace WebService
         }
 
 
-        //public bool crearUsuario(string tipoUsuario, string correo, string estado, string nombre, string apellidos, string contrasena)
-        //{
-        //    DO_Operario usuario = new DO_Operario();
-        //    usuario.correo = correo.Trim();
-        //    usuario.contrasena = contrasena.Trim();
-        //    usuario.nombre = nombre.Trim();
-        //    usuario.apellidos = apellidos.Trim();
-        //    usuario.estado = new DO_EstadoHabilitacion();
-        //    usuario.estado.estado = estado.Trim();
+        public bool crearUsuarioP(string tipoUsuario, string correo, string estado, string nombre, string apellidos, string contrasena)
+        {
+            DO_Operario usuario = new DO_Operario();
+            usuario.correo = correo.Trim();
+            usuario.contrasena = contrasena.Trim();
+            usuario.nombre = nombre.Trim();
+            usuario.apellidos = apellidos.Trim();
+            usuario.estado = new DO_EstadoHabilitacion();
+            usuario.estado.estado = estado.Trim();
 
-        //    if (usuario.correo.Equals("") || usuario.contrasena.Equals("") || usuario.estado.estado.Equals("")
-        //        || usuario.nombre.Equals("") || usuario.apellidos.Equals(""))
-        //    {
-        //        return false;
-        //    }
+            if (usuario.correo.Equals("") || usuario.contrasena.Equals("") || usuario.estado.estado.Equals("")
+                || usuario.nombre.Equals("") || usuario.apellidos.Equals(""))
+            {
+                return false;
+            }
 
-        //    if (tipoUsuario.Equals("OPERARIO"))
-        //    {
-        //        BL_Operario BLoperario = new BL_Operario();
+            if (tipoUsuario.Equals("OPERARIO"))
+            {
+                BL_Operario BLoperario = new BL_Operario();
 
-        //        return BLoperario.agregarOperario(correo, usuario.estado, nombre, apellidos, contrasena);
-        //    }
+                return BLoperario.agregarOperario(correo, usuario.estado, nombre, apellidos, contrasena);
+            }
 
-        //    if (tipoUsuario.Equals("SUPERVISOR")) {
-        //        BL_Supervisor BLsupervisor = new BL_Supervisor();
-        //        return BLsupervisor.agregarSupervisor(correo, usuario.estado, nombre, apellidos, contrasena);
-        //    }
+            if (tipoUsuario.Equals("SUPERVISOR"))
+            {
+                BL_Supervisor BLsupervisor = new BL_Supervisor();
+                return BLsupervisor.agregarSupervisor(correo, usuario.estado, nombre, apellidos, contrasena);
+            }
 
-        //    if (tipoUsuario.Equals("ADMINISTRADOR")) {
-        //        BL_Administrador BLadministrador = new BL_Administrador();
-        //        return BLadministrador.agregarAdministrador(correo, usuario.estado, nombre, apellidos, contrasena);
-        //    }
+            if (tipoUsuario.Equals("ADMINISTRADOR"))
+            {
+                BL_Administrador BLadministrador = new BL_Administrador();
+                return BLadministrador.agregarAdministrador(correo, usuario.estado, nombre, apellidos, contrasena);
+            }
 
-        //    return false;
-        //}
+            return false;
+        }
 
         /// <summary>
         /// Método para crear usuarios, ya sea Operario, Supervisor o Administrador
@@ -114,6 +116,24 @@ namespace WebService
         {
 
             return lista;
+        }
+
+        /// <summary>
+        /// Método para modificar el estado de un usuario
+        /// </summary>
+        /// <param name="correo">(String) Correo del usuario a modificar</param>
+        /// <param name="estado">(String) Nuevo estado del usuario</param>
+        /// <returns></returns>
+        public bool modificarEstado(String correo, String estado)
+        {
+            BL_Operario blOperario = new BL_Operario();
+            return blOperario.modificarEstadoUsuario(correo, estado);
+        }
+
+        public bool generarContrasena(string correo)
+        {
+            BL_Operario blOperario = new BL_Operario();
+            return blOperario.generarContrasena(correo);
         }
     }
 }

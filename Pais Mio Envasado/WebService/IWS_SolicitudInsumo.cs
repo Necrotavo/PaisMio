@@ -12,15 +12,63 @@ namespace WebService
     {
         [OperationContract]
         [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        List<DO_SolicitudInsumos> listarInsumos();
+        List<DO_SolicitudInsumos> listarSolicitudes();//tested
+
+        [OperationContract]
+        [WebInvoke(
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped,
+            Method = "POST",
+            UriTemplate = "solicitudPorPedido")]
+        List<DO_SolicitudInsumos> listarSolicitudesPorPedido(int pedido);//tested
+
+        /*
+         {
+	"pedido":1
+         }
+         */
+
+        [OperationContract]
+        [WebInvoke(
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped,
+            Method = "POST",
+            UriTemplate = "solicitudPorOperario")]
+        List<DO_SolicitudInsumos> listarSolicitudesPorOperario(string operario);//tested
+        /*
+         {
+        "operario":"jm_rc@yahoo.es"
+         }
+        */
 
         [OperationContract]
         [WebInvoke(
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json, 
-            BodyStyle = WebMessageBodyStyle.Wrapped, 
+            BodyStyle = WebMessageBodyStyle.Bare, 
             Method = "POST", 
             UriTemplate = "ingresoSolicitud")]
-        bool ingresarSolicitud(DO_SolicitudInsumos solicitud);
+        bool ingresarSolicitud(DO_SolicitudInsumos solicitud);//tested
+
+
+        [OperationContract]
+        [WebInvoke(
+           RequestFormat = WebMessageFormat.Json,
+           ResponseFormat = WebMessageFormat.Json,
+           BodyStyle = WebMessageBodyStyle.Wrapped,
+           Method = "POST",
+           UriTemplate = "solicitudSingular")]
+        DO_SolicitudInsumos solicitarSolicitud(int idSolicitud);//tested
+
+        [OperationContract]
+        [WebInvoke(
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped,
+            Method = "POST",
+            UriTemplate = "decisionAdmin")]
+        bool decision(DO_SolicitudInsumos solicitud, DO_Administrador admin, string estado);//tested
     }
 }

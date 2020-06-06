@@ -14,7 +14,7 @@ namespace WebService
     // NOTE: In order to launch WCF Test Client for testing this service, please select WS_SolicitudInsumo.svc or WS_SolicitudInsumo.svc.cs at the Solution Explorer and start debugging.
     public class WS_SolicitudInsumo : IWS_SolicitudInsumo
     {
-        public List<DO_SolicitudInsumos> listarInsumos()
+        public List<DO_SolicitudInsumos> listarSolicitudes()
         {
             BL_SolicitudInsumos blSolicitud = new BL_SolicitudInsumos();
             return blSolicitud.listaSolicitudes();
@@ -33,6 +33,31 @@ namespace WebService
             {
                 return false;
             }
+        }
+
+        public DO_SolicitudInsumos solicitarSolicitud(int idSolicitud)
+        {
+            BL_SolicitudInsumos blSolicitud = new BL_SolicitudInsumos();
+            return blSolicitud.consultaSolicitud(idSolicitud);
+        }
+
+        public bool decision(DO_SolicitudInsumos solicitud, DO_Administrador admin, string estado)
+        {
+
+            BL_SolicitudInsumos blSolicitud = new BL_SolicitudInsumos();
+            return blSolicitud.decisionAdmin(solicitud,admin,estado);
+        }
+
+        public List<DO_SolicitudInsumos> listarSolicitudesPorPedido(int pedido)
+        {
+            BL_SolicitudInsumos blSolicitud = new BL_SolicitudInsumos();
+            return blSolicitud.listaSolicitudesPorPedido(pedido);
+        }
+
+        public List<DO_SolicitudInsumos> listarSolicitudesPorOperario( string operario)
+        {
+            BL_SolicitudInsumos blSolicitud = new BL_SolicitudInsumos();
+            return blSolicitud.listaSolicitudesPorOperario(operario);
         }
     }
 }

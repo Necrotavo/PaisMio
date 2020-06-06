@@ -20,6 +20,12 @@ namespace WebService
             return blInsumo.guardarInsumo(doInsumo);
         }
 
+        public DO_Insumo buscarInsumo(int codigoInsumo)
+        {
+            BL_Insumo blInsumo = new BL_Insumo();
+            return blInsumo.buscarInsumo(codigoInsumo);
+        }
+
         public bool entradaInsumos(DO_Bodega doBodega, string correoAdministrador)
         {
             BL_Bodega blBodega = new BL_Bodega();
@@ -27,11 +33,22 @@ namespace WebService
             return blBodega.entradaInsumos(doBodega, correoAdministrador);
         }
 
+        public bool modificarInsumo(DO_Insumo doInsumo)
+        {
+            BL_Insumo blInsumo = new BL_Insumo();
+            return blInsumo.modificarInsumo(doInsumo);
+        }
+
         public List<DO_Insumo> obtenerListaInsumos()
         {
             BL_Insumo blInsumo = new BL_Insumo();
-
             return blInsumo.obtenerListaIsumos();
+        }
+
+        public List<DO_Insumo> obtenerListaInsumosHabilitados()
+        {
+            BL_Insumo blInsumo = new BL_Insumo();
+            return blInsumo.obtenerListaIsumosHabilitados();
         }
     }
 }

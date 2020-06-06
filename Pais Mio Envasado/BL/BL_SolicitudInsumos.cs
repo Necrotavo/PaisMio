@@ -34,9 +34,18 @@ namespace BL
         public bool decisionAdmin(DO_SolicitudInsumos solicitud, DO_Administrador admin, string estado)
         {
             DAO_SolicitudInsumos dao_Solicitud = new DAO_SolicitudInsumos();
+            solicitud = dao_Solicitud.consultarSolicitud(solicitud.codigoSolicitud);
             if (dao_Solicitud.decisionSolicitud(admin,estado,solicitud))
             {
-                return (dao_Solicitud.reducirInsumos(solicitud));
+                if (estado.Equals("APROBADA"))
+                {
+                    return (dao_Solicitud.reducirInsumos(solicitud));
+                }
+                else
+                {
+                    return true;
+                }
+                
             }
             else
             {
@@ -52,6 +61,20 @@ namespace BL
             List<DO_SolicitudInsumos> lista = new List<DO_SolicitudInsumos>();
             DAO_SolicitudInsumos dao_Solicitud = new DAO_SolicitudInsumos();
             lista = dao_Solicitud.listarSolicitudes();
+            return lista;
+        }
+        public List<DO_SolicitudInsumos> listaSolicitudesPorPedido(int idPedido)
+        {
+            List<DO_SolicitudInsumos> lista = new List<DO_SolicitudInsumos>();
+            DAO_SolicitudInsumos dao_Solicitud = new DAO_SolicitudInsumos();
+            lista = dao_Solicitud.listarSolicitudesPorPedido(idPedido);
+            return lista;
+        }
+        public List<DO_SolicitudInsumos> listaSolicitudesPorOperario(string idOpe)
+        {
+            List<DO_SolicitudInsumos> lista = new List<DO_SolicitudInsumos>();
+            DAO_SolicitudInsumos dao_Solicitud = new DAO_SolicitudInsumos();
+            lista = dao_Solicitud.listarSolicitudesPorOperario(idOpe);
             return lista;
         }
         /// <summary>

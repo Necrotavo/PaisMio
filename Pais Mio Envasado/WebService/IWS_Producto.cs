@@ -44,5 +44,9 @@ namespace WebService
             Method = "POST",
             UriTemplate = "ingresarProducto")]
         bool ingresarProducto(DO_Producto doProducto);
+
+        [OperationContract]
+        [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        bool ingresarProductoV2(string nombre, string descripcion);
     }
 }

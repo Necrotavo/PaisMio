@@ -16,11 +16,16 @@ namespace WebService
     [ServiceContract]
     public interface IWS_Usuario
     {
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Wrapped,
+            Method = "POST", UriTemplate = "GenerarPass")]
+        bool generarContrasena(string correo);
 
-
-        //[OperationContract]
-        //[WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        //bool crearUsuario(string tipoUsuario,string correo, string estado, string nombre, string apellidos, string contrasena);
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest, UriTemplate ="Crear")]
+        bool crearUsuarioP(string tipoUsuario, string correo, string estado, string nombre, string apellidos, string contrasena);
 
         /// <summary>
         /// Método para crear usuarios, ya sea Operario, Supervisor o Administrador
@@ -51,5 +56,9 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, Method = "POST", UriTemplate = "ListaOperarios")]
         List<DO_Operario> recibirLista(List<DO_Operario> lista);
+
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, Method = "POST", UriTemplate = "modificarEstado")]
+        bool modificarEstado(string correo, String estado);
     }
 }
