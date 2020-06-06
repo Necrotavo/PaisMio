@@ -271,7 +271,7 @@ export class ApiService {
 
     addAnalysis(analysis: Analysis): Observable<Analysis> {
       return this.http.post<Analysis>(apiURL, analysis, HttpOptions).pipe(
-        tap((i: Analysis) => console.log(`added analysis w/ id=${i.id}`)),
+        tap((i: Analysis) => console.log(`added analysis w/ id=${i.codigo}`)),
         catchError(this.handleErrors<Analysis>(`addAnalysis`))
       );
     }
