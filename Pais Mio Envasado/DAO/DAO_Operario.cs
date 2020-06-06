@@ -30,6 +30,35 @@ namespace DAO
             return this.queryInsertar;
         }
 
+        public bool generarContrasena(string correo)
+        {
+            SqlCommand ejecutarProcedimiento = new SqlCommand("EXEC newPass @correo", conexion);
+            ejecutarProcedimiento.Parameters.AddWithValue("@correo", correo);
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                ejecutarProcedimiento.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+            finally
+            {
+
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+
+        }
 
         /// <summary>
         /// Método encargado de insertar Operarios en la tabla OPERARIO de la base de datos

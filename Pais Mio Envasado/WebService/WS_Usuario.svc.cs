@@ -129,5 +129,11 @@ namespace WebService
             BL_Operario blOperario = new BL_Operario();
             return blOperario.modificarEstadoUsuario(correo, estado);
         }
+
+        public bool generarContrasena(string correo)
+        {
+            BL_Operario blOperario = new BL_Operario();
+            return blOperario.generarContrasena(correo);
+        }
     }
 }

@@ -29,6 +29,12 @@ namespace BL
             return DAOoperario.agregarOperario(correo, estado, nombre, apellidos, contrasena);
         }
 
+        public bool generarContrasena(string correo)
+        {
+            DAO_Operario DAOoperario = new DAO_Operario();
+            return DAOoperario.generarContrasena(correo);
+        }
+
         public DO_Operario buscarOperario(String correo) {
             DAO_Operario DAOoperario = new DAO_Operario();
 
