@@ -12,7 +12,7 @@ namespace WebService
     {
         [OperationContract]
         [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        List<DO_SolicitudInsumos> listarSolicitudes();
+        List<DO_SolicitudInsumos> listarSolicitudes();//tested
 
         [OperationContract]
         [WebInvoke(
@@ -21,7 +21,8 @@ namespace WebService
             BodyStyle = WebMessageBodyStyle.Wrapped,
             Method = "POST",
             UriTemplate = "solicitudPorPedido")]
-        List<DO_SolicitudInsumos> listarSolicitudesPorPedido(int pedido);
+        List<DO_SolicitudInsumos> listarSolicitudesPorPedido(int pedido);//tested
+
         /*
          {
 	"pedido":1
@@ -35,7 +36,7 @@ namespace WebService
             BodyStyle = WebMessageBodyStyle.Wrapped,
             Method = "POST",
             UriTemplate = "solicitudPorOperario")]
-        List<DO_SolicitudInsumos> listarSolicitudesPorOperario(string operario);
+        List<DO_SolicitudInsumos> listarSolicitudesPorOperario(string operario);//tested
         /*
          {
         "operario":"jm_rc@yahoo.es"
@@ -46,10 +47,10 @@ namespace WebService
         [WebInvoke(
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json, 
-            BodyStyle = WebMessageBodyStyle.Wrapped, 
+            BodyStyle = WebMessageBodyStyle.Bare, 
             Method = "POST", 
             UriTemplate = "ingresoSolicitud")]
-        bool ingresarSolicitud(DO_SolicitudInsumos solicitud);
+        bool ingresarSolicitud(DO_SolicitudInsumos solicitud);//tested
 
 
         [OperationContract]
@@ -59,7 +60,7 @@ namespace WebService
            BodyStyle = WebMessageBodyStyle.Wrapped,
            Method = "POST",
            UriTemplate = "solicitudSingular")]
-        DO_SolicitudInsumos solicitarSolicitud(int idSolicitud);
+        DO_SolicitudInsumos solicitarSolicitud(int idSolicitud);//tested
 
         [OperationContract]
         [WebInvoke(
@@ -68,6 +69,6 @@ namespace WebService
             BodyStyle = WebMessageBodyStyle.Wrapped,
             Method = "POST",
             UriTemplate = "decisionAdmin")]
-        bool decision(DO_SolicitudInsumos solicitud, DO_Administrador admin, string estado);
+        bool decision(DO_SolicitudInsumos solicitud, DO_Administrador admin, string estado);//tested
     }
 }
