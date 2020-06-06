@@ -14,17 +14,17 @@ import { Order } from '../models/order';
 
 
 const HttpOptions = {
-  headers: new HttpHeaders({'Content-type': 'application/json', 'Access-Control-Allow-Origin': '**',
+  headers: new HttpHeaders({'Content-type': 'application/json', 'Access-Control-Allow-Origin': '**'
    })
 };
 
 /*** Api URL constants */
-const apiURL = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
-const clientPOST = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/Agregar';
-const clientGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+const apiURL = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientes';
+const clientPOST = 'https://www.spepaismio.tk/WS_Cliente.svc/Agregar';
+const clientGET = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientes';
 //const inputGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/obtenerinsumos';
 const inputPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
-const inputGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+const inputGET = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientes';
 const productPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
 const productGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
 const inputRequestPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
@@ -191,7 +191,7 @@ export class ApiService {
 
   addInputRequest(input: InputRequest): Observable<InputRequest> {
     return this.http.post<InputRequest>(apiURL, input, HttpOptions).pipe(
-      tap((i: InputRequest) => console.log(`added input request w/ id=${i.id}`)),
+      tap((i: InputRequest) => console.log(`added input request w/ id=${i.codigo}`)),
       catchError(this.handleErrors<InputRequest>(`addInputRequest`))
     );
   }

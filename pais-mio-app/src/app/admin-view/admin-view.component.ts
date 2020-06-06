@@ -126,7 +126,7 @@ export class AdminViewComponent implements OnInit {
   }
 
   postClient(){
-    const newClient = new Client('333333', 'prueba@mail.com', 'grecia', 'HABILITADO', 'Random.INC', '(+506) 131313123');
+    const newClient = new Client('sfasdfasfsdafas', 'prueba@mail.com', 'grecia', 'HABILITADO', 'Random.INC', '(+506) 131313123');
 
     this.apiService.addClient(newClient).subscribe(
       data => {

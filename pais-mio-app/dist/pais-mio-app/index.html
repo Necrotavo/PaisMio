@@ -26,5 +26,36 @@
 <link rel="stylesheet" href="styles.09e2c710755c8867a460.css"></head>
 <body>
   <app-root></app-root>
-<script src="runtime-es2015.1eba213af0b233498d9d.js" type="module"></script><script src="runtime-es5.1eba213af0b233498d9d.js" nomodule defer></script><script src="polyfills-es5.9e286f6d9247438cbb02.js" nomodule defer></script><script src="polyfills-es2015.690002c25ea8557bb4b0.js" type="module"></script><script src="main-es2015.cf2cf012d34f365cd69c.js" type="module"></script><script src="main-es5.cf2cf012d34f365cd69c.js" nomodule defer></script></body>
+<script src="runtime-es2015.1eba213af0b233498d9d.js" type="module"></script><script src="runtime-es5.1eba213af0b233498d9d.js" nomodule defer></script><script src="polyfills-es5.9e286f6d9247438cbb02.js" nomodule defer></script><script src="polyfills-es2015.690002c25ea8557bb4b0.js" type="module"></script><script src="main-es2015.e3e1efdb4f97571f173a.js" type="module"></script><script src="main-es5.e3e1efdb4f97571f173a.js" nomodule defer></script></body>
+
+<script type="text/javascript"> 
+  $(function () {
+    var $settings_module = $("#settings-module"),
+      $button = $("#open-settings", $settings_module),
+      $options_slider_effect = $("[data-option='slider-effect']", $settings_module),
+      $slider = $("#spacial-slider");
+      $body = $("body, html");
+
+    $button.click(function (e) {
+      e.preventDefault();
+      $settings_module.toggleClass("opened");
+    });
+
+    $body.click(function () {
+      $settings_module.removeClass("opened");
+    });
+
+    $settings_module.click(function (e) {
+      e.stopPropagation();
+    });
+
+    $options_slider_effect.click(function (e) {
+      e.preventDefault();
+      $slider.removeClass("fxSideSwing fxSoftScale fxPressAway fxPushReveal fxVGrowth fxArchiveMe fxLetMeIn fxFortuneWheel fxSwipe fxSnapIn fxStickIt fxSlideBehind fxSoftPulse fxCliffDiving")
+      .addClass($(this).data("class"));
+
+      window.navigate_slider("next");
+    })
+  });
+</script>
 </html>

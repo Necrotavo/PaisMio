@@ -406,36 +406,13 @@
                                 <td>
                                     <select>
                                         <option selected>Seleccionar cliente</option>
-                                        <option value="1">Pacha</option>
-                                        <option value="2">Litro</option>
+                                        <option *ngFor="let com of clientList">{{com.nombre}}</option>
                                     </select>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr *ngFor="let com of clientList">
                                 <th>
-                                    <div class="form-field">
-                                        <select>
-                                            <option selected>Producto</option>
-                                            <option value="1">Pacha</option>
-                                            <option value="2">Litro</option>
-                                        </select>
-                                    </div>
-                                </th>
-                                <td>
-                                    <div class="form-field">
-                                        <input type="number" placeholder="Cantidad...">
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <div class="form-field">
-                                        <select>
-                                            <option selected>Producto</option>
-                                            <option value="1">Pacha</option>
-                                            <option value="2">Litro</option>
-                                        </select>
-                                    </div>
+                                    {{com.nombre}}
                                 </th>
                                 <td>
                                     <div class="form-field">
@@ -795,7 +772,7 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <textarea id="message-text"></textarea>
+                                        <textarea id="description-text"></textarea>
                                     </div>
                                 </td>
                             </tr>

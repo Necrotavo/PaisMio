@@ -1,0 +1,7 @@
+{
+    "/WS_Cliente.svc/*": {
+    "target": "https://www.spepaismio.tk/WS_Cliente.svc/",
+    "secure": false,
+    "changeOrigin": true
+    }
+}

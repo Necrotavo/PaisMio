@@ -27,4 +27,35 @@
 <body>
   <app-root></app-root>
 </body>
+
+<script type="text/javascript"> 
+  $(function () {
+    var $settings_module = $("#settings-module"),
+      $button = $("#open-settings", $settings_module),
+      $options_slider_effect = $("[data-option='slider-effect']", $settings_module),
+      $slider = $("#spacial-slider");
+      $body = $("body, html");
+
+    $button.click(function (e) {
+      e.preventDefault();
+      $settings_module.toggleClass("opened");
+    });
+
+    $body.click(function () {
+      $settings_module.removeClass("opened");
+    });
+
+    $settings_module.click(function (e) {
+      e.stopPropagation();
+    });
+
+    $options_slider_effect.click(function (e) {
+      e.preventDefault();
+      $slider.removeClass("fxSideSwing fxSoftScale fxPressAway fxPushReveal fxVGrowth fxArchiveMe fxLetMeIn fxFortuneWheel fxSwipe fxSnapIn fxStickIt fxSlideBehind fxSoftPulse fxCliffDiving")
+      .addClass($(this).data("class"));
+
+      window.navigate_slider("next");
+    })
+  });
+</script>
 </html>
