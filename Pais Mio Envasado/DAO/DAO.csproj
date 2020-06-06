@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO_Administrador.cs" />
+    <Compile Include="DAO_Analisis_AA.cs" />
     <Compile Include="DAO_Bodega.cs" />
     <Compile Include="DAO_Cliente.cs" />
     <Compile Include="DAO_Insumo.cs" />

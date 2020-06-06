@@ -30,6 +30,7 @@ namespace DAO
             return this.queryInsertar;
         }
 
+
         /// <summary>
         /// Método encargado de insertar Operarios en la tabla OPERARIO de la base de datos
         /// </summary>
@@ -88,22 +89,19 @@ namespace DAO
                 {
                     while (lector.Read())
                     {
-
-
                         operario.correo = (String)lector["OPE_CORREO"];
                         operario.estado = new DO_EstadoHabilitacion((String)lector["EST_HAB_ESTADO"]);
                         operario.nombre = (String)lector["OPE_NOMBRE"];
                         operario.apellidos = (String)lector["OPE_APELLIDOS"];
                         operario.contrasena = (String)lector["OPE_CONTRASENA"];
-
                     }
 
                     return operario;
                 }
             }
-            catch
+            catch (Exception e)
             {
-
+                Console.WriteLine(e);
                 return null;
             }
             finally

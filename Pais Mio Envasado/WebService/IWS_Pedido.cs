@@ -33,6 +33,12 @@ namespace WebService
         [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.WrappedRequest, Method = "POST", UriTemplate = "Despachar")]
         bool despacharPedido(Int32 codigoPedido, String correoAdmin, String estado);
 
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, Method = "POST", UriTemplate = "AgregarAnalisisAA")]
+        bool agregarAnalisisAA(DO_Analisis_AA analisisAA);
 
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, Method = "POST", UriTemplate = "BuscarAnalisisAA")]
+        DO_Analisis_AA buscarAnalisisAA(int pedCodigo);
     }
 }
