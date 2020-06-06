@@ -51,6 +51,7 @@
     <Compile Include="BL_Producto.cs" />
     <Compile Include="BL_SolicitudInsumos.cs" />
     <Compile Include="BL_Supervisor.cs" />
+    <Compile Include="BL_UnidadDeMedida.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -561,17 +561,21 @@ namespace DAO
                     {
                         
 
-                        insumo.codigoSolicitud = (int)lector["SOL_CODIGO"];
+                        insumo.codigoSolicitud = Convert.ToInt32(lector["SOL_CODIGO"]);
                         insumo.correoOperario = (string)lector["OPE_CORREO"];
-                        insumo.codigoPedido = (int)lector["PED_CODIGO"];
-                        insumo.correoAdministrador = (string)lector["SUP_OPE_CORREO"];
+                        insumo.codigoPedido = Convert.ToInt32(lector["PED_CODIGO"]);
+                        if (!(lector["SUP_OPE_CORREO"] is System.DBNull))
+                        {
+                            insumo.correoAdministrador = (string)lector["SUP_OPE_CORREO"];
+                        }
                         insumo.estado = (string)lector["EST_SOL_ESTADO"];
                         insumo.fechaSolicitud = (DateTime)lector["SOL_FECHA"];
-                        insumo.codigoBodega = (int)lector["BODEGA"];
-                        insumo.listaConsumo = listaConsumo(insumo.codigoSolicitud);
-                        insumo.listaDescarte = listaDescarte(insumo.codigoSolicitud);
+                        insumo.codigoBodega = Convert.ToInt32(lector["BODEGA"]);
                     }
                 }
+                conexion.Close();
+                insumo.listaConsumo = listaConsumo(insumo.codigoSolicitud);
+                insumo.listaDescarte = listaDescarte(insumo.codigoSolicitud);
                 return insumo;
             }
             catch (SqlException)
