@@ -31,7 +31,7 @@ namespace BL
         /// <param name="admin">El encargado de tomar la decisión</param>
         /// <param name="estado">El estado al cual pasa la solicitud (aceptada o rechazada)</param>
         /// <returns></returns>
-        public bool decisionAdmin(DO_SolicitudInsumos solicitud, DO_Administrador admin, string estado)
+        public bool decisionAdmin(DO_SolicitudInsumos solicitud, DO_Operario admin, string estado)
         {
             DAO_SolicitudInsumos dao_Solicitud = new DAO_SolicitudInsumos();
             solicitud = dao_Solicitud.consultarSolicitud(solicitud.codigoSolicitud);
