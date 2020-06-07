@@ -45,5 +45,21 @@ namespace WebService
             Method = "POST",
             UriTemplate = "buscarInsumo")]
         DO_Insumo buscarInsumo(int codigoInsumo);
+
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            Method = "POST",
+            UriTemplate = "agregarUnidad")]
+        bool agregarUnidadDeMedida(String unidad);
+
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            Method = "GET",
+            UriTemplate = "listarUnidades")]
+        List<String> listarUnidades();
     }
 }
