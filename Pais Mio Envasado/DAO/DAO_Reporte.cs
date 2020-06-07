@@ -16,103 +16,103 @@ namespace DAO
     {
         private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ConnectionString);
 
-        public List<DO_InsumoEnBodega> obtenerListaInsumosConsumidos(String inicio, String final) {
-            try
-            {
-                //Formato del string para la fecha 2020-05-30
-                SqlDataAdapter adaptador = new SqlDataAdapter();
-                DataTable datatable = new DataTable();
-                List<DO_InsumoEnBodega> listaInsumosConsumidos = new List<DO_InsumoEnBodega>();
+        //public List<DO_InsumoEnBodega> obtenerListaInsumosConsumidos(String inicio, String final) {
+        //    try
+        //    {
+        //        //Formato del string para la fecha 2020-05-30
+        //        SqlDataAdapter adaptador = new SqlDataAdapter();
+        //        DataTable datatable = new DataTable();
+        //        List<DO_InsumoEnBodega> listaInsumosConsumidos = new List<DO_InsumoEnBodega>();
 
-                adaptador.SelectCommand = new SqlCommand("Select INS_CODIGO, SUM(ACS_CANTIDAD) AS TOTAL_POR_INSUMO from SOL_A_CONSUMIR_INS " +
-                    "INNER JOIN (Select SOL_CODIGO from SOLICITUD_INSUMO " +
-                    "where SOL_FECHA BETWEEN CONVERT(datetime, @fechaInicio) AND CONVERT(datetime, @fechaFinal)) as temporal " +
-                    "ON SOL_A_CONSUMIR_INS.SOL_CODIGO = temporal.SOL_CODIGO GROUP BY INS_CODIGO; ", conexion);
+        //        adaptador.SelectCommand = new SqlCommand("Select INS_CODIGO, SUM(ACS_CANTIDAD) AS TOTAL_POR_INSUMO from SOL_A_CONSUMIR_INS " +
+        //            "INNER JOIN (Select SOL_CODIGO from SOLICITUD_INSUMO " +
+        //            "where SOL_FECHA BETWEEN CONVERT(datetime, @fechaInicio) AND CONVERT(datetime, @fechaFinal)) as temporal " +
+        //            "ON SOL_A_CONSUMIR_INS.SOL_CODIGO = temporal.SOL_CODIGO GROUP BY INS_CODIGO; ", conexion);
 
-                adaptador.SelectCommand.Parameters.AddWithValue("@fechaInicio", inicio);
-                adaptador.SelectCommand.Parameters.AddWithValue("@fechaFinal", final);
+        //        adaptador.SelectCommand.Parameters.AddWithValue("@fechaInicio", inicio);
+        //        adaptador.SelectCommand.Parameters.AddWithValue("@fechaFinal", final);
 
-                if (conexion.State != ConnectionState.Open)
-                {
-                    conexion.Open();
-                }
+        //        if (conexion.State != ConnectionState.Open)
+        //        {
+        //            conexion.Open();
+        //        }
 
-                adaptador.Fill(datatable);
+        //        adaptador.Fill(datatable);
 
-                foreach (DataRow fila in datatable.Rows)
-                {
-                    DO_InsumoEnBodega insumoConsumido = new DO_InsumoEnBodega();
-                    insumoConsumido.insumo = new DO_Insumo();
+        //        foreach (DataRow fila in datatable.Rows)
+        //        {
+        //            DO_InsumoEnBodega insumoConsumido = new DO_InsumoEnBodega();
+        //            insumoConsumido.insumo = new DO_Insumo();
 
-                    insumoConsumido.insumo.codigo = Convert.ToInt32(fila["INS_CODIGO"]);
-                    insumoConsumido.cantidadDisponible = Convert.ToInt32(fila["TOTAL_POR_INSUMO"]);
+        //            insumoConsumido.insumo.codigo = Convert.ToInt32(fila["INS_CODIGO"]);
+        //            insumoConsumido.cantidadDisponible = Convert.ToInt32(fila["TOTAL_POR_INSUMO"]);
                     
-                    listaInsumosConsumidos.Add(insumoConsumido);
+        //            listaInsumosConsumidos.Add(insumoConsumido);
 
-                }
-                return listaInsumosConsumidos;
-            }
-            catch (SqlException)
-            {
-                return null;
-            }
-            finally {
-                if (conexion.State != ConnectionState.Closed)
-                {
-                    conexion.Close();
-                }
-            }
-        }
+        //        }
+        //        return listaInsumosConsumidos;
+        //    }
+        //    catch (SqlException)
+        //    {
+        //        return null;
+        //    }
+        //    finally {
+        //        if (conexion.State != ConnectionState.Closed)
+        //        {
+        //            conexion.Close();
+        //        }
+        //    }
+        //}
 
-        public List<DO_InsumoEnBodega> obtenerListaInsumosDescartados(String inicio, String final)
-        {
-            try
-            {
-                //Formato del string para la fecha 2020-05-30
-                SqlDataAdapter adaptador = new SqlDataAdapter();
-                DataTable datatable = new DataTable();
-                List<DO_InsumoEnBodega> listaInsumosDescartados = new List<DO_InsumoEnBodega>();
+        //public List<DO_InsumoEnBodega> obtenerListaInsumosDescartados(String inicio, String final)
+        //{
+        //    try
+        //    {
+        //        //Formato del string para la fecha 2020-05-30
+        //        SqlDataAdapter adaptador = new SqlDataAdapter();
+        //        DataTable datatable = new DataTable();
+        //        List<DO_InsumoEnBodega> listaInsumosDescartados = new List<DO_InsumoEnBodega>();
 
-                adaptador.SelectCommand = new SqlCommand("Select INS_CODIGO, SUM(PDS_CANTIDAD) AS TOTAL_POR_INSUMO from POR_DESCARTE " +
-                    "INNER JOIN (Select SOL_CODIGO from SOLICITUD_INSUMO " +
-                    "where SOL_FECHA BETWEEN CONVERT(datetime, @fechaInicio) AND CONVERT(datetime, @fechaFinal)) as temporal " +
-                    "ON POR_DESCARTE.SOL_CODIGO = temporal.SOL_CODIGO GROUP BY INS_CODIGO; ", conexion);
+        //        adaptador.SelectCommand = new SqlCommand("Select INS_CODIGO, SUM(PDS_CANTIDAD) AS TOTAL_POR_INSUMO from POR_DESCARTE " +
+        //            "INNER JOIN (Select SOL_CODIGO from SOLICITUD_INSUMO " +
+        //            "where SOL_FECHA BETWEEN CONVERT(datetime, @fechaInicio) AND CONVERT(datetime, @fechaFinal)) as temporal " +
+        //            "ON POR_DESCARTE.SOL_CODIGO = temporal.SOL_CODIGO GROUP BY INS_CODIGO; ", conexion);
 
-                adaptador.SelectCommand.Parameters.AddWithValue("@fechaInicio", inicio);
-                adaptador.SelectCommand.Parameters.AddWithValue("@fechaFinal", final);
+        //        adaptador.SelectCommand.Parameters.AddWithValue("@fechaInicio", inicio);
+        //        adaptador.SelectCommand.Parameters.AddWithValue("@fechaFinal", final);
 
-                if (conexion.State != ConnectionState.Open)
-                {
-                    conexion.Open();
-                }
+        //        if (conexion.State != ConnectionState.Open)
+        //        {
+        //            conexion.Open();
+        //        }
 
-                adaptador.Fill(datatable);
+        //        adaptador.Fill(datatable);
 
-                foreach (DataRow fila in datatable.Rows)
-                {
-                    DO_InsumoEnBodega insumoConsumido = new DO_InsumoEnBodega();
-                    insumoConsumido.insumo = new DO_Insumo();
+        //        foreach (DataRow fila in datatable.Rows)
+        //        {
+        //            DO_InsumoEnBodega insumoConsumido = new DO_InsumoEnBodega();
+        //            insumoConsumido.insumo = new DO_Insumo();
 
-                    insumoConsumido.insumo.codigo = Convert.ToInt32(fila["INS_CODIGO"]);
-                    insumoConsumido.cantidadDisponible = Convert.ToInt32(fila["TOTAL_POR_INSUMO"]);
+        //            insumoConsumido.insumo.codigo = Convert.ToInt32(fila["INS_CODIGO"]);
+        //            insumoConsumido.cantidadDisponible = Convert.ToInt32(fila["TOTAL_POR_INSUMO"]);
 
-                    listaInsumosDescartados.Add(insumoConsumido);
+        //            listaInsumosDescartados.Add(insumoConsumido);
 
-                }
-                return listaInsumosDescartados;
-            }
-            catch (SqlException)
-            {
-                return null;
-            }
-            finally
-            {
-                if (conexion.State != ConnectionState.Closed)
-                {
-                    conexion.Close();
-                }
-            }
-        }
+        //        }
+        //        return listaInsumosDescartados;
+        //    }
+        //    catch (SqlException)
+        //    {
+        //        return null;
+        //    }
+        //    finally
+        //    {
+        //        if (conexion.State != ConnectionState.Closed)
+        //        {
+        //            conexion.Close();
+        //        }
+        //    }
+        //}
 
         public List<DO_ReporteInsumos> reporteInsumos(String inicio, String final) {
             try

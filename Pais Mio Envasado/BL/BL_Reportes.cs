@@ -10,53 +10,53 @@ namespace BL
 {
     public class BL_Reportes
     {
-        public List<DO_ReporteInsumos> obtenerReporteInsumos(String inicio, String final) {
-            DAO_Reporte daoReporte = new DAO_Reporte();
-            List<DO_InsumoEnBodega> listaInsumosConsumidos = daoReporte.obtenerListaInsumosConsumidos(inicio, final);
-            List<DO_InsumoEnBodega> listaInsumosDescartados = daoReporte.obtenerListaInsumosDescartados(inicio, final);
-            List<DO_ReporteInsumos> insumosReportados = new List<DO_ReporteInsumos>();
+        //public List<DO_ReporteInsumos> obtenerReporteInsumos(String inicio, String final) {
+        //    DAO_Reporte daoReporte = new DAO_Reporte();
+        //    List<DO_InsumoEnBodega> listaInsumosConsumidos = daoReporte.obtenerListaInsumosConsumidos(inicio, final);
+        //    List<DO_InsumoEnBodega> listaInsumosDescartados = daoReporte.obtenerListaInsumosDescartados(inicio, final);
+        //    List<DO_ReporteInsumos> insumosReportados = new List<DO_ReporteInsumos>();
 
-            foreach (DO_InsumoEnBodega insumoEnBodega in listaInsumosConsumidos)
-            {
-                DO_ReporteInsumos doIsumoReportable = new DO_ReporteInsumos();
+        //    foreach (DO_InsumoEnBodega insumoEnBodega in listaInsumosConsumidos)
+        //    {
+        //        DO_ReporteInsumos doIsumoReportable = new DO_ReporteInsumos();
 
-                doIsumoReportable.insumo = insumoEnBodega.insumo;
-                doIsumoReportable.cantidadConsumida = insumoEnBodega.cantidadDisponible;
+        //        doIsumoReportable.insumo = insumoEnBodega.insumo;
+        //        doIsumoReportable.cantidadConsumida = insumoEnBodega.cantidadDisponible;
 
-                insumosReportados.Add(doIsumoReportable);
-            }
+        //        insumosReportados.Add(doIsumoReportable);
+        //    }
 
-            foreach (DO_InsumoEnBodega insumoEnBodega in listaInsumosDescartados)
-            {
-                Int32 indiceEncontrado = existeInsumoReportado(insumoEnBodega.insumo.codigo, insumosReportados);
-                if (indiceEncontrado != -1)
+        //    foreach (DO_InsumoEnBodega insumoEnBodega in listaInsumosDescartados)
+        //    {
+        //        Int32 indiceEncontrado = existeInsumoReportado(insumoEnBodega.insumo.codigo, insumosReportados);
+        //        if (indiceEncontrado != -1)
 
-                {
-                    insumosReportados.ElementAt(indiceEncontrado).cantidadDescartada = insumoEnBodega.cantidadDisponible;
-                }
-                else {
-                    DO_ReporteInsumos doIsumoReportable = new DO_ReporteInsumos();
+        //        {
+        //            insumosReportados.ElementAt(indiceEncontrado).cantidadDescartada = insumoEnBodega.cantidadDisponible;
+        //        }
+        //        else {
+        //            DO_ReporteInsumos doIsumoReportable = new DO_ReporteInsumos();
 
-                    doIsumoReportable.insumo = insumoEnBodega.insumo;
-                    doIsumoReportable.cantidadDescartada = insumoEnBodega.cantidadDisponible;
+        //            doIsumoReportable.insumo = insumoEnBodega.insumo;
+        //            doIsumoReportable.cantidadDescartada = insumoEnBodega.cantidadDisponible;
 
-                    insumosReportados.Add(doIsumoReportable);
-                }
-            }
+        //            insumosReportados.Add(doIsumoReportable);
+        //        }
+        //    }
 
-            return insumosReportados;
-        }
+        //    return insumosReportados;
+        //}
 
-        private Int32 existeInsumoReportado(Int32 codigoInsumo, List<DO_ReporteInsumos> insumosReportados) {
-            for (int index = 0; index < insumosReportados.Count(); index++)
-            {
-                if (insumosReportados.ElementAt(index).insumo.codigo == codigoInsumo)
-                {
-                    return index;
-                }
-            }
-            return -1;
-        }
+        //private Int32 existeInsumoReportado(Int32 codigoInsumo, List<DO_ReporteInsumos> insumosReportados) {
+        //    for (int index = 0; index < insumosReportados.Count(); index++)
+        //    {
+        //        if (insumosReportados.ElementAt(index).insumo.codigo == codigoInsumo)
+        //        {
+        //            return index;
+        //        }
+        //    }
+        //    return -1;
+        //}
 
         public List<DO_ReporteInsumos> reporteInsumos(String inicio, String final) {
             if (inicio is null || final is null

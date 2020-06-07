@@ -13,11 +13,11 @@ namespace WebService
     // NOTE: In order to launch WCF Test Client for testing this service, please select WS_Reporte.svc or WS_Reporte.svc.cs at the Solution Explorer and start debugging.
     public class WS_Reporte : IWS_Reporte
     {
-        public List<DO_ReporteInsumos> obtenerReporteInsumos(string fechaInicio, string fechaFinal)
-        {
-            BL_Reportes blReporte = new BL_Reportes();
-            return blReporte.obtenerReporteInsumos(fechaInicio, fechaFinal);
-        }
+        //public List<DO_ReporteInsumos> obtenerReporteInsumos(string fechaInicio, string fechaFinal)
+        //{
+        //    BL_Reportes blReporte = new BL_Reportes();
+        //    return blReporte.obtenerReporteInsumos(fechaInicio, fechaFinal);
+        //}
 
         public List<DO_ReporteInsumos> reporteInsumos(string fechaInicio, string fechaFinal)
         {
