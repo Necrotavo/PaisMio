@@ -222,7 +222,7 @@ namespace DAO
         /// <param name="estado"> Nombre del estado a asignar(Debe ser un estado valido) </param>
         /// <param name="solicitud">La solicitud de insumos</param>
         /// <returns></returns>
-        public bool decisionSolicitud(DO_Administrador admin, string estado, DO_SolicitudInsumos solicitud)
+        public bool decisionSolicitud(DO_Operario admin, string estado, DO_SolicitudInsumos solicitud)
         {
             SqlCommand actualizarSolicitud = new SqlCommand("UPDATE SOLICITUD_INSUMO " +
                 "SET SUP_OPE_CORREO = @adminId, EST_SOL_ESTADO = @estado" +

@@ -1,17 +1,15 @@
 export class User {
-    cedula: string;
     correo: string;
-    direccion: string;
     estado: string;
     nombre: string;
-    telefono: string;
-
-    constructor(cedula: string, correo: string, direccion: string, estado: string, nombre: string, telefono: string) {
-        this.cedula = cedula;
-        this.correo = correo;
-        this.direccion = direccion;
-        this.estado = estado;
-        this.nombre = nombre;
-        this.telefono = telefono;
+    apellidos: string;
+    contrasena: string;
+    
+    constructor(correo: string, estado: string, nombre: string, apellidos: string, contrasena: string) {
+            this.correo = correo;
+            this.estado = estado;
+            this.nombre = nombre;
+            this.apellidos = apellidos;
+            this.contrasena = contrasena;
     }
 }

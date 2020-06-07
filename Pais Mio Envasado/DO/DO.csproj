@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DO_Administrador.cs" />
     <Compile Include="DO_Analisis_AA.cs" />
     <Compile Include="DO_Analisis_FQ.cs" />
     <Compile Include="DO_Bodega.cs" />
@@ -55,9 +54,7 @@
     <Compile Include="DO_Producto.cs" />
     <Compile Include="DO_ProductoEnPedido.cs" />
     <Compile Include="DO_SolicitudInsumos.cs" />
-    <Compile Include="DO_Supervisor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DO_UnidadDeMedida.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

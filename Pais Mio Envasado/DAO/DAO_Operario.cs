@@ -48,7 +48,7 @@ namespace DAO
 
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
                 return false;
@@ -78,7 +78,7 @@ namespace DAO
 
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
                 return false;
@@ -119,7 +119,7 @@ namespace DAO
                 comandoInsertar.ExecuteNonQuery();
 
                 return true;
-            } catch (Exception e) {
+            } catch (Exception) {
 
                 return false;
             } finally {

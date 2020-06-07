@@ -42,7 +42,7 @@ namespace DAO
                     return true;
                 }
             }
-            catch (SqlException e)
+            catch (SqlException)
             {
                 return false;
             }
@@ -106,7 +106,7 @@ namespace DAO
                     return true;
                 }
             }
-            catch (SqlException e)
+            catch (SqlException)
             {
                 return false;
             }
@@ -137,7 +137,7 @@ namespace DAO
                 return Convert.ToInt32(obtenerCodigo.ExecuteScalar());
 
             }
-            catch (SqlException e)
+            catch (SqlException)
             {
                 return 0;
             }
@@ -170,7 +170,7 @@ namespace DAO
                 return Convert.ToInt32(obtenerCodigo.ExecuteScalar());
 
             }
-            catch (SqlException e)
+            catch (SqlException)
             {
                 return 0;
             }
@@ -210,7 +210,7 @@ namespace DAO
                     return 0;
                 }
             }
-            catch (SqlException e)
+            catch (SqlException)
             {
                 return 0;
             }
@@ -240,7 +240,7 @@ namespace DAO
                 return Convert.ToInt32(obtenerCodigo.ExecuteScalar());
 
             }
-            catch (SqlException e)
+            catch (SqlException)
             {
                 return 0;
             }
@@ -277,7 +277,7 @@ namespace DAO
                     return false;
                 }
             }
-            catch (SqlException e)
+            catch (SqlException)
             {
                 return false;
             }
