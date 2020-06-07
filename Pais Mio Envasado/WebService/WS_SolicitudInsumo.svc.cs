@@ -41,7 +41,7 @@ namespace WebService
             return blSolicitud.consultaSolicitud(idSolicitud);
         }
 
-        public bool decision(DO_SolicitudInsumos solicitud, DO_Administrador admin, string estado)
+        public bool decision(DO_SolicitudInsumos solicitud, DO_Operario admin, string estado)
         {
 
             BL_SolicitudInsumos blSolicitud = new BL_SolicitudInsumos();
