@@ -59,8 +59,15 @@ namespace BL
         }
 
         public List<DO_ReporteInsumos> reporteInsumos(String inicio, String final) {
-            DAO_Reporte daoReporte = new DAO_Reporte();
-            return daoReporte.reporteInsumos(inicio, final);
+            if (inicio is null || final is null
+                || inicio == "" || final == "")
+            {
+                return null;
+            }
+            else {
+                DAO_Reporte daoReporte = new DAO_Reporte();
+                return daoReporte.reporteInsumos(inicio, final);
+            }
         }
     }
 }

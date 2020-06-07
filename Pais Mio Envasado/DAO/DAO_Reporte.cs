@@ -163,8 +163,10 @@ namespace DAO
                         insumoConsumido.cantidadDescartada = Convert.ToInt32(cantDescartada);
                     }
 
-                    listaReportados.Add(insumoConsumido);
+                    DAO_Insumo daoInsumo = new DAO_Insumo();
+                    insumoConsumido.insumo.nombre = daoInsumo.obtenerNombreInsumo(insumoConsumido.insumo.codigo);
 
+                    listaReportados.Add(insumoConsumido);
                 }
                 return listaReportados;
             }

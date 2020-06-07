@@ -309,5 +309,42 @@ namespace DAO
                 }
             }
         }
+
+        public String obtenerNombreInsumo(Int32 codigoInsumo) {
+            SqlCommand consulta = new SqlCommand("SELECT INS_NOMBRE FROM INSUMO WHERE INS_CODIGO = @codigo ", conexion);
+            consulta.Parameters.AddWithValue("@codigo", codigoInsumo);
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                SqlDataReader lector = consulta.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    String nombre = "";
+                    while (lector.Read())
+                    {
+                        nombre = (String)lector["INS_NOMBRE"];
+                    }
+                    return nombre;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
     }
 }
