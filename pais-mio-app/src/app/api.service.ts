@@ -21,7 +21,6 @@ const HttpOptions = {
 const apiURL = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientes';
 const clientPOST = 'https://www.spepaismio.tk/WS_Cliente.svc/Agregar';
 const clientGET = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientes';
-//const inputGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/obtenerinsumos';
 const inputPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
 const inputGET = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientes';
 const productPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';

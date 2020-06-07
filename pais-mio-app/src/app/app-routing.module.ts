@@ -35,9 +35,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-
-/** Good practice recommendation
-export const routingComponents = [IndexPmAppComponent, AdminViewComponent, ChangePasswordComponent,
-  InventoryControlComponent, OrderViewComponent, RecoverPasswordComponent, ReportComparativeComponent,
-  ReportMonthlyComponent, SignInComponent, SignUpComponent, UserViewComponent];
-*/

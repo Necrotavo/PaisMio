@@ -49,7 +49,7 @@ export class AdminViewComponent implements OnInit {
 
   /** Models */
   clientModel = new Client('', '', '', '', '', '');
-  userModel = new User('', '', '', '', '', '');
+  userModel = new User('', '', '', '', '');
 
   ngOnInit(): void {
 
@@ -130,7 +130,6 @@ export class AdminViewComponent implements OnInit {
 
   postClient(){
 
-    //const newClient = new Client('111111111', 'prueba@mail.com', 'grecia', 'HABILITADO', 'Random.INC', '(+506) 131313123');
     this.clientModel.estado = 'HABILITADO';
     console.log(this.clientModel);
     this.apiService.addClient(this.clientModel).subscribe(
