@@ -69,7 +69,7 @@ export class ApiService {
 
   addOrder(order: Order): Observable<Order> {
     return this.http.post<Order>(apiURL, order, HttpOptions).pipe(
-      tap((i: Order) => console.log(`added order w/ id=${i.id}`)),
+      tap((i: Order) => console.log(`added order w/ id=${i.codigo}`)),
       catchError(this.handleErrors<Order>(`addOrder`))
     );
   }
@@ -229,7 +229,7 @@ export class ApiService {
 
   addProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(apiURL, product, HttpOptions).pipe(
-      tap((i: Product) => console.log(`added product w/ id=${i.id}`)),
+      tap((i: Product) => console.log(`added product w/ id=${i.codigo}`)),
       catchError(this.handleErrors<Product>(`addProduct`))
     );
   }
@@ -269,7 +269,7 @@ export class ApiService {
 
     addAnalysis(analysis: Analysis): Observable<Analysis> {
       return this.http.post<Analysis>(apiURL, analysis, HttpOptions).pipe(
-        tap((i: Analysis) => console.log(`added analysis w/ id=${i.codigo}`)),
+        tap((i: Analysis) => console.log(`added analysis w/ id=${i.pedCodigo}`)),
         catchError(this.handleErrors<Analysis>(`addAnalysis`))
       );
     }

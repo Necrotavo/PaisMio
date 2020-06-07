@@ -12,8 +12,9 @@ export class Analysis {
     notas: string;
     analisisFQs: AnalysisPC[];
 
-    constructor(pedCodigo: number,ipmCodigo: number, aSensorial: number, exGustativo: number, exOlfativo: number,
-        exVisual: number, fechaEmision: string, fechaVigencia: string, nombreProducto: string, notas: string, analisisFQs: AnalysisPC[]){
+    constructor(pedCodigo: number, ipmCodigo: number, aSensorial: number, exGustativo: number, exOlfativo: number,
+                exVisual: number, fechaEmision: string, fechaVigencia: string, nombreProducto: string, notas: string,
+                analisisFQs: AnalysisPC[]){
         this.pedCodigo = pedCodigo;
         this.ipmCodigo = ipmCodigo;
         this.aSensorial = aSensorial;
