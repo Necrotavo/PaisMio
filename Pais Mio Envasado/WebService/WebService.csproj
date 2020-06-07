@@ -65,6 +65,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\CSS\Recovery.css" />
+    <Content Include="Admin\Recovery.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="WS_Bodega.svc" />
@@ -77,6 +79,13 @@
     <Content Include="WS_Usuario.svc" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\Recovery.aspx.cs">
+      <DependentUpon>Recovery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Recovery.aspx.designer.cs">
+      <DependentUpon>Recovery.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -133,7 +133,8 @@ namespace WebService
         public bool generarContrasena(string correo)
         {
             BL_Operario blOperario = new BL_Operario();
-            return blOperario.generarContrasena(correo);
+           String newPass = blOperario.generarContrasena(correo);
+            return true;
         }
     }
 }

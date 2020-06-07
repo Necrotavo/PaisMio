@@ -29,12 +29,61 @@ namespace DAO
         public String getQueryInsertar() {
             return this.queryInsertar;
         }
+
+        /// <summary>
+        /// Método que retorna la contraseña autogenerada
+        /// </summary>
+        /// <param name="correo"> correo de quien solicitó el cambio de contraseña</param>
+        /// <returns> string con la contraseña autogenerada</returns>
+        public string nuevaContrasena(string correo)
+        {
+            generarContrasena(correo);
+            string newPass = getContrasena(correo);
+            cambiarContrasenaAutogenerada(correo, newPass);
+            return newPass;
+
+        }
+
+
+        /// <summary>
+        /// Metodo que toma la oontraseña actual de un operario
+        /// </summary>
+        /// <param name="correo">Correo del operario</param>
+        /// <returns></returns>
+        private string getContrasena(string correo)
+        {
+            SqlCommand ejecutarProcedimiento = new SqlCommand("SELECT OPE_CONTRASENA FROM OPERARIO WHERE OPE_CORREO = @correo", conexion);
+            ejecutarProcedimiento.Parameters.AddWithValue("@correo", correo);
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                string contrasena = Convert.ToString(ejecutarProcedimiento.ExecuteScalar());
+
+                return contrasena;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+            finally
+            {
+
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
         /// <summary>
         /// Ejecuta el procedure de generar contraseña de la base de datos
         /// </summary>
         /// <param name="correo">correo del operario del cual se quiere generar una nueva contraseña</param>
         /// <returns></returns>
-        public bool generarContrasena(string correo)
+        private bool generarContrasena(string correo)
         {
             SqlCommand ejecutarProcedimiento = new SqlCommand("EXEC newPass @correo", conexion);
             ejecutarProcedimiento.Parameters.AddWithValue("@correo", correo);
@@ -63,11 +112,19 @@ namespace DAO
             }
 
         }
-        public bool cambiarContrasena(string correo, string contrasena)
+        /// <summary>
+        /// Metodo para cambiar la contraseña de un operario
+        /// </summary>
+        /// <param name="correo">Correo del operario</param>
+        /// <param name="contrasena">Contraseña nueva</param>
+        /// <param name="contrasenaVieja">Contraseña vieja</param>
+        /// <returns></returns>
+        public bool cambiarContrasena(string correo, string contrasena, string contrasenaVieja)
         {
-            SqlCommand comando = new SqlCommand("UPDATE OPERARIO SET OPE_CONTRASENA = @contrasena WHERE OPE_CORREO = @correo", conexion);
+            SqlCommand comando = new SqlCommand("UPDATE OPERARIO SET OPE_CONTRASENA = @contrasena WHERE OPE_CORREO = @correo AND OPE_CONTRASENA = @oldPass", conexion);
             comando.Parameters.AddWithValue("@correo", correo);
             comando.Parameters.AddWithValue("@contrasena", Encrypt.GetSHA256(contrasena));
+            comando.Parameters.AddWithValue("@oldPass", Encrypt.GetSHA256(contrasenaVieja));
             try
             {
                 if (conexion.State != ConnectionState.Open)
@@ -92,6 +149,38 @@ namespace DAO
                 }
             }
         }
+
+        public bool cambiarContrasenaAutogenerada(string correo, string contrasena)
+        {
+            SqlCommand comando = new SqlCommand("UPDATE OPERARIO SET OPE_CONTRASENA = @contrasena WHERE OPE_CORREO = @correo", conexion);
+            comando.Parameters.AddWithValue("@correo", correo);
+            comando.Parameters.AddWithValue("@contrasena", Encrypt.GetSHA256(contrasena));
+            
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                comando.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+            finally
+            {
+
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
         /// <summary>
         /// Método encargado de insertar Operarios en la tabla OPERARIO de la base de datos
         /// </summary>
@@ -109,7 +198,7 @@ namespace DAO
             comandoInsertar.Parameters.AddWithValue("@estado", estado.estado);
             comandoInsertar.Parameters.AddWithValue("@nombre", nombre);
             comandoInsertar.Parameters.AddWithValue("@apellidos", apellidos);
-            comandoInsertar.Parameters.AddWithValue("@contrasena", contrasena);
+            comandoInsertar.Parameters.AddWithValue("@contrasena", Encrypt.GetSHA256(contrasena));
 
             try {
                 if (conexion.State != ConnectionState.Open)
