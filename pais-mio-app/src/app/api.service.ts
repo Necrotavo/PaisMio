@@ -14,8 +14,7 @@ import { Order } from '../models/order';
 
 
 const HttpOptions = {
-  headers: new HttpHeaders({'Content-type': 'application/json', 'Access-Control-Allow-Origin': '**'
-   })
+  headers: new HttpHeaders({'Content-type': 'application/json'})
 };
 
 /*** Api URL constants */
