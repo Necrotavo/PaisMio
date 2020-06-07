@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DO;
 using DAO;
+using System.Net.Mail;
 
 namespace BL
 {
@@ -62,5 +63,36 @@ namespace BL
             DAO_Operario daoOperario = new DAO_Operario();
             return daoOperario.modificarEstado(estado,correo);
         }
+
+        public void recuperacionContrasena(string correo) {
+            // DAO_Operario se debe validar si existe el correo
+            if (true) {
+                //generar token y guardarlo
+                //método void enviar correo(string token)
+                //
+            }
+        }
+
+        private void enviarCorreo(string token, string correoDestino) {
+            //lógica 
+            /*
+             Origen
+            Contrasena
+            url tiene el token
+            mail message 
+
+            body 
+             */
+            MailMessage message = new MailMessage("correoOrigen",correoDestino,"Recuperación de contraseña","body");
+        }
+
+        /**
+        apsx Cambio de contraseña
+        
+        primero mostrar un botón para cambiar la contraseña
+          . cuando se genere la contraseña se debe poner el token en null
+           y se le envía la contraseña nueva al correo
+
+         */
     }
 }
