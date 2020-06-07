@@ -20,6 +20,12 @@ namespace WebService
             return blInsumo.guardarInsumo(doInsumo);
         }
 
+        public bool agregarUnidadDeMedida(string unidad)
+        {
+            BL_UnidadDeMedida blUnidadDeMedida = new BL_UnidadDeMedida();
+            return blUnidadDeMedida.agregarUnidad(unidad);
+        }
+
         public DO_Insumo buscarInsumo(int codigoInsumo)
         {
             BL_Insumo blInsumo = new BL_Insumo();
@@ -31,6 +37,12 @@ namespace WebService
             BL_Bodega blBodega = new BL_Bodega();
 
             return blBodega.entradaInsumos(doBodega, correoAdministrador);
+        }
+
+        public List<string> listarUnidades()
+        {
+            BL_UnidadDeMedida blUnidadDeMedida = new BL_UnidadDeMedida();
+            return blUnidadDeMedida.listarUnidades();
         }
 
         public bool modificarInsumo(DO_Insumo doInsumo)
