@@ -17,10 +17,13 @@
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44361</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressSSLPort>44329</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <Use64BitIISExpress />
   </PropertyGroup>
@@ -69,6 +72,7 @@
     <Content Include="WS_Insumo.svc" />
     <Content Include="WS_Pedido.svc" />
     <Content Include="WS_Producto.svc" />
+    <Content Include="WS_Reporte.svc" />
     <Content Include="WS_SolicitudInsumo.svc" />
     <Content Include="WS_Usuario.svc" />
   </ItemGroup>
@@ -81,6 +85,7 @@
     <Compile Include="IWS_Insumo.cs" />
     <Compile Include="IWS_Pedido.cs" />
     <Compile Include="IWS_Producto.cs" />
+    <Compile Include="IWS_Reporte.cs" />
     <Compile Include="IWS_SolicitudInsumo.cs" />
     <Compile Include="IWS_Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,6 +103,9 @@
     </Compile>
     <Compile Include="WS_Producto.svc.cs">
       <DependentUpon>WS_Producto.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WS_Reporte.svc.cs">
+      <DependentUpon>WS_Reporte.svc</DependentUpon>
     </Compile>
     <Compile Include="WS_SolicitudInsumo.svc.cs">
       <DependentUpon>WS_SolicitudInsumo.svc</DependentUpon>
