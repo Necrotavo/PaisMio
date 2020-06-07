@@ -541,7 +541,7 @@
             </div>
 
             <div class="modal-body">
-                <form>
+                <form #userForm="ngForm" (ngSubmit)="postUser()" novalidate>
                     <div class="form-group">
                         <div class="tab-header clearfix">
                             <div class="float-left">
@@ -563,7 +563,14 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="text" placeholder="Ingresar datos...">
+                                        <input type="text" required #nombreU="ngModel" pattern="^\d{50}$" class="form-control"
+                                        [class.is-invalid]="nombreU.invalid && nombreU.touched"
+                                         placeholder="Nombre" name="nombreU" [(ngModel)]="userModel.nombre">
+                                        <div *ngIf="nombreU.errors && (nombreU.invalid || nombreU.touched)">
+                                            <p><small class="text-danger" *ngIf="nombreU.errors.required && nombreU.touched">Nombre requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="nombreU.errors.pattern">Nombre invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="nombreU.errors.pattern">50 dígitos</small></p>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -573,7 +580,14 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="text" placeholder="Ingresar datos...">
+                                        <input type="text" required #apellidosU="ngModel" pattern="^\d{100}$" class="form-control"
+                                        [class.is-invalid]="apellidosU.invalid && apellidosU.touched"
+                                         placeholder="Apellidos" name="apellidosU" [(ngModel)]="userModel.nombre">
+                                        <div *ngIf="apellidosU.errors && (apellidosU.invalid || apellidosU.touched)">
+                                            <p><small class="text-danger" *ngIf="apellidosU.errors.required && apellidosU.touched">Nombre requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="apellidosU.errors.pattern">Nombre invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="apellidosU.errors.pattern">10 dígitos, sin cero al inicio ni guiones</small></p>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -583,8 +597,15 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="email" placeholder="Ingresar datos...">
-                                    </div>
+                                        <input type="text" #correoU="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"  required
+                                         class="form-control" [class.is-invalid]="correoU.invalid && correoU.touched"
+                                         placeholder="correo@mail.com" name="correoU" [(ngModel)]="userModel.correo">
+                                         <div *ngIf="correoU.errors && (correoU.invalid || correoU.touched)">
+                                            <p><small class="text-danger" *ngIf="correoU.errors.required && correoU.touched">Correo requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="correoU.errors.pattern">Correo invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="correoU.errors.pattern">Ejemplo: xxxx@mail.com</small></p>
+                                        </div>
+                                    </div>    
                                 </td>
                             </tr>
                             <tr>
@@ -637,7 +658,7 @@
             </div>
 
             <div class="modal-body">
-                <form>
+                <form #clientForm="ngForm" (ngSubmit)="postClient()" novalidate>
                     <div class="form-group">
                         <div class="tab-header clearfix">
                             <div class="float-left">
@@ -660,7 +681,14 @@
                                 <td>
                                     
                                     <div class="form-field">
-                                        <input type="text" placeholder="Ingresar datos...">
+                                        <input type="text" required #cedula="ngModel" pattern="^\d{10}$" class="form-control"
+                                        [class.is-invalid]="cedula.invalid && cedula.touched"
+                                         placeholder="5-555-555" name="cedula" [(ngModel)]="clientModel.cedula">
+                                        <div *ngIf="cedula.errors && (cedula.invalid || cedula.touched)">
+                                            <p><small class="text-danger" *ngIf="cedula.errors.required && cedula.touched">Cédula requerida</small></p>
+                                            <p><small class="text-danger" *ngIf="cedula.errors.pattern">Cédula  invalida</small></p>
+                                            <p><small class="text-danger" *ngIf="cedula.errors.pattern">10 dígitos, sin cero al inicio ni guiones</small></p>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -670,7 +698,10 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="text" placeholder="Ingresar datos...">
+                                        <input type="text" required #nombre="ngModel" class="form-control"
+                                        [class.is-invalid]="nombre.invalid && nombre.touched"
+                                         placeholder="Nombre" name="nombre" [(ngModel)]="clientModel.nombre">
+                                         <small class="text-danger" [class.d-none]="nombre.valid || nombre.untouched">Nombre requerido</small>
                                     </div>
                                 </td>
                             </tr>
@@ -680,7 +711,10 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="text" placeholder="Ingresar datos...">
+                                        <input type="text" required #direccion="ngModel" class="form-control"
+                                        [class.is-invalid]="direccion.invalid && direccion.touched"
+                                         placeholder="Dirección" name="direccion" [(ngModel)]="clientModel.direccion">
+                                         <small class="text-danger" [class.d-none]="direccion.valid || direccion.untouched">Dirección requerida</small>
                                     </div>
                                 </td>
                             </tr>
@@ -690,7 +724,14 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="text" placeholder="Ingresar datos...">
+                                        <input type="tel" required #telefono="ngModel" pattern="\([0-9]{3}\) [0-9]{4}[ -][0-9]{4}" class="form-control"
+                                        [class.is-invalid]="telefono.invalid && telefono.touched"
+                                         placeholder="(506) 5555-5555" name="telefono" [(ngModel)]="clientModel.telefono">
+                                        <div *ngIf="telefono.errors && (telefono.invalid || telefono.touched)">
+                                            <p><small class="text-danger" *ngIf="telefono.errors.required && telefono.touched">Correo requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="telefono.errors.pattern">Teléfono invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="telefono.errors.pattern">Ejemplo: (506) 5555-5555</small></p>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -700,8 +741,15 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="email" placeholder="Ingresar datos...">
-                                    </div>
+                                        <input type="text" #correo="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"  required
+                                         class="form-control" [class.is-invalid]="correo.invalid && correo.touched"
+                                         placeholder="correo@mail.com" name="correo" [(ngModel)]="clientModel.correo">
+                                         <div *ngIf="correo.errors && (correo.invalid || correo.touched)">
+                                            <p><small class="text-danger" *ngIf="correo.errors.required && correo.touched">Correo requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="correo.errors.pattern">Correo invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="correo.errors.pattern">Ejemplo: xxxx@mail.com</small></p>
+                                        </div>
+                                    </div>    
                                 </td>
                             </tr>
                         </tbody>
@@ -711,7 +759,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" (click)="postClient()">Crear</button>
+                <button [disabled]="clientForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal" (click)="postClient()">Crear</button>
             </div>
 
         </div>
