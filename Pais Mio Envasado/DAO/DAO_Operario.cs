@@ -30,11 +30,16 @@ namespace DAO
             return this.queryInsertar;
         }
 
+        /// <summary>
+        /// Método que retorna la contraseña autogenerada
+        /// </summary>
+        /// <param name="correo"> correo de quien solicitó el cambio de contraseña</param>
+        /// <returns> string con la contraseña autogenerada</returns>
         public string nuevaContrasena(string correo)
         {
             generarContrasena(correo);
             string newPass = getContrasena(correo);
-            cambiarContrasena(correo, newPass, newPass);
+            cambiarContrasenaAutogenerada(correo, newPass);
             return newPass;
 
         }
@@ -119,7 +124,7 @@ namespace DAO
             SqlCommand comando = new SqlCommand("UPDATE OPERARIO SET OPE_CONTRASENA = @contrasena WHERE OPE_CORREO = @correo AND OPE_CONTRASENA = @oldPass", conexion);
             comando.Parameters.AddWithValue("@correo", correo);
             comando.Parameters.AddWithValue("@contrasena", Encrypt.GetSHA256(contrasena));
-            comando.Parameters.AddWithValue("@contrasena", Encrypt.GetSHA256(contrasenaVieja));
+            comando.Parameters.AddWithValue("@oldPass", Encrypt.GetSHA256(contrasenaVieja));
             try
             {
                 if (conexion.State != ConnectionState.Open)
@@ -144,6 +149,38 @@ namespace DAO
                 }
             }
         }
+
+        public bool cambiarContrasenaAutogenerada(string correo, string contrasena)
+        {
+            SqlCommand comando = new SqlCommand("UPDATE OPERARIO SET OPE_CONTRASENA = @contrasena WHERE OPE_CORREO = @correo", conexion);
+            comando.Parameters.AddWithValue("@correo", correo);
+            comando.Parameters.AddWithValue("@contrasena", Encrypt.GetSHA256(contrasena));
+            
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                comando.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+            finally
+            {
+
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
         /// <summary>
         /// Método encargado de insertar Operarios en la tabla OPERARIO de la base de datos
         /// </summary>
