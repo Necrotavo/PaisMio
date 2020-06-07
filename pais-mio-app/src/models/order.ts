@@ -1,15 +1,15 @@
 import { ProductInOrder } from './productInOrder';
 export class Order {
     codigo: number;
-    cedulaCliente: String;
-    correoAdminIngreso : String;
-    correoAdminDespacho : String;
-    estado: String;
-    fecheIngreso : String;
-    fechaDespacho : String;
-    listaProductos : ProductInOrder[];
+    cedulaCliente: string;
+    correoAdminIngreso: string;
+    correoAdminDespacho: string;
+    estado: string;
+    fecheIngreso: string;
+    fechaDespacho: string;
+    listaProductos: ProductInOrder[];
 
-    constructor(codigo : number, cedulaCliente: String, correoAdminIngreso: String, listaProductos: ProductInOrder[]){
+    constructor(codigo: number, cedulaCliente: string, correoAdminIngreso: string, listaProductos: ProductInOrder[]){
 
         this.codigo = codigo;
         this.cedulaCliente = cedulaCliente;

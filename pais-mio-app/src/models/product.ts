@@ -1,10 +1,10 @@
 export class Product {
     codigo: number;
-    nombre: String;
-    descripcion: String;
-    estado: String;
+    nombre: string;
+    descripcion: string;
+    estado: string;
 
-    constructor (codigo : number, nombre: String, descripcion: String, estado: String){
+    constructor(codigo: number, nombre: string, descripcion: string, estado: string){
 
         this.codigo = codigo;
         this.nombre = nombre;
