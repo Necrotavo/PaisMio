@@ -13,13 +13,13 @@ namespace WebService
     [ServiceContract]
     public interface IWS_Reporte
     {
-        [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json,
-            ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
-            Method = "POST",
-            UriTemplate = "obtenerReporteInsumos")]
-        List<DO_ReporteInsumos> obtenerReporteInsumos(string fechaInicio, string fechaFinal);
+        //[OperationContract]
+        //[WebInvoke(RequestFormat = WebMessageFormat.Json,
+        //    ResponseFormat = WebMessageFormat.Json,
+        //    BodyStyle = WebMessageBodyStyle.WrappedRequest,
+        //    Method = "POST",
+        //    UriTemplate = "obtenerReporteInsumos")]
+        //List<DO_ReporteInsumos> obtenerReporteInsumos(string fechaInicio, string fechaFinal);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
