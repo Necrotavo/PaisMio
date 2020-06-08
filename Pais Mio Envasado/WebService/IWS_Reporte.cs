@@ -28,5 +28,13 @@ namespace WebService
             Method = "POST",
             UriTemplate = "reporteInsumos")]
         List<DO_ReporteInsumos> reporteInsumos(string fechaInicio, string fechaFinal);
+
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            Method = "POST",
+            UriTemplate = "reportePedidos")]
+        List<DO_ReportePedido> reportePedidos(int mes, int anho);
     }
 }

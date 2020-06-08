@@ -181,12 +181,21 @@ namespace DAO
             }
         }
 
+        /// <summary>
+        /// Método para obtener los pedidos despachados en un mes determinado.
+        /// </summary>
+        /// <param name="mes">Mes de los pedidos a buscar (int)</param>
+        /// <param name="anho">Año del pedido a buscar(int)</param>
+        /// <returns>Lista de pedidos en el mes especificado</returns>
         public List<DO_ReportePedido> reportePedidos(Int32 mes, Int32 anho)
         {
 
             List<DO_ReportePedido> listaReportes = new List<DO_ReportePedido>();
             SqlCommand comandoBuscar = new SqlCommand("SELECT PEDIDO.PED_CODIGO, CLIENTE.CLI_NOMBRE, PEDIDO.ESTADO, PEDIDO.OPE_CORREO,PEDIDO.ADM_OPE_CORREO," +
                                                     "PEDIDO.PED_FECHA_INGRESO,PEDIDO.PED_FECHA_DESPACHO FROM PEDIDO, CLIENTE WHERE PEDIDO.CLI_CEDULA = CLIENTE.CLI_CEDULA AND (MONTH(PEDIDO.PED_FECHA_DESPACHO) = @mes AND YEAR(PEDIDO.PED_FECHA_DESPACHO) = @anho)",conexion);
+
+            comandoBuscar.Parameters.AddWithValue("@mes", mes);
+            comandoBuscar.Parameters.AddWithValue("@anho", anho);
 
             try
             {
@@ -202,14 +211,18 @@ namespace DAO
                     {
                         DO_ReportePedido reportePedido = new DO_ReportePedido();
 
-                        reportePedido.codigo = Convert.ToInt32(lector["PEDIDO.PED_CODIGO"]);
-                        
+                        reportePedido.codigo = Convert.ToInt32(lector["PED_CODIGO"]);
+                        reportePedido.nombreCliente = (string)lector["CLI_NOMBRE"];
+                        reportePedido.nombreAdminIngreso = (string)lector["OPE_CORREO"];
+                        reportePedido.nombreAdminDespacho = (string)lector["ADM_OPE_CORREO"];
+                        reportePedido.fechaIngreso = (DateTime)lector["PED_FECHA_INGRESO"];
+                        reportePedido.fechaDespacho = (DateTime)lector["PED_FECHA_DESPACHO"];
                         
 
                         listaReportes.Add(reportePedido);
                     }
                 }
-                return listaReportes;
+                
             }
             catch (SqlException)
             {
@@ -222,6 +235,70 @@ namespace DAO
                     conexion.Close();
                 }
             }
+
+            obtenerProductos(listaReportes);
+
+            return listaReportes;
+        }
+
+        /// <summary>
+        /// Método para obtener agregar los productos en la lista de pedidos de reporte
+        /// </summary>
+        /// <param name="listaReportes"></param>
+        public void obtenerProductos(List<DO_ReportePedido> listaReportes)
+        {
+                      
+            foreach (DO_ReportePedido pedido in listaReportes)
+            {
+                SqlCommand comandoBuscarProductos = new SqlCommand("SELECT PRODUCTO.PRO_NOMBRE, PRODUCTO.PRO_CODIGO,PRODUCTO.PRO_DESCRIPCION,PRODUCTO.EST_HAB_ESTADO, PED_POSEE_PRO.PPP_CANTIDAD " +
+                "FROM PED_POSEE_PRO,PRODUCTO WHERE PED_POSEE_PRO.PRO_CODIGO = PRODUCTO.PRO_CODIGO AND (PED_POSEE_PRO.PED_CODIGO = @codigoPedido)", conexion);
+                comandoBuscarProductos.Parameters.AddWithValue("@codigoPedido", pedido.codigo);
+                List<DO_ProductoEnPedido> listaPedidos = new List<DO_ProductoEnPedido>();
+
+                try
+                {
+                    if (conexion.State != ConnectionState.Open)
+                    {
+                        conexion.Open();
+                    }
+
+                    SqlDataReader lector = comandoBuscarProductos.ExecuteReader();
+                    if (lector.HasRows)
+                    {
+                        while (lector.Read())
+                        {
+                            DO_ProductoEnPedido productoEnPedido = new DO_ProductoEnPedido();
+                            DO_Producto producto = new DO_Producto();
+                            
+
+                            producto.codigo = Convert.ToInt32(lector["PRO_CODIGO"]);
+                            producto.nombre = (String)lector["PRO_NOMBRE"];
+                            producto.descripcion = (String)lector["PRO_DESCRIPCION"];
+                            producto.estado = (String)lector["EST_HAB_ESTADO"];
+
+                            productoEnPedido.producto = producto;
+                            productoEnPedido.cantidad = Convert.ToInt32(lector["PPP_CANTIDAD"]);
+
+                            listaPedidos.Add(productoEnPedido);
+                        }
+                    }
+                }
+                catch (SqlException)
+                {
+                  
+                }
+                finally
+                {
+                    if (conexion.State != ConnectionState.Closed)
+                    {
+                        conexion.Close();
+                    }
+                }
+
+                pedido.productos = listaPedidos;
+            }
+
+
         }
     }
 }

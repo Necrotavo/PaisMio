@@ -24,5 +24,11 @@ namespace WebService
             BL_Reportes blReporte = new BL_Reportes();
             return blReporte.reporteInsumos(fechaInicio, fechaFinal);
         }
+
+        public List<DO_ReportePedido> reportePedidos(int mes, int anho)
+        {
+            BL_Reportes blReporte = new BL_Reportes();
+            return blReporte.reportePedidos(mes,anho);
+        }
     }
 }

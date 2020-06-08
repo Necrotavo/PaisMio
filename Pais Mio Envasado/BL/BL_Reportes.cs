@@ -62,5 +62,17 @@ namespace BL
             DAO_Reporte daoReporte = new DAO_Reporte();
             return daoReporte.reporteInsumos(inicio, final);
         }
+
+        /// <summary>
+        /// Método que se enarga de listar los pedidos con sus respectivos datos que ocurrieron en un mes determinado.
+        /// </summary>
+        /// <param name="mes">Mes a buscar los pedidos</param>
+        /// <param name="anho">Año de los pedidos a buscar</param>
+        /// <returns>Lista de reporte de pedidos de ese mes</returns>
+        public List<DO_ReportePedido> reportePedidos(Int32 mes, Int32 anho)
+        {
+            DAO_Reporte daoReporte = new DAO_Reporte();
+            return daoReporte.reportePedidos(mes,anho);
+        }
     }
 }
