@@ -180,5 +180,48 @@ namespace DAO
                 }
             }
         }
+
+        public List<DO_ReportePedido> reportePedidos(Int32 mes, Int32 anho)
+        {
+
+            List<DO_ReportePedido> listaReportes = new List<DO_ReportePedido>();
+            SqlCommand comandoBuscar = new SqlCommand("SELECT PEDIDO.PED_CODIGO, CLIENTE.CLI_NOMBRE, PEDIDO.ESTADO, PEDIDO.OPE_CORREO,PEDIDO.ADM_OPE_CORREO," +
+                                                    "PEDIDO.PED_FECHA_INGRESO,PEDIDO.PED_FECHA_DESPACHO FROM PEDIDO, CLIENTE WHERE PEDIDO.CLI_CEDULA = CLIENTE.CLI_CEDULA AND (MONTH(PEDIDO.PED_FECHA_DESPACHO) = @mes AND YEAR(PEDIDO.PED_FECHA_DESPACHO) = @anho)",conexion);
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                SqlDataReader lector = comandoBuscar.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        DO_ReportePedido reportePedido = new DO_ReportePedido();
+
+                        reportePedido.codigo = Convert.ToInt32(lector["PEDIDO.PED_CODIGO"]);
+                        
+                        
+
+                        listaReportes.Add(reportePedido);
+                    }
+                }
+                return listaReportes;
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
     }
 }
