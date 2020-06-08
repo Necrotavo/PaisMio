@@ -23,11 +23,11 @@ namespace BL
         /// <param name="apellidos"> apellidos del operario</param>
         /// <param name="contrasena"> contrasena del operario</param>
         /// <returns>true si se agregó correctamente, false si ocurrió algún error</returns>
-        public bool agregarOperario(string correo, DO_EstadoHabilitacion estado, string nombre, string apellidos, string contrasena) {
+        public bool agregarOperario(DO_Operario doOperario) {
 
             DAO_Operario DAOoperario = new DAO_Operario();
 
-            return DAOoperario.agregarOperario(correo, estado, nombre, apellidos, contrasena);
+            return DAOoperario.agregarOperario(doOperario);
         }
 
         /// <summary>

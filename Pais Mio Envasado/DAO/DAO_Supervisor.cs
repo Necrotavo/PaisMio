@@ -38,15 +38,14 @@ namespace DAO
         /// <param name="contrasena"> contrasena del supervisor</param>
         /// <param name="queryOperario"> query del operario para concatenarlo al comando</param>
         /// <returns>true si se agregó correctamente, false si ocurrió algún error</returns>
-        public bool agregarSupervisor(string correo, DO_EstadoHabilitacion estado, string nombre, string apellidos, string contrasena, string queryOperario) {
+        public bool agregarSupervisor(DO_Operario doOperario, string queryOperario) {
 
             Console.WriteLine("BEGIN TRANSACTION " + queryOperario + queryInsertar + " COMMIT");
             SqlCommand comandoInsertar = new SqlCommand("BEGIN TRANSACTION "+queryOperario+queryInsertar+" COMMIT", conexion);
-            comandoInsertar.Parameters.AddWithValue("@correo", correo);
-            comandoInsertar.Parameters.AddWithValue("@estado", estado.estado);
-            comandoInsertar.Parameters.AddWithValue("@nombre", nombre);
-            comandoInsertar.Parameters.AddWithValue("@apellidos", apellidos);
-            comandoInsertar.Parameters.AddWithValue("@contrasena", contrasena);
+            comandoInsertar.Parameters.AddWithValue("@correo", doOperario.correo);
+            comandoInsertar.Parameters.AddWithValue("@estado", "HABILITADO");
+            comandoInsertar.Parameters.AddWithValue("@nombre", doOperario.nombre);
+            comandoInsertar.Parameters.AddWithValue("@apellidos", doOperario.apellidos);
 
             try
             {

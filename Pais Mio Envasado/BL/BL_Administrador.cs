@@ -22,7 +22,7 @@ namespace BL
         /// <param name="apellidos"> apellidos del administrador</param>
         /// <param name="contrasena"> contrasena del administrador</param>
         /// <returns>true si se agregó correctamente, false si ocurrió algún error</returns>
-        public bool agregarAdministrador(string correo, DO_EstadoHabilitacion estado, string nombre, string apellidos, string contrasena) {
+        public bool agregarAdministrador(DO_Operario doOperario) {
 
             DAO_Operario DAOoperario = new DAO_Operario();
             DAO_Supervisor DAOsupervisor = new DAO_Supervisor();
@@ -30,7 +30,7 @@ namespace BL
 
             String supervisor = DAOoperario.getQueryInsertar() + DAOsupervisor.getQueryInsertar();
 
-            return DAOadministrador.agregarAdministrador(correo, estado, nombre, apellidos, contrasena, supervisor);
+            return DAOadministrador.agregarAdministrador(doOperario, supervisor);
         }
     }
 }

@@ -21,9 +21,8 @@ namespace DAO
         public DAO_Operario() {
             this.queryInsertar = "INSERT INTO OPERARIO (OPE_CORREO," + " EST_HAB_ESTADO,"
                 + " OPE_NOMBRE,"
-                + " OPE_APELLIDOS, "
-                + "OPE_CONTRASENA)"
-                + "VALUES(@correo, @estado, @nombre, @apellidos, @contrasena)";
+                + " OPE_APELLIDOS)"
+                + "VALUES(@correo, @estado, @nombre, @apellidos)";
         }
 
         public String getQueryInsertar() {
@@ -43,7 +42,6 @@ namespace DAO
             return newPass;
 
         }
-
 
         /// <summary>
         /// Metodo que toma la oontraseña actual de un operario
@@ -78,6 +76,7 @@ namespace DAO
                 }
             }
         }
+
         /// <summary>
         /// Ejecuta el procedure de generar contraseña de la base de datos
         /// </summary>
@@ -112,6 +111,7 @@ namespace DAO
             }
 
         }
+
         /// <summary>
         /// Metodo para cambiar la contraseña de un operario
         /// </summary>
@@ -190,15 +190,15 @@ namespace DAO
         /// <param name="apellidos"> apellidos del operario</param>
         /// <param name="contrasena"> contrasena del operario</param>
         /// <returns>true si se agregó correctamente, false si ocurrió algún error</returns>
-        public bool agregarOperario(string correo, DO_EstadoHabilitacion estado, string nombre,string apellidos, string contrasena) {
+        public bool agregarOperario(DO_Operario doOperario) {
 
-            SqlCommand comandoInsertar = new SqlCommand("BEGIN TRANSACTION " + queryInsertar+" COMMIT", conexion);
+            SqlCommand comandoInsertar = new SqlCommand("BEGIN TRANSACTION " + queryInsertar + " COMMIT", conexion);
       
-            comandoInsertar.Parameters.AddWithValue("@correo",correo);
-            comandoInsertar.Parameters.AddWithValue("@estado", estado.estado);
-            comandoInsertar.Parameters.AddWithValue("@nombre", nombre);
-            comandoInsertar.Parameters.AddWithValue("@apellidos", apellidos);
-            comandoInsertar.Parameters.AddWithValue("@contrasena", Encrypt.GetSHA256(contrasena));
+            comandoInsertar.Parameters.AddWithValue("@correo", doOperario.correo);
+            comandoInsertar.Parameters.AddWithValue("@estado", "HABILITADO");
+            comandoInsertar.Parameters.AddWithValue("@nombre", doOperario.nombre);
+            comandoInsertar.Parameters.AddWithValue("@apellidos", doOperario.apellidos);
+            //comandoInsertar.Parameters.AddWithValue("@contrasena", Encrypt.GetSHA256(doOperario.contrasena));
 
             try {
                 if (conexion.State != ConnectionState.Open)
@@ -207,12 +207,16 @@ namespace DAO
                 }
                 comandoInsertar.ExecuteNonQuery();
 
+                nuevaContrasena(doOperario.correo);
+                ///fALTA MANDAR LA CONTRASENA AUTOGENERADA AL CORREO DEL USUARIO
                 return true;
-            } catch (Exception) {
-
+            }
+            catch (Exception)
+            {
                 return false;
-            } finally {
-
+            }
+            finally
+            {
                 if (conexion.State != ConnectionState.Closed)
                 {
                     conexion.Close();
@@ -240,7 +244,7 @@ namespace DAO
                     while (lector.Read())
                     {
                         operario.correo = (String)lector["OPE_CORREO"];
-                        operario.estado = new DO_EstadoHabilitacion((String)lector["EST_HAB_ESTADO"]);
+                        operario.estado = (String)lector["EST_HAB_ESTADO"];
                         operario.nombre = (String)lector["OPE_NOMBRE"];
                         operario.apellidos = (String)lector["OPE_APELLIDOS"];
                         operario.contrasena = (String)lector["OPE_CONTRASENA"];
@@ -277,7 +281,7 @@ namespace DAO
             {
                 DO_Operario operario = new DO_Operario();
                 operario.correo = (String)row["OPE_CORREO"];
-                operario.estado = new DO_EstadoHabilitacion((String)row["EST_HAB_ESTADO"]);
+                operario.estado = (String)row["EST_HAB_ESTADO"];
                 operario.nombre = (String)row["OPE_NOMBRE"];
                 operario.apellidos = (String)row["OPE_APELLIDOS"];
                 operario.contrasena = (String)row["OPE_CONTRASENA"];
