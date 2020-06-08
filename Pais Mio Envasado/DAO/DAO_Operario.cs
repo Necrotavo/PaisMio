@@ -29,6 +29,143 @@ namespace DAO
             return this.queryInsertar;
         }
 
+        public DO_Operario confirmacionContrasena(string token) {
+            DO_Operario credenciales = new DO_Operario();
+
+            credenciales.correo = validarToken(token);
+            if (!credenciales.correo.Equals("")) {
+                credenciales.contrasena = nuevaContrasena(credenciales.correo);
+                eliminarToken(credenciales.correo);
+            }
+            return credenciales;
+        }
+
+        private void eliminarToken(string correo) {
+            SqlCommand comando = new SqlCommand("UPDATE OPERARIO SET TOKEN = null WHERE OPE_CORREO = @correo", conexion);
+            comando.Parameters.AddWithValue("@correo", correo);
+           
+            try
+            {
+
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                comando.ExecuteNonQuery();
+                
+            }
+            catch (Exception)
+            {
+     
+            }
+            finally
+            {
+
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        } 
+
+        private string validarToken(string token) {
+            SqlCommand comandoSelect = new SqlCommand("SELECT OPE_CORREO FROM OPERARIO WHERE TOKEN = @token", conexion);
+            comandoSelect.Parameters.AddWithValue("@token", token);
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                String exist = Convert.ToString(comandoSelect.ExecuteScalar());
+ 
+                return exist;
+                
+            }
+            catch (Exception)
+            {
+
+                return "";
+            }
+            finally
+            {
+
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
+        
+        public string generarToken(string correo) {
+
+            
+            string token = Encrypt.GetSHA256(Guid.NewGuid().ToString());
+
+            SqlCommand comando = new SqlCommand("UPDATE OPERARIO SET TOKEN = @token WHERE OPE_CORREO = @correo", conexion);
+            comando.Parameters.AddWithValue("@correo", correo);
+            comando.Parameters.AddWithValue("@token", token);
+           
+            try
+            {
+                
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                comando.ExecuteNonQuery();
+
+                return token;
+            }
+            catch (Exception)
+            {
+
+                return "";
+            }
+            finally
+            {
+
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
+        public bool validarCorreo(string correo) {
+
+            SqlCommand comandoSelect = new SqlCommand("SELECT OPE_CORREO FROM OPERARIO WHERE OPE_CORREO = @correo", conexion);
+            comandoSelect.Parameters.AddWithValue("@correo", correo);
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                String exist = Convert.ToString(comandoSelect.ExecuteScalar());
+
+                if (!exist.Equals("")) {
+                    return true;
+                }
+                
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+            finally
+            {
+
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// Método que retorna la contraseña autogenerada
         /// </summary>
@@ -330,5 +467,7 @@ namespace DAO
             return false;
 
         }
+
+        
     }
 }
