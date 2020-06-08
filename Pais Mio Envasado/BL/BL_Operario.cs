@@ -27,7 +27,23 @@ namespace BL
 
             DAO_Operario DAOoperario = new DAO_Operario();
 
-            return DAOoperario.agregarOperario(doOperario);
+            string pass = DAOoperario.agregarOperario(doOperario);
+
+
+            if (!(pass is null)) {
+
+                string subject = "Contraseña País Mío";
+
+                string body = "<p>Su contraseña temporal es: " + pass + "</p><br>" +
+                    "<a href =https://pais-mio.web.app/ >Click aquí para ir al sitio de País Mío</a><br>" +
+                    "<p>Saludos!</p>";
+
+                enviarCorreo(doOperario.correo,subject,body);
+
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -71,7 +87,7 @@ namespace BL
                 DAOoperario.generarToken(correo);
 
                 string subject = "Recuperación de contraseña";
-                string url = "https://localhost:44361/Admin/Recovery.aspx?token=" + DAOoperario.generarToken(correo);
+                string url = "https://spepaismio.tk/Admin/Recovery.aspx?token=" + DAOoperario.generarToken(correo);
                 string body = "<p>¿Usted ha solicilitado la recuperación de contraseña?</p><br>" +
                 "<p>De ser así, por favor haga click:" +
                 "<a href='" + url + "'>Click aquí para continuar</a>" +
@@ -91,7 +107,7 @@ namespace BL
             if (!operario.correo.Equals(""))
             {
                 string subject = "Recuperación de contraseña";
-                string url = "https://localhost:44361/Admin/Recovery.aspx?token=" + token;
+                string url = "https://pais-mio.web.app/";
                 string body = "<p>Su nueva contraseña es: " + operario.contrasena + "</p><br>" +
                 "<p>:" +
                 "<a href='" + url + "'>Click aquí para continuar</a>" +

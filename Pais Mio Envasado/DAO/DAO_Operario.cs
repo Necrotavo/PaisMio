@@ -327,7 +327,7 @@ namespace DAO
         /// <param name="apellidos"> apellidos del operario</param>
         /// <param name="contrasena"> contrasena del operario</param>
         /// <returns>true si se agregó correctamente, false si ocurrió algún error</returns>
-        public bool agregarOperario(DO_Operario doOperario) {
+        public string agregarOperario(DO_Operario doOperario) {
 
             SqlCommand comandoInsertar = new SqlCommand("BEGIN TRANSACTION " + queryInsertar + " COMMIT", conexion);
       
@@ -344,13 +344,13 @@ namespace DAO
                 }
                 comandoInsertar.ExecuteNonQuery();
 
-                nuevaContrasena(doOperario.correo);
+                
                 ///fALTA MANDAR LA CONTRASENA AUTOGENERADA AL CORREO DEL USUARIO
-                return true;
+                return nuevaContrasena(doOperario.correo); ;
             }
             catch (Exception)
             {
-                return false;
+                return null;
             }
             finally
             {

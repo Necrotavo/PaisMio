@@ -27,13 +27,9 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Wrapped,
+            BodyStyle = WebMessageBodyStyle.WrappedRequest,
             Method = "POST", UriTemplate = "GenerarPass")]
         bool generarContrasena(string correo);
-
-        //[OperationContract]
-        //[WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest, UriTemplate ="Crear")]
-        //bool crearUsuarioP(string tipoUsuario, string correo, string estado, string nombre, string apellidos, string contrasena);
 
         /// <summary>
         /// Método para crear usuarios, ya sea Operario, Supervisor o Administrador
@@ -47,10 +43,6 @@ namespace WebService
             Method = "POST", 
             UriTemplate = "CrearOperario")]
         bool crearUsuario(DO_Operario usuario);
-
-        //[OperationContract]
-        //[WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, Method = "POST", UriTemplate = "CrearOperario2")]
-        //bool crearUsuario2(DO_Operario usuario);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json, 
@@ -71,15 +63,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json, 
             ResponseFormat = WebMessageFormat.Json, 
-            BodyStyle = WebMessageBodyStyle.Wrapped, 
-            Method = "POST", 
-            UriTemplate = "ListaOperarios")]
-        List<DO_Operario> recibirLista(List<DO_Operario> lista);
-
-        [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, 
-            ResponseFormat = WebMessageFormat.Json, 
-            BodyStyle = WebMessageBodyStyle.Wrapped, 
+            BodyStyle = WebMessageBodyStyle.WrappedRequest, 
             Method = "POST", 
             UriTemplate = "modificarEstado")]
         bool modificarEstado(string correo, String estado);
