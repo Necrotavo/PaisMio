@@ -23,11 +23,27 @@ namespace BL
         /// <param name="apellidos"> apellidos del operario</param>
         /// <param name="contrasena"> contrasena del operario</param>
         /// <returns>true si se agregó correctamente, false si ocurrió algún error</returns>
-        public bool agregarOperario(string correo, DO_EstadoHabilitacion estado, string nombre, string apellidos, string contrasena) {
+        public bool agregarOperario(DO_Operario doOperario) {
 
             DAO_Operario DAOoperario = new DAO_Operario();
 
-            return DAOoperario.agregarOperario(correo, estado, nombre, apellidos, contrasena);
+            string pass = DAOoperario.agregarOperario(doOperario);
+
+
+            if (!(pass is null)) {
+
+                string subject = "Contraseña País Mío";
+
+                string body = "<p>Su contraseña temporal es: " + pass + "</p><br>" +
+                    "<a href =https://pais-mio.web.app/ >Click aquí para ir al sitio de País Mío</a><br>" +
+                    "<p>Saludos!</p>";
+
+                enviarCorreo(doOperario.correo,subject,body);
+
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -66,33 +82,61 @@ namespace BL
 
         public void recuperacionContrasena(string correo) {
             // DAO_Operario se debe validar si existe el correo
-            if (true) {
-                //generar token y guardarlo
-                //método void enviar correo(string token)
-                //
+            DAO_Operario DAOoperario = new DAO_Operario();
+            if (DAOoperario.validarCorreo(correo)) {
+                DAOoperario.generarToken(correo);
+
+                string subject = "Recuperación de contraseña";
+                string url = "https://spepaismio.tk/Admin/Recovery.aspx?token=" + DAOoperario.generarToken(correo);
+                string body = "<p>¿Usted ha solicilitado la recuperación de contraseña?</p><br>" +
+                "<p>De ser así, por favor haga click:" +
+                "<a href='" + url + "'>Click aquí para continuar</a>" +
+                "</p><br>" +
+                "<p> Si usted no ha solicitado la recuperación de contraseña, ignore este correo</p>";
+
+                enviarCorreo(correo,subject,body);
+            
             }
         }
 
-        private void enviarCorreo(string token, string correoDestino) {
-            //lógica 
-            /*
-             Origen
-            Contrasena
-            url tiene el token
-            mail message 
+        public void enviarNuevaContrasena(string token)
+        {
+            DAO_Operario DAOoperario = new DAO_Operario();
+            DO_Operario operario = DAOoperario.confirmacionContrasena(token);
 
-            body 
-             */
-            MailMessage message = new MailMessage("correoOrigen",correoDestino,"Recuperación de contraseña","body");
+            if (!operario.correo.Equals(""))
+            {
+                string subject = "Recuperación de contraseña";
+                string url = "https://pais-mio.web.app/";
+                string body = "<p>Su nueva contraseña es: " + operario.contrasena + "</p><br>" +
+                "<p>:" +
+                "<a href='" + url + "'>Click aquí para continuar</a>" +
+                "</p><br>" +
+                "<p> Gracias</p>";
+
+                enviarCorreo(operario.correo, subject, body);
+               
+            }
         }
 
-        /**
-        apsx Cambio de contraseña
-        
-        primero mostrar un botón para cambiar la contraseña
-          . cuando se genere la contraseña se debe poner el token en null
-           y se le envía la contraseña nueva al correo
+        private void enviarCorreo(string correoDestino, string subject, string body)
+        {
+            string correoOrigen = "spepaismio001@gmail.com";
+            string contrasena = "Pepito123.";
 
-         */
+
+            MailMessage message = new MailMessage(correoOrigen, correoDestino, subject,
+                body);
+            message.IsBodyHtml = true;
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
+            smtpClient.EnableSsl = true;
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Port = 587;
+            smtpClient.Credentials = new System.Net.NetworkCredential(correoOrigen, contrasena);
+
+            smtpClient.Send(message);
+            smtpClient.Dispose();
+        }
+
     }
 }

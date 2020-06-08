@@ -174,60 +174,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor= "let com of userList | filter:termU">
+                            <tr *ngFor= "let user of userList | filter:termU">
                                 <td>
-                                    {{com.nombre}}
+                                    {{user.nombre}}
                                 </td>
                                 <td>
-                                    {{com.correo}}
+                                    {{user.correo}}
                                 </td>
                                 <td>
-                                    {{com.rol}}
+                                    {{user.rol}}
                                 </td>
                                 <td>
-                                    <span class="badge badge-success">{{com.estado}}</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Sup
-                                </td>
-                                <td>
-                                    sup@mail.com
-                                </td>
-                                <td>
-                                    Supervisor
-                                </td>
-                                <td>
-                                    <span class="badge badge-success">Habilitado</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Op
-                                </td>
-                                <td>
-                                    op@mail.com
-                                </td>
-                                <td>
-                                    Operario
-                                </td>
-                                <td>
-                                    <span class="badge badge-success">Habilitado</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Bad Op
-                                </td>
-                                <td>
-                                    badop@mail.com
-                                </td>
-                                <td>
-                                    Operario
-                                </td>
-                                <td>
-                                    <span class="badge badge-danger">Deshabilitado</span>
+                                    <span class="badge badge-success">{{user.estado}}</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -563,9 +521,9 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="text" required #nombreU="ngModel" pattern="^\d{50}$" class="form-control"
+                                        <input type="text" required #nombreU="ngModel" class="form-control"
                                         [class.is-invalid]="nombreU.invalid && nombreU.touched"
-                                         placeholder="Nombre" name="nombreU" [(ngModel)]="userModel.nombre">
+                                         placeholder="Nombre" name="nombre" [(ngModel)]="userModel.nombre">
                                         <div *ngIf="nombreU.errors && (nombreU.invalid || nombreU.touched)">
                                             <p><small class="text-danger" *ngIf="nombreU.errors.required && nombreU.touched">Nombre requerido</small></p>
                                             <p><small class="text-danger" *ngIf="nombreU.errors.pattern">Nombre invalido</small></p>
@@ -580,9 +538,9 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="text" required #apellidosU="ngModel" pattern="^\d{100}$" class="form-control"
+                                        <input type="text" required #apellidosU="ngModel" class="form-control"
                                         [class.is-invalid]="apellidosU.invalid && apellidosU.touched"
-                                         placeholder="Apellidos" name="apellidosU" [(ngModel)]="userModel.nombre">
+                                         placeholder="Apellidos" name="apellidosU" [(ngModel)]="userModel.apellidos">
                                         <div *ngIf="apellidosU.errors && (apellidosU.invalid || apellidosU.touched)">
                                             <p><small class="text-danger" *ngIf="apellidosU.errors.required && apellidosU.touched">Nombre requerido</small></p>
                                             <p><small class="text-danger" *ngIf="apellidosU.errors.pattern">Nombre invalido</small></p>
@@ -597,7 +555,7 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="text" #correoU="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"  required
+                                        <input type="text" required #correoU="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                                          class="form-control" [class.is-invalid]="correoU.invalid && correoU.touched"
                                          placeholder="correo@mail.com" name="correoU" [(ngModel)]="userModel.correo">
                                          <div *ngIf="correoU.errors && (correoU.invalid || correoU.touched)">
@@ -614,12 +572,15 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <select>
-                                            <option selected>Seleccionar</option>
-                                            <option value="1">Operario</option>
-                                            <option value="2">Supervisor</option>
-                                            <option value="3">Administrador</option>
+                                        <select (blur)="validateRol(rolU.value)" (change)="validateRol(rolU.value)" #rolU="ngModel" 
+                                        [class.is-invalid]="rolHasError && rolU.touched"
+                                         class="form-control" name="rolU" [(ngModel)]="userModel.rol">
+                                            <option value="default">Rol de usuario</option>
+                                            <option value="OPERARIO">Operario</option>
+                                            <option value="SUPERVISOR">Supervisor</option>
+                                            <option value="ADMINISTRADOR">Administrador</option>
                                         </select>
+                                        <p><small class="text-danger" [class.d-none]="!rolHasError || rolU.untouched">Rol requerido</small></p>
                                     </div>
                                 </td>
                             </tr>
@@ -630,7 +591,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Crear</button>
+                <button button [disabled]="userForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal" (click)="postUser()">Crear</button>
             </div>
 
         </div>

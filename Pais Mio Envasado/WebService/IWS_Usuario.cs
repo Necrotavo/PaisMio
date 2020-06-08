@@ -16,49 +16,56 @@ namespace WebService
     [ServiceContract]
     public interface IWS_Usuario
     {
+
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Wrapped,
-            Method = "POST", UriTemplate = "GenerarPass")]
-        bool generarContrasena(string correo);
+            Method = "POST", UriTemplate = "RecuperarContrasena")]
+        void recuperarContrasena(string correo);
 
         [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest, UriTemplate ="Crear")]
-        bool crearUsuarioP(string tipoUsuario, string correo, string estado, string nombre, string apellidos, string contrasena);
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            Method = "POST", UriTemplate = "GenerarPass")]
+        bool generarContrasena(string correo);
 
         /// <summary>
         /// Método para crear usuarios, ya sea Operario, Supervisor o Administrador
         /// </summary>
         /// <param name="usuario">Objeto usuario</param>
-        /// <param name="tipo">Tipo del usuario</param>
         /// <returns></returns>
         [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.WrappedRequest, Method = "POST", UriTemplate = "CrearOperario")]
-        bool crearUsuario(DO_Operario usuario, String tipo);
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, 
+            ResponseFormat = WebMessageFormat.Json, 
+            BodyStyle = WebMessageBodyStyle.WrappedRequest, 
+            Method = "POST", 
+            UriTemplate = "CrearOperario")]
+        bool crearUsuario(DO_Operario usuario);
 
         [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, Method = "POST", UriTemplate = "CrearOperario2")]
-        bool crearUsuario2(DO_Operario usuario);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="correo"></param>
-        /// <returns></returns>
-        [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, Method = "POST", UriTemplate = "Consultar")]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, 
+            ResponseFormat = WebMessageFormat.Json, 
+            BodyStyle = WebMessageBodyStyle.WrappedRequest, 
+            Method = "POST", 
+            UriTemplate = "Consultar")]
         DO_Operario consultarUsuario(String correo);
 
         [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, Method = "GET", UriTemplate = "Lista")]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, 
+            ResponseFormat = WebMessageFormat.Json, 
+            BodyStyle = WebMessageBodyStyle.WrappedRequest, 
+            Method = "GET", 
+            UriTemplate = "Lista")]
         List<DO_Operario> obtenerListaOperario();
 
         [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, Method = "POST", UriTemplate = "ListaOperarios")]
-        List<DO_Operario> recibirLista(List<DO_Operario> lista);
-
-        [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped, Method = "POST", UriTemplate = "modificarEstado")]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, 
+            ResponseFormat = WebMessageFormat.Json, 
+            BodyStyle = WebMessageBodyStyle.WrappedRequest, 
+            Method = "POST", 
+            UriTemplate = "modificarEstado")]
         bool modificarEstado(string correo, String estado);
     }
 }

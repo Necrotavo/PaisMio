@@ -21,6 +21,8 @@ const HttpOptions = {
 const apiURL = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientes';
 const clientPOST = 'https://www.spepaismio.tk/WS_Cliente.svc/Agregar';
 const clientGET = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientes';
+const userPOST = 'https://www.spepaismio.tk/WS_Cliente.svc/Agregar';
+const userGET = 'https://www.spepaismio.tk/WS_Usuario.svc/Lista';
 const inputPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
 const inputGET = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientes';
 const productPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
@@ -92,7 +94,7 @@ export class ApiService {
 
   /** Users CRUD */
   getUser(): Observable<User[]> {
-    return this.http.get<User[]>(`${apiURL}`)
+    return this.http.get<User[]>(`${clientGET}`)
     .pipe(
       tap(user => console.log('fetch user')),
       catchError(this.handleErrors(`getUser`, []))
@@ -108,7 +110,7 @@ export class ApiService {
   }
 
   addUser(user: User): Observable<User> {
-    return this.http.post<User>(apiURL, user, HttpOptions).pipe(
+    return this.http.post<User>(userPOST, user, HttpOptions).pipe(
       tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
       catchError(this.handleErrors<User>(`addUser`))
     );

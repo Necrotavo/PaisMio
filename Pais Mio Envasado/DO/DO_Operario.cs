@@ -18,7 +18,7 @@ namespace DO
         public String correo { set; get; }
 
         [DataMember(Name = "estado")]
-        public DO_EstadoHabilitacion estado { set; get; }
+        public String estado { set; get; }
 
         [DataMember(Name = "nombre")]
         public String nombre { set; get; }
@@ -29,13 +29,17 @@ namespace DO
         [DataMember(Name = "contrasena")]
         public String contrasena { set; get; }
 
-        public DO_Operario(string correo, DO_EstadoHabilitacion estado, string nombre, string apellidos, string contrasena)
+        [DataMember(Name = "rol")]
+        public String rol { set; get; }
+
+        public DO_Operario(string correo, string estado, string nombre, string apellidos, string contrasena, string rol)
         {
             this.correo = correo;
             this.estado = estado;
             this.nombre = nombre;
             this.apellidos = apellidos;
             this.contrasena = contrasena;
+            this.rol = rol;
         }
 
         public DO_Operario()
