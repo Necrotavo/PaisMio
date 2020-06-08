@@ -47,9 +47,12 @@ export class AdminViewComponent implements OnInit {
   termC: string; // for Clients
   termP: string; // for Products
 
+  /** User rol combo validation */
+  rolHasError = true;
+
   /** Models */
   clientModel = new Client('', '', '', '', '', '');
-  userModel = new User('', '', '', '', '');
+  userModel = new User('', '', '', '', '', 'default');
 
   ngOnInit(): void {
 
@@ -119,11 +122,10 @@ export class AdminViewComponent implements OnInit {
   }
 
   postUser(){
-    const newClient = new Client('333333', 'prueba@mail.com', 'grecia', 'HABILITADO', 'Random.INC', '(+506) 131313123');
-
-    this.apiService.addClient(newClient).subscribe(
+    this.userModel.estado = 'HABILITADO';
+    this.apiService.addUser(this.userModel).subscribe(
       data => {
-        this.objClient = data;
+        this.objUser = data;
       }
     );
   }
@@ -147,6 +149,14 @@ export class AdminViewComponent implements OnInit {
         this.objClient = data;
       }
     );
+  }
+
+  validateRol(value){
+    if (value === 'default'){
+      this.rolHasError = true;
+    } else {
+      this.rolHasError = false;
+    }
   }
 
 }
