@@ -136,5 +136,11 @@ namespace WebService
            String newPass = blOperario.generarContrasena(correo);
             return true;
         }
+
+        public void recuperarContrasena(string correo)
+        {
+            BL_Operario BLoperario = new BL_Operario();
+            BLoperario.recuperacionContrasena(correo);
+        }
     }
 }

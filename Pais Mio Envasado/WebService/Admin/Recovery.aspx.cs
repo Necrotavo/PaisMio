@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,14 @@ namespace WebService.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack) {
+               
+                string token = Request.QueryString["token"];
+                if (!token.Equals("")) {
+                    BL_Operario BLoperario = new BL_Operario();
+                    BLoperario.enviarNuevaContrasena(token);
+                }
+            }
         }
     }
 }
