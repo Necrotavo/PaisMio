@@ -47,12 +47,14 @@ export class AdminViewComponent implements OnInit {
   termC: string; // for Clients
   termP: string; // for Products
 
-  /** User rol combo validation */
+  /** Combo validations */
   rolHasError = true;
+  unitHasError = true;
 
   /** Models */
   clientModel = new Client('', '', '', '', '', '');
   userModel = new User('', '', '', '', '', 'default');
+  inputModel = new Input(0, '', 0, '', '');
 
   ngOnInit(): void {
 
@@ -151,11 +153,21 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  /** Used to validate combo on user rol */
   validateRol(value){
     if (value === 'default'){
       this.rolHasError = true;
     } else {
       this.rolHasError = false;
+    }
+  }
+
+  /** Used to validate combo on input unit */
+  validateUnit(value){
+    if (value === 'default'){
+      this.unitHasError = true;
+    } else {
+      this.unitHasError = false;
     }
   }
 

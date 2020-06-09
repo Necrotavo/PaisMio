@@ -414,7 +414,7 @@
             </div>
 
             <div class="modal-body">
-                <form>
+                <form #inputForm="ngForm" (ngSubmit)="postInput()" novalidate>
                     <div class="form-group">
                         <div class="tab-header clearfix">
                             <div class="float-left">
@@ -436,7 +436,14 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="text" placeholder="Ingresar datos...">
+                                        <input type="text" required #nombreI="ngModel" class="form-control"
+                                        [class.is-invalid]="nombreI.invalid && nombreI.touched"
+                                         placeholder="Nombre" name="nombreI" [(ngModel)]="inputModel.nombre">
+                                        <div *ngIf="nombreI.errors && (nombreI.invalid || nombreI.touched)">
+                                            <p><small class="text-danger" *ngIf="nombreI.errors.required && nombreI.touched">Nombre requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="nombreI.errors.pattern">Nombre invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="nombreI.errors.pattern">50 dígitos</small></p>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -446,7 +453,12 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="text" placeholder="Ingresar datos...">
+                                        <input type="number" required #minI="ngModel" class="form-control"
+                                        [class.is-invalid]="minI.invalid && minI.touched"
+                                         placeholder="Min" name="minI" [(ngModel)]="inputModel.cantMinStock">
+                                        <div *ngIf="minI.errors && (minI.invalid || minI.touched)">
+                                            <p><small class="text-danger" *ngIf="minI.errors.required && minI.touched">Minimo requerido</small></p>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -456,11 +468,14 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <select>
-                                            <option selected>Seleccionar unidad</option>
-                                            <option value="1">Unidad</option>
-                                            <option value="2">Litros</option>
+                                        <select (blur)="validateUnit(unitI.value)" (change)="validateUnit(unitI.value)" #unitI="ngModel" 
+                                        [class.is-invalid]="unitHasError && unitI.touched"
+                                         class="form-control" name="unitI" [(ngModel)]="inputModel.unidad">
+                                            <option value="default">Unidad de medida</option>
+                                            <option value="UNIDAD">Unidad</option>
+                                            <option value="LITROS">Litros</option>
                                         </select>
+                                        <p><small class="text-danger" [class.d-none]="!unitHasError || unitI.untouched">Unidad requerida</small></p>
                                     </div>
                                 </td>
                             </tr>
@@ -523,7 +538,7 @@
                                     <div class="form-field">
                                         <input type="text" required #nombreU="ngModel" class="form-control"
                                         [class.is-invalid]="nombreU.invalid && nombreU.touched"
-                                         placeholder="Nombre" name="nombre" [(ngModel)]="userModel.nombre">
+                                         placeholder="Nombre" name="nombreU" [(ngModel)]="userModel.nombre">
                                         <div *ngIf="nombreU.errors && (nombreU.invalid || nombreU.touched)">
                                             <p><small class="text-danger" *ngIf="nombreU.errors.required && nombreU.touched">Nombre requerido</small></p>
                                             <p><small class="text-danger" *ngIf="nombreU.errors.pattern">Nombre invalido</small></p>

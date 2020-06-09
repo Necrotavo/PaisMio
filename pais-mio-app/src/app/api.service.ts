@@ -94,7 +94,7 @@ export class ApiService {
 
   /** Users CRUD */
   getUser(): Observable<User[]> {
-    return this.http.get<User[]>(`${clientGET}`)
+    return this.http.get<User[]>(`${userGET}`)
     .pipe(
       tap(user => console.log('fetch user')),
       catchError(this.handleErrors(`getUser`, []))
