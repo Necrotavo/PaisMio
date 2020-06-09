@@ -11,7 +11,7 @@ using DO;
 namespace DAO
 {
     /// <summary>
-    /// Esta clase comprende el acceso a dato relacionado a los clientes
+    /// Esta clase comprende el acceso a datos relacionado a los clientes
     /// </summary>
     public class DAO_Cliente
     {
@@ -60,6 +60,7 @@ namespace DAO
                 }
             }
         }
+
         /// <summary>
         /// Método para modificar datos del cliente
         /// </summary>
@@ -107,6 +108,7 @@ namespace DAO
                 }
             }
         }
+
         /// <summary>
         /// Método para obtener la lista de clientes habilitados
         /// </summary>
@@ -153,6 +155,7 @@ namespace DAO
                 }
             }
         }
+
         /// <summary>
         /// Método para obtener todos los clientes
         /// </summary>
@@ -202,6 +205,7 @@ namespace DAO
                 }
             }
         }
+
         /// <summary>
         /// Método para buscar a un cliente en la base de datos según el nombre
         /// </summary>
@@ -253,6 +257,7 @@ namespace DAO
                 }
             }
         }
+
         /// <summary>
         /// Método para modificar el estado de un cliente según su cédula jurídica
         /// </summary>

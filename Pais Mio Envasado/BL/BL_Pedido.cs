@@ -68,5 +68,11 @@ namespace BL
             DAO_Pedido daoPedido = new DAO_Pedido();
             return daoPedido.despacharPedido (codigoPedido, correoAdmin, fechaDespacho,estado);
         }
+
+        public List<DO_Pedido> listarPedidosHabilitados()
+        {
+            DAO_Pedido daoPedido = new DAO_Pedido();
+            return daoPedido.listarPedidos();
+        }
     }
 }

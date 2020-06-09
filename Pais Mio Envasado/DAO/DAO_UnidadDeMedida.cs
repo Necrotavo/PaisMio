@@ -9,6 +9,9 @@ using DO;
 
 namespace DAO
 {
+    /// <summary>
+    /// Clase de acceso a datos de las unidades de medida.
+    /// </summary>
     public class DAO_UnidadDeMedida
     {
         private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ConnectionString);

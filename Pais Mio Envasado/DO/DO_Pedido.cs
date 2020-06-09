@@ -7,6 +7,9 @@ using System.Runtime.Serialization;
 
 namespace DO
 {
+    /// <summary>
+    /// Clase que los datos correspondientes a los pedidos.
+    /// </summary>
     [DataContract]
     public class DO_Pedido
     {

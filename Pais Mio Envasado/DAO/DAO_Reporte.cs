@@ -238,7 +238,7 @@ namespace DAO
                 }
             }
 
-            obtenerProductos(listaReportes);
+            obtenerProductos(listaReportes); //Se envía la lista de pedidos al método encargado de asignar los respectivos productos con los pedidos.
 
             return listaReportes;
         }

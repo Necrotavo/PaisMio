@@ -57,6 +57,13 @@ namespace WebService
             return blPedido.eliminarPedido(codigoPedido);
         }
 
+        public List<DO_Pedido> listarPedidos()
+        {
+            BL_Pedido blPedido = new BL_Pedido();
+
+            return blPedido.listarPedidosHabilitados();
+        }
+
         public bool modificarEstado(Int32 codigoPedido, String estado)
         {
             BL_Pedido blPedido = new BL_Pedido();
