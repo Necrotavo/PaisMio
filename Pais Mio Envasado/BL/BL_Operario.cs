@@ -121,7 +121,7 @@ namespace BL
 
         private void enviarCorreo(string correoDestino, string subject, string body)
         {
-            string correoOrigen = "spepaismio001@gmail.com";
+            string correoOrigen = "passcontrolSPE@gmail.com";
             string contrasena = "Pepito123.";
 
 
