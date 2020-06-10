@@ -22,11 +22,15 @@ namespace DO
         [DataMember(Name = "insumo")]
         public DO_Insumo insumo;
 
-        public DO_ReporteInsumos(int cantidadConsumida, int cantidadDescartada, DO_Insumo insumo)
+        [DataMember(Name = "total")]
+        public Int32 total { set; get; }
+
+        public DO_ReporteInsumos(int cantidadConsumida, int cantidadDescartada, DO_Insumo insumo, int total)
         {
             this.cantidadConsumida = cantidadConsumida;
             this.cantidadDescartada = cantidadDescartada;
             this.insumo = insumo;
+            this.total = total;
         }
 
         public DO_ReporteInsumos(){}

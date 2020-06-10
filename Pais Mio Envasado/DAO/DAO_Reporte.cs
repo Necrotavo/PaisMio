@@ -165,6 +165,7 @@ namespace DAO
 
                     DAO_Insumo daoInsumo = new DAO_Insumo();
                     insumoConsumido.insumo.nombre = daoInsumo.obtenerNombreInsumo(insumoConsumido.insumo.codigo);
+                    insumoConsumido.total = insumoConsumido.cantidadConsumida + insumoConsumido.cantidadDescartada;
 
                     listaReportados.Add(insumoConsumido);
                 }
