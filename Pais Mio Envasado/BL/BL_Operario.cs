@@ -142,6 +142,25 @@ namespace BL
                 Console.WriteLine("Excepción: "+ex);
             }
         }
+        public bool upgradeRol(DO_Operario usuario, string rol)
+        {
+
+            DAO_Operario ope = new DAO_Operario();
+            if (rol.Equals("SUPERVISOR"))
+            {
+                return ope.upOpToSup(usuario);
+            }
+            if (rol.Equals("ADMINISTRADOR"))
+            {
+
+                if (ope.upOpToSup(usuario))
+                {
+                    ope.upSupToAdm(usuario);
+                }
+
+            }
+            return false;
+        }
 
     }
 }

@@ -45,5 +45,14 @@ namespace BL
 
             return false; 
         }
+        public bool upgradeRol(DO_Operario usuario, string rol)
+        {
+            DAO_Operario sup = new DAO_Operario();
+            if (rol.Equals("ADMINISTRADOR"))
+            {
+                return sup.upSupToAdm(usuario);
+            }
+            return false;
+        }
     }
 }

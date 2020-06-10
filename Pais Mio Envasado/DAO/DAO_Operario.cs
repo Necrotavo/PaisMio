@@ -467,40 +467,8 @@ namespace DAO
                 }
             }
         }
-        public bool cambiarRol(DO_Operario usuario, string rol)
-        {
-            if (rol.Equals("ADMINISTRADOR"))
-            {
-                return setAdmin(usuario);
-            }
-            if (rol.Equals("SUPERVISOR"))
-            {
-                return setSuperv(usuario);
-            }
-            return false;
-        }
-        private bool setAdmin(DO_Operario usuario)
-        {
-            if (usuario.rol.Equals("SUPERVISOR"))
-            {
-                upSupToAdm(usuario);
-            }
-            if (usuario.rol.Equals("OPERARIO"))
-            {
-                upOpToSup(usuario);
-                upSupToAdm(usuario);
-            }
-            return false;
-        }
-        private bool setSuperv(DO_Operario usuario)
-        {
-            if (usuario.rol.Equals("OPERARIO"))
-            {
-                upOpToSup(usuario);
-            }
-            return false;
-        }
-        private bool upSupToAdm(DO_Operario usuario)
+
+        public bool upSupToAdm(DO_Operario usuario)
         {
             SqlCommand comando = new SqlCommand("INSERT INTO ADMINISTRADOR VALUES (@correo)", conexion);
             comando.Parameters.AddWithValue("@correo", usuario.correo);
@@ -529,7 +497,7 @@ namespace DAO
             }
 
         }
-        private bool upOpToSup(DO_Operario usuario)
+        public bool upOpToSup(DO_Operario usuario)
         {
             SqlCommand comando = new SqlCommand("INSERT INTO SUPERVISOR VALUES (@correo)", conexion);
             comando.Parameters.AddWithValue("@correo", usuario.correo);

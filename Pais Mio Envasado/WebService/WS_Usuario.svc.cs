@@ -93,5 +93,17 @@ namespace WebService
             BL_Operario BLoperario = new BL_Operario();
             BLoperario.recuperacionContrasena(correo);
         }
+
+        public bool opeRolUpgrade(DO_Operario usuario, string rolNuevo)
+        {
+            BL_Operario ope = new BL_Operario();
+            return ope.upgradeRol(usuario, rolNuevo);
+        }
+
+        public bool supRolUpgrade(DO_Operario usuario, string rolNuevo)
+        {
+            BL_Supervisor sup = new BL_Supervisor();
+            return sup.upgradeRol(usuario, rolNuevo);
+        }
     }
 }
