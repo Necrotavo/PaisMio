@@ -30,7 +30,22 @@ namespace BL
 
             String supervisor = DAOoperario.getQueryInsertar() + DAOsupervisor.getQueryInsertar();
 
-            return DAOadministrador.agregarAdministrador(doOperario, supervisor);
+            string pass = DAOadministrador.agregarAdministrador(doOperario, supervisor);
+
+            if (!(pass is null))
+            {
+                BL_Operario BLoperario = new BL_Operario();
+                string subject = "Contraseña País Mío";
+
+                string body = "<p>Su contraseña temporal es: " + pass + "</p><br>" +
+                    "<a href =https://pais-mio.web.app/ >Click aquí para ir al sitio de País Mío</a><br>" +
+                    "<p>Saludos!</p>";
+
+                BLoperario.enviarCorreo(doOperario.correo, subject, body);
+                return true;
+            }
+
+            return false;
         }
     }
 }
