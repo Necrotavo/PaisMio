@@ -23,7 +23,7 @@ namespace DAO
         /// <returns>(True) si la operación se realizó correctamente. (False) si no se registró el pedido</returns>
         public bool guardarPedido(DO_Pedido pedido)
         {
-            SqlCommand comandoInsertar = new SqlCommand("INSERT INTO PEDIDO (CLI_CEDUla , OPE_CORREO, ESTADO" +
+            SqlCommand comandoInsertar = new SqlCommand("INSERT INTO PEDIDO (CLI_CEDULA , OPE_CORREO, ESTADO" +
            ", PED_FECHA_INGRESO) VALUES (@cedula,@correoAdmin,@estado, @fechaIngreso)", conexion);
 
             comandoInsertar.Parameters.AddWithValue("@cedula", pedido.cedulaCliente);
