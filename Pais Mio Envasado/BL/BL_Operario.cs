@@ -119,12 +119,12 @@ namespace BL
             }
         }
 
-        private void enviarCorreo(string correoDestino, string subject, string body)
+        public void enviarCorreo(string correoDestino, string subject, string body)
         {
             string correoOrigen = "passcontrolSPE@gmail.com";
             string contrasena = "Pepito123.";
 
-
+            
             MailMessage message = new MailMessage(correoOrigen, correoDestino, subject,
                 body);
             message.IsBodyHtml = true;
@@ -133,9 +133,14 @@ namespace BL
             smtpClient.UseDefaultCredentials = false;
             smtpClient.Port = 587;
             smtpClient.Credentials = new System.Net.NetworkCredential(correoOrigen, contrasena);
-
-            smtpClient.Send(message);
-            smtpClient.Dispose();
+            try
+            {
+                smtpClient.Send(message);
+                smtpClient.Dispose();
+            }
+            catch (Exception ex) {
+                Console.WriteLine("Excepción: "+ex);
+            }
         }
 
     }

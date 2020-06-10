@@ -34,7 +34,7 @@ namespace DAO
         /// <param name="contrasena"> contrasena del administrador</param>
         /// <param name="querySupervisor">string que contiene el query de operario y supervisor</param>
         /// <returns>true si se agregó correctamente, false si ocurrió algún error</returns>
-        public bool agregarAdministrador(DO_Operario doOperario, string querySupervisor) {
+        public string agregarAdministrador(DO_Operario doOperario, string querySupervisor) {
 
 
             SqlCommand comandoInsertar = new SqlCommand("BEGIN TRANSACTION "+querySupervisor+queryInsertar+ " COMMIT", conexion);
@@ -53,12 +53,14 @@ namespace DAO
                 
                 comandoInsertar.ExecuteNonQuery();
 
-                return true;
+                DAO_Operario DAOoperario = new DAO_Operario();
+
+                return DAOoperario.nuevaContrasena(doOperario.correo);
             }
             catch (Exception)
             {
 
-                return false;
+                return null;
             }
             finally
             {
