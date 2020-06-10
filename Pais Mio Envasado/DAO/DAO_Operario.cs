@@ -386,7 +386,8 @@ namespace DAO
                         operario.apellidos = (String)lector["OPE_APELLIDOS"];
                         operario.contrasena = (String)lector["OPE_CONTRASENA"];
                     }
-
+                    conexion.Close();
+                    operario.rol = getRol(operario.correo);
                     return operario;
                 }
             }
@@ -405,6 +406,67 @@ namespace DAO
 
             return operario;
         } 
+        private string getRol(string correo)
+        {
+            string rol = "";
+            try
+            {
+                SqlCommand comandoSelect = new SqlCommand("" +
+                    "SELECT OPERARIO.OPE_CORREO as 'Operario', SUPERVISOR.OPE_CORREO as 'Supervisor', ADMINISTRADOR.OPE_CORREO as 'Administrador' " +
+                    "FROM OPERARIO " +
+                    "left join SUPERVISOR " +
+                    "ON OPERARIO.OPE_CORREO = SUPERVISOR.OPE_CORREO " +
+                    "left join ADMINISTRADOR " +
+                    "ON OPERARIO.OPE_CORREO = ADMINISTRADOR.OPE_CORREO " +
+                    "WHERE OPERARIO.OPE_CORREO = @correo", conexion);
+                comandoSelect.Parameters.AddWithValue("@correo", correo);
+
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                SqlDataReader lector = comandoSelect.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        if (lector["Administrador"] is DBNull)
+                        {
+                            if (lector["Supervisor"] is DBNull)
+                            {
+                                rol = "OPERARIO";
+                                break;
+                            }
+                            else
+                            {
+                                rol = "SUPERVISOR";
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            rol = "ADMINISTRADOR";
+                            break;
+                        }
+                    }
+
+                }
+                return rol;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
 
         public List<DO_Operario> obtenerListaOperarios()
         {
