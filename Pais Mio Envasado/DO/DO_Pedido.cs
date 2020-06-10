@@ -15,8 +15,8 @@ namespace DO
     {
         [DataMember (Name = "codigo")]
         public Int32 codigo { set; get; }
-        [DataMember(Name = "cedulaCliente")]
-        public String cedulaCliente { set; get; }
+        [DataMember(Name = "cliente")]
+        public DO_Cliente cliente { set; get; }
         [DataMember(Name = "correoAdminIngreso")]
         public String correoAdminIngreso { set; get; }
         [DataMember(Name = "correoAdminDespacho")]
@@ -30,10 +30,10 @@ namespace DO
         [DataMember(Name = "listaProductos")]
         public List<DO_ProductoEnPedido>listaProductos { set; get; }
 
-        public DO_Pedido(int codigo, string cedulaCliente, string correoAdminIngreso,List<DO_ProductoEnPedido> listaProductos)
+        public DO_Pedido(int codigo, DO_Cliente cliente, string correoAdminIngreso,List<DO_ProductoEnPedido> listaProductos)
         {
             this.codigo = codigo;
-            this.cedulaCliente = cedulaCliente;
+            this.cliente = cliente;
             this.correoAdminIngreso = correoAdminIngreso;
             this.listaProductos = listaProductos;
         }
