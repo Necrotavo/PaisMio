@@ -47,6 +47,7 @@
     <Compile Include="BL_Bodega.cs" />
     <Compile Include="BL_Insumo.cs" />
     <Compile Include="BL_Operario.cs" />
+    <Compile Include="BL_Pais_Mio.cs" />
     <Compile Include="BL_Pedido.cs" />
     <Compile Include="BL_Producto.cs" />
     <Compile Include="BL_Reportes.cs" />

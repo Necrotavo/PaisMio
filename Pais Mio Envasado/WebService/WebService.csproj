@@ -18,12 +18,9 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort>44329</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>
-    </IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>
-    </IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>
-    </IISExpressUseClassicPipelineMode>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <Use64BitIISExpress />
   </PropertyGroup>
@@ -73,6 +70,7 @@
     <Content Include="WS_Bodega.svc" />
     <Content Include="WS_Cliente.svc" />
     <Content Include="WS_Insumo.svc" />
+    <Content Include="WS_PaisMio.svc" />
     <Content Include="WS_Pedido.svc" />
     <Content Include="WS_Producto.svc" />
     <Content Include="WS_Reporte.svc" />
@@ -93,6 +91,7 @@
     <Compile Include="IWS_Bodega.cs" />
     <Compile Include="IWS_Cliente.cs" />
     <Compile Include="IWS_Insumo.cs" />
+    <Compile Include="IWS_PaisMio.cs" />
     <Compile Include="IWS_Pedido.cs" />
     <Compile Include="IWS_Producto.cs" />
     <Compile Include="IWS_Reporte.cs" />
@@ -107,6 +106,9 @@
     </Compile>
     <Compile Include="WS_Insumo.svc.cs">
       <DependentUpon>WS_Insumo.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WS_PaisMio.svc.cs">
+      <DependentUpon>WS_PaisMio.svc</DependentUpon>
     </Compile>
     <Compile Include="WS_Pedido.svc.cs">
       <DependentUpon>WS_Pedido.svc</DependentUpon>

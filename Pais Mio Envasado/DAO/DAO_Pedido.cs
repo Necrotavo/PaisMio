@@ -23,10 +23,10 @@ namespace DAO
         /// <returns>(True) si la operación se realizó correctamente. (False) si no se registró el pedido</returns>
         public bool guardarPedido(DO_Pedido pedido)
         {
-            SqlCommand comandoInsertar = new SqlCommand("INSERT INTO PEDIDO (CLI_CEDUla , OPE_CORREO, ESTADO" +
+            SqlCommand comandoInsertar = new SqlCommand("INSERT INTO PEDIDO (CLI_CEDULA , OPE_CORREO, ESTADO" +
            ", PED_FECHA_INGRESO) VALUES (@cedula,@correoAdmin,@estado, @fechaIngreso)", conexion);
 
-            comandoInsertar.Parameters.AddWithValue("@cedula", pedido.cedulaCliente);
+            comandoInsertar.Parameters.AddWithValue("@cedula", pedido.cliente.cedula);
             comandoInsertar.Parameters.AddWithValue("@correoAdmin", pedido.correoAdminIngreso);
             comandoInsertar.Parameters.AddWithValue("@estado", pedido.estado);
             comandoInsertar.Parameters.AddWithValue("@fechaIngreso", pedido.fechaIngreso.ToString("dd/MM/yyyy hh:mm:ss"));
@@ -262,9 +262,11 @@ namespace DAO
         public DO_Pedido consultarDetalles(Int32 codigoPedido)
         {
             SqlCommand comandoConsultar = new SqlCommand("SELECT * FROM PEDIDO WHERE PED_CODIGO = @codigo", conexion);
+            DAO_Cliente daoCliente = new DAO_Cliente();
+            DO_Pedido pedido = new DO_Pedido();
 
             comandoConsultar.Parameters.AddWithValue("codigo", codigoPedido);
-            DO_Pedido pedido = new DO_Pedido();
+            
 
             try
             {
@@ -280,7 +282,7 @@ namespace DAO
                     while (lector.Read())
                     {
                         pedido.codigo = Convert.ToInt32(lector["PED_CODIGO"]);
-                        pedido.cedulaCliente = (String)(lector["CLI_CEDULA"]);
+                        pedido.cliente = daoCliente.buscarCliente((String)(lector["CLI_CEDULA"]));
                         pedido.correoAdminIngreso = (String)(lector["OPE_CORREO"]);
                         pedido.fechaIngreso = (DateTime)(lector["PED_FECHA_INGRESO"]);
                         pedido.estado = (String)(lector["ESTADO"]);
@@ -377,7 +379,7 @@ namespace DAO
         public List<DO_Pedido> listarPedidos()
         {
             SqlCommand comandoConsultar = new SqlCommand("SELECT * FROM PEDIDO WHERE ESTADO = 'EN PROCESO' ", conexion);
-
+            DAO_Cliente daoCliente = new DAO_Cliente();
             
             List<DO_Pedido> listaPedidos = new List<DO_Pedido>();
 
@@ -397,7 +399,7 @@ namespace DAO
                         DO_Pedido pedido = new DO_Pedido();
 
                         pedido.codigo = Convert.ToInt32(lector["PED_CODIGO"]);
-                        pedido.cedulaCliente = (String)(lector["CLI_CEDULA"]);
+                        pedido.cliente = daoCliente.buscarCliente((String)(lector["CLI_CEDULA"]));
                         pedido.correoAdminIngreso = (String)(lector["OPE_CORREO"]);
                         pedido.fechaIngreso = (DateTime)(lector["PED_FECHA_INGRESO"]);
                         pedido.estado = (String)(lector["ESTADO"]);
