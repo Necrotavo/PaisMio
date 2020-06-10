@@ -467,7 +467,97 @@ namespace DAO
                 }
             }
         }
+        public bool cambiarRol(DO_Operario usuario, string rol)
+        {
+            if (rol.Equals("ADMINISTRADOR"))
+            {
+                return setAdmin(usuario);
+            }
+            if (rol.Equals("SUPERVISOR"))
+            {
+                return setSuperv(usuario);
+            }
+            return false;
+        }
+        private bool setAdmin(DO_Operario usuario)
+        {
+            if (usuario.rol.Equals("SUPERVISOR"))
+            {
+                upSupToAdm(usuario);
+            }
+            if (usuario.rol.Equals("OPERARIO"))
+            {
+                upOpToSup(usuario);
+                upSupToAdm(usuario);
+            }
+            return false;
+        }
+        private bool setSuperv(DO_Operario usuario)
+        {
+            if (usuario.rol.Equals("OPERARIO"))
+            {
+                upOpToSup(usuario);
+            }
+            return false;
+        }
+        private bool upSupToAdm(DO_Operario usuario)
+        {
+            SqlCommand comando = new SqlCommand("INSERT INTO ADMINISTRADOR VALUES (@correo)", conexion);
+            comando.Parameters.AddWithValue("@correo", usuario.correo);
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                comando.ExecuteNonQuery();
 
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+            finally
+            {
+
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+
+        }
+        private bool upOpToSup(DO_Operario usuario)
+        {
+            SqlCommand comando = new SqlCommand("INSERT INTO SUPERVISOR VALUES (@correo)", conexion);
+            comando.Parameters.AddWithValue("@correo", usuario.correo);
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                comando.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+            finally
+            {
+
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+
+        }
         public List<DO_Operario> obtenerListaOperarios()
         {
             List<DO_Operario> lista = new List<DO_Operario>();
