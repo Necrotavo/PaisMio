@@ -15,18 +15,18 @@ namespace WebService
     {
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
-            ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Bare,
-            Method = "POST",
-            UriTemplate = "modificarDatos")]
+        ResponseFormat = WebMessageFormat.Json,
+        BodyStyle = WebMessageBodyStyle.Bare,
+        Method = "POST",
+        UriTemplate = "modificarDatos")]
         bool modificarDatos(DO_PaisMio datos);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
-            ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
-            Method = "POST",
-            UriTemplate = "consultarDatos")]
+        ResponseFormat = WebMessageFormat.Json,
+        BodyStyle = WebMessageBodyStyle.WrappedRequest,
+        Method = "POST",
+        UriTemplate = "consultarDatos")]
         DO_PaisMio consultarDatos(DO_PaisMio datos);
     }
 }

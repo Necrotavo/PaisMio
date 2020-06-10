@@ -78,7 +78,7 @@ namespace DAO
                     while (lector.Read())
                     {
 
-
+                       paisMio.codigo = Convert.ToInt32(lector["IPM_CODIGO"]);
                        paisMio.nombre = (String)lector["IPM_NOMBRE"];
                        paisMio.cedula = (String)lector["IPM_CEDULA_JURIDICA"];
                        paisMio.correo = (String)lector["IPM_CORREO"];
