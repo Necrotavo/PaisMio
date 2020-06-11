@@ -24,7 +24,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json, 
             ResponseFormat = WebMessageFormat.Json, 
-            BodyStyle = WebMessageBodyStyle.WrappedRequest, 
+            BodyStyle = WebMessageBodyStyle.Bare, 
             Method = "POST", 
             UriTemplate = "buscarProducto")]
         DO_Producto buscarProducto(int codigoProducto);
@@ -32,7 +32,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "modificarProducto")]
         bool modificarProducto(DO_Producto doProducto);
@@ -40,13 +40,9 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "ingresarProducto")]
         bool ingresarProducto(DO_Producto doProducto);
-
-        [OperationContract]
-        [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        bool ingresarProductoV2(string nombre, string descripcion);
     }
 }
