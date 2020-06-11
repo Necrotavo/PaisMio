@@ -22,11 +22,12 @@ namespace DAO
         /// <param name="doProducto"> Es el producto que se va a guardar </param>
         /// <returns>true si se ingresa el producto, false si no se logra ingresar</returns>
         public bool ingresarProducto(DO_Producto doProducto) {
-            SqlCommand comandoInsertar = new SqlCommand("INSERT INTO PRODUCTO (EST_HAB_ESTADO, PRO_NOMBRE, PRO_DESCRIPCION) " +
-            "VALUES ('HABILITADO', @nombre, @descripcion)", conexion);
+            SqlCommand comandoInsertar = new SqlCommand("INSERT INTO PRODUCTO (EST_HAB_ESTADO, PRO_NOMBRE, PRO_DESCRIPCION, ID) " +
+            "VALUES ('HABILITADO', @nombre, @descripcion, @id)", conexion);
             
             comandoInsertar.Parameters.AddWithValue("@nombre", doProducto.nombre);
             comandoInsertar.Parameters.AddWithValue("@descripcion", doProducto.descripcion);
+            comandoInsertar.Parameters.AddWithValue("@id", doProducto.id);
 
             try
             {
@@ -86,6 +87,7 @@ namespace DAO
                     nuevoProducto.estado = (String)row["EST_HAB_ESTADO"];
                     nuevoProducto.nombre = (String)row["PRO_NOMBRE"];
                     nuevoProducto.descripcion = (String)row["PRO_DESCRIPCION"];
+                    nuevoProducto.id = (String)row["ID"];
 
                     listaProductos.Add(nuevoProducto);
                 }
@@ -154,6 +156,7 @@ namespace DAO
                         doProducto.nombre = (String)(lector["PRO_NOMBRE"]);
                         doProducto.estado = (String)(lector["EST_HAB_ESTADO"]);
                         doProducto.descripcion = (String)(lector["PRO_DESCRIPCION"]);
+                        doProducto.id = (String)(lector["ID"]);
                     }
                     return doProducto;
                 }
