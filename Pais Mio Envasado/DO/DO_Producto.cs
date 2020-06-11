@@ -25,12 +25,16 @@ namespace DO
         [DataMember(Name = "estado")]
         public String estado { set; get; }
 
-        public DO_Producto(int codigo, string nombre, string descripcion, String estado)
+        [DataMember(Name = "id")]
+        public String id { set; get; }
+
+        public DO_Producto(int codigo, string nombre, string descripcion, string estado, string id)
         {
             this.codigo = codigo;
             this.nombre = nombre;
             this.descripcion = descripcion;
             this.estado = estado;
+            this.id = id;
         }
 
         public DO_Producto()

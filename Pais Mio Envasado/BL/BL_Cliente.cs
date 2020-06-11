@@ -22,6 +22,7 @@ namespace BL
         public BL_Cliente()
         {
         }
+
         /// <summary>
         /// Envía un cliente a la capa de datos para ser almacenado en la base de datos.
         /// </summary>
@@ -32,6 +33,7 @@ namespace BL
             DAO_Cliente daoCliente = new DAO_Cliente();
             return daoCliente.agregarCliente(nuevoCliente);
         }
+
         /// <summary>
         /// Envía un cliente con datos modificados para que se la capa de datos lo actualice
         /// </summary>
@@ -42,6 +44,7 @@ namespace BL
             DAO_Cliente dao_Cliente = new DAO_Cliente();
             return dao_Cliente.modificarCliente(cliente);
         }
+
         /// <summary>
         /// Muestra la lista de los lientes habilitados en el sistema.
         /// </summary>
@@ -51,6 +54,7 @@ namespace BL
             DAO_Cliente daoCliente = new DAO_Cliente();
             return daoCliente.listarClientesHabilitados();
         }
+
         /// <summary>
         /// Muestra la lista con todos los clientes registrados en el sistema.
         /// </summary>
@@ -60,6 +64,7 @@ namespace BL
             DAO_Cliente daoCliente = new DAO_Cliente();
             return daoCliente.listarTodosLosClientes();
         }
+
         /// <summary>
         /// Muestra los datos de un cliente específico.
         /// </summary>
@@ -70,6 +75,7 @@ namespace BL
             DAO_Cliente daoCliente = new DAO_Cliente();
             return daoCliente.buscarCliente(cedula);
         }
+
         /// <summary>
         /// Permite modificar el estado actual del cliente.
         /// </summary>

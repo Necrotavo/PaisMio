@@ -23,11 +23,12 @@ namespace DAO
         /// <returns>El código del insumo guardado, 0 si no se puede crear</returns>
         public int guardarInsumo(DO_Insumo insumo)
         {
-            SqlCommand insert = new SqlCommand("INSERT INTO INSUMO (EST_HAB_ESTADO, UDM_UNIDAD, INS_NOMBRE, INS_CANT_MIN_STOCK)" +
-                "VALUES ('HABILITADO', @unidad, @nombre, @cantMinStock)", conexion);
+            SqlCommand insert = new SqlCommand("INSERT INTO INSUMO (EST_HAB_ESTADO, UDM_UNIDAD, INS_NOMBRE, INS_CANT_MIN_STOCK, ID)" +
+                "VALUES ('HABILITADO', @unidad, @nombre, @cantMinStock, @id)", conexion);
             insert.Parameters.AddWithValue("@unidad", insumo.unidad);
             insert.Parameters.AddWithValue("@nombre", insumo.nombre);
             insert.Parameters.AddWithValue("@cantMinStock", insumo.cantMinStock);
+            insert.Parameters.AddWithValue("@id", insumo.id);
 
             try
             {
@@ -147,6 +148,7 @@ namespace DAO
                         insumo.unidad = (String)(lector["UDM_UNIDAD"]);
                         insumo.nombre = (String)lector["INS_NOMBRE"];
                         insumo.cantMinStock = Convert.ToInt32(lector["INS_CANT_MIN_STOCK"]);
+                        insumo.id = (String)(lector["ID"]);
                     }
                     return insumo;
                 }
@@ -189,15 +191,16 @@ namespace DAO
 
                 foreach (DataRow fila in datatable.Rows)
                 {
-                    DO_Insumo doCliente = new DO_Insumo();
+                    DO_Insumo doInsumo = new DO_Insumo();
 
-                    doCliente.codigo = Convert.ToInt32(fila["INS_CODIGO"]);
-                    doCliente.estado = (String)fila["EST_HAB_ESTADO"];
-                    doCliente.unidad = (String)fila["UDM_UNIDAD"];
-                    doCliente.nombre = (String)fila["INS_NOMBRE"];
-                    doCliente.cantMinStock = Convert.ToInt32(fila["INS_CANT_MIN_STOCK"]);
+                    doInsumo.codigo = Convert.ToInt32(fila["INS_CODIGO"]);
+                    doInsumo.estado = (String)fila["EST_HAB_ESTADO"];
+                    doInsumo.unidad = (String)fila["UDM_UNIDAD"];
+                    doInsumo.nombre = (String)fila["INS_NOMBRE"];
+                    doInsumo.cantMinStock = Convert.ToInt32(fila["INS_CANT_MIN_STOCK"]);
+                    doInsumo.id = (String)(fila["ID"]);
 
-                    listaInsumos.Add(doCliente);
+                    listaInsumos.Add(doInsumo);
 
                 }
                 return listaInsumos;
@@ -238,15 +241,16 @@ namespace DAO
 
                 foreach (DataRow fila in datatable.Rows)
                 {
-                    DO_Insumo doCliente = new DO_Insumo();
+                    DO_Insumo doInsumo = new DO_Insumo();
 
-                    doCliente.codigo = Convert.ToInt32(fila["INS_CODIGO"]);
-                    doCliente.estado = (String)fila["EST_HAB_ESTADO"];
-                    doCliente.unidad = (String)fila["UDM_UNIDAD"];
-                    doCliente.nombre = (String)fila["INS_NOMBRE"];
-                    doCliente.cantMinStock = Convert.ToInt32(fila["INS_CANT_MIN_STOCK"]);
+                    doInsumo.codigo = Convert.ToInt32(fila["INS_CODIGO"]);
+                    doInsumo.estado = (String)fila["EST_HAB_ESTADO"];
+                    doInsumo.unidad = (String)fila["UDM_UNIDAD"];
+                    doInsumo.nombre = (String)fila["INS_NOMBRE"];
+                    doInsumo.cantMinStock = Convert.ToInt32(fila["INS_CANT_MIN_STOCK"]);
+                    doInsumo.id = (String)(fila["ID"]);
 
-                    listaInsumos.Add(doCliente);
+                    listaInsumos.Add(doInsumo);
 
                 }
                 return listaInsumos;

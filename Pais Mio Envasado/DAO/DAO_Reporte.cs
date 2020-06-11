@@ -165,6 +165,7 @@ namespace DAO
 
                     DAO_Insumo daoInsumo = new DAO_Insumo();
                     insumoConsumido.insumo.nombre = daoInsumo.obtenerNombreInsumo(insumoConsumido.insumo.codigo);
+                    insumoConsumido.total = insumoConsumido.cantidadConsumida + insumoConsumido.cantidadDescartada;
 
                     listaReportados.Add(insumoConsumido);
                 }
@@ -238,7 +239,7 @@ namespace DAO
                 }
             }
 
-            obtenerProductos(listaReportes);
+            obtenerProductos(listaReportes); //Se envía la lista de pedidos al método encargado de asignar los respectivos productos con los pedidos.
 
             return listaReportes;
         }

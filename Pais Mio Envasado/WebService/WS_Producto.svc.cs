@@ -26,16 +26,6 @@ namespace WebService
             return blProducto.ingresarProducto(doProducto);
         }
 
-        public bool ingresarProductoV2(string nombre, string descripcion)
-        {
-            DO_Producto doProducto = new DO_Producto();
-            doProducto.nombre = nombre;
-            doProducto.descripcion = descripcion;
-
-            BL_Producto blProducto = new BL_Producto();
-            return blProducto.ingresarProducto(doProducto);
-        }
-
         public List<DO_Producto> listaProductos()
         {
             BL_Producto blProducto = new BL_Producto();

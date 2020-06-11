@@ -17,27 +17,44 @@ namespace WebService
 
 
         [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, Method = "POST", UriTemplate = "Modificar")]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json, 
+        ResponseFormat = WebMessageFormat.Json, 
+        BodyStyle = WebMessageBodyStyle.Bare, 
+        Method = "POST", UriTemplate = "Modificar")]
         bool modificarCliente(DO_Cliente cliente);
 
         [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, Method = "GET", UriTemplate = "ListarClientesHabilitados")]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json,
+        BodyStyle = WebMessageBodyStyle.Bare,
+        Method = "GET", UriTemplate = "ListarClientesHabilitados")]
         List<DO_Cliente> listaClientesHabilitados();
 
         [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, Method = "GET", UriTemplate = "ListarClientes")]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json,
+        BodyStyle = WebMessageBodyStyle.Bare, 
+        Method = "GET", UriTemplate = "ListarClientes")]
         List<DO_Cliente> listaClientes();
 
         [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.WrappedRequest, Method = "POST", UriTemplate = "Buscar")]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json,
+        BodyStyle = WebMessageBodyStyle.WrappedRequest, 
+        Method = "POST", UriTemplate = "Buscar")]
         DO_Cliente buscarCliente(String cedula);
 
         [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.WrappedRequest, Method = "POST", UriTemplate = "ModificarEstado")]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json, 
+        BodyStyle = WebMessageBodyStyle.WrappedRequest, 
+        Method = "POST", UriTemplate = "ModificarEstado")]
         bool modificarEstado(String estado, String cedula);
 
         [OperationContract]
-        [WebInvoke(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, Method ="POST", UriTemplate ="Agregar")]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json, 
+        Method ="POST", UriTemplate ="Agregar")]
         bool agregarCliente(DO_Cliente doCliente);
 
     }

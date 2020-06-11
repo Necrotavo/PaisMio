@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using DO;
+using System.Runtime.InteropServices;
 
 namespace DAO
 {
@@ -38,7 +39,7 @@ namespace DAO
         /// <param name="contrasena"> contrasena del supervisor</param>
         /// <param name="queryOperario"> query del operario para concatenarlo al comando</param>
         /// <returns>true si se agregó correctamente, false si ocurrió algún error</returns>
-        public bool agregarSupervisor(DO_Operario doOperario, string queryOperario) {
+        public string agregarSupervisor(DO_Operario doOperario, string queryOperario) {
 
             Console.WriteLine("BEGIN TRANSACTION " + queryOperario + queryInsertar + " COMMIT");
             SqlCommand comandoInsertar = new SqlCommand("BEGIN TRANSACTION "+queryOperario+queryInsertar+" COMMIT", conexion);
@@ -56,12 +57,14 @@ namespace DAO
 
                 comandoInsertar.ExecuteNonQuery();
 
-                return true;
+                DAO_Operario DAOoperario = new DAO_Operario();
+                
+                return DAOoperario.nuevaContrasena(doOperario.correo);
             }
             catch (Exception)
             {
 
-                return false;
+                return null;
             }
             finally
             {

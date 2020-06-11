@@ -119,12 +119,18 @@ namespace BL
             }
         }
 
-        private void enviarCorreo(string correoDestino, string subject, string body)
+        public DO_Operario login(string correo, string pass) {
+
+            DAO_Operario DAOoperario = new DAO_Operario();
+            return DAOoperario.login(correo,pass);
+        }
+
+        public void enviarCorreo(string correoDestino, string subject, string body)
         {
-            string correoOrigen = "spepaismio001@gmail.com";
+            string correoOrigen = "passcontrolSPE@gmail.com";
             string contrasena = "Pepito123.";
 
-
+            
             MailMessage message = new MailMessage(correoOrigen, correoDestino, subject,
                 body);
             message.IsBodyHtml = true;
@@ -133,9 +139,33 @@ namespace BL
             smtpClient.UseDefaultCredentials = false;
             smtpClient.Port = 587;
             smtpClient.Credentials = new System.Net.NetworkCredential(correoOrigen, contrasena);
+            try
+            {
+                smtpClient.Send(message);
+                smtpClient.Dispose();
+            }
+            catch (Exception ex) {
+                Console.WriteLine("Excepción: "+ex);
+            }
+        }
+        public bool upgradeRol(DO_Operario usuario, string rol)
+        {
 
-            smtpClient.Send(message);
-            smtpClient.Dispose();
+            DAO_Operario ope = new DAO_Operario();
+            if (rol.Equals("SUPERVISOR"))
+            {
+                return ope.upOpToSup(usuario);
+            }
+            if (rol.Equals("ADMINISTRADOR"))
+            {
+
+                if (ope.upOpToSup(usuario))
+                {
+                    ope.upSupToAdm(usuario);
+                }
+
+            }
+            return false;
         }
 
     }

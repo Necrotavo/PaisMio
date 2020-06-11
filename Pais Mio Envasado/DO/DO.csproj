@@ -49,6 +49,8 @@
     <Compile Include="DO_EstadoHabilitacion.cs" />
     <Compile Include="DO_Insumo.cs" />
     <Compile Include="DO_InsumoEnBodega.cs" />
+    <Compile Include="DO_PaisMio.cs" />
+    <Compile Include="DO_ReporteInsumoComparativo.cs" />
     <Compile Include="DO_ReporteInsumos.cs" />
     <Compile Include="DO_Operario.cs" />
     <Compile Include="DO_Pedido.cs" />
