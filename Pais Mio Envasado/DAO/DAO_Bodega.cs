@@ -647,6 +647,8 @@ namespace DAO
                     doBodega.telefono = (String)row["BOD_TELEFONO"];
                     doBodega.direccion = (String)row["BOD_DIRECCION"];
 
+                    doBodega.listaInsumosEnBodega = obtenerInsumosBodega(doBodega.codigo);
+
                     listaBodega.Add(doBodega);
                 }
                 return listaBodega;
