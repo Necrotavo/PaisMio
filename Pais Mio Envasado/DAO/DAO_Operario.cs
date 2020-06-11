@@ -542,6 +542,7 @@ namespace DAO
                 operario.nombre = (String)row["OPE_NOMBRE"];
                 operario.apellidos = (String)row["OPE_APELLIDOS"];
                 operario.contrasena = (String)row["OPE_CONTRASENA"];
+                operario.rol = getRol(operario.correo);
                 lista.Add(operario);
             }
 
