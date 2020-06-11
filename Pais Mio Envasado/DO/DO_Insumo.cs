@@ -28,12 +28,17 @@ namespace DO
         [DataMember(Name = "unidad")]
         public String unidad { set; get; }
 
-        public DO_Insumo(String estado, string nombre, int cantMinStock, String unidad)
+        [DataMember(Name = "id")]
+        public String id { set; get; }
+
+        public DO_Insumo(int codigo, string estado, string nombre, int cantMinStock, string unidad, string id)
         {
+            this.codigo = codigo;
             this.estado = estado;
             this.nombre = nombre;
             this.cantMinStock = cantMinStock;
             this.unidad = unidad;
+            this.id = id;
         }
 
         public DO_Insumo()

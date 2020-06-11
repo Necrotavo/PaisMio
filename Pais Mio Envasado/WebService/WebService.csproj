@@ -18,9 +18,12 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort>44329</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <Use64BitIISExpress />
   </PropertyGroup>
