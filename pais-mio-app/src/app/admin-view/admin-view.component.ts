@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 import { ApiService } from '../api.service';
 import { Client } from 'src/models/client';
@@ -6,13 +7,24 @@ import { User } from 'src/models/user';
 import { Input } from 'src/models/input';
 import { Product } from 'src/models/product';
 import { Order } from 'src/models/order';
+import { Unit } from 'src/models/unit';
+import { ProductInOrder } from 'src/models/productInOrder';
 
 
 @Component({
   selector: 'app-admin-view',
   templateUrl: './admin-view.component.html',
-  styleUrls: ['./admin-view.component.scss']
+  styleUrls: ['./admin-view.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
+
+
 export class AdminViewComponent implements OnInit {
 
   constructor(private apiService: ApiService) { }
@@ -30,7 +42,10 @@ export class AdminViewComponent implements OnInit {
   inputList: Input[];
   userList: User[];
   clientList: Client[];
+  clientAList: Client[];
   productList: Product[];
+  unitList: Unit[];
+  productInOrderList: ProductInOrder[];
 
   /** Data return objects */
   objOrder: Order;
@@ -54,7 +69,8 @@ export class AdminViewComponent implements OnInit {
   /** Models */
   clientModel = new Client('', '', '', '', '', '');
   userModel = new User('', '', '', '', '', 'default');
-  inputModel = new Input(0, '', 0, '', '');
+  inputModel = new Input(0, '', 0, '', '', '');
+  productModel = new Product(0, '', '', '', '');
 
   ngOnInit(): void {
 
@@ -86,10 +102,24 @@ export class AdminViewComponent implements OnInit {
       }
     );
 
+    /** Gets all available clients on Init */
+    this.apiService.getAClient().subscribe(
+      data => {
+        this.clientAList = data;
+      }
+    );
+
     /** Gets all products on Init */
     this.apiService.getProduct().subscribe(
       data => {
         this.productList = data;
+      }
+    );
+
+    /** Gets all unit types on Init */
+    this.apiService.getUnits().subscribe(
+      data => {
+        this.unitList = data;
       }
     );
 
@@ -114,11 +144,10 @@ export class AdminViewComponent implements OnInit {
   }
 
   postInput(){
-    const newClient = new Client('333333', 'prueba@mail.com', 'grecia', 'HABILITADO', 'Random.INC', '(+506) 131313123');
 
-    this.apiService.addClient(newClient).subscribe(
+    this.apiService.addInput(this.inputModel).subscribe(
       data => {
-        this.objClient = data;
+        this.objInput = data;
       }
     );
   }
@@ -144,11 +173,10 @@ export class AdminViewComponent implements OnInit {
   }
 
   postProduct(){
-    const newClient = new Client('333333', 'prueba@mail.com', 'grecia', 'HABILITADO', 'Random.INC', '(+506) 131313123');
-
-    this.apiService.addClient(newClient).subscribe(
+    //this.productModel.estado = 'HABILITADO';
+    this.apiService.addProduct(this.productModel).subscribe(
       data => {
-        this.objClient = data;
+        this.objProduct = data;
       }
     );
   }

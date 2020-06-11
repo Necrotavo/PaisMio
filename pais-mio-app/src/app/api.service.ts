@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+
 import { HttpHeaders, HttpClient, HttpErrorResponse, HttpRequest } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
+
 import { User } from '../models/user';
 import { Input } from '../models/input';
 import { InputRequest } from '../models/inputRequest';
@@ -11,6 +13,7 @@ import { ReportC } from '../models/reportC';
 import { ReportM } from '../models/reportM';
 import { Client } from '../models/client';
 import { Order } from '../models/order';
+import { Unit } from '../models/unit';
 
 
 const HttpOptions = {
@@ -18,25 +21,56 @@ const HttpOptions = {
 };
 
 /*** Api URL constants */
+/** Base API URL */
 const apiURL = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientes';
+
+/** Client API URLs */
 const clientPOST = 'https://www.spepaismio.tk/WS_Cliente.svc/Agregar';
 const clientGET = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientes';
-const userPOST = 'https://www.spepaismio.tk/WS_Cliente.svc/Agregar';
+const clientAGET = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientesHabilitados';
+const clientUPDATE = 'https://www.spepaismio.tk/WS_Cliente.svc/Modificar';
+const clientSTATUS = 'https://www.spepaismio.tk/WS_Cliente.svc/ModificarEstado';
+
+/** User API URLs */
+const userPOST = 'https://spepaismio.tk/WS_Usuario.svc/CrearOperario';
 const userGET = 'https://www.spepaismio.tk/WS_Usuario.svc/Lista';
-const inputPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
-const inputGET = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientes';
-const productPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
-const productGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+
+/** Input API URLs */
+const inputPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarInsumo';
+const inputGET = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumos';
+const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
+const inputSEARCH = 'https://www.spepaismio.tk/WS_Insumo.svc/buscarInsumo';
+
+const unitPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidad';
+const unitGET = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
+
 const inputRequestPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
 const inputRequestGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+
+/** Order API URLs */
+const orderPost = 'https://www.spepaismio.tk/WS_Pedido.svc/agregarPedido';
+const orderGET = 'https://www.spepaismio.tk/WS_Pedido.svc/listarPedidos';
+const orderUPDATE = 'https://www.spepaismio.tk/WS_Pedido.svc/Modificar';
+const orderDELETE = 'https://www.spepaismio.tk/WS_Pedido.svc/Eliminar';
+const orderSEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/Consultar';
+const orderPACKOFF = 'https://www.spepaismio.tk/WS_Pedido.svc/Despachar';
+
+
+/** Product API URLs */
+const productPost = 'https://www.spepaismio.tk/WS_Producto.svc/ingresarProducto';
+const productGET = 'https://www.spepaismio.tk/WS_Producto.svc/listaProductos';
+
+/** Reports API URLs */
 const mReportPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
 const mReportGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
 const cReportPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
 const cReportGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
-const analysisPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
-const analysisGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
-const orderPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
-const orderGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+
+/** Analysis API URLs */
+const analysisPost = 'https://www.spepaismio.tk/WS_Pedido.svc/AgregarAnalisisAA';
+const analysisAASEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/BuscarAnalisisAA';
+const analysisGET = 'https://www.spepaismio.tk/WS_Pedido.svc/Consultar';
+
 
 @Injectable({
   providedIn: 'root'
@@ -52,9 +86,9 @@ export class ApiService {
     };
   }
 
-  /** Users CRUD */
+  /** Order CRUD */
   getOrder(): Observable<Order[]> {
-    return this.http.get<Order[]>(`${apiURL}`)
+    return this.http.get<Order[]>(`${orderGET}`)
     .pipe(
       tap(order => console.log('fetch order')),
       catchError(this.handleErrors(`getOrder`, []))
@@ -116,10 +150,10 @@ export class ApiService {
     );
   }
 
-  updateUser(id: string, user: User): Observable<any> {
-    const url = `${apiURL}/${id}`;
+  updateUser(correo: string, user: User): Observable<any> {
+    const url = `${apiURL}/${correo}`;
     return this.http.put(url, user, HttpOptions).pipe(
-      tap(_ => console.log(`updated user id=${id}`)),
+      tap(_ => console.log(`updated user id=${correo}`)),
       catchError(this.handleErrors<any>(`updateUser`))
     );
   }
@@ -141,34 +175,50 @@ export class ApiService {
     );
   }
 
-  getInputByID(id: string): Observable<Input> {
-    const url = `${apiURL}/${id}`;
+  getInputByName(nombre: string): Observable<Input> {
+    const url = `${inputSEARCH}/${nombre}`;
     return this.http.get<Input>(url).pipe(
-      tap(_ => console.log(`fetch input id=${id}`)),
-      catchError(this.handleErrors<Input>(`getInputByID id=${id}`))
+      tap(_ => console.log(`fetch input id=${nombre}`)),
+      catchError(this.handleErrors<Input>(`getInputByID id=${nombre}`))
     );
   }
 
   addInput(input: Input): Observable<Input> {
-    return this.http.post<Input>(apiURL, input, HttpOptions).pipe(
+    return this.http.post<Input>(inputPOST, input, HttpOptions).pipe(
       tap((i: Input) => console.log(`added input w/ id=${i.codigo}`)),
       catchError(this.handleErrors<Input>(`addInput`))
     );
   }
 
-  updateInput(id: string, input: Input): Observable<any> {
-    const url = `${apiURL}/${id}`;
+  updateInput(nombre: string, input: Input): Observable<any> {
+    const url = `${clientUPDATE}/${nombre}`;
     return this.http.put(url, input, HttpOptions).pipe(
-      tap(_ => console.log(`updated input id=${id}`)),
+      tap(_ => console.log(`updated input id=${nombre}`)),
       catchError(this.handleErrors<any>(`updateInput`))
     );
   }
 
   deleteInput(id: string): Observable<Input> {
-    const url = `${apiURL}/${id}`;
+    const url = `${inputGET}/${id}`;
     return this.http.delete<Input>(url, HttpOptions).pipe(
       tap(_ => console.log(`deleted input id=${id}`)),
       catchError(this.handleErrors<Input>(`deletedInput`))
+    );
+  }
+
+  /** Units CRUD */
+  getUnits(): Observable<Unit[]> {
+    return this.http.get<Unit[]>(`${unitGET}`)
+    .pipe(
+      tap(input => console.log(`fetch unit`)),
+      catchError(this.handleErrors(`getUnit`, []))
+    );
+  }
+
+  addUnit(unit: Unit): Observable<Unit> {
+    return this.http.post<Input>(unitPOST, unit, HttpOptions).pipe(
+      tap((i: Unit) => console.log(`added unit w/ id=${i.unidad}`)),
+      catchError(this.handleErrors<Input>(`addUnit`))
     );
   }
 
@@ -197,7 +247,7 @@ export class ApiService {
   }
 
   updateInputRequest(id: string, inputRequest: InputRequest): Observable<any> {
-    const url = `${apiURL}/${id}`;
+    const url = `${inputUPDATE}/${id}`;
     return this.http.put(url, inputRequest, HttpOptions).pipe(
       tap(_ => console.log(`updated input request id=${id}`)),
       catchError(this.handleErrors<any>(`updateInputRequest`))
@@ -214,10 +264,10 @@ export class ApiService {
 
   /** Products CRUD */
   getProduct(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${apiURL}`)
+    return this.http.get<Product[]>(`${productGET}`)
     .pipe(
-      tap(analysis => console.log(`fetch input`)),
-      catchError(this.handleErrors(`getInput`, []))
+      tap(product => console.log(`fetch producct`)),
+      catchError(this.handleErrors(`getProdut`, []))
     );
   }
 
@@ -230,8 +280,8 @@ export class ApiService {
   }
 
   addProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(apiURL, product, HttpOptions).pipe(
-      tap((i: Product) => console.log(`added product w/ id=${i.codigo}`)),
+    return this.http.post<Product>(productPost, product, HttpOptions).pipe(
+      tap((i: Product) => console.log(`added product w/ id=${i.nombre}`)),
       catchError(this.handleErrors<Product>(`addProduct`))
     );
   }
@@ -380,6 +430,14 @@ export class ApiService {
     );
   }
 
+  getAClient(): Observable<Client[]> {
+    return this.http.get<Client[]>(`${clientAGET}`)
+    .pipe(
+      tap(user => console.log('fetch client')),
+      catchError(this.handleErrors(`getClient`, []))
+    );
+  }
+
   getClientByEmail(email: string): Observable<Client> {
     const url = `${apiURL}/${email}`;
     return this.http.get<Client>(url).pipe(
@@ -395,19 +453,28 @@ export class ApiService {
     );
   }
 
-  updateClient(id: string, client: Client): Observable<any> {
-    const url = `${apiURL}/${id}`;
+  updateClient(nombre: string, client: Client): Observable<any> {
+    const url = `${apiURL}/${nombre}`;
     return this.http.put(url, client, HttpOptions).pipe(
-      tap(_ => console.log(`updated user id=${id}`)),
-      catchError(this.handleErrors<any>(`updateUser`))
+      tap(_ => console.log(`updated client id=${nombre}`)),
+      catchError(this.handleErrors<any>(`updateClient`))
     );
   }
 
-  deleteClient(id: string): Observable<Client> {
-    const url = `${apiURL}/${id}`;
+  updateClientStatus(nombre: string, client: Client): Observable<any> {
+    const url = `${apiURL}/${nombre}`;
+    return this.http.put(url, client, HttpOptions).pipe(
+      tap(_ => console.log(`updated client status id=${nombre}`)),
+      catchError(this.handleErrors<any>(`updateClientStatus`))
+    );
+  }
+
+  deleteClient(nombre: string): Observable<Client> {
+    const url = `${apiURL}/${nombre}`;
     return this.http.delete<Client>(url, HttpOptions).pipe(
-      tap(_ => console.log(`deleted client id=${id}`)),
+      tap(_ => console.log(`deleted client id=${nombre}`)),
       catchError(this.handleErrors<Client>(`deletedClient`))
     );
   }
+
 }

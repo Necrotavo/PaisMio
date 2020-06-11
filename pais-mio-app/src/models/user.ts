@@ -14,4 +14,5 @@ export class User {
             this.contrasena = contrasena;
             this.rol = rol;
     }
+
 }
