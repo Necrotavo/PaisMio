@@ -105,5 +105,16 @@ namespace WebService
             BL_Supervisor sup = new BL_Supervisor();
             return sup.upgradeRol(usuario, rolNuevo);
         }
+
+        public DO_Operario login(string correo, string pass)
+        {
+            if (correo.Trim().Equals("") || pass.Trim().Equals("")) {
+                return null;
+            }
+
+            BL_Operario BLoperario = new BL_Operario();
+
+            return BLoperario.login(correo,pass);
+        }
     }
 }

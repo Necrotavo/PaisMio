@@ -119,6 +119,12 @@ namespace BL
             }
         }
 
+        public DO_Operario login(string correo, string pass) {
+
+            DAO_Operario DAOoperario = new DAO_Operario();
+            return DAOoperario.login(correo,pass);
+        }
+
         public void enviarCorreo(string correoDestino, string subject, string body)
         {
             string correoOrigen = "passcontrolSPE@gmail.com";

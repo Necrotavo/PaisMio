@@ -588,6 +588,56 @@ namespace DAO
 
         }
 
-        
+        /*
+         login:
+        recibe dos strings correo y contraseña
+        devuelve un DO_OPERARIO
+
+         */
+        public DO_Operario login(string correo, string pass) {
+
+            DO_Operario operario = new DO_Operario();
+
+            try
+            {
+                SqlCommand comandoSelect = new SqlCommand("Select * from OPERARIO where OPE_CORREO = @correo AND OPE_CONTRASENA = @pass", conexion);
+                comandoSelect.Parameters.AddWithValue("@correo", correo);
+                comandoSelect.Parameters.AddWithValue("@pass",Encrypt.GetSHA256(pass));
+
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                SqlDataReader lector = comandoSelect.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        operario.correo = (String)lector["OPE_CORREO"];
+                        operario.estado = (String)lector["EST_HAB_ESTADO"];
+                        operario.nombre = (String)lector["OPE_NOMBRE"];
+                        operario.apellidos = (String)lector["OPE_APELLIDOS"];
+                        operario.contrasena = (String)lector["OPE_CONTRASENA"];
+                    }
+                    conexion.Close();
+                    operario.rol = getRol(operario.correo);
+                    return operario;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+            return null;
+        }
     }
 }

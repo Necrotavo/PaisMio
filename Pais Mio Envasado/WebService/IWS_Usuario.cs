@@ -17,6 +17,14 @@ namespace WebService
     public interface IWS_Usuario
     {
 
+
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            Method = "POST", UriTemplate = "Login")]
+        DO_Operario login(string correo, string pass);
+
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
