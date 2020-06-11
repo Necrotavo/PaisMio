@@ -48,7 +48,7 @@ const inputRequestPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.sv
 const inputRequestGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
 
 /** Order API URLs */
-const orderPost = 'https://www.spepaismio.tk/WS_Pedido.svc/agregarPedido';
+const orderPOST = 'https://www.spepaismio.tk/WS_Pedido.svc/agregarPedido';
 const orderGET = 'https://www.spepaismio.tk/WS_Pedido.svc/listarPedidos';
 const orderUPDATE = 'https://www.spepaismio.tk/WS_Pedido.svc/Modificar';
 const orderDELETE = 'https://www.spepaismio.tk/WS_Pedido.svc/Eliminar';
@@ -69,7 +69,6 @@ const cReportGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/list
 /** Analysis API URLs */
 const analysisPost = 'https://www.spepaismio.tk/WS_Pedido.svc/AgregarAnalisisAA';
 const analysisAASEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/BuscarAnalisisAA';
-const analysisGET = 'https://www.spepaismio.tk/WS_Pedido.svc/Consultar';
 
 
 @Injectable({
@@ -104,7 +103,7 @@ export class ApiService {
   }
 
   addOrder(order: Order): Observable<Order> {
-    return this.http.post<Order>(apiURL, order, HttpOptions).pipe(
+    return this.http.post<Order>(orderPOST, order, HttpOptions).pipe(
       tap((i: Order) => console.log(`added order w/ id=${i.codigo}`)),
       catchError(this.handleErrors<Order>(`addOrder`))
     );

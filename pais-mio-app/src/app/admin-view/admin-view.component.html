@@ -415,7 +415,7 @@
             </div>
 
             <div class="modal-body">
-                <form>
+                <form #orderForm="ngForm" (ngSubmit)="postOrder()" novalidate>
                     <div class="form-group">
                         <div class="tab-header clearfix">
                             <div class="float-left">
@@ -433,7 +433,7 @@
                             </div>
                         </div>
                     </div>
-
+                    {{orderForm.value | json}}
                     <table class="table table-striped table-responsive">
                         <thead>
                             <tr>
@@ -444,16 +444,21 @@
                         <tbody>
                             <tr>
                                 <th>
-                                    Cliente
+                                    Cliente 
                                 </th>
                                 <td>
-                                    <select class="form-control">
-                                        <option selected>Seleccionar cliente</option>
-                                        <option *ngFor="let com of clientList">{{com.nombre}}</option>
-                                    </select>
+                                    <div class="form-field">
+                                        <select (blur)="validateClient(clientOr.value)" (change)="validateClient(clientOr.value)" #clientOr="ngModel" 
+                                        [class.is-invalid]="clientHasError && clientOr.touched"
+                                         class="form-control" name="clientOr" [(ngModel)]="orderModel.cedulaCliente">
+                                            <option value="default">Cliente</option>
+                                            <option *ngFor="let com of clientAList" value="{{com.cedula}}">{{com.nombre}}</option>
+                                        </select>
+                                        <p><small class="text-danger" [class.d-none]="!clientHasError || clientOr.untouched">Cliente Requerido</small></p>
+                                    </div>
                                 </td>
                             </tr>
-                            <tr *ngFor="let com of productList">
+                            <tr *ngFor="let com of productList"><!--Aqui estoy :)-->
                                 <th>
                                     {{com.nombre}}
                                 </th>

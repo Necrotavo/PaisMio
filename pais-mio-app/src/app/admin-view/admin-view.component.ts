@@ -65,12 +65,14 @@ export class AdminViewComponent implements OnInit {
   /** Combo validations */
   rolHasError = true;
   unitHasError = true;
+  clientHasError = true;
 
   /** Models */
   clientModel = new Client('', '', '', '', '', '');
   userModel = new User('', '', '', '', '', 'default');
   inputModel = new Input(0, '', 0, '', '', '');
   productModel = new Product(0, '', '', '', '');
+  orderModel = new Order(0, '', '', this.productInOrderList);
 
   ngOnInit(): void {
 
@@ -126,6 +128,7 @@ export class AdminViewComponent implements OnInit {
   }
 
   getAllClient(){
+
     this.apiService.getClient().subscribe(
       data => {
         this.clientList = data;
@@ -134,11 +137,10 @@ export class AdminViewComponent implements OnInit {
   }
 
   postOrder(){
-    const newClient = new Client('333333', 'prueba@mail.com', 'grecia', 'HABILITADO', 'Random.INC', '(+506) 131313123');
 
-    this.apiService.addClient(newClient).subscribe(
+    this.apiService.addOrder(this.orderModel).subscribe(
       data => {
-        this.objClient = data;
+        this.objOrder = data;
       }
     );
   }
@@ -153,6 +155,7 @@ export class AdminViewComponent implements OnInit {
   }
 
   postUser(){
+
     this.userModel.estado = 'HABILITADO';
     this.apiService.addUser(this.userModel).subscribe(
       data => {
@@ -198,5 +201,14 @@ export class AdminViewComponent implements OnInit {
       this.unitHasError = false;
     }
   }
+
+    /** Used to validate combo on user rol */
+    validateClient(value){
+      if (value === 'default'){
+        this.clientHasError = true;
+      } else {
+        this.clientHasError = false;
+      }
+    }
 
 }
