@@ -24,7 +24,5 @@ export class InputRequest {
              this.estado = estado;
              this.admin = admin;
              this.fecha = fecha;
-
     }
-
 }

@@ -25,6 +25,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { ClientComponent } from './client/client.component';
 import { ApiService } from './api.service';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     HttpClientModule,
     Ng2SearchPipeModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -13,6 +13,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { UserViewComponent } from './user-view/user-view.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 
+import { ClientComponent } from './client/client.component';
+
 
 const routes: Routes = [
   {path: '', component: IndexPmAppComponent},
@@ -27,6 +29,7 @@ const routes: Routes = [
   {path: 'sign-in', component: SignInComponent},
   {path: 'sign-up', component: SignUpComponent},
   {path: 'user-view', component: UserViewComponent},
+  {path: 'client', component: ClientComponent},
   {path: '**', component: ErrorPageComponent}
 ];
 
