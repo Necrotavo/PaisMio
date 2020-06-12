@@ -176,7 +176,7 @@ export class AdminViewComponent implements OnInit {
   }
 
   postProduct(){
-    //this.productModel.estado = 'HABILITADO';
+
     this.apiService.addProduct(this.productModel).subscribe(
       data => {
         this.objProduct = data;

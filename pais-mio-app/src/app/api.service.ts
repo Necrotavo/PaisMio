@@ -14,6 +14,8 @@ import { ReportM } from '../models/reportM';
 import { Client } from '../models/client';
 import { Order } from '../models/order';
 import { Unit } from '../models/unit';
+import { InputQ } from 'src/models/inputQ';
+import { Cellar } from 'src/models/cellar';
 
 
 const HttpOptions = {
@@ -40,6 +42,12 @@ const inputPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarInsumo';
 const inputGET = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumos';
 const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
 const inputSEARCH = 'https://www.spepaismio.tk/WS_Insumo.svc/buscarInsumo';
+
+/** Input Q API URLs */
+const inputQPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarInsumo';
+const inputQGET = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
+const inputQUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
+const inputQSEARCH = 'https://www.spepaismio.tk/WS_Insumo.svc/buscarInsumo';
 
 const unitPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidad';
 const unitGET = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
@@ -70,6 +78,9 @@ const cReportGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/list
 const analysisPost = 'https://www.spepaismio.tk/WS_Pedido.svc/AgregarAnalisisAA';
 const analysisAASEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/BuscarAnalisisAA';
 
+/** Cellar API URLs */
+const cellarGET = 'https://www.spepaismio.tk/WS_Bodega.svc/obtenerListaBodegas';
+const cellarAGET = 'https://www.spepaismio.tk/WS_Bodega.svc/obtenerListaBodegasHabilitados';
 
 @Injectable({
   providedIn: 'root'
@@ -199,6 +210,46 @@ export class ApiService {
 
   deleteInput(id: string): Observable<Input> {
     const url = `${inputGET}/${id}`;
+    return this.http.delete<Input>(url, HttpOptions).pipe(
+      tap(_ => console.log(`deleted input id=${id}`)),
+      catchError(this.handleErrors<Input>(`deletedInput`))
+    );
+  }
+
+  /** Inputs quantity CRUD */
+  getInputQ(): Observable<InputQ[]> {
+    return this.http.get<InputQ[]>(`${inputQGET}`)
+    .pipe(
+      tap(inputQ => console.log(`fetch inputQ`)),
+      catchError(this.handleErrors(`getInputQ`, []))
+    );
+  }
+
+  getInputQByName(nombre: string): Observable<InputQ> {
+    const url = `${inputQSEARCH}/${nombre}`;
+    return this.http.get<InputQ>(url).pipe(
+      tap(_ => console.log(`fetch input id=${nombre}`)),
+      catchError(this.handleErrors<InputQ>(`getInputQByID id=${nombre}`))
+    );
+  }
+
+  addInputQ(inputQ: InputQ): Observable<InputQ> {
+    return this.http.post<InputQ>(inputQPOST, inputQ, HttpOptions).pipe(
+      tap((i: InputQ) => console.log(`added input w/ id=${i.input.nombre}`)),
+      catchError(this.handleErrors<InputQ>(`addInput`))
+    );
+  }
+
+  updateInputQ(cantidad: number, inputQ: InputQ): Observable<any> {
+    const url = `${inputQUPDATE}/${cantidad}`;
+    return this.http.put(url, inputQ, HttpOptions).pipe(
+      tap(_ => console.log(`updated input id=${cantidad}`)),
+      catchError(this.handleErrors<any>(`updateInput`))
+    );
+  }
+
+  deleteInputQ(id: string): Observable<Input> {
+    const url = `${inputQGET}/${id}`;
     return this.http.delete<Input>(url, HttpOptions).pipe(
       tap(_ => console.log(`deleted input id=${id}`)),
       catchError(this.handleErrors<Input>(`deletedInput`))
@@ -420,6 +471,7 @@ export class ApiService {
         catchError(this.handleErrors<ReportC>(`deletedReportC`))
       );
     }
+
       /** Client CRUD */
   getClient(): Observable<Client[]> {
     return this.http.get<Client[]>(`${clientGET}`)
@@ -475,5 +527,22 @@ export class ApiService {
       catchError(this.handleErrors<Client>(`deletedClient`))
     );
   }
+
+      /** Cellar CRUD */
+      getCellar(): Observable<Cellar[]> {
+        return this.http.get<Cellar[]>(`${cellarGET}`)
+        .pipe(
+          tap(cellar => console.log('fetch Cellar')),
+          catchError(this.handleErrors(`getCellar`, []))
+        );
+      }
+
+      getACellar(): Observable<Cellar[]> {
+        return this.http.get<Cellar[]>(`${cellarAGET}`)
+        .pipe(
+          tap(user => console.log('fetch cellar')),
+          catchError(this.handleErrors(`getCellar`, []))
+        );
+      }
 
 }
