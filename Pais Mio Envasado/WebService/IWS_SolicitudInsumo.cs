@@ -69,6 +69,6 @@ namespace WebService
             BodyStyle = WebMessageBodyStyle.Wrapped,
             Method = "POST",
             UriTemplate = "decisionAdmin")]
-        bool decision(DO_SolicitudInsumos solicitud, DO_Operario admin, string estado);//tested
+        bool decision(DO_DecisionSolicitudInsumos decision);//tested
     }
 }

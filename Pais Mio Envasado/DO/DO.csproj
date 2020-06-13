@@ -46,9 +46,12 @@
     <Compile Include="DO_Analisis_FQ.cs" />
     <Compile Include="DO_Bodega.cs" />
     <Compile Include="DO_Cliente.cs" />
+    <Compile Include="DO_DecisionSolicitudInsumos.cs" />
+    <Compile Include="DO_EntradaInsumosBodega.cs" />
     <Compile Include="DO_EstadoHabilitacion.cs" />
     <Compile Include="DO_Insumo.cs" />
     <Compile Include="DO_InsumoEnBodega.cs" />
+    <Compile Include="DO_OpeRolUpgradeUsuario.cs" />
     <Compile Include="DO_PaisMio.cs" />
     <Compile Include="DO_ReporteInsumoComparativo.cs" />
     <Compile Include="DO_ReporteInsumos.cs" />
