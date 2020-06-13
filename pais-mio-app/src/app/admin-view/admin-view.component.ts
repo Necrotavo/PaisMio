@@ -61,6 +61,7 @@ export class AdminViewComponent implements OnInit {
   inputQList: InputQ[];
   inputQListDiscard: InputQ[];
   cellarList: Cellar[];
+  cellarList2: Cellar[];
   inputRequestList: InputRequest[]
 
   /** Data return objects */
@@ -82,6 +83,7 @@ export class AdminViewComponent implements OnInit {
   termU: string; // for Users
   termC: string; // for Clients
   termP: string; // for Products
+  termB: string; // for Bodegas
 
   /** Combo validations */
   rolHasError = true;
@@ -99,6 +101,7 @@ export class AdminViewComponent implements OnInit {
   moveInputModel = new MoveInput(0, 0, 0, 0);
   inputRequestModel = new InputRequest(0, 0, 0, this.inputQList, this.inputQListDiscard, '', '', '', '');
   inputRequestDesicionModel = new InputRequestDesicion(this.inputRequest, this.user, '');
+
 
   ngOnInit(): void {
 
@@ -150,6 +153,8 @@ export class AdminViewComponent implements OnInit {
         this.unitList = data;
       }
     );
+
+    this.getCellar();
 
   }
 
@@ -233,7 +238,7 @@ export class AdminViewComponent implements OnInit {
 
     this.apiService.getACellar().subscribe(
       data => {
-        this.cellarList = data;
+        this.cellarList2 = data;
       }
     );
   }
