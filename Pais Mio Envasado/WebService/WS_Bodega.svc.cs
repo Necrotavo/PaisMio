@@ -19,10 +19,10 @@ namespace WebService
             return blBodega.cambiarEstadoBodega(codigoBodega, estado);
         }
 
-        public bool entradaInsumos(DO_Bodega doBodega, string correoAdministrador)
+        public bool entradaInsumos(DO_EntradaInsumosBodega bodega)
         {
             BL_Bodega blBodega = new BL_Bodega();
-            return blBodega.entradaInsumos(doBodega, correoAdministrador);
+            return blBodega.entradaInsumos(bodega.doBodega, bodega.correoAdministrador);
         }
 
         public bool modificarBodega(DO_Bodega doBodega)
