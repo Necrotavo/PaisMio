@@ -31,10 +31,10 @@ namespace WebService
             return blBodega.modificarBodega(doBodega);
         }
 
-        public DO_Bodega obtenerBodega(int codigoBodega)
+        public DO_Bodega obtenerBodega(int codigo)
         {
             BL_Bodega blBodega = new BL_Bodega();
-            return blBodega.obtenerBodega(codigoBodega);
+            return blBodega.obtenerBodega(codigo);
         }
 
         public List<DO_Bodega> obtenerListaBodegas()
