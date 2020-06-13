@@ -54,8 +54,13 @@ const inputQSEARCH = 'https://www.spepaismio.tk/WS_Insumo.svc/buscarInsumo';
 const unitPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidad';
 const unitGET = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
 
-const inputRequestPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
-const inputRequestGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+/** Input Request URL's*/
+const inputRequestPost = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/ingresoSolicitud';
+const inputRequestDESICION = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/decisionAdmin';
+const inputRequestGET = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/listarSolicitudes';
+const inputRequestGETBYUSER = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudPorOperario';
+const inputRequestGETBYORDER = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudPorPedido';
+const inputRequestSEARCH = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudSingular';
 
 /** Order API URLs */
 const orderPOST = 'https://www.spepaismio.tk/WS_Pedido.svc/agregarPedido';
@@ -536,7 +541,6 @@ export class ApiService {
       catchError(this.handleErrors<Client>(`deletedClient`))
     );
   }
-      /** AQUI ESTOY */
       /**Cellar CRUD*/
       getCellar(): Observable<Cellar[]> {
         return this.http.get<Cellar[]>(`${cellarGET}`)
@@ -604,4 +608,15 @@ export class ApiService {
           catchError(this.handleErrors<Cellar>(`addCellar`))
         );
       }
+
+      /**Input Request crud */
+      /** AQUI ESTOY 
+       * const inputRequestPost = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/ingresoSolicitud(InputRequest)';
+        const inputRequestDESICION = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/decisionAdmin()';
+        const inputRequestGET = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/listarSolicitudes';
+        const inputRequestGETBYUSER = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudPorOperario';
+        const inputRequestGETBYORDER = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudPorPedido';
+        const inputRequestSEARCH = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudSingular';
+      */
+
 }

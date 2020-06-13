@@ -5,10 +5,14 @@ import { ApiService } from '../api.service';
 import { Client } from 'src/models/client';
 import { User } from 'src/models/user';
 import { Input } from 'src/models/input';
+import { InputQ } from 'src/models/inputQ';
 import { Product } from 'src/models/product';
 import { Order } from 'src/models/order';
 import { Unit } from 'src/models/unit';
 import { ProductInOrder } from 'src/models/productInOrder';
+import { Cellar } from 'src/models/cellar';
+import { CellarAdmin } from 'src/models/cellarAdmin';
+import { MoveInput } from 'src/models/moveInput';
 
 
 @Component({
@@ -36,6 +40,9 @@ export class AdminViewComponent implements OnInit {
   user: User;
   client: Client;
   product: Product;
+  cellar: Cellar;
+  moveInput: MoveInput;
+  cellarAdmin: CellarAdmin;
 
   /** Object Lists */
   orderList: Order[];
@@ -46,6 +53,8 @@ export class AdminViewComponent implements OnInit {
   productList: Product[];
   unitList: Unit[];
   productInOrderList: ProductInOrder[];
+  inputQList: InputQ[];
+  cellarList: Cellar[];
 
   /** Data return objects */
   objOrder: Order;
@@ -53,6 +62,9 @@ export class AdminViewComponent implements OnInit {
   objUser: User;
   objClient: Client;
   objProduct: Product;
+  objCellar: Cellar;
+  objMoveInput: MoveInput;
+  objCellarAdmin: CellarAdmin;
 
   /** Filter terms */
   termO: string; // for Orders
@@ -73,6 +85,9 @@ export class AdminViewComponent implements OnInit {
   inputModel = new Input(0, '', 0, '', '', '');
   productModel = new Product(0, '', '', '', '');
   orderModel = new Order(0, '', '', this.productInOrderList);
+  cellarModel = new Cellar(0, '', '', '', '', this.inputQList);
+  cellarAdminModel = new CellarAdmin(this.cellar, '');
+  moveInputModel = new MoveInput(0, 0, 0, 0);
 
   ngOnInit(): void {
 
@@ -180,6 +195,89 @@ export class AdminViewComponent implements OnInit {
     this.apiService.addProduct(this.productModel).subscribe(
       data => {
         this.objProduct = data;
+      }
+    );
+  }
+
+  /**Aqui estoy */
+  /**Cellar Crud */
+  postCellar(){
+
+    this.apiService.addCellar(this.cellarModel).subscribe(
+      data => {
+        this.objCellar = data;
+      }
+    );
+  }
+
+  getCellar(){
+
+    this.apiService.getCellar().subscribe(
+      data => {
+        this.cellarList = data;
+      }
+    );
+  }
+
+  getACellar(){
+
+    this.apiService.getACellar().subscribe(
+      data => {
+        this.cellarList = data;
+      }
+    );
+  }
+
+  getOneCellar(){
+
+    this.apiService.getOneCellar(this.cellarModel).subscribe(
+      data => {
+        this.objCellar = data;
+      }
+    );
+  }
+
+  updateCellar(){
+
+    this.apiService.updateCellar(this.cellarModel).subscribe(
+      data => {
+        this.objCellar = data;
+      }
+    );
+  }
+
+  cellarStatus(){
+
+    this.apiService.cellarStatus(this.cellarModel).subscribe(
+      data => {
+        this.objCellar = data;
+      }
+    );
+  }
+
+  cellarMoveInput(){
+
+    this.apiService.cellarMoveInput(this.moveInputModel).subscribe(
+      data => {
+        this.objMoveInput = data;
+      }
+    );
+  }
+
+  cellarInputPut(){
+
+    this.apiService.cellarInputPut(this.cellarAdminModel).subscribe(
+      data => {
+        this.objCellarAdmin = data;
+      }
+    );
+  }
+
+  cellarGetInputList(){
+
+    this.apiService.getCellarInputList(this.cellarModel).subscribe(
+      data => {
+        this.objCellar = data;
       }
     );
   }
