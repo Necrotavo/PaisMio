@@ -18,7 +18,8 @@ import { InputQ } from 'src/models/inputQ';
 import { Cellar } from 'src/models/cellar';
 import { CellarAdmin } from 'src/models/cellarAdmin';
 import { MoveInput } from 'src/models/moveInput';
-
+import { InputRequestDesicion } from 'src/models/inputRequestDecision';
+import { UserRolUpgrade } from 'src/models/userRolUpgrade';
 
 const HttpOptions = {
   headers: new HttpHeaders({'Content-type': 'application/json'})
@@ -286,43 +287,48 @@ export class ApiService {
     );
   }
 
+  /**Aqui estoy ahora */
   /** Input Requests CRUD */
   getInputRequest(): Observable<InputRequest[]> {
-    return this.http.get<InputRequest[]>(`${inputGET}`)
+    return this.http.get<InputRequest[]>(`${inputRequestGET}`)
     .pipe(
       tap(inputRequest => console.log(`fetch input request`)),
       catchError(this.handleErrors(`getInputRequest`, []))
     );
   }
 
-  getInputRequestByID(id: string): Observable<InputRequest> {
-    const url = `${apiURL}/${id}`;
-    return this.http.get<InputRequest>(url).pipe(
-      tap(_ => console.log(`fetch input request id=${id}`)),
-      catchError(this.handleErrors<InputRequest>(`getInputRequestByID id=${id}`))
+  getInputRequestByID(inputRequest: InputRequest): Observable<InputRequest> {
+    return this.http.post<InputRequest>(inputRequestSEARCH, inputRequest, HttpOptions).pipe(
+      tap((i: InputRequest) => console.log(`searched input request w/ id=${i.codigo}`)),
+      catchError(this.handleErrors<InputRequest>(`getInputRequestByID`))
     );
   }
 
-  addInputRequest(input: InputRequest): Observable<InputRequest> {
-    return this.http.post<InputRequest>(apiURL, input, HttpOptions).pipe(
+  getInputRequestByUser(user: User): Observable<InputRequest> {
+    return this.http.post<InputRequest>(inputRequestGETBYUSER, user, HttpOptions).pipe(
+      tap((i: InputRequest) => console.log(`searched input request w/ id=${i.codigo} by user`)),
+      catchError(this.handleErrors<InputRequest>(`getInputRequestByUser`))
+    );
+  }
+
+  getInputRequestByOrder(order: Order): Observable<InputRequest> {
+    return this.http.post<InputRequest>(inputRequestGETBYORDER, order, HttpOptions).pipe(
+      tap((i: InputRequest) => console.log(`searched input request w/ id=${i.codigo} by order`)),
+      catchError(this.handleErrors<InputRequest>(`getInputRequestByOrder`))
+    );
+  }
+
+  addInputRequest(inputRequest: InputRequest): Observable<InputRequest> {
+    return this.http.post<InputRequest>(inputRequestPost, inputRequest, HttpOptions).pipe(
       tap((i: InputRequest) => console.log(`added input request w/ id=${i.codigo}`)),
       catchError(this.handleErrors<InputRequest>(`addInputRequest`))
     );
   }
 
-  updateInputRequest(id: string, inputRequest: InputRequest): Observable<any> {
-    const url = `${inputUPDATE}/${id}`;
-    return this.http.put(url, inputRequest, HttpOptions).pipe(
-      tap(_ => console.log(`updated input request id=${id}`)),
-      catchError(this.handleErrors<any>(`updateInputRequest`))
-    );
-  }
-
-  deleteInputRequest(id: string): Observable<InputRequest> {
-    const url = `${apiURL}/${id}`;
-    return this.http.delete<InputRequest>(url, HttpOptions).pipe(
-      tap(_ => console.log(`deleted input request id=${id}`)),
-      catchError(this.handleErrors<InputRequest>(`deletedInputRequest`))
+  setInputRequestDecision(inputRequestDesicion: InputRequestDesicion): Observable<InputRequestDesicion> {
+    return this.http.post<InputRequestDesicion>(inputRequestDESICION, inputRequestDesicion, HttpOptions).pipe(
+      tap((i: InputRequestDesicion) => console.log(`searched input request w/ id=${i.solicitud.codigo} by order`)),
+      catchError(this.handleErrors<InputRequestDesicion>(`getInputRequestByOrder`))
     );
   }
 
@@ -608,15 +614,4 @@ export class ApiService {
           catchError(this.handleErrors<Cellar>(`addCellar`))
         );
       }
-
-      /**Input Request crud */
-      /** AQUI ESTOY 
-       * const inputRequestPost = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/ingresoSolicitud(InputRequest)';
-        const inputRequestDESICION = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/decisionAdmin()';
-        const inputRequestGET = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/listarSolicitudes';
-        const inputRequestGETBYUSER = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudPorOperario';
-        const inputRequestGETBYORDER = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudPorPedido';
-        const inputRequestSEARCH = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudSingular';
-      */
-
 }
