@@ -16,6 +16,8 @@ import { Order } from '../models/order';
 import { Unit } from '../models/unit';
 import { InputQ } from 'src/models/inputQ';
 import { Cellar } from 'src/models/cellar';
+import { CellarAdmin } from 'src/models/cellarAdmin';
+import { MoveInput } from 'src/models/moveInput';
 
 
 const HttpOptions = {
@@ -81,6 +83,13 @@ const analysisAASEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/BuscarAnalisis
 /** Cellar API URLs */
 const cellarGET = 'https://www.spepaismio.tk/WS_Bodega.svc/obtenerListaBodegas';
 const cellarAGET = 'https://www.spepaismio.tk/WS_Bodega.svc/obtenerListaBodegasHabilitados';
+const cellarInputPUT = 'https://www.spepaismio.tk/WS_Bodega.svc/entradaInsumos';
+const cellarPOST = 'https://www.spepaismio.tk/WS_Bodega.svc/registrarBodega';
+const cellarUPDATE = 'https://www.spepaismio.tk/WS_Bodega.svc/modificarBodega';
+const cellarSTATUS = 'https://www.spepaismio.tk/WS_Bodega.svc/cambiarEstadoBodega';
+const cellarGetOne = 'https://www.spepaismio.tk/WS_Bodega.svc/obtenerBodega';
+const cellarGetInputList = 'https://www.spepaismio.tk/WS_Bodega.svc/obtenerInsumosBodega';
+const cellarMoveInput = 'https://www.spepaismio.tk/WS_Bodega.svc/moverInsumoDeBodega';
 
 @Injectable({
   providedIn: 'root'
@@ -527,8 +536,8 @@ export class ApiService {
       catchError(this.handleErrors<Client>(`deletedClient`))
     );
   }
-
-      /** Cellar CRUD */
+      /** AQUI ESTOY */
+      /**Cellar CRUD*/
       getCellar(): Observable<Cellar[]> {
         return this.http.get<Cellar[]>(`${cellarGET}`)
         .pipe(
@@ -545,4 +554,54 @@ export class ApiService {
         );
       }
 
+      getOneCellar(cellar: Cellar): Observable<Cellar> {
+        return this.http.post<Cellar>(cellarGetOne, cellar, HttpOptions).pipe(
+          tap((i: Cellar) => console.log(`The cellar w/ id=${i} has returned`)),
+          catchError(this.handleErrors<Cellar>(`getOneCellar`))
+        );
+      }
+
+      getCellarInputList(cellar: Cellar): Observable<Cellar> {
+        return this.http.post<Cellar>(cellarGetInputList, cellar, HttpOptions).pipe(
+          tap((i: Cellar) => console.log(`The input list of the cellar w/ id=${i} has returned`)),
+          catchError(this.handleErrors<Cellar>(`getCellarInputList`))
+        );
+      }
+
+      updateCellar(cellar: Cellar): Observable<Cellar> {
+        return this.http.post<Cellar>(cellarUPDATE, cellar, HttpOptions).pipe(
+          tap((i: Cellar) => console.log(`updated cellar w/ id=${i}`)),
+          catchError(this.handleErrors<Cellar>(`updateCellar`))
+        );
+      }
+      
+      /**Post Complejo*/
+      cellarInputPut(cellar: CellarAdmin): Observable<CellarAdmin> {
+        return this.http.post<CellarAdmin>(cellarInputPUT, cellar, HttpOptions).pipe(
+          tap((i: CellarAdmin) => console.log(`The input list has been added to the cellar w/ id=${i.doBodega.nombre}`)),
+          catchError(this.handleErrors<CellarAdmin>(`cellarInputPut`))
+        );
+      }
+
+      /**Post Complejo*/
+      cellarMoveInput(moveInput: MoveInput): Observable<MoveInput> {
+        return this.http.post<MoveInput>(cellarMoveInput, moveInput, HttpOptions).pipe(
+          tap((i: MoveInput) => console.log(`The input has been moved to the cellar w/ id=${i}`)),
+          catchError(this.handleErrors<MoveInput>(`cellarMoveInput`))
+        );
+      }
+
+      cellarStatus(cellar: Cellar): Observable<any> {
+        return this.http.post(cellarSTATUS, cellar, HttpOptions).pipe(
+          tap((i: any) => console.log(`The status has been updated to the cellar w/ id=${i}`)),
+          catchError(this.handleErrors<Cellar>(`cellarStatus`))
+        );
+      }
+
+      addCellar(cellar: Cellar): Observable<Cellar> {
+        return this.http.post<Cellar>(cellarPOST, cellar, HttpOptions).pipe(
+          tap((i: Cellar) => console.log(`added cellar w/ id=${i}`)),
+          catchError(this.handleErrors<Cellar>(`addCellar`))
+        );
+      }
 }
