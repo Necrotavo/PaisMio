@@ -9,7 +9,7 @@ import { Input } from '../models/input';
 import { InputRequest } from '../models/inputRequest';
 import { Analysis } from '../models/analysis';
 import { Product } from '../models/product';
-import { ReportC } from '../models/reportC';
+import { InputReport } from '../models/inputReport';
 import { ReportM } from '../models/reportM';
 import { Client } from '../models/client';
 import { Order } from '../models/order';
@@ -20,6 +20,7 @@ import { CellarAdmin } from 'src/models/cellarAdmin';
 import { MoveInput } from 'src/models/moveInput';
 import { InputRequestDesicion } from 'src/models/inputRequestDecision';
 import { UserRolUpgrade } from 'src/models/userRolUpgrade';
+import { LoginUser } from 'src/models/loginUser';
 
 const HttpOptions = {
   headers: new HttpHeaders({ 'Content-type': 'application/json' })
@@ -39,6 +40,12 @@ const clientSTATUS = 'https://www.spepaismio.tk/WS_Cliente.svc/ModificarEstado';
 /** User API URLs */
 const userPOST = 'https://spepaismio.tk/WS_Usuario.svc/CrearOperario';
 const userGET = 'https://www.spepaismio.tk/WS_Usuario.svc/Lista';
+const userLoginPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/Login';
+const passwordRecoveryPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/RecuperarContrasena';
+const generatePasswordPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/GenerarPass';
+const searchUserPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/Consultar';
+const modifyStatePOST = 'https://www.spepaismio.tk/WS_Usuario.svc/modificarEstado';
+const upgradeRolPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/supervisorRolUpgrade';
 
 /** Input API URLs */
 const inputPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarInsumo';
@@ -77,10 +84,9 @@ const productPost = 'https://www.spepaismio.tk/WS_Producto.svc/ingresarProducto'
 const productGET = 'https://www.spepaismio.tk/WS_Producto.svc/listaProductos';
 
 /** Reports API URLs */
-const mReportPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
-const mReportGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
-const cReportPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
-const cReportGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+const inputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumos';
+const comparativeInputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumosComparativo';
+const orderReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reportePedido';
 
 /** Analysis API URLs */
 const analysisPost = 'https://www.spepaismio.tk/WS_Pedido.svc/AgregarAnalisisAA';
@@ -174,12 +180,19 @@ export class ApiService {
       catchError(this.handleErrors<User>(`addUser`))
     );
   }
-
+  
   updateUser(correo: string, user: User): Observable<any> {
     const url = `${apiURL}/${correo}`;
     return this.http.put(url, user, HttpOptions).pipe(
       tap(_ => console.log(`updated user id=${correo}`)),
       catchError(this.handleErrors<any>(`updateUser`))
+    );
+  }
+
+  userLogin(user: LoginUser): Observable<User> {
+    return this.http.post<User>(userLoginPOST, user, HttpOptions).pipe(
+      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<User>(`addUser`))
     );
   }
 
@@ -452,6 +465,14 @@ export class ApiService {
   }
 
   /** Comparative Reports CRUD */
+  getInputReport(input: InputReport): Observable<InputReport> {
+    return this.http.post<InputReport>(inputReportPOST, input, HttpOptions).pipe(
+      tap((i: InputReport) => console.log(`added client w/ id=${i.fechaFinal}`)),
+      catchError(this.handleErrors<InputReport>(`getInputReport`))
+    );
+  }
+
+  /**
   getReportC(): Observable<ReportC[]> {
     return this.http.get<ReportC[]>(`${apiURL}`)
       .pipe(
@@ -490,6 +511,7 @@ export class ApiService {
       catchError(this.handleErrors<ReportC>(`deletedReportC`))
     );
   }
+   */
 
   /** Client CRUD */
   getClient(): Observable<Client[]> {
