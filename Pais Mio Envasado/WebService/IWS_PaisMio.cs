@@ -24,7 +24,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json,
-        BodyStyle = WebMessageBodyStyle.WrappedRequest,
+        BodyStyle = WebMessageBodyStyle.Bare,
         Method = "POST",
         UriTemplate = "consultarDatos")]
         DO_PaisMio consultarDatos(DO_PaisMio datos);
