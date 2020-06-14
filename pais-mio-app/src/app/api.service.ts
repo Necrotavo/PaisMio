@@ -181,18 +181,18 @@ export class ApiService {
     );
   }
   
-  userLogin(user: LoginUser): Observable<User> {
-    return this.http.post<User>(userLoginPOST, user, HttpOptions).pipe(
-      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
-      catchError(this.handleErrors<User>(`addUser`))
-    );
-  }
-
   updateUser(correo: string, user: User): Observable<any> {
     const url = `${apiURL}/${correo}`;
     return this.http.put(url, user, HttpOptions).pipe(
       tap(_ => console.log(`updated user id=${correo}`)),
       catchError(this.handleErrors<any>(`updateUser`))
+    );
+  }
+
+  userLogin(user: LoginUser): Observable<User> {
+    return this.http.post<User>(userLoginPOST, user, HttpOptions).pipe(
+      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<User>(`addUser`))
     );
   }
 
