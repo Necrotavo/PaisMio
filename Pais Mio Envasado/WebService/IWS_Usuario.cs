@@ -28,7 +28,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Wrapped,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST", UriTemplate = "RecuperarContrasena")]
         void recuperarContrasena(string correo);
 
