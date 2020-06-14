@@ -106,15 +106,15 @@ namespace WebService
             return sup.upgradeRol(rolUpgrade.usuario, rolUpgrade.rolNuevo);
         }
 
-        public DO_Operario login(string correo, string pass)
+        public DO_Operario login(string correo, string contrasena)
         {
-            if (correo.Trim().Equals("") || pass.Trim().Equals("")) {
+            if (correo.Trim().Equals("") || contrasena.Trim().Equals("")) {
                 return null;
             }
 
             BL_Operario BLoperario = new BL_Operario();
 
-            return BLoperario.login(correo,pass);
+            return BLoperario.login(correo, contrasena);
         }
     }
 }
