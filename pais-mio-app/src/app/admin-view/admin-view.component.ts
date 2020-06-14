@@ -89,6 +89,7 @@ export class AdminViewComponent implements OnInit {
   rolHasError = true;
   unitHasError = true;
   clientHasError = true;
+  cellarHasError = true;
 
   /** Models */
   clientModel = new Client('', '', '', '', '', '');
@@ -382,6 +383,14 @@ export class AdminViewComponent implements OnInit {
         this.clientHasError = true;
       } else {
         this.clientHasError = false;
+      }
+    }
+
+    validateCellar(value){
+      if (value === 'default'){
+        this.cellarHasError = true;
+      } else {
+        this.cellarHasError = false;
       }
     }
 

@@ -274,7 +274,7 @@
             <br>
             
                 <button type="button" class="btn btn-success" data-toggle="modal"
-                    data-target="#usersModal">
+                    data-target="#cellarModal">
                     <i class="icon ion-plus">
                     </i>
                     Ingresar Bodega
@@ -998,6 +998,107 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button [disabled]="productForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal" (click)="postProduct()" class="btn btn-primary">Crear</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal end -->
+
+<!-- Modal Cellar *****-->
+
+<!-- Modal start -->
+
+<div class="modal fade" id="cellarModal" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="cellarsModallabel1">Ingresar Bodega</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form  #cellarForm="ngForm" (ngSubmit)="postCellar()" novalidate>
+                    <div class="form-group">
+                        <div class="tab-header clearfix">
+                            <div class="float-left">
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Nombre
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" required #nombreC="ngModel" class="form-control"
+                                        [class.is-invalid]="nombreC.invalid && nombreC.touched"
+                                         placeholder="Nombre de la bodega" name="nombreC" [(ngModel)]="cellarModel.nombre">
+                                        
+                                         <div *ngIf="nombreC.invalid || nombreC.touched">
+                                            <p><small class="text-danger" *ngIf="nombreC.invalid && nombreC.touched">Nombre requerido</small></p>
+                                        </div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Dirección
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <textarea type="text" required #dirC="ngModel" class="form-control"
+                                        [class.is-invalid]="dirC.invalid && dirC.touched"
+                                         placeholder="Dirección" name="dirC" [(ngModel)]="cellarModel.direccion">
+                                        </textarea>
+                                         <div *ngIf="dirC.invalid || dirC.touched">
+                                            <p><small class="text-danger" *ngIf="dirC.invalid && dirC.touched">Dirección requerida</small></p>
+                                        </div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Telefono
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" required #telC="ngModel" class="form-control"
+                                        [class.is-invalid]="telC.invalid && telC.touched"
+                                         placeholder="+506 1234-5678" name="telC" [(ngModel)]="cellarModel.telefono">
+                                        
+                                         <div *ngIf="telC.invalid || telC.touched">
+                                            <p><small class="text-danger" *ngIf="telC.invalid && telC.touched">Telefono requerido</small></p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button [disabled]="cellarForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal" (click)="postCellar()" class="btn btn-primary">Crear</button>
             </div>
 
         </div>
