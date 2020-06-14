@@ -82,7 +82,7 @@ namespace WebService
             BodyStyle = WebMessageBodyStyle.WrappedRequest,
             Method = "POST",
             UriTemplate = "operarioRolUpgrade")]
-        bool opeRolUpgrade(DO_Operario usuario, String rolNuevo);
+        bool opeRolUpgrade(DO_OpeRolUpgradeUsuario rolUpgrade);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
@@ -90,6 +90,6 @@ namespace WebService
             BodyStyle = WebMessageBodyStyle.WrappedRequest,
             Method = "POST",
             UriTemplate = "supervisorRolUpgrade")]
-        bool supRolUpgrade(DO_Operario usuario, String rolNuevo);
+        bool supRolUpgrade(DO_OpeRolUpgradeUsuario rolUpgrade);
     }
 }

@@ -6,16 +6,15 @@ export class InputRequest {
     codigoPedido: number;
     admin: string;
     estado: string;
-    fecha: Date;
+    fecha: string;
     bodega: number;
     insumosConsumo: InputQ[];
     insumosDescarte: InputQ[];
 
     constructor(codigo: number, bodega: number, codigoPedido: number,
                 insumosConsumo: InputQ[], insumosDescarte: InputQ[], operario: string,
-                admin: string, estado: string, fecha: Date) {
+                admin: string, estado: string, fecha: string) {
              this.codigo = codigo;
-             this.fecha = fecha;
              this.bodega = bodega;
              this.codigoPedido = codigoPedido;
              this.insumosConsumo = insumosConsumo;

@@ -5,10 +5,17 @@ import { ApiService } from '../api.service';
 import { Client } from 'src/models/client';
 import { User } from 'src/models/user';
 import { Input } from 'src/models/input';
+import { InputQ } from 'src/models/inputQ';
 import { Product } from 'src/models/product';
 import { Order } from 'src/models/order';
 import { Unit } from 'src/models/unit';
 import { ProductInOrder } from 'src/models/productInOrder';
+import { Cellar } from 'src/models/cellar';
+import { CellarAdmin } from 'src/models/cellarAdmin';
+import { MoveInput } from 'src/models/moveInput';
+import { InputRequest } from 'src/models/inputRequest';
+import { InputRequestDesicion } from 'src/models/inputRequestDecision';
+import { UserRolUpgrade } from 'src/models/userRolUpgrade';
 
 
 @Component({
@@ -36,6 +43,11 @@ export class AdminViewComponent implements OnInit {
   user: User;
   client: Client;
   product: Product;
+  cellar: Cellar;
+  moveInput: MoveInput;
+  cellarAdmin: CellarAdmin;
+  inputRequest: InputRequest;
+  inputRequestDesicion: InputRequestDesicion;
 
   /** Object Lists */
   orderList: Order[];
@@ -46,6 +58,11 @@ export class AdminViewComponent implements OnInit {
   productList: Product[];
   unitList: Unit[];
   productInOrderList: ProductInOrder[];
+  inputQList: InputQ[];
+  inputQListDiscard: InputQ[];
+  cellarList: Cellar[];
+  cellarList2: Cellar[];
+  inputRequestList: InputRequest[]
 
   /** Data return objects */
   objOrder: Order;
@@ -53,6 +70,11 @@ export class AdminViewComponent implements OnInit {
   objUser: User;
   objClient: Client;
   objProduct: Product;
+  objCellar: Cellar;
+  objMoveInput: MoveInput;
+  objCellarAdmin: CellarAdmin;
+  objInputRequest: InputRequest;
+  objInputRequestDesicion: InputRequestDesicion;
 
   /** Filter terms */
   termO: string; // for Orders
@@ -61,6 +83,7 @@ export class AdminViewComponent implements OnInit {
   termU: string; // for Users
   termC: string; // for Clients
   termP: string; // for Products
+  termB: string; // for Bodegas
 
   /** Combo validations */
   rolHasError = true;
@@ -73,6 +96,12 @@ export class AdminViewComponent implements OnInit {
   inputModel = new Input(0, '', 0, '', '', '');
   productModel = new Product(0, '', '', '', '');
   orderModel = new Order(0, '', '', this.productInOrderList);
+  cellarModel = new Cellar(0, '', '', '', '', this.inputQList);
+  cellarAdminModel = new CellarAdmin(this.cellar, '');
+  moveInputModel = new MoveInput(0, 0, 0, 0);
+  inputRequestModel = new InputRequest(0, 0, 0, this.inputQList, this.inputQListDiscard, '', '', '', '');
+  inputRequestDesicionModel = new InputRequestDesicion(this.inputRequest, this.user, '');
+
 
   ngOnInit(): void {
 
@@ -124,6 +153,8 @@ export class AdminViewComponent implements OnInit {
         this.unitList = data;
       }
     );
+
+    this.getCellar();
 
   }
 
@@ -183,6 +214,149 @@ export class AdminViewComponent implements OnInit {
       }
     );
   }
+
+  /**Cellar Crud */
+  postCellar(){
+
+    this.apiService.addCellar(this.cellarModel).subscribe(
+      data => {
+        this.objCellar = data;
+      }
+    );
+  }
+
+  getCellar(){
+
+    this.apiService.getCellar().subscribe(
+      data => {
+        this.cellarList = data;
+      }
+    );
+  }
+
+  getACellar(){
+
+    this.apiService.getACellar().subscribe(
+      data => {
+        this.cellarList2 = data;
+      }
+    );
+  }
+
+  getOneCellar(){
+
+    this.apiService.getOneCellar(this.cellarModel).subscribe(
+      data => {
+        this.objCellar = data;
+      }
+    );
+  }
+
+  updateCellar(){
+
+    this.apiService.updateCellar(this.cellarModel).subscribe(
+      data => {
+        this.objCellar = data;
+      }
+    );
+  }
+
+  cellarStatus(){
+
+    this.apiService.cellarStatus(this.cellarModel).subscribe(
+      data => {
+        this.objCellar = data;
+      }
+    );
+  }
+
+  cellarMoveInput(){
+
+    this.apiService.cellarMoveInput(this.moveInputModel).subscribe(
+      data => {
+        this.objMoveInput = data;
+      }
+    );
+  }
+
+  /**Este metodo permite la entrada de insumos */
+  cellarInputPut(){
+
+    this.apiService.cellarInputPut(this.cellarAdminModel).subscribe(
+      data => {
+        this.objCellarAdmin = data;
+      }
+    );
+  }
+
+  cellarGetInputList(){
+
+    this.apiService.getCellarInputList(this.cellarModel).subscribe(
+      data => {
+        this.objCellar = data;
+      }
+    );
+  }
+
+  /**Aqui Estoy
+      solicitudPorOperario	POST	Service at https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudPorOperario
+      solicitudPorPedido	POST	Service at https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudPorPedido
+  */
+  /**InputRequest Crud*/
+  postInputRequest(){
+
+    this.apiService.addInputRequest(this.inputRequestModel).subscribe(
+      data => {
+        this.objInputRequest = data;
+      }
+    );
+  }
+
+  getInputRequest(){
+
+    this.apiService.getInputRequest().subscribe(
+      data => {
+        this.inputRequestList = data;
+      }
+    );
+  }
+
+  setInputRequestDesicion(){
+
+    this.apiService.setInputRequestDecision(this.inputRequestDesicionModel).subscribe(
+      data => {
+        this.objInputRequestDesicion = data;
+      }
+    );
+  }
+
+  getInputRequestByUser(){
+
+    this.apiService.getInputRequestByUser(this.userModel).subscribe(
+      data => {
+        this.objInputRequest = data;
+      }
+    );
+  }
+
+  getInputRequestByOrder(){
+
+    this.apiService.getInputRequestByOrder(this.orderModel).subscribe(
+      data => {
+        this.objInputRequest = data;
+      }
+    );
+  }
+
+  searchInputRequest(){
+
+    this.apiService.getInputRequestByID(this.inputRequestModel).subscribe(
+      data => {
+        this.objInputRequest = data;
+      }
+    );
+  }
+
 
   /** Used to validate combo on user rol */
   validateRol(value){

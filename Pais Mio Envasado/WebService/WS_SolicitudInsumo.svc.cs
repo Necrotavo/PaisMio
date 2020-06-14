@@ -41,11 +41,11 @@ namespace WebService
             return blSolicitud.consultaSolicitud(idSolicitud);
         }
 
-        public bool decision(DO_SolicitudInsumos solicitud, DO_Operario admin, string estado)
+        public bool decision(DO_DecisionSolicitudInsumos rolUpgrade)
         {
 
             BL_SolicitudInsumos blSolicitud = new BL_SolicitudInsumos();
-            return blSolicitud.decisionAdmin(solicitud,admin,estado);
+            return blSolicitud.decisionAdmin(rolUpgrade.solicitud, rolUpgrade.admin, rolUpgrade.estado);
         }
 
         public List<DO_SolicitudInsumos> listarSolicitudesPorPedido(int pedido)

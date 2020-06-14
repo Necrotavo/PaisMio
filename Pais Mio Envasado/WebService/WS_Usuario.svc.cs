@@ -94,16 +94,16 @@ namespace WebService
             BLoperario.recuperacionContrasena(correo);
         }
 
-        public bool opeRolUpgrade(DO_Operario usuario, string rolNuevo)
+        public bool opeRolUpgrade(DO_OpeRolUpgradeUsuario rolUpgrade)
         {
             BL_Operario ope = new BL_Operario();
-            return ope.upgradeRol(usuario, rolNuevo);
+            return ope.upgradeRol(rolUpgrade.usuario, rolUpgrade.rolNuevo);
         }
 
-        public bool supRolUpgrade(DO_Operario usuario, string rolNuevo)
+        public bool supRolUpgrade(DO_OpeRolUpgradeUsuario rolUpgrade)
         {
             BL_Supervisor sup = new BL_Supervisor();
-            return sup.upgradeRol(usuario, rolNuevo);
+            return sup.upgradeRol(rolUpgrade.usuario, rolUpgrade.rolNuevo);
         }
 
         public DO_Operario login(string correo, string pass)

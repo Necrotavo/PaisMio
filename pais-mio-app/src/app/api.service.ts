@@ -16,7 +16,10 @@ import { Order } from '../models/order';
 import { Unit } from '../models/unit';
 import { InputQ } from 'src/models/inputQ';
 import { Cellar } from 'src/models/cellar';
-
+import { CellarAdmin } from 'src/models/cellarAdmin';
+import { MoveInput } from 'src/models/moveInput';
+import { InputRequestDesicion } from 'src/models/inputRequestDecision';
+import { UserRolUpgrade } from 'src/models/userRolUpgrade';
 
 const HttpOptions = {
   headers: new HttpHeaders({'Content-type': 'application/json'})
@@ -52,8 +55,13 @@ const inputQSEARCH = 'https://www.spepaismio.tk/WS_Insumo.svc/buscarInsumo';
 const unitPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidad';
 const unitGET = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
 
-const inputRequestPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
-const inputRequestGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+/** Input Request URL's*/
+const inputRequestPost = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/ingresoSolicitud';
+const inputRequestDESICION = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/decisionAdmin';
+const inputRequestGET = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/listarSolicitudes';
+const inputRequestGETBYUSER = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudPorOperario';
+const inputRequestGETBYORDER = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudPorPedido';
+const inputRequestSEARCH = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudSingular';
 
 /** Order API URLs */
 const orderPOST = 'https://www.spepaismio.tk/WS_Pedido.svc/agregarPedido';
@@ -81,6 +89,13 @@ const analysisAASEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/BuscarAnalisis
 /** Cellar API URLs */
 const cellarGET = 'https://www.spepaismio.tk/WS_Bodega.svc/obtenerListaBodegas';
 const cellarAGET = 'https://www.spepaismio.tk/WS_Bodega.svc/obtenerListaBodegasHabilitados';
+const cellarInputPUT = 'https://www.spepaismio.tk/WS_Bodega.svc/entradaInsumos';
+const cellarPOST = 'https://www.spepaismio.tk/WS_Bodega.svc/registrarBodega';
+const cellarUPDATE = 'https://www.spepaismio.tk/WS_Bodega.svc/modificarBodega';
+const cellarSTATUS = 'https://www.spepaismio.tk/WS_Bodega.svc/cambiarEstadoBodega';
+const cellarGetOne = 'https://www.spepaismio.tk/WS_Bodega.svc/obtenerBodega';
+const cellarGetInputList = 'https://www.spepaismio.tk/WS_Bodega.svc/obtenerInsumosBodega';
+const cellarMoveInput = 'https://www.spepaismio.tk/WS_Bodega.svc/moverInsumoDeBodega';
 
 @Injectable({
   providedIn: 'root'
@@ -272,43 +287,48 @@ export class ApiService {
     );
   }
 
+  /**Aqui estoy ahora */
   /** Input Requests CRUD */
   getInputRequest(): Observable<InputRequest[]> {
-    return this.http.get<InputRequest[]>(`${inputGET}`)
+    return this.http.get<InputRequest[]>(`${inputRequestGET}`)
     .pipe(
       tap(inputRequest => console.log(`fetch input request`)),
       catchError(this.handleErrors(`getInputRequest`, []))
     );
   }
 
-  getInputRequestByID(id: string): Observable<InputRequest> {
-    const url = `${apiURL}/${id}`;
-    return this.http.get<InputRequest>(url).pipe(
-      tap(_ => console.log(`fetch input request id=${id}`)),
-      catchError(this.handleErrors<InputRequest>(`getInputRequestByID id=${id}`))
+  getInputRequestByID(inputRequest: InputRequest): Observable<InputRequest> {
+    return this.http.post<InputRequest>(inputRequestSEARCH, inputRequest, HttpOptions).pipe(
+      tap((i: InputRequest) => console.log(`searched input request w/ id=${i.codigo}`)),
+      catchError(this.handleErrors<InputRequest>(`getInputRequestByID`))
     );
   }
 
-  addInputRequest(input: InputRequest): Observable<InputRequest> {
-    return this.http.post<InputRequest>(apiURL, input, HttpOptions).pipe(
+  getInputRequestByUser(user: User): Observable<InputRequest> {
+    return this.http.post<InputRequest>(inputRequestGETBYUSER, user, HttpOptions).pipe(
+      tap((i: InputRequest) => console.log(`searched input request w/ id=${i.codigo} by user`)),
+      catchError(this.handleErrors<InputRequest>(`getInputRequestByUser`))
+    );
+  }
+
+  getInputRequestByOrder(order: Order): Observable<InputRequest> {
+    return this.http.post<InputRequest>(inputRequestGETBYORDER, order, HttpOptions).pipe(
+      tap((i: InputRequest) => console.log(`searched input request w/ id=${i.codigo} by order`)),
+      catchError(this.handleErrors<InputRequest>(`getInputRequestByOrder`))
+    );
+  }
+
+  addInputRequest(inputRequest: InputRequest): Observable<InputRequest> {
+    return this.http.post<InputRequest>(inputRequestPost, inputRequest, HttpOptions).pipe(
       tap((i: InputRequest) => console.log(`added input request w/ id=${i.codigo}`)),
       catchError(this.handleErrors<InputRequest>(`addInputRequest`))
     );
   }
 
-  updateInputRequest(id: string, inputRequest: InputRequest): Observable<any> {
-    const url = `${inputUPDATE}/${id}`;
-    return this.http.put(url, inputRequest, HttpOptions).pipe(
-      tap(_ => console.log(`updated input request id=${id}`)),
-      catchError(this.handleErrors<any>(`updateInputRequest`))
-    );
-  }
-
-  deleteInputRequest(id: string): Observable<InputRequest> {
-    const url = `${apiURL}/${id}`;
-    return this.http.delete<InputRequest>(url, HttpOptions).pipe(
-      tap(_ => console.log(`deleted input request id=${id}`)),
-      catchError(this.handleErrors<InputRequest>(`deletedInputRequest`))
+  setInputRequestDecision(inputRequestDesicion: InputRequestDesicion): Observable<InputRequestDesicion> {
+    return this.http.post<InputRequestDesicion>(inputRequestDESICION, inputRequestDesicion, HttpOptions).pipe(
+      tap((i: InputRequestDesicion) => console.log(`searched input request w/ id=${i.solicitud.codigo} by order`)),
+      catchError(this.handleErrors<InputRequestDesicion>(`getInputRequestByOrder`))
     );
   }
 
@@ -527,8 +547,7 @@ export class ApiService {
       catchError(this.handleErrors<Client>(`deletedClient`))
     );
   }
-
-      /** Cellar CRUD */
+      /**Cellar CRUD*/
       getCellar(): Observable<Cellar[]> {
         return this.http.get<Cellar[]>(`${cellarGET}`)
         .pipe(
@@ -545,4 +564,54 @@ export class ApiService {
         );
       }
 
+      getOneCellar(cellar: Cellar): Observable<Cellar> {
+        return this.http.post<Cellar>(cellarGetOne, cellar, HttpOptions).pipe(
+          tap((i: Cellar) => console.log(`The cellar w/ id=${i} has returned`)),
+          catchError(this.handleErrors<Cellar>(`getOneCellar`))
+        );
+      }
+
+      getCellarInputList(cellar: Cellar): Observable<Cellar> {
+        return this.http.post<Cellar>(cellarGetInputList, cellar, HttpOptions).pipe(
+          tap((i: Cellar) => console.log(`The input list of the cellar w/ id=${i} has returned`)),
+          catchError(this.handleErrors<Cellar>(`getCellarInputList`))
+        );
+      }
+
+      updateCellar(cellar: Cellar): Observable<Cellar> {
+        return this.http.post<Cellar>(cellarUPDATE, cellar, HttpOptions).pipe(
+          tap((i: Cellar) => console.log(`updated cellar w/ id=${i}`)),
+          catchError(this.handleErrors<Cellar>(`updateCellar`))
+        );
+      }
+      
+      /**Post Complejo*/
+      cellarInputPut(cellar: CellarAdmin): Observable<CellarAdmin> {
+        return this.http.post<CellarAdmin>(cellarInputPUT, cellar, HttpOptions).pipe(
+          tap((i: CellarAdmin) => console.log(`The input list has been added to the cellar w/ id=${i.doBodega.nombre}`)),
+          catchError(this.handleErrors<CellarAdmin>(`cellarInputPut`))
+        );
+      }
+
+      /**Post Complejo*/
+      cellarMoveInput(moveInput: MoveInput): Observable<MoveInput> {
+        return this.http.post<MoveInput>(cellarMoveInput, moveInput, HttpOptions).pipe(
+          tap((i: MoveInput) => console.log(`The input has been moved to the cellar w/ id=${i}`)),
+          catchError(this.handleErrors<MoveInput>(`cellarMoveInput`))
+        );
+      }
+
+      cellarStatus(cellar: Cellar): Observable<any> {
+        return this.http.post(cellarSTATUS, cellar, HttpOptions).pipe(
+          tap((i: any) => console.log(`The status has been updated to the cellar w/ id=${i}`)),
+          catchError(this.handleErrors<Cellar>(`cellarStatus`))
+        );
+      }
+
+      addCellar(cellar: Cellar): Observable<Cellar> {
+        return this.http.post<Cellar>(cellarPOST, cellar, HttpOptions).pipe(
+          tap((i: Cellar) => console.log(`added cellar w/ id=${i}`)),
+          catchError(this.handleErrors<Cellar>(`addCellar`))
+        );
+      }
 }

@@ -19,7 +19,7 @@ namespace WebService
             BodyStyle = WebMessageBodyStyle.WrappedRequest,
             Method = "POST",
             UriTemplate = "entradaInsumos")]
-        bool entradaInsumos(DO_Bodega doBodega, string correoAdministrador);
+        bool entradaInsumos(DO_EntradaInsumosBodega bodega);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
@@ -27,7 +27,7 @@ namespace WebService
             BodyStyle = WebMessageBodyStyle.WrappedRequest,
             Method = "POST",
             UriTemplate = "obtenerBodega")]
-        DO_Bodega obtenerBodega(int codigoBodega);
+        DO_Bodega obtenerBodega(int codigo);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
