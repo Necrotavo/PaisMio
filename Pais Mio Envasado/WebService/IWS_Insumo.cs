@@ -17,7 +17,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json, 
             ResponseFormat = WebMessageFormat.Json, 
-            BodyStyle = WebMessageBodyStyle.WrappedRequest, 
+            BodyStyle = WebMessageBodyStyle.Bare, 
             Method = "POST", 
             UriTemplate = "agregarInsumo")]
         bool agregarInsumo(DO_Insumo doInsumo);
@@ -33,7 +33,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "modificarInsumo")]
         bool modificarInsumo(DO_Insumo doInsumo);
@@ -41,7 +41,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "buscarInsumo")]
         DO_Insumo buscarInsumo(int codigoInsumo);
@@ -49,7 +49,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "agregarUnidad")]
         bool agregarUnidadDeMedida(String unidad);
@@ -57,7 +57,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "GET",
             UriTemplate = "listarUnidades")]
         List<String> listarUnidades();

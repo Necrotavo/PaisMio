@@ -18,7 +18,7 @@ namespace WebService
         [WebInvoke(
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Wrapped,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "solicitudPorPedido")]
         List<DO_SolicitudInsumos> listarSolicitudesPorPedido(int pedido);//tested
@@ -33,7 +33,7 @@ namespace WebService
         [WebInvoke(
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Wrapped,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "solicitudPorOperario")]
         List<DO_SolicitudInsumos> listarSolicitudesPorOperario(string operario);//tested
@@ -57,7 +57,7 @@ namespace WebService
         [WebInvoke(
            RequestFormat = WebMessageFormat.Json,
            ResponseFormat = WebMessageFormat.Json,
-           BodyStyle = WebMessageBodyStyle.Wrapped,
+           BodyStyle = WebMessageBodyStyle.Bare,
            Method = "POST",
            UriTemplate = "solicitudSingular")]
         DO_SolicitudInsumos solicitarSolicitud(int idSolicitud);//tested
@@ -66,7 +66,7 @@ namespace WebService
         [WebInvoke(
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Wrapped,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "decisionAdmin")]
         bool decision(DO_DecisionSolicitudInsumos decision);//tested
