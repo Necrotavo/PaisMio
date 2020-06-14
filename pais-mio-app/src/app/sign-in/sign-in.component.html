@@ -5,15 +5,35 @@
                 <img src="assets/images/logo-alt-b.png" />
             </a>
         </div>
-        <form>
+        <form #loginForm="ngForm" (ngSubmit)="login()" novalidate>
             <div class="form-field">
-                <input [(ngModel)]="loginUser.correo" type="email" placeholder="Correo electrónico">
-            </div>
+                <input type="text" required #correoU="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                 class="form-control" [class.is-invalid]="correoU.invalid && correoU.touched"
+                 placeholder="correo@mail.com" name="correoU" [(ngModel)]="loginUser.correo">
+                 <div *ngIf="correoU.errors && (correoU.invalid || correoU.touched)">
+                    <p><small class="text-danger" *ngIf="correoU.errors.required && correoU.touched">Correo requerido</small></p>
+                    <p><small class="text-danger" *ngIf="correoU.errors.pattern">Correo invalido</small></p>
+                    <p><small class="text-danger" *ngIf="correoU.errors.pattern">Ejemplo: xxxx@mail.com</small></p>
+                </div>
+            </div> 
+
             <div class="form-field">
-                <input [(ngModel)]="loginUser.contrasena" type="password" placeholder="Contraseña">
+                <input type="password" required #contrasenaU="ngModel"
+                 class="form-control" [class.is-invalid]="contrasenaU.invalid && contrasenaU.touched"
+                  name="contrasenaU" [(ngModel)]="loginUser.contrasena">
+                 <div *ngIf="contrasenaU.errors && (contrasenaU.invalid || contrasenaU.touched)">
+                    <p><small class="text-danger" *ngIf="contrasenaU.errors.required && contrasenaU.touched">Contraseña invalida</small></p>
+                </div>
+            </div> 
+            <!--
+            <div class="form-field">
+                <input [(ngModel)]="loginUser.contrasena" type="password" placeholder="Contraseña" name="contrasenaU"
+                pattern="{8,20}" class="form-control"  [class.is-invalid]="contrasenaU.invalid && correoU.touched"
+                placeholder="correo@mail.com"> 
             </div>
+            -->
             <div class="form-action">
-                <input (click)="login()" type="submit" class="btn-shadow btn-shadow-primary" value="Ingresar">
+                <input button [disabled]="loginForm.form.invalid" type="submit" class="btn-shadow btn-shadow-primary" value="Ingresar">
             </div>
             <div class="form-bottom">
                 <a routerLink="/recover-password/">¿Olvidó su contraseña?</a>

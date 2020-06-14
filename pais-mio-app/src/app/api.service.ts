@@ -9,7 +9,7 @@ import { Input } from '../models/input';
 import { InputRequest } from '../models/inputRequest';
 import { Analysis } from '../models/analysis';
 import { Product } from '../models/product';
-import { ReportC } from '../models/reportC';
+import { InputReport } from '../models/inputReport';
 import { ReportM } from '../models/reportM';
 import { Client } from '../models/client';
 import { Order } from '../models/order';
@@ -20,6 +20,7 @@ import { CellarAdmin } from 'src/models/cellarAdmin';
 import { MoveInput } from 'src/models/moveInput';
 import { InputRequestDesicion } from 'src/models/inputRequestDecision';
 import { UserRolUpgrade } from 'src/models/userRolUpgrade';
+import { LoginUser } from 'src/models/loginUser'
 
 const HttpOptions = {
   headers: new HttpHeaders({'Content-type': 'application/json'})
@@ -39,6 +40,12 @@ const clientSTATUS = 'https://www.spepaismio.tk/WS_Cliente.svc/ModificarEstado';
 /** User API URLs */
 const userPOST = 'https://spepaismio.tk/WS_Usuario.svc/CrearOperario';
 const userGET = 'https://www.spepaismio.tk/WS_Usuario.svc/Lista';
+const userLoginPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/Login';
+const passwordRecoveryPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/RecuperarContrasena';
+const generatePasswordPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/GenerarPass';
+const searchUserPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/Consultar';
+const modifyStatePOST = 'https://www.spepaismio.tk/WS_Usuario.svc/modificarEstado';
+const upgradeRolPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/supervisorRolUpgrade';
 
 /** Input API URLs */
 const inputPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarInsumo';
@@ -77,10 +84,9 @@ const productPost = 'https://www.spepaismio.tk/WS_Producto.svc/ingresarProducto'
 const productGET = 'https://www.spepaismio.tk/WS_Producto.svc/listaProductos';
 
 /** Reports API URLs */
-const mReportPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
-const mReportGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
-const cReportPost = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
-const cReportGET = 'http://spepaismio-001-site1.itempurl.com/WS_Cliente.svc/listarClientes';
+const inputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumos';
+const comparativeInputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumosComparativo';
+const orderReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reportePedidos';
 
 /** Analysis API URLs */
 const analysisPost = 'https://www.spepaismio.tk/WS_Pedido.svc/AgregarAnalisisAA';
@@ -150,7 +156,7 @@ export class ApiService {
       catchError(this.handleErrors<Order>(`deletedOrder`))
     );
   }
-
+  /**AQUI ESTOY WELINTON QUIW */
   /** Users CRUD */
   getUser(): Observable<User[]> {
     return this.http.get<User[]>(`${userGET}`)
@@ -170,6 +176,13 @@ export class ApiService {
 
   addUser(user: User): Observable<User> {
     return this.http.post<User>(userPOST, user, HttpOptions).pipe(
+      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<User>(`addUser`))
+    );
+  }
+  
+  userLogin(user: LoginUser): Observable<User> {
+    return this.http.post<User>(userLoginPOST, user, HttpOptions).pipe(
       tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
       catchError(this.handleErrors<User>(`addUser`))
     );
@@ -413,82 +426,11 @@ export class ApiService {
     }
 
     /** Monthly Reports CRUD */
-    getReportM(): Observable<ReportM[]> {
-      return this.http.get<ReportM[]>(`${apiURL}`)
-      .pipe(
-        tap(reportM => console.log(`fetch report monthly`)),
-        catchError(this.handleErrors(`getReportM`, []))
-      );
-    }
 
-    getReportMByID(id: string): Observable<ReportM> {
-      const url = `${apiURL}/${id}`;
-      return this.http.get<ReportM>(url).pipe(
-        tap(_ => console.log(`fetch report monthly id=${id}`)),
-        catchError(this.handleErrors<ReportM>(`getReportMByID id=${id}`))
-      );
-    }
-
-    addReportM(reportM: ReportM): Observable<ReportM> {
-      return this.http.post<ReportM>(apiURL, reportM, HttpOptions).pipe(
-        tap((i: ReportM) => console.log(`added reporth monthly w/ id=${i.id}`)),
-        catchError(this.handleErrors<ReportM>(`addReportM`))
-      );
-    }
-
-    updateReportM(id: string, reportM: ReportM): Observable<any> {
-      const url = `${apiURL}/${id}`;
-      return this.http.put(url, reportM, HttpOptions).pipe(
-        tap(_ => console.log(`updated report Monthly id=${id}`)),
-        catchError(this.handleErrors<any>(`updateReportM`))
-      );
-    }
-
-    deleteReportM(id: string): Observable<ReportM> {
-      const url = `${apiURL}/${id}`;
-      return this.http.delete<ReportM>(url, HttpOptions).pipe(
-        tap(_ => console.log(`deleted report Monthly id=${id}`)),
-        catchError(this.handleErrors<ReportM>(`deletedReportM`))
-      );
-    }
-
-    /** Comparative Reports CRUD */
-    getReportC(): Observable<ReportC[]> {
-      return this.http.get<ReportC[]>(`${apiURL}`)
-      .pipe(
-        tap(reportC => console.log(`fetch report comparative`)),
-        catchError(this.handleErrors(`getReportC`, []))
-      );
-    }
-
-    getReportCByID(id: string): Observable<ReportC> {
-      const url = `${apiURL}/${id}`;
-      return this.http.get<ReportC>(url).pipe(
-        tap(_ => console.log(`fetch report comparative id=${id}`)),
-        catchError(this.handleErrors<ReportC>(`getReportCByID id=${id}`))
-      );
-    }
-
-    addReportC(reportC: ReportC): Observable<ReportM> {
-      return this.http.post<ReportC>(apiURL, reportC, HttpOptions).pipe(
-        tap((i: ReportC) => console.log(`added reporth comparative w/ id=${i.id}`)),
-        catchError(this.handleErrors<ReportC>(`addReportC`))
-      );
-    }
-
-    updateReportC(id: string, reportC: ReportC): Observable<any> {
-      const url = `${apiURL}/${id}`;
-      return this.http.put(url, reportC, HttpOptions).pipe(
-        tap(_ => console.log(`updated report comparative id=${id}`)),
-        catchError(this.handleErrors<any>(`updateReportC`))
-      );
-    }
-
-    deleteReportC(id: string): Observable<ReportC> {
-      const url = `${apiURL}/${id}`;
-      return this.http.delete<ReportC>(url, HttpOptions).pipe(
-        tap(_ => console.log(`deleted report comparative id=${id}`)),
-        catchError(this.handleErrors<ReportC>(`deletedReportC`))
+    getInputReport(input: InputReport): Observable<InputReport> {
+      return this.http.post<InputReport>(inputReportPOST, input, HttpOptions).pipe(
+        tap((i: InputReport) => console.log(`added client w/ id=${i.fechaFinal}`)),
+        catchError(this.handleErrors<InputReport>(`getInputReport`))
       );
     }
 

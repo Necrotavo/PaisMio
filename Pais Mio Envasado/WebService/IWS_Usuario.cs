@@ -23,7 +23,7 @@ namespace WebService
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.WrappedRequest,
             Method = "POST", UriTemplate = "Login")]
-        DO_Operario login(string correo, string pass);
+        DO_Operario login(string correo, string contrasena);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
