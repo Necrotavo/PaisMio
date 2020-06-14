@@ -16,7 +16,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "entradaInsumos")]
         bool entradaInsumos(DO_EntradaInsumosBodega bodega);
@@ -24,7 +24,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "obtenerBodega")]
         DO_Bodega obtenerBodega(int codigo);
@@ -32,7 +32,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "registrarBodega")]
         bool registrarBodega(DO_Bodega doBodega);
@@ -40,7 +40,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "modificarBodega")]
         bool modificarBodega(DO_Bodega doBodega);
@@ -48,7 +48,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "cambiarEstadoBodega")]
         bool cambiarEstadoBodega(int codigoBodega, String estado);
@@ -66,7 +66,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "moverInsumoDeBodega")]
         bool moverInsumoDeBodega(Int32 codigoDesdeBodega, Int32 codigoHastaBodega, Int32 codigoInsumo, Int32 cantidad);
@@ -74,7 +74,7 @@ namespace WebService
         //[OperationContract]
         //[WebInvoke(RequestFormat = WebMessageFormat.Json,
         //    ResponseFormat = WebMessageFormat.Json,
-        //    BodyStyle = WebMessageBodyStyle.WrappedRequest,
+        //    BodyStyle = WebMessageBodyStyle.Bare,
         //    Method = "POST",
         //    UriTemplate = "moverTodosInsumosDeBodega")]
         //bool moverTodosInsumosDeBodega(Int32 codigoDesdeBodega, Int32 codigoHastaBodega);
@@ -82,7 +82,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "obtenerInsumosBodega")]
         List<DO_InsumoEnBodega> obtenerInsumosBodega(Int32 codigoBodega);

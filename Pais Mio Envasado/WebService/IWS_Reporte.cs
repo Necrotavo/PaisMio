@@ -16,7 +16,7 @@ namespace WebService
         //[OperationContract]
         //[WebInvoke(RequestFormat = WebMessageFormat.Json,
         //    ResponseFormat = WebMessageFormat.Json,
-        //    BodyStyle = WebMessageBodyStyle.WrappedRequest,
+        //    BodyStyle = WebMessageBodyStyle.Bare,
         //    Method = "POST",
         //    UriTemplate = "obtenerReporteInsumos")]
         //List<DO_ReporteInsumos> obtenerReporteInsumos(string fechaInicio, string fechaFinal);
@@ -24,7 +24,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "reporteInsumos")]
         List<DO_ReporteInsumos> reporteInsumos(string fechaInicio, string fechaFinal);
@@ -32,7 +32,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "reportePedidos")]
         List<DO_ReportePedido> reportePedidos(int mes, int anho);
@@ -40,7 +40,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "reporteInsumosComparativo")]
         List<DO_ReporteInsumoComparativo> obtenerReporteInsumosComparativo(String inicioMes1, String finalMes1, String inicioMes2, String finalMes2);
