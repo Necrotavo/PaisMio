@@ -89,6 +89,7 @@ export class AdminViewComponent implements OnInit {
   rolHasError = true;
   unitHasError = true;
   clientHasError = true;
+  cellarHasError = true;
 
   /** Models */
   clientModel = new Client('', '', '', '', '', '');
@@ -215,7 +216,6 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-  /**Cellar Crud */
   postCellar(){
 
     this.apiService.addCellar(this.cellarModel).subscribe(
@@ -279,16 +279,6 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-  /**Este metodo permite la entrada de insumos */
-  cellarInputPut(){
-
-    this.apiService.cellarInputPut(this.cellarAdminModel).subscribe(
-      data => {
-        this.objCellarAdmin = data;
-      }
-    );
-  }
-
   cellarGetInputList(){
 
     this.apiService.getCellarInputList(this.cellarModel).subscribe(
@@ -298,11 +288,8 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-  /**Aqui Estoy
-      solicitudPorOperario	POST	Service at https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudPorOperario
-      solicitudPorPedido	POST	Service at https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudPorPedido
-  */
-  /**InputRequest Crud*/
+  /** InputRequest CRUD */
+
   postInputRequest(){
 
     this.apiService.addInputRequest(this.inputRequestModel).subscribe(
@@ -382,6 +369,14 @@ export class AdminViewComponent implements OnInit {
         this.clientHasError = true;
       } else {
         this.clientHasError = false;
+      }
+    }
+
+    validateCellar(value){
+      if (value === 'default'){
+        this.cellarHasError = true;
+      } else {
+        this.cellarHasError = false;
       }
     }
 

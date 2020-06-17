@@ -22,29 +22,29 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json, 
         ResponseFormat = WebMessageFormat.Json, 
-        BodyStyle = WebMessageBodyStyle.WrappedRequest, 
+        BodyStyle = WebMessageBodyStyle.Bare, 
         Method = "POST", UriTemplate = "Eliminar")]
-        bool eliminarPedido(Int32 codigoPedido);
+        bool eliminarPedido(Int32 codigo);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json, 
-        BodyStyle = WebMessageBodyStyle.WrappedRequest, 
+        BodyStyle = WebMessageBodyStyle.Bare, 
         Method = "POST", UriTemplate = "Modificar")]
-        bool modificarEstado(Int32 codigoPedido, String estado);
+        bool modificarEstado(Int32 codigo, String estado);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json, 
-        BodyStyle = WebMessageBodyStyle.WrappedRequest, 
+        BodyStyle = WebMessageBodyStyle.Bare, 
         Method = "POST", UriTemplate = "Consultar")]
-        DO_Pedido consultarDetallesPedido(Int32 codigoPedido);
+        DO_Pedido consultarDetallesPedido(Int32 codigo);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json, 
         ResponseFormat = WebMessageFormat.Json, 
-        BodyStyle = WebMessageBodyStyle.WrappedRequest, Method = "POST", UriTemplate = "Despachar")]
-        bool despacharPedido(Int32 codigoPedido, String correoAdmin, String estado);
+        BodyStyle = WebMessageBodyStyle.Bare, Method = "POST", UriTemplate = "Despachar")]
+        bool despacharPedido(Int32 codigo, String correoAdminDespacho, String estado);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json, 

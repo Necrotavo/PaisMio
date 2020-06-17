@@ -21,21 +21,21 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST", UriTemplate = "Login")]
-        DO_Operario login(string correo, string pass);
+        DO_Operario login(string correo, string contrasena);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Wrapped,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST", UriTemplate = "RecuperarContrasena")]
         void recuperarContrasena(string correo);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST", UriTemplate = "GenerarPass")]
         bool generarContrasena(string correo);
 
@@ -55,7 +55,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json, 
             ResponseFormat = WebMessageFormat.Json, 
-            BodyStyle = WebMessageBodyStyle.WrappedRequest, 
+            BodyStyle = WebMessageBodyStyle.Bare, 
             Method = "POST", 
             UriTemplate = "Consultar")]
         DO_Operario consultarUsuario(String correo);
@@ -63,7 +63,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json, 
             ResponseFormat = WebMessageFormat.Json, 
-            BodyStyle = WebMessageBodyStyle.WrappedRequest, 
+            BodyStyle = WebMessageBodyStyle.Bare, 
             Method = "GET", 
             UriTemplate = "Lista")]
         List<DO_Operario> obtenerListaOperario();
@@ -71,7 +71,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json, 
             ResponseFormat = WebMessageFormat.Json, 
-            BodyStyle = WebMessageBodyStyle.WrappedRequest, 
+            BodyStyle = WebMessageBodyStyle.Bare, 
             Method = "POST", 
             UriTemplate = "modificarEstado")]
         bool modificarEstado(string correo, String estado);
@@ -79,7 +79,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "operarioRolUpgrade")]
         bool opeRolUpgrade(DO_OpeRolUpgradeUsuario rolUpgrade);
@@ -87,7 +87,7 @@ namespace WebService
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "supervisorRolUpgrade")]
         bool supRolUpgrade(DO_OpeRolUpgradeUsuario rolUpgrade);

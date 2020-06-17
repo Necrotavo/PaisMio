@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { User } from '../../models/user';
 import { LoginUser } from '../../models/loginUser';
+import { ApiService } from '../api.service';
 
 
 @Component({
@@ -11,16 +12,18 @@ import { LoginUser } from '../../models/loginUser';
 })
 export class SignInComponent implements OnInit {
 
-  loginUser = new LoginUser('', '');
-  objLogin: User;
+  constructor(private apiService: ApiService) { }
 
-  constructor(private auth: AuthService) { }
+  loginUser = new LoginUser('', '');
+  objLogin: User = new User('', '', '', '', '', 'default');
+
+  /**constructor(private auth: AuthService) { }*/
 
   ngOnInit(): void {
   }
 
   login(){
-    return this.auth.loginUser(this.loginUser).subscribe(
+    return this.apiService.userLogin(this.loginUser).subscribe(
       data => {
         this.objLogin = data;
       }
