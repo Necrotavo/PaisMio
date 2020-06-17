@@ -13,10 +13,10 @@ namespace WebService
     // NOTE: In order to launch WCF Test Client for testing this service, please select WS_Bodega.svc or WS_Bodega.svc.cs at the Solution Explorer and start debugging.
     public class WS_Bodega : IWS_Bodega
     {
-        public bool cambiarEstadoBodega(int codigoBodega, string estado)
+        public bool cambiarEstadoBodega(DO_Bodega doBodega)
         {
             BL_Bodega blBodega = new BL_Bodega();
-            return blBodega.cambiarEstadoBodega(codigoBodega, estado);
+            return blBodega.cambiarEstadoBodega(doBodega.codigo, doBodega.estado);
         }
 
         public bool entradaInsumos(DO_EntradaInsumosBodega bodega)

@@ -20,10 +20,10 @@ import { CellarAdmin } from 'src/models/cellarAdmin';
 import { MoveInput } from 'src/models/moveInput';
 import { InputRequestDesicion } from 'src/models/inputRequestDecision';
 import { UserRolUpgrade } from 'src/models/userRolUpgrade';
-import { LoginUser } from 'src/models/loginUser'
+import { LoginUser } from 'src/models/loginUser';
 
 const HttpOptions = {
-  headers: new HttpHeaders({'Content-type': 'application/json'})
+  headers: new HttpHeaders({ 'Content-type': 'application/json' })
 };
 
 /*** Api URL constants */
@@ -35,32 +35,40 @@ const clientPOST = 'https://www.spepaismio.tk/WS_Cliente.svc/Agregar';
 const clientGET = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientes';
 const clientAGET = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientesHabilitados';
 const clientUPDATE = 'https://www.spepaismio.tk/WS_Cliente.svc/Modificar';
+/** Falta Client */
 const clientSTATUS = 'https://www.spepaismio.tk/WS_Cliente.svc/ModificarEstado';
+const clientSEARCH = 'https://www.spepaismio.tk/WS_Cliente.svc/Buscar';
 
 /** User API URLs */
 const userPOST = 'https://spepaismio.tk/WS_Usuario.svc/CrearOperario';
 const userGET = 'https://www.spepaismio.tk/WS_Usuario.svc/Lista';
 const userLoginPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/Login';
+/** Falta User */
 const passwordRecoveryPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/RecuperarContrasena';
 const generatePasswordPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/GenerarPass';
 const searchUserPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/Consultar';
 const modifyStatePOST = 'https://www.spepaismio.tk/WS_Usuario.svc/modificarEstado';
-const upgradeRolPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/supervisorRolUpgrade';
+const upgradeSupervisorRolPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/supervisorRolUpgrade';
+const upgradeOperatorRolPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/operarioRolUpgrade';
 
 /** Input API URLs */
 const inputPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarInsumo';
 const inputGET = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumos';
-const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
 const inputSEARCH = 'https://www.spepaismio.tk/WS_Insumo.svc/buscarInsumo';
+/** Falta input */
+const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
+const inputGetA = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
 
-/** Input Q API URLs */
+
+/** Input Q API URLs Hay que quitarlo*/
 const inputQPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarInsumo';
 const inputQGET = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
 const inputQUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
 const inputQSEARCH = 'https://www.spepaismio.tk/WS_Insumo.svc/buscarInsumo';
 
+/** Units Request URL's*/
 const unitPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidad';
-const unitGET = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
+const unitGET = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidad';
 
 /** Input Request URL's*/
 const inputRequestPost = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/ingresoSolicitud';
@@ -73,24 +81,28 @@ const inputRequestSEARCH = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/sol
 /** Order API URLs */
 const orderPOST = 'https://www.spepaismio.tk/WS_Pedido.svc/agregarPedido';
 const orderGET = 'https://www.spepaismio.tk/WS_Pedido.svc/listarPedidos';
+/** Falta Order */
 const orderUPDATE = 'https://www.spepaismio.tk/WS_Pedido.svc/Modificar';
 const orderDELETE = 'https://www.spepaismio.tk/WS_Pedido.svc/Eliminar';
 const orderSEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/Consultar';
 const orderPACKOFF = 'https://www.spepaismio.tk/WS_Pedido.svc/Despachar';
 
+/**Falta Analysis API URLs */
+const analysisPost = 'https://www.spepaismio.tk/WS_Pedido.svc/AgregarAnalisisAA';
+const analysisAASEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/BuscarAnalisisAA';
 
 /** Product API URLs */
 const productPost = 'https://www.spepaismio.tk/WS_Producto.svc/ingresarProducto';
 const productGET = 'https://www.spepaismio.tk/WS_Producto.svc/listaProductos';
+/** Falta producto */
+const productGetA = 'https://www.spepaismio.tk/WS_Producto.svc/listaProductosHabilitados';
+const productSEARCH = 'https://www.spepaismio.tk/WS_Producto.svc/buscarProducto';
+const productUPDATE = 'https://www.spepaismio.tk/WS_Producto.svc/modificarProducto';
 
 /** Reports API URLs */
 const inputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumos';
 const comparativeInputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumosComparativo';
-const orderReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reportePedidos';
-
-/** Analysis API URLs */
-const analysisPost = 'https://www.spepaismio.tk/WS_Pedido.svc/AgregarAnalisisAA';
-const analysisAASEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/BuscarAnalisisAA';
+const orderReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reportePedido';
 
 /** Cellar API URLs */
 const cellarGET = 'https://www.spepaismio.tk/WS_Bodega.svc/obtenerListaBodegas';
@@ -110,7 +122,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  private handleErrors<T>(operation = 'operation', result?: T){
+  private handleErrors<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
       return of(result as T);
@@ -118,12 +130,13 @@ export class ApiService {
   }
 
   /** Order CRUD */
+
   getOrder(): Observable<Order[]> {
     return this.http.get<Order[]>(`${orderGET}`)
-    .pipe(
-      tap(order => console.log('fetch order')),
-      catchError(this.handleErrors(`getOrder`, []))
-    );
+      .pipe(
+        tap(order => console.log('fetch order')),
+        catchError(this.handleErrors(`getOrder`, []))
+      );
   }
 
   getOrderByClient(client: string): Observable<User> {
@@ -141,29 +154,41 @@ export class ApiService {
     );
   }
 
-  updateOrder(id: string, order: Order): Observable<any> {
-    const url = `${apiURL}/${id}`;
-    return this.http.put(url, order, HttpOptions).pipe(
-      tap(_ => console.log(`updated order id=${id}`)),
-      catchError(this.handleErrors<any>(`updateOrder`))
+  updateOrder(order: Order): Observable<Order> {
+    return this.http.post<Order>(orderUPDATE, order, HttpOptions).pipe(
+      tap((i: Order) => console.log(`added order w/ id=${i.codigo}`)),
+      catchError(this.handleErrors<Order>(`addOrder`))
     );
   }
 
-  deleteOrder(id: string): Observable<Order> {
-    const url = `${apiURL}/${id}`;
-    return this.http.delete<Order>(url, HttpOptions).pipe(
-      tap(_ => console.log(`deleted order id=${id}`)),
-      catchError(this.handleErrors<Order>(`deletedOrder`))
+  deleteOrder(order: Order): Observable<Order> {
+    return this.http.post<Order>(orderDELETE, order, HttpOptions).pipe(
+      tap((i: Order) => console.log(`added order w/ id=${i.codigo}`)),
+      catchError(this.handleErrors<Order>(`addOrder`))
     );
   }
-  /**AQUI ESTOY WELINTON QUIW */
-  /** Users CRUD */
+
+  searchOrder(order: Order): Observable<Order> {
+    return this.http.post<Order>(orderSEARCH, order, HttpOptions).pipe(
+      tap((i: Order) => console.log(`added order w/ id=${i.codigo}`)),
+      catchError(this.handleErrors<Order>(`addOrder`))
+    );
+  }
+
+  packOff(order: Order): Observable<Order> {
+    return this.http.post<Order>(orderPACKOFF, order, HttpOptions).pipe(
+      tap((i: Order) => console.log(`added order w/ id=${i.codigo}`)),
+      catchError(this.handleErrors<Order>(`addOrder`))
+    );
+  }
+
+  /** Users CRUD*/
   getUser(): Observable<User[]> {
     return this.http.get<User[]>(`${userGET}`)
-    .pipe(
-      tap(user => console.log('fetch user')),
-      catchError(this.handleErrors(`getUser`, []))
-    );
+      .pipe(
+        tap(user => console.log('fetch user')),
+        catchError(this.handleErrors(`getUser`, []))
+      );
   }
 
   getUserByEmail(email: string): Observable<User> {
@@ -180,9 +205,44 @@ export class ApiService {
       catchError(this.handleErrors<User>(`addUser`))
     );
   }
-  
-  userLogin(user: LoginUser): Observable<User> {
-    return this.http.post<User>(userLoginPOST, user, HttpOptions).pipe(
+
+  passwordRecovery(user: User): Observable<User> {
+    return this.http.post<User>(passwordRecoveryPOST, user, HttpOptions).pipe(
+      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<User>(`addUser`))
+    );
+  }
+
+  generatePassword(user: User): Observable<User> {
+    return this.http.post<User>(generatePasswordPOST, user, HttpOptions).pipe(
+      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<User>(`addUser`))
+    );
+  }
+
+  searchUser(user: User): Observable<User> {
+    return this.http.post<User>(searchUserPOST, user, HttpOptions).pipe(
+      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<User>(`addUser`))
+    );
+  }
+
+  modifyStateUser(user: User): Observable<User> {
+    return this.http.post<User>(modifyStatePOST, user, HttpOptions).pipe(
+      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<User>(`addUser`))
+    );
+  }
+
+  upgradeSupervisorRol(user: User): Observable<User> {
+    return this.http.post<User>(upgradeSupervisorRolPOST, user, HttpOptions).pipe(
+      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<User>(`addUser`))
+    );
+  }
+
+  upgradeOperatorRol(user: User): Observable<User> {
+    return this.http.post<User>(upgradeOperatorRolPOST, user, HttpOptions).pipe(
       tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
       catchError(this.handleErrors<User>(`addUser`))
     );
@@ -196,6 +256,13 @@ export class ApiService {
     );
   }
 
+  userLogin(user: LoginUser): Observable<User> {
+    return this.http.post<User>(userLoginPOST, user, HttpOptions).pipe(
+      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<User>(`addUser`))
+    );
+  }
+
   deleteUser(id: string): Observable<User> {
     const url = `${apiURL}/${id}`;
     return this.http.delete<User>(url, HttpOptions).pipe(
@@ -204,13 +271,25 @@ export class ApiService {
     );
   }
 
-  /** Inputs CRUD */
+  /** Inputs CRUD 
+   * const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
+const inputGetA = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
+const unitGet = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
+const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
+  */
   getInput(): Observable<Input[]> {
     return this.http.get<Input[]>(`${inputGET}`)
-    .pipe(
-      tap(input => console.log(`fetch input`)),
-      catchError(this.handleErrors(`getInput`, []))
-    );
+      .pipe(
+        tap(input => console.log(`fetch input`)),
+        catchError(this.handleErrors(`getInput`, []))
+      );
+  }
+  getInputA(): Observable<Input[]> {
+    return this.http.get<Input[]>(`${inputGetA}`)
+      .pipe(
+        tap(input => console.log(`fetch input`)),
+        catchError(this.handleErrors(`getInput`, []))
+      );
   }
 
   getInputByName(nombre: string): Observable<Input> {
@@ -228,11 +307,10 @@ export class ApiService {
     );
   }
 
-  updateInput(nombre: string, input: Input): Observable<any> {
-    const url = `${clientUPDATE}/${nombre}`;
-    return this.http.put(url, input, HttpOptions).pipe(
-      tap(_ => console.log(`updated input id=${nombre}`)),
-      catchError(this.handleErrors<any>(`updateInput`))
+  updateInput(input: Input): Observable<Input> {
+    return this.http.post<Input>(inputUPDATE, input, HttpOptions).pipe(
+      tap((i: Input) => console.log(`added user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<Input>(`addUser`))
     );
   }
 
@@ -247,10 +325,10 @@ export class ApiService {
   /** Inputs quantity CRUD */
   getInputQ(): Observable<InputQ[]> {
     return this.http.get<InputQ[]>(`${inputQGET}`)
-    .pipe(
-      tap(inputQ => console.log(`fetch inputQ`)),
-      catchError(this.handleErrors(`getInputQ`, []))
-    );
+      .pipe(
+        tap(inputQ => console.log(`fetch inputQ`)),
+        catchError(this.handleErrors(`getInputQ`, []))
+      );
   }
 
   getInputQByName(nombre: string): Observable<InputQ> {
@@ -287,10 +365,10 @@ export class ApiService {
   /** Units CRUD */
   getUnits(): Observable<Unit[]> {
     return this.http.get<Unit[]>(`${unitGET}`)
-    .pipe(
-      tap(input => console.log(`fetch unit`)),
-      catchError(this.handleErrors(`getUnit`, []))
-    );
+      .pipe(
+        tap(input => console.log(`fetch unit`)),
+        catchError(this.handleErrors(`getUnit`, []))
+      );
   }
 
   addUnit(unit: Unit): Observable<Unit> {
@@ -300,14 +378,13 @@ export class ApiService {
     );
   }
 
-  /**Aqui estoy ahora */
   /** Input Requests CRUD */
   getInputRequest(): Observable<InputRequest[]> {
     return this.http.get<InputRequest[]>(`${inputRequestGET}`)
-    .pipe(
-      tap(inputRequest => console.log(`fetch input request`)),
-      catchError(this.handleErrors(`getInputRequest`, []))
-    );
+      .pipe(
+        tap(inputRequest => console.log(`fetch input request`)),
+        catchError(this.handleErrors(`getInputRequest`, []))
+      );
   }
 
   getInputRequestByID(inputRequest: InputRequest): Observable<InputRequest> {
@@ -348,9 +425,24 @@ export class ApiService {
   /** Products CRUD */
   getProduct(): Observable<Product[]> {
     return this.http.get<Product[]>(`${productGET}`)
-    .pipe(
-      tap(product => console.log(`fetch producct`)),
-      catchError(this.handleErrors(`getProdut`, []))
+      .pipe(
+        tap(product => console.log(`fetch producct`)),
+        catchError(this.handleErrors(`getProdut`, []))
+      );
+  }
+
+  getProductA(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${productGetA}`)
+      .pipe(
+        tap(product => console.log(`fetch producct`)),
+        catchError(this.handleErrors(`getProdut`, []))
+      );
+  }
+
+  searchProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(productSEARCH, product, HttpOptions).pipe(
+      tap((i: Product) => console.log(`added product w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<Product>(`addProduct`))
     );
   }
 
@@ -370,10 +462,9 @@ export class ApiService {
   }
 
   updateProduct(id: string, product: Product): Observable<any> {
-    const url = `${apiURL}/${id}`;
-    return this.http.put(url, product, HttpOptions).pipe(
-      tap(_ => console.log(`updated product id=${id}`)),
-      catchError(this.handleErrors<any>(`updateProduct`))
+    return this.http.post<Product>(productUPDATE, product, HttpOptions).pipe(
+      tap((i: Product) => console.log(`added product w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<Product>(`addProduct`))
     );
   }
 
@@ -385,70 +476,149 @@ export class ApiService {
     );
   }
 
-    /** Analysis CRUD */
-    getAnalysis(): Observable<Analysis[]> {
-      return this.http.get<Analysis[]>(`${apiURL}`)
+  /** Analysis CRUD  */
+  getAnalysis(): Observable<Analysis[]> {
+    return this.http.get<Analysis[]>(`${apiURL}`)
       .pipe(
         tap(analysis => console.log(`fetch analysis`)),
         catchError(this.handleErrors(`getAnalysis`, []))
       );
-    }
+  }
 
-    getAnalysisByID(id: string): Observable<Analysis> {
-      const url = `${apiURL}/${id}`;
-      return this.http.get<Analysis>(url).pipe(
-        tap(_ => console.log(`fetch analysis id=${id}`)),
-        catchError(this.handleErrors<Analysis>(`getAnalysisByID id=${id}`))
+  getAnalysisByID(analysis: Analysis): Observable<Analysis> {
+    return this.http.post<Analysis>(analysisAASEARCH, analysis, HttpOptions).pipe(
+      tap((i: Analysis) => console.log(`added analysis w/ id=${i.pedCodigo}`)),
+      catchError(this.handleErrors<Analysis>(`addAnalysis`))
+    );
+  }
+
+  addAnalysis(analysis: Analysis): Observable<Analysis> {
+    return this.http.post<Analysis>(analysisPost, analysis, HttpOptions).pipe(
+      tap((i: Analysis) => console.log(`added analysis w/ id=${i.pedCodigo}`)),
+      catchError(this.handleErrors<Analysis>(`addAnalysis`))
+    );
+  }
+
+  updateAnalysis(id: string, analysis: Analysis): Observable<any> {
+    const url = `${apiURL}/${id}`;
+    return this.http.put(url, analysis, HttpOptions).pipe(
+      tap(_ => console.log(`updated analysis id=${id}`)),
+      catchError(this.handleErrors<any>(`updateAnalysis`))
+    );
+  }
+
+  deleteAnalysis(id: string): Observable<Analysis> {
+    const url = `${apiURL}/${id}`;
+    return this.http.delete<Analysis>(url, HttpOptions).pipe(
+      tap(_ => console.log(`deleted analysis id=${id}`)),
+      catchError(this.handleErrors<Analysis>(`deletedAnalysis`))
+    );
+  }
+
+  /** Monthly Reports CRUD */
+  getReportM(): Observable<ReportM[]> {
+    return this.http.get<ReportM[]>(`${apiURL}`)
+      .pipe(
+        tap(reportM => console.log(`fetch report monthly`)),
+        catchError(this.handleErrors(`getReportM`, []))
       );
-    }
+  }
 
-    addAnalysis(analysis: Analysis): Observable<Analysis> {
-      return this.http.post<Analysis>(apiURL, analysis, HttpOptions).pipe(
-        tap((i: Analysis) => console.log(`added analysis w/ id=${i.pedCodigo}`)),
-        catchError(this.handleErrors<Analysis>(`addAnalysis`))
+  getReportMByID(id: string): Observable<ReportM> {
+    const url = `${apiURL}/${id}`;
+    return this.http.get<ReportM>(url).pipe(
+      tap(_ => console.log(`fetch report monthly id=${id}`)),
+      catchError(this.handleErrors<ReportM>(`getReportMByID id=${id}`))
+    );
+  }
+
+  addReportM(reportM: ReportM): Observable<ReportM> {
+    return this.http.post<ReportM>(apiURL, reportM, HttpOptions).pipe(
+      tap((i: ReportM) => console.log(`added reporth monthly w/ id=${i.id}`)),
+      catchError(this.handleErrors<ReportM>(`addReportM`))
+    );
+  }
+
+  updateReportM(id: string, reportM: ReportM): Observable<any> {
+    const url = `${apiURL}/${id}`;
+    return this.http.put(url, reportM, HttpOptions).pipe(
+      tap(_ => console.log(`updated report Monthly id=${id}`)),
+      catchError(this.handleErrors<any>(`updateReportM`))
+    );
+  }
+
+  deleteReportM(id: string): Observable<ReportM> {
+    const url = `${apiURL}/${id}`;
+    return this.http.delete<ReportM>(url, HttpOptions).pipe(
+      tap(_ => console.log(`deleted report Monthly id=${id}`)),
+      catchError(this.handleErrors<ReportM>(`deletedReportM`))
+    );
+  }
+
+  /** Comparative Reports CRUD */
+  getInputReport(input: InputReport): Observable<InputReport> {
+    return this.http.post<InputReport>(inputReportPOST, input, HttpOptions).pipe(
+      tap((i: InputReport) => console.log(`added client w/ id=${i.fechaFinal}`)),
+      catchError(this.handleErrors<InputReport>(`getInputReport`))
+    );
+  }
+
+  /**
+  getReportC(): Observable<ReportC[]> {
+    return this.http.get<ReportC[]>(`${apiURL}`)
+      .pipe(
+        tap(reportC => console.log(`fetch report comparative`)),
+        catchError(this.handleErrors(`getReportC`, []))
       );
-    }
+  }
 
-    updateAnalysis(id: string, analysis: Analysis): Observable<any> {
-      const url = `${apiURL}/${id}`;
-      return this.http.put(url, analysis, HttpOptions).pipe(
-        tap(_ => console.log(`updated analysis id=${id}`)),
-        catchError(this.handleErrors<any>(`updateAnalysis`))
-      );
-    }
+  getReportCByID(id: string): Observable<ReportC> {
+    const url = `${apiURL}/${id}`;
+    return this.http.get<ReportC>(url).pipe(
+      tap(_ => console.log(`fetch report comparative id=${id}`)),
+      catchError(this.handleErrors<ReportC>(`getReportCByID id=${id}`))
+    );
+  }
 
-    deleteAnalysis(id: string): Observable<Analysis> {
-      const url = `${apiURL}/${id}`;
-      return this.http.delete<Analysis>(url, HttpOptions).pipe(
-        tap(_ => console.log(`deleted analysis id=${id}`)),
-        catchError(this.handleErrors<Analysis>(`deletedAnalysis`))
-      );
-    }
+  addReportC(reportC: ReportC): Observable<ReportM> {
+    return this.http.post<ReportC>(apiURL, reportC, HttpOptions).pipe(
+      tap((i: ReportC) => console.log(`added reporth comparative w/ id=${i.id}`)),
+      catchError(this.handleErrors<ReportC>(`addReportC`))
+    );
+  }
 
-    /** Monthly Reports CRUD */
+  updateReportC(id: string, reportC: ReportC): Observable<any> {
+    const url = `${apiURL}/${id}`;
+    return this.http.put(url, reportC, HttpOptions).pipe(
+      tap(_ => console.log(`updated report comparative id=${id}`)),
+      catchError(this.handleErrors<any>(`updateReportC`))
+    );
+  }
 
-    getInputReport(input: InputReport): Observable<InputReport> {
-      return this.http.post<InputReport>(inputReportPOST, input, HttpOptions).pipe(
-        tap((i: InputReport) => console.log(`added client w/ id=${i.fechaFinal}`)),
-        catchError(this.handleErrors<InputReport>(`getInputReport`))
-      );
-    }
+  deleteReportC(id: string): Observable<ReportC> {
+    const url = `${apiURL}/${id}`;
+    return this.http.delete<ReportC>(url, HttpOptions).pipe(
+      tap(_ => console.log(`deleted report comparative id=${id}`)),
+      catchError(this.handleErrors<ReportC>(`deletedReportC`))
+    );
+  }
+   */
 
-      /** Client CRUD */
+  /** Client CRUD */
   getClient(): Observable<Client[]> {
     return this.http.get<Client[]>(`${clientGET}`)
-    .pipe(
-      tap(user => console.log('fetch client')),
-      catchError(this.handleErrors(`getClient`, []))
-    );
+      .pipe(
+        tap(user => console.log('fetch client')),
+        catchError(this.handleErrors(`getClient`, []))
+      );
   }
 
   getAClient(): Observable<Client[]> {
     return this.http.get<Client[]>(`${clientAGET}`)
-    .pipe(
-      tap(user => console.log('fetch client')),
-      catchError(this.handleErrors(`getClient`, []))
-    );
+      .pipe(
+        tap(user => console.log('fetch client')),
+        catchError(this.handleErrors(`getClient`, []))
+      );
   }
 
   getClientByEmail(email: string): Observable<Client> {
@@ -466,21 +636,36 @@ export class ApiService {
     );
   }
 
-  updateClient(nombre: string, client: Client): Observable<any> {
-    const url = `${apiURL}/${nombre}`;
-    return this.http.put(url, client, HttpOptions).pipe(
-      tap(_ => console.log(`updated client id=${nombre}`)),
-      catchError(this.handleErrors<any>(`updateClient`))
+  searchClient(client: Client): Observable<Client> {
+    return this.http.post<Client>(clientSEARCH, client, HttpOptions).pipe(
+      tap((i: Client) => console.log(`added client w/ id=${i.cedula}`)),
+      catchError(this.handleErrors<Client>(`addClient`))
     );
   }
 
-  updateClientStatus(nombre: string, client: Client): Observable<any> {
+  updateClient(client: Client): Observable<Client> {
+    return this.http.post<Client>(clientUPDATE, client, HttpOptions).pipe(
+      tap((i: Client) => console.log(`updated client w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<Client>(`addUser`))
+    );
+  }
+
+  updateClientStatus(client: Client): Observable<Client> {
+    return this.http.post<Client>(clientSTATUS, client, HttpOptions).pipe(
+      tap((i: Client) => console.log(`added client w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<Client>(`addUser`))
+    );
+  }
+
+
+ /** updateClientStatus(nombre: string, client: Client): Observable<any> {
     const url = `${apiURL}/${nombre}`;
     return this.http.put(url, client, HttpOptions).pipe(
       tap(_ => console.log(`updated client status id=${nombre}`)),
       catchError(this.handleErrors<any>(`updateClientStatus`))
     );
-  }
+  } */
+
 
   deleteClient(nombre: string): Observable<Client> {
     const url = `${apiURL}/${nombre}`;
@@ -489,71 +674,72 @@ export class ApiService {
       catchError(this.handleErrors<Client>(`deletedClient`))
     );
   }
-      /**Cellar CRUD*/
-      getCellar(): Observable<Cellar[]> {
-        return this.http.get<Cellar[]>(`${cellarGET}`)
-        .pipe(
-          tap(cellar => console.log('fetch Cellar')),
-          catchError(this.handleErrors(`getCellar`, []))
-        );
-      }
 
-      getACellar(): Observable<Cellar[]> {
-        return this.http.get<Cellar[]>(`${cellarAGET}`)
-        .pipe(
-          tap(user => console.log('fetch cellar')),
-          catchError(this.handleErrors(`getCellar`, []))
-        );
-      }
+  /** Cellar CRUD */
+  getCellar(): Observable<Cellar[]> {
+    return this.http.get<Cellar[]>(`${cellarGET}`)
+      .pipe(
+        tap(cellar => console.log('fetch Cellar')),
+        catchError(this.handleErrors(`getCellar`, []))
+      );
+  }
 
-      getOneCellar(cellar: Cellar): Observable<Cellar> {
-        return this.http.post<Cellar>(cellarGetOne, cellar, HttpOptions).pipe(
-          tap((i: Cellar) => console.log(`The cellar w/ id=${i} has returned`)),
-          catchError(this.handleErrors<Cellar>(`getOneCellar`))
-        );
-      }
+  getACellar(): Observable<Cellar[]> {
+    return this.http.get<Cellar[]>(`${cellarAGET}`)
+      .pipe(
+        tap(user => console.log('fetch cellar')),
+        catchError(this.handleErrors(`getCellar`, []))
+      );
+  }
 
-      getCellarInputList(cellar: Cellar): Observable<Cellar> {
-        return this.http.post<Cellar>(cellarGetInputList, cellar, HttpOptions).pipe(
-          tap((i: Cellar) => console.log(`The input list of the cellar w/ id=${i} has returned`)),
-          catchError(this.handleErrors<Cellar>(`getCellarInputList`))
-        );
-      }
+  getOneCellar(cellar: Cellar): Observable<Cellar> {
+    return this.http.post<Cellar>(cellarGetOne, cellar, HttpOptions).pipe(
+      tap((i: Cellar) => console.log(`The cellar w/ id=${i} has returned`)),
+      catchError(this.handleErrors<Cellar>(`getOneCellar`))
+    );
+  }
 
-      updateCellar(cellar: Cellar): Observable<Cellar> {
-        return this.http.post<Cellar>(cellarUPDATE, cellar, HttpOptions).pipe(
-          tap((i: Cellar) => console.log(`updated cellar w/ id=${i}`)),
-          catchError(this.handleErrors<Cellar>(`updateCellar`))
-        );
-      }
-      
-      /**Post Complejo*/
-      cellarInputPut(cellar: CellarAdmin): Observable<CellarAdmin> {
-        return this.http.post<CellarAdmin>(cellarInputPUT, cellar, HttpOptions).pipe(
-          tap((i: CellarAdmin) => console.log(`The input list has been added to the cellar w/ id=${i.doBodega.nombre}`)),
-          catchError(this.handleErrors<CellarAdmin>(`cellarInputPut`))
-        );
-      }
+  getCellarInputList(cellar: Cellar): Observable<Cellar> {
+    return this.http.post<Cellar>(cellarGetInputList, cellar, HttpOptions).pipe(
+      tap((i: Cellar) => console.log(`The input list of the cellar w/ id=${i} has returned`)),
+      catchError(this.handleErrors<Cellar>(`getCellarInputList`))
+    );
+  }
 
-      /**Post Complejo*/
-      cellarMoveInput(moveInput: MoveInput): Observable<MoveInput> {
-        return this.http.post<MoveInput>(cellarMoveInput, moveInput, HttpOptions).pipe(
-          tap((i: MoveInput) => console.log(`The input has been moved to the cellar w/ id=${i}`)),
-          catchError(this.handleErrors<MoveInput>(`cellarMoveInput`))
-        );
-      }
+  updateCellar(cellar: Cellar): Observable<Cellar> {
+    return this.http.post<Cellar>(cellarUPDATE, cellar, HttpOptions).pipe(
+      tap((i: Cellar) => console.log(`updated cellar w/ id=${i}`)),
+      catchError(this.handleErrors<Cellar>(`updateCellar`))
+    );
+  }
 
-      cellarStatus(cellar: Cellar): Observable<any> {
-        return this.http.post(cellarSTATUS, cellar, HttpOptions).pipe(
-          tap((i: any) => console.log(`The status has been updated to the cellar w/ id=${i}`)),
-          catchError(this.handleErrors<Cellar>(`cellarStatus`))
-        );
-      }
+  /** Complex post */
+  inputEntry(cellar: CellarAdmin): Observable<CellarAdmin> {
+    return this.http.post<CellarAdmin>(cellarInputPUT, cellar, HttpOptions).pipe(
+      tap((i: CellarAdmin) => console.log(`The input list has been added to the cellar w/ id=${i.doBodega.nombre}`)),
+      catchError(this.handleErrors<CellarAdmin>(`cellarInputPut`))
+    );
+  }
 
-      addCellar(cellar: Cellar): Observable<Cellar> {
-        return this.http.post<Cellar>(cellarPOST, cellar, HttpOptions).pipe(
-          tap((i: Cellar) => console.log(`added cellar w/ id=${i}`)),
-          catchError(this.handleErrors<Cellar>(`addCellar`))
-        );
-      }
+  /** Complex post */
+  cellarMoveInput(moveInput: MoveInput): Observable<MoveInput> {
+    return this.http.post<MoveInput>(cellarMoveInput, moveInput, HttpOptions).pipe(
+      tap((i: MoveInput) => console.log(`The input has been moved to the cellar w/ id=${i}`)),
+      catchError(this.handleErrors<MoveInput>(`cellarMoveInput`))
+    );
+  }
+
+  cellarStatus(cellar: Cellar): Observable<any> {
+    return this.http.post(cellarSTATUS, cellar, HttpOptions).pipe(
+      tap((i: any) => console.log(`The status has been updated to the cellar w/ id=${i}`)),
+      catchError(this.handleErrors<Cellar>(`cellarStatus`))
+    );
+  }
+
+  addCellar(cellar: Cellar): Observable<Cellar> {
+    return this.http.post<Cellar>(cellarPOST, cellar, HttpOptions).pipe(
+      tap((i: Cellar) => console.log(`added cellar w/ id=${i}`)),
+      catchError(this.handleErrors<Cellar>(`addCellar`))
+    );
+  }
 }
