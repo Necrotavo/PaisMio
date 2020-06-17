@@ -35,25 +35,33 @@ const clientPOST = 'https://www.spepaismio.tk/WS_Cliente.svc/Agregar';
 const clientGET = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientes';
 const clientAGET = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientesHabilitados';
 const clientUPDATE = 'https://www.spepaismio.tk/WS_Cliente.svc/Modificar';
+/** Falta Client */
 const clientSTATUS = 'https://www.spepaismio.tk/WS_Cliente.svc/ModificarEstado';
+const clientSEARCH = 'https://www.spepaismio.tk/WS_Cliente.svc/Buscar';
 
 /** User API URLs */
 const userPOST = 'https://spepaismio.tk/WS_Usuario.svc/CrearOperario';
 const userGET = 'https://www.spepaismio.tk/WS_Usuario.svc/Lista';
 const userLoginPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/Login';
+/** Falta User */
 const passwordRecoveryPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/RecuperarContrasena';
 const generatePasswordPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/GenerarPass';
 const searchUserPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/Consultar';
 const modifyStatePOST = 'https://www.spepaismio.tk/WS_Usuario.svc/modificarEstado';
-const upgradeRolPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/supervisorRolUpgrade';
+const upgradeSupervisorRolPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/supervisorRolUpgrade';
+const upgradeOperatorRolPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/operarioRolUpgrade';
 
 /** Input API URLs */
 const inputPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarInsumo';
 const inputGET = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumos';
-const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
 const inputSEARCH = 'https://www.spepaismio.tk/WS_Insumo.svc/buscarInsumo';
+/** Falta input */
+const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
+const inputGetA = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
+const unitGet = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
+const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
 
-/** Input Q API URLs */
+/** Input Q API URLs Hay que quitarlo*/
 const inputQPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarInsumo';
 const inputQGET = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
 const inputQUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
@@ -73,24 +81,28 @@ const inputRequestSEARCH = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/sol
 /** Order API URLs */
 const orderPOST = 'https://www.spepaismio.tk/WS_Pedido.svc/agregarPedido';
 const orderGET = 'https://www.spepaismio.tk/WS_Pedido.svc/listarPedidos';
+/** Falta Order */
 const orderUPDATE = 'https://www.spepaismio.tk/WS_Pedido.svc/Modificar';
 const orderDELETE = 'https://www.spepaismio.tk/WS_Pedido.svc/Eliminar';
 const orderSEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/Consultar';
 const orderPACKOFF = 'https://www.spepaismio.tk/WS_Pedido.svc/Despachar';
 
+/**Falta Analysis API URLs */
+const analysisPost = 'https://www.spepaismio.tk/WS_Pedido.svc/AgregarAnalisisAA';
+const analysisAASEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/BuscarAnalisisAA';
 
 /** Product API URLs */
 const productPost = 'https://www.spepaismio.tk/WS_Producto.svc/ingresarProducto';
 const productGET = 'https://www.spepaismio.tk/WS_Producto.svc/listaProductos';
+/** Falta producto */
+const productGetA = 'https://www.spepaismio.tk/WS_Producto.svc/listaProductosHabilitados';
+const productSEARCH = 'https://www.spepaismio.tk/WS_Producto.svc/buscarProducto';
+const productUPDATE = 'https://www.spepaismio.tk/WS_Producto.svc/modificarProducto';
 
 /** Reports API URLs */
 const inputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumos';
 const comparativeInputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumosComparativo';
 const orderReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reportePedido';
-
-/** Analysis API URLs */
-const analysisPost = 'https://www.spepaismio.tk/WS_Pedido.svc/AgregarAnalisisAA';
-const analysisAASEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/BuscarAnalisisAA';
 
 /** Cellar API URLs */
 const cellarGET = 'https://www.spepaismio.tk/WS_Bodega.svc/obtenerListaBodegas';
