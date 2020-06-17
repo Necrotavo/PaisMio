@@ -58,8 +58,7 @@ const inputSEARCH = 'https://www.spepaismio.tk/WS_Insumo.svc/buscarInsumo';
 /** Falta input */
 const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
 const inputGetA = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
-const unitGet = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
-const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
+
 
 /** Input Q API URLs Hay que quitarlo*/
 const inputQPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarInsumo';
@@ -67,8 +66,9 @@ const inputQGET = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHa
 const inputQUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
 const inputQSEARCH = 'https://www.spepaismio.tk/WS_Insumo.svc/buscarInsumo';
 
+/** Units Request URL's*/
 const unitPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidad';
-const unitGET = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
+const unitGET = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidad';
 
 /** Input Request URL's*/
 const inputRequestPost = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/ingresoSolicitud';
@@ -130,6 +130,7 @@ export class ApiService {
   }
 
   /** Order CRUD */
+
   getOrder(): Observable<Order[]> {
     return this.http.get<Order[]>(`${orderGET}`)
       .pipe(
@@ -153,23 +154,35 @@ export class ApiService {
     );
   }
 
-  updateOrder(id: string, order: Order): Observable<any> {
-    const url = `${apiURL}/${id}`;
-    return this.http.put(url, order, HttpOptions).pipe(
-      tap(_ => console.log(`updated order id=${id}`)),
-      catchError(this.handleErrors<any>(`updateOrder`))
+  updateOrder(order: Order): Observable<Order> {
+    return this.http.post<Order>(orderUPDATE, order, HttpOptions).pipe(
+      tap((i: Order) => console.log(`added order w/ id=${i.codigo}`)),
+      catchError(this.handleErrors<Order>(`addOrder`))
     );
   }
 
-  deleteOrder(id: string): Observable<Order> {
-    const url = `${apiURL}/${id}`;
-    return this.http.delete<Order>(url, HttpOptions).pipe(
-      tap(_ => console.log(`deleted order id=${id}`)),
-      catchError(this.handleErrors<Order>(`deletedOrder`))
+  deleteOrder(order: Order): Observable<Order> {
+    return this.http.post<Order>(orderDELETE, order, HttpOptions).pipe(
+      tap((i: Order) => console.log(`added order w/ id=${i.codigo}`)),
+      catchError(this.handleErrors<Order>(`addOrder`))
     );
   }
 
-  /** Users CRUD */
+  searchOrder(order: Order): Observable<Order> {
+    return this.http.post<Order>(orderSEARCH, order, HttpOptions).pipe(
+      tap((i: Order) => console.log(`added order w/ id=${i.codigo}`)),
+      catchError(this.handleErrors<Order>(`addOrder`))
+    );
+  }
+
+  packOff(order: Order): Observable<Order> {
+    return this.http.post<Order>(orderPACKOFF, order, HttpOptions).pipe(
+      tap((i: Order) => console.log(`added order w/ id=${i.codigo}`)),
+      catchError(this.handleErrors<Order>(`addOrder`))
+    );
+  }
+
+  /** Users CRUD*/
   getUser(): Observable<User[]> {
     return this.http.get<User[]>(`${userGET}`)
       .pipe(
@@ -192,7 +205,49 @@ export class ApiService {
       catchError(this.handleErrors<User>(`addUser`))
     );
   }
-  
+
+  passwordRecovery(user: User): Observable<User> {
+    return this.http.post<User>(passwordRecoveryPOST, user, HttpOptions).pipe(
+      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<User>(`addUser`))
+    );
+  }
+
+  generatePassword(user: User): Observable<User> {
+    return this.http.post<User>(generatePasswordPOST, user, HttpOptions).pipe(
+      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<User>(`addUser`))
+    );
+  }
+
+  searchUser(user: User): Observable<User> {
+    return this.http.post<User>(searchUserPOST, user, HttpOptions).pipe(
+      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<User>(`addUser`))
+    );
+  }
+
+  modifyStateUser(user: User): Observable<User> {
+    return this.http.post<User>(modifyStatePOST, user, HttpOptions).pipe(
+      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<User>(`addUser`))
+    );
+  }
+
+  upgradeSupervisorRol(user: User): Observable<User> {
+    return this.http.post<User>(upgradeSupervisorRolPOST, user, HttpOptions).pipe(
+      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<User>(`addUser`))
+    );
+  }
+
+  upgradeOperatorRol(user: User): Observable<User> {
+    return this.http.post<User>(upgradeOperatorRolPOST, user, HttpOptions).pipe(
+      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<User>(`addUser`))
+    );
+  }
+
   updateUser(correo: string, user: User): Observable<any> {
     const url = `${apiURL}/${correo}`;
     return this.http.put(url, user, HttpOptions).pipe(
@@ -216,9 +271,21 @@ export class ApiService {
     );
   }
 
-  /** Inputs CRUD */
+  /** Inputs CRUD 
+   * const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
+const inputGetA = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
+const unitGet = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
+const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
+  */
   getInput(): Observable<Input[]> {
     return this.http.get<Input[]>(`${inputGET}`)
+      .pipe(
+        tap(input => console.log(`fetch input`)),
+        catchError(this.handleErrors(`getInput`, []))
+      );
+  }
+  getInputA(): Observable<Input[]> {
+    return this.http.get<Input[]>(`${inputGetA}`)
       .pipe(
         tap(input => console.log(`fetch input`)),
         catchError(this.handleErrors(`getInput`, []))
@@ -240,11 +307,10 @@ export class ApiService {
     );
   }
 
-  updateInput(nombre: string, input: Input): Observable<any> {
-    const url = `${clientUPDATE}/${nombre}`;
-    return this.http.put(url, input, HttpOptions).pipe(
-      tap(_ => console.log(`updated input id=${nombre}`)),
-      catchError(this.handleErrors<any>(`updateInput`))
+  updateInput(input: Input): Observable<Input> {
+    return this.http.post<Input>(inputUPDATE, input, HttpOptions).pipe(
+      tap((i: Input) => console.log(`added user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<Input>(`addUser`))
     );
   }
 
@@ -365,6 +431,21 @@ export class ApiService {
       );
   }
 
+  getProductA(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${productGetA}`)
+      .pipe(
+        tap(product => console.log(`fetch producct`)),
+        catchError(this.handleErrors(`getProdut`, []))
+      );
+  }
+
+  searchProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(productSEARCH, product, HttpOptions).pipe(
+      tap((i: Product) => console.log(`added product w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<Product>(`addProduct`))
+    );
+  }
+
   getProductByID(id: string): Observable<Product> {
     const url = `${apiURL}/${id}`;
     return this.http.get<Product>(url).pipe(
@@ -381,10 +462,9 @@ export class ApiService {
   }
 
   updateProduct(id: string, product: Product): Observable<any> {
-    const url = `${apiURL}/${id}`;
-    return this.http.put(url, product, HttpOptions).pipe(
-      tap(_ => console.log(`updated product id=${id}`)),
-      catchError(this.handleErrors<any>(`updateProduct`))
+    return this.http.post<Product>(productUPDATE, product, HttpOptions).pipe(
+      tap((i: Product) => console.log(`added product w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<Product>(`addProduct`))
     );
   }
 
@@ -396,7 +476,7 @@ export class ApiService {
     );
   }
 
-  /** Analysis CRUD */
+  /** Analysis CRUD  */
   getAnalysis(): Observable<Analysis[]> {
     return this.http.get<Analysis[]>(`${apiURL}`)
       .pipe(
@@ -405,16 +485,15 @@ export class ApiService {
       );
   }
 
-  getAnalysisByID(id: string): Observable<Analysis> {
-    const url = `${apiURL}/${id}`;
-    return this.http.get<Analysis>(url).pipe(
-      tap(_ => console.log(`fetch analysis id=${id}`)),
-      catchError(this.handleErrors<Analysis>(`getAnalysisByID id=${id}`))
+  getAnalysisByID(analysis: Analysis): Observable<Analysis> {
+    return this.http.post<Analysis>(analysisAASEARCH, analysis, HttpOptions).pipe(
+      tap((i: Analysis) => console.log(`added analysis w/ id=${i.pedCodigo}`)),
+      catchError(this.handleErrors<Analysis>(`addAnalysis`))
     );
   }
 
   addAnalysis(analysis: Analysis): Observable<Analysis> {
-    return this.http.post<Analysis>(apiURL, analysis, HttpOptions).pipe(
+    return this.http.post<Analysis>(analysisPost, analysis, HttpOptions).pipe(
       tap((i: Analysis) => console.log(`added analysis w/ id=${i.pedCodigo}`)),
       catchError(this.handleErrors<Analysis>(`addAnalysis`))
     );
@@ -557,21 +636,36 @@ export class ApiService {
     );
   }
 
-  updateClient(nombre: string, client: Client): Observable<any> {
-    const url = `${apiURL}/${nombre}`;
-    return this.http.put(url, client, HttpOptions).pipe(
-      tap(_ => console.log(`updated client id=${nombre}`)),
-      catchError(this.handleErrors<any>(`updateClient`))
+  searchClient(client: Client): Observable<Client> {
+    return this.http.post<Client>(clientSEARCH, client, HttpOptions).pipe(
+      tap((i: Client) => console.log(`added client w/ id=${i.cedula}`)),
+      catchError(this.handleErrors<Client>(`addClient`))
     );
   }
 
-  updateClientStatus(nombre: string, client: Client): Observable<any> {
+  updateClient(client: Client): Observable<Client> {
+    return this.http.post<Client>(clientUPDATE, client, HttpOptions).pipe(
+      tap((i: Client) => console.log(`updated client w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<Client>(`addUser`))
+    );
+  }
+
+  updateClientStatus(client: Client): Observable<Client> {
+    return this.http.post<Client>(clientSTATUS, client, HttpOptions).pipe(
+      tap((i: Client) => console.log(`added client w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<Client>(`addUser`))
+    );
+  }
+
+
+ /** updateClientStatus(nombre: string, client: Client): Observable<any> {
     const url = `${apiURL}/${nombre}`;
     return this.http.put(url, client, HttpOptions).pipe(
       tap(_ => console.log(`updated client status id=${nombre}`)),
       catchError(this.handleErrors<any>(`updateClientStatus`))
     );
-  }
+  } */
+
 
   deleteClient(nombre: string): Observable<Client> {
     const url = `${apiURL}/${nombre}`;
