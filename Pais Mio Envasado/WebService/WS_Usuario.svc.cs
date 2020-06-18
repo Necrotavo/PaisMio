@@ -75,10 +75,10 @@ namespace WebService
         /// <param name="correo">(String) Correo del usuario a modificar</param>
         /// <param name="estado">(String) Nuevo estado del usuario</param>
         /// <returns></returns>
-        public bool modificarEstado(String correo, String estado)
+        public bool modificarEstado(DO_Operario doUsuario)
         {
             BL_Operario blOperario = new BL_Operario();
-            return blOperario.modificarEstadoUsuario(correo, estado);
+            return blOperario.modificarEstadoUsuario(doUsuario.correo, doUsuario.estado);
         }
 
         public bool generarContrasena(string correo)
@@ -106,15 +106,15 @@ namespace WebService
             return sup.upgradeRol(rolUpgrade.usuario, rolUpgrade.rolNuevo);
         }
 
-        public DO_Operario login(string correo, string contrasena)
+        public DO_Operario login(DO_Operario doUsuario)
         {
-            if (correo.Trim().Equals("") || contrasena.Trim().Equals("")) {
+            if (doUsuario.correo.Trim().Equals("") || doUsuario.contrasena.Trim().Equals("")) {
                 return null;
             }
 
             BL_Operario BLoperario = new BL_Operario();
 
-            return BLoperario.login(correo, contrasena);
+            return BLoperario.login(doUsuario.correo, doUsuario.contrasena);
         }
     }
 }

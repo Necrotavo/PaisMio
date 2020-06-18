@@ -36,11 +36,11 @@ namespace WebService
         /// </summary>
         /// <param name="cedula">El nombre del cliente a buscar</param>
         /// <returns>El cliente con sus respectivos datos (DO_Cliente)</returns>
-        public DO_Cliente buscarCliente(String cedula)
+        public DO_Cliente buscarCliente(DO_Cliente doCliente)
         {
             BL_Cliente blCliente = new BL_Cliente();
 
-            return blCliente.buscarCliente(cedula);
+            return blCliente.buscarCliente(doCliente.cedula);
         }
         /// <summary>
         /// WS para listar los clientes totales en el sistema.
@@ -85,11 +85,11 @@ namespace WebService
         /// <param name="estado">El nuevo estado del cliente (String)</param>
         /// <param name="cedula">La cédula del cliente (String)</param>
         /// <returns>(True) si se modificó el estado. (False) si ocurrió algún error.</returns>
-        public bool modificarEstado(String estado, String cedula)
+        public bool modificarEstado(DO_Cliente doCliente)
         {
             BL_Cliente blCliente = new BL_Cliente();
 
-            return blCliente.modificarEstado(estado, cedula);
+            return blCliente.modificarEstado(doCliente.estado, doCliente.cedula);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace WebService
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST", UriTemplate = "Login")]
-        DO_Operario login(string correo, string contrasena);
+        DO_Operario login(DO_Operario usuario);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
@@ -58,7 +58,7 @@ namespace WebService
             BodyStyle = WebMessageBodyStyle.Bare, 
             Method = "POST", 
             UriTemplate = "Consultar")]
-        DO_Operario consultarUsuario(String correo);
+        DO_Operario consultarUsuario(string correo);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json, 
@@ -74,7 +74,7 @@ namespace WebService
             BodyStyle = WebMessageBodyStyle.Bare, 
             Method = "POST", 
             UriTemplate = "modificarEstado")]
-        bool modificarEstado(string correo, String estado);
+        bool modificarEstado(DO_Operario doUsuario);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,

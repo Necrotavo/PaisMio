@@ -52,7 +52,7 @@ namespace WebService
             BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "agregarUnidad")]
-        bool agregarUnidadDeMedida(String unidad);
+        bool agregarUnidadDeMedida(string unidad);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,

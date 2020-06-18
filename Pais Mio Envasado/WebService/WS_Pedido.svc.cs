@@ -36,21 +36,21 @@ namespace WebService
             return BLanalisAA.buscarAnalisisAAporPedCodigo(pedCodigo);
         }
 
-        public DO_Pedido consultarDetallesPedido(Int32 codigoPedido)
+        public DO_Pedido consultarDetallesPedido(int codigoPedido)
         {
             BL_Pedido blPedido = new BL_Pedido();
 
             return blPedido.consultarDatosPedido(codigoPedido);
         }
 
-        public bool despacharPedido(Int32 codigoPedido, String correoAdmin, String estado)
+        public bool despacharPedido(DO_Pedido doPedido)
         {
             BL_Pedido blPedido = new BL_Pedido();
 
-            return blPedido.despacharPedido(codigoPedido, correoAdmin, DateTime.Now, estado);
+            return blPedido.despacharPedido(doPedido.codigo, doPedido.correoAdminDespacho, DateTime.Now, doPedido.estado);
         }
 
-        public bool eliminarPedido(Int32 codigoPedido)
+        public bool eliminarPedido(int codigoPedido)
         {
             BL_Pedido blPedido = new BL_Pedido();
 
@@ -64,11 +64,11 @@ namespace WebService
             return blPedido.listarPedidosHabilitados();
         }
 
-        public bool modificarEstado(Int32 codigoPedido, String estado)
+        public bool modificarEstado(DO_Pedido doPedido)
         {
             BL_Pedido blPedido = new BL_Pedido();
 
-            return blPedido.modificarEstado(codigoPedido, estado);
+            return blPedido.modificarEstado(doPedido.codigo, doPedido.estado);
         }
     }
 }
