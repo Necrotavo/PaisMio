@@ -68,7 +68,7 @@ const inputQSEARCH = 'https://www.spepaismio.tk/WS_Insumo.svc/buscarInsumo';
 
 /** Units Request URL's*/
 const unitPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidad';
-const unitGET = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidad';
+const unitGET = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
 
 /** Input Request URL's*/
 const inputRequestPost = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/ingresoSolicitud';
