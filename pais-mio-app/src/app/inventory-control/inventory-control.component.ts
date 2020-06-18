@@ -148,12 +148,14 @@ export class InventoryControlComponent implements OnInit {
   validateList(){
     if (this.inputEntryList.length > 0){
       this.listIsNotEmpty = true;
+    } else {
+      this.listIsNotEmpty = false;
     }
   }
 
   removeFromList(i: number){
-    console.log(i);
-    console.log('borro:' + this.inputEntryList.splice(i, 1));
+    this.inputEntryList.splice(i, 1);
+    this.validateList();
   }
 
 

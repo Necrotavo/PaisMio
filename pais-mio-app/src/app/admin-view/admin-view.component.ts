@@ -104,7 +104,7 @@ export class AdminViewComponent implements OnInit {
   moveInputModel = new MoveInput(0, 0, 0, 0);
   inputRequestModel = new InputRequest(0, 0, 0, this.inputQList, this.inputQListDiscard, '', '', '', '');
   inputRequestDesicionModel = new InputRequestDesicion(this.inputRequest, this.user, '');
-  unitModel = new Unit("");
+  unitModel = new Unit('');
 
 
   ngOnInit(): void {
@@ -118,7 +118,6 @@ export class AdminViewComponent implements OnInit {
 
     /** Gets all Inputs on Init */
     this.getInput();
-    
 
     /** Gets all Users on Init */
     this.getUser();

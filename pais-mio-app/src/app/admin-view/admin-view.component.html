@@ -39,7 +39,7 @@
                     <div class="tab-header clearfix">
                         <div class="float-left">
                             <div class="search-field">
-                                
+
                                 <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="termO">
                                 <br>
                                 <select class="custom-select" [(ngModel)]="termO2">
@@ -48,100 +48,103 @@
                                     <option value="Conforme">Conforme</option>
                                     <option value="No conforme">No conforme</option>
                                 </select>
-                                
+
                             </div>
                             <br>
-                                <button type="button" class="btn btn-success" data-toggle="modal"
-                                    data-target="#ordersModal">
-                                    <i class="icon ion-plus">
-                                    </i>
-                                    Crear pedido
-                                </button>
-                            
+                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                data-target="#ordersModal">
+                                <i class="icon ion-plus">
+                                </i>
+                                Crear pedido
+                            </button>
+
                         </div>
-                        
+
                     </div>
                     <br>
 
                     <div id="accordion">
                         <div class="card" *ngFor="let com of orderList | filter:termO | filter:termO2; let i = index">
-                          <div class="card-header" id="headingOne">
-                            <h5 class="mb-0">
-                              <button class="btn btn-link" data-toggle="collapse" attr.data-target="#collapseO{{i}}" aria-expanded="true" attr.aria-controls="collapseO{{i}}">
-                                {{com.codigo}} | {{com.cedulaCliente}}
-                              </button>
-                            </h5>
-                          </div>
-                      
-                          <div attr.id="collapseO{{i}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                            <div class="card-body">
-    
-                                <table class="table table-striped table-responsive">
-                                    <thead>
-                                        <tr>
-                                            <th>Parametro</th>
-                                            <th>Datos</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th>Código</th>
-                                            <td>
-                                                {{com.codigo}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>ID</th>
-                                            <td>
-                                                {{com.cedulaCliente}}
-                                            </td>
-                                        </tr>
-                                        <tr *ngFor="let prod of com.listaProductos; let i = index">    
-                                                    <th>Producto</th>
-                                                    <td>
-                                                        <p>Nombre: {{com.listaProductos[i].producto.nombre}}</p>
-                                                        <p>Cantidad: {{com.listaProductos[i].cantidad}}</p>
-                                                        <!--
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse"
+                                        attr.data-target="#collapseO{{i}}" aria-expanded="true"
+                                        attr.aria-controls="collapseO{{i}}">
+                                        {{com.codigo}} | {{com.cedulaCliente}}
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div attr.id="collapseO{{i}}" class="collapse" aria-labelledby="headingOne"
+                                data-parent="#accordion">
+                                <div class="card-body">
+
+                                    <table class="table table-striped table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>Parametro</th>
+                                                <th>Datos</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>Código</th>
+                                                <td>
+                                                    {{com.codigo}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>ID</th>
+                                                <td>
+                                                    {{com.cedulaCliente}}
+                                                </td>
+                                            </tr>
+                                            <tr *ngFor="let prod of com.listaProductos; let i = index">
+                                                <th>Producto</th>
+                                                <td>
+                                                    <p>Nombre: {{com.listaProductos[i].producto.nombre}}</p>
+                                                    <p>Cantidad: {{com.listaProductos[i].cantidad}}</p>
+                                                    <!--
                                                         <p>Descripción: {{com.listaProductos[i].producto.descripcion}}</p>
                                                         -->
-                                                    </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Estado</th>
-                                            <td>
-                                                <span class="badge badge-success">{{com.estado}}</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Fecha de ingreso</th>
-                                            <td>
-                                                {{com.fecheIngreso}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Fecha de despacho</th>
-                                            <td>
-                                                {{com.fechaDespacho}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Correo de ingreso</th>
-                                            <td>
-                                                {{com.correoAdminIngreso}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Correo de despacho</th>
-                                            <td>
-                                                {{com.correoAdminDespacho}}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <br>
-                                </table>
-                              
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Estado</th>
+                                                <td>
+                                                    <span class="badge badge-success">{{com.estado}}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Fecha de ingreso</th>
+                                                <td>
+                                                    {{com.fecheIngreso}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Fecha de despacho</th>
+                                                <td>
+                                                    {{com.fechaDespacho}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Correo de ingreso</th>
+                                                <td>
+                                                    {{com.correoAdminIngreso}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Correo de despacho</th>
+                                                <td>
+                                                    {{com.correoAdminDespacho}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <br>
+                                    </table>
+
+                                </div>
                             </div>
-                          </div>
                         </div>
                     </div>
                 </div>
@@ -154,14 +157,14 @@
                                 <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="termI">
                             </div>
                             <br>
-                            
-                                <button type="button" class="btn btn-success" data-toggle="modal"
-                                    data-target="#inputsModal">
-                                    <i class="icon ion-plus">
-                                    </i>
-                                    Crear insumo
-                                </button>
-                            
+
+                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                data-target="#inputsModal">
+                                <i class="icon ion-plus">
+                                </i>
+                                Crear insumo
+                            </button>
+
                         </div>
                     </div>
 
@@ -176,7 +179,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor= "let com of inputList | filter:termI">
+                            <tr *ngFor="let com of inputList | filter:termI">
                                 <td>
                                     {{com.codigo}}
                                 </td>
@@ -207,14 +210,13 @@
                                 <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="termU">
                             </div>
                             <br>
-                            
-                                <button type="button" class="btn btn-success" data-toggle="modal"
-                                    data-target="#usersModal">
-                                    <i class="icon ion-plus">
-                                    </i>
-                                    Crear usuario
-                                </button>
-                            
+
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#usersModal">
+                                <i class="icon ion-plus">
+                                </i>
+                                Crear usuario
+                            </button>
+
                         </div>
                     </div>
 
@@ -228,7 +230,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor= "let user of userList | filter:termU">
+                            <tr *ngFor="let user of userList | filter:termU">
                                 <td>
                                     {{user.nombre}}
                                 </td>
@@ -267,90 +269,89 @@
 
                 </div>
 
-<div role="tabpanel" class="tab-pane" id="cellars">
+                <div role="tabpanel" class="tab-pane" id="cellars">
 
-    <div class="tab-header clearfix">
-        <div class="float-left">
-            <div class="search-field">
-                <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="termB">
-            </div>
-            <br>
-            
-                <button type="button" class="btn btn-success" data-toggle="modal"
-                    data-target="#cellarModal">
-                    <i class="icon ion-plus">
-                    </i>
-                    Ingresar Bodega
-                </button>
-            
-        </div>
-    </div>
+                    <div class="tab-header clearfix">
+                        <div class="float-left">
+                            <div class="search-field">
+                                <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="termB">
+                            </div>
+                            <br>
 
-    <table class="table table-striped table-responsive">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Dirección</th>
-                <th>Telefono</th>
-                <th>Estado</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor= "let bodega of cellarList | filter:termB">
-                <td>
-                    {{bodega.nombre}}
-                </td>
-                <td>
-                    {{bodega.direccion}}
-                </td>
-                <td>
-                    {{bodega.telefono}}
-                </td>
-                <td>
-                    <span class="badge badge-success">{{bodega.estado}}</span>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                data-target="#cellarModal">
+                                <i class="icon ion-plus">
+                                </i>
+                                Ingresar Bodega
+                            </button>
 
-</div>
+                        </div>
+                    </div>
 
-<!--Aqui estoy-->
-<div role="tabpanel" class="tab-pane" id="units">
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Dirección</th>
+                                <th>Telefono</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let bodega of cellarList | filter:termB">
+                                <td>
+                                    {{bodega.nombre}}
+                                </td>
+                                <td>
+                                    {{bodega.direccion}}
+                                </td>
+                                <td>
+                                    {{bodega.telefono}}
+                                </td>
+                                <td>
+                                    <span class="badge badge-success">{{bodega.estado}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-    <div class="tab-header clearfix">
-        <div class="float-left">
-            <div class="search-field">
-                <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="termUn">
-            </div>
-            <br>
-            
-                <button type="button" class="btn btn-success" data-toggle="modal"
-                    data-target="#unitModal">
-                    <i class="icon ion-plus">
-                    </i>
-                    Ingresar Unidad de Medida
-                </button>
-            
-        </div>
-    </div>
+                </div>
 
-    <table class="table table-striped table-responsive">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor= "let unit of unitList | filter:termB">
-                <td>
-                    {{unit}}
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                <!--Aqui estoy-->
+                <div role="tabpanel" class="tab-pane" id="units">
 
-</div>
+                    <div class="tab-header clearfix">
+                        <div class="float-left">
+                            <div class="search-field">
+                                <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="termUn">
+                            </div>
+                            <br>
+
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#unitModal">
+                                <i class="icon ion-plus">
+                                </i>
+                                Ingresar Unidad de Medida
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let unit of unitList | filter:termUn;">
+                                <td>
+                                    {{unit.unidad}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
 
                 <div role="tabpanel" class="tab-pane" id="clients">
 
@@ -358,84 +359,87 @@
 
                         <div class="float-left">
                             <div class="search-field">
-                                <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="termUn">
+                                <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="termC">
                             </div>
                             <br>
-                            
-                                <button type="button" class="btn btn-success" data-toggle="modal"
-                                    data-target="#clientsModal">
-                                    <i class="icon ion-plus">
-                                    </i>
-                                    Crear Unidad
-                                </button>
-                            
-                        </div>
-                    </div>
-                <br>
-                <div id="accordion">
-                    <div class="card" *ngFor="let item of clientList | filter:termC; let i = index">
-                      <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                          <button class="btn btn-link" data-toggle="collapse" attr.data-target="#collapse{{i}}" aria-expanded="true" attr.aria-controls="collapse{{i}}">
-                            {{item.cedula}} | {{item.nombre}}
-                          </button>
-                        </h5>
-                      </div>
-                  
-                      <div attr.id="collapse{{i}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body">
 
-                            <table class="table table-striped table-responsive">
-                                <thead>
-                                    <tr data-toggle="collapse" data-target="#client">
-                                        <th>Parametro</th>
-                                        <th>Datos</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th>Identificación</th>
-                                        <td>
-                                            {{item.cedula}}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Nombre</th>
-                                        <td>
-                                            {{item.nombre}}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Dirección</th>
-                                        <td>
-                                            {{item.direccion}}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Teléfono</th>
-                                        <td>
-                                            {{item.telefono}}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Correo electronico</th>
-                                        <td>
-                                            {{item.correo}}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Estado</th>
-                                        <td>
-                                            <span class="badge badge-success">{{item.estado}}</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                          
+                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                data-target="#clientsModal">
+                                <i class="icon ion-plus">
+                                </i>
+                                Crear Unidad
+                            </button>
+
                         </div>
-                      </div>
                     </div>
-                </div>
+                    <br>
+                    <div id="accordion">
+                        <div class="card" *ngFor="let item of clientList | filter:termC; let i = index">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse"
+                                        attr.data-target="#collapse{{i}}" aria-expanded="true"
+                                        attr.aria-controls="collapse{{i}}">
+                                        {{item.cedula}} | {{item.nombre}}
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div attr.id="collapse{{i}}" class="collapse" aria-labelledby="headingOne"
+                                data-parent="#accordion">
+                                <div class="card-body">
+
+                                    <table class="table table-striped table-responsive">
+                                        <thead>
+                                            <tr data-toggle="collapse" data-target="#client">
+                                                <th>Parametro</th>
+                                                <th>Datos</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>Identificación</th>
+                                                <td>
+                                                    {{item.cedula}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <td>
+                                                    {{item.nombre}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Dirección</th>
+                                                <td>
+                                                    {{item.direccion}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Teléfono</th>
+                                                <td>
+                                                    {{item.telefono}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Correo electronico</th>
+                                                <td>
+                                                    {{item.correo}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Estado</th>
+                                                <td>
+                                                    <span class="badge badge-success">{{item.estado}}</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div role="tabpane1" class="tab-pane" id="products">
@@ -445,14 +449,14 @@
                                 <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="termP">
                             </div>
                             <br>
-                            
-                                <button type="button" class="btn btn-success" data-toggle="modal"
-                                    data-target="#productsModal">
-                                    <i class="icon ion-plus">
-                                    </i>
-                                    Crear producto
-                                </button>
-                            
+
+                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                data-target="#productsModal">
+                                <i class="icon ion-plus">
+                                </i>
+                                Crear producto
+                            </button>
+
                         </div>
                     </div>
 
@@ -511,7 +515,7 @@
                         <div class="tab-header clearfix">
                             <div class="float-left">
 
-                                    <!--
+                                <!--
                                     <button type="button" class="btn btn-success">
                                         <i class="icon ion-plus">
                                         </i>
@@ -520,7 +524,7 @@
                                     
                                 <br>
                                 -->
-                                
+
                             </div>
                         </div>
                     </div>
@@ -535,17 +539,21 @@
                         <tbody>
                             <tr>
                                 <th>
-                                    Cliente 
+                                    Cliente
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <select (blur)="validateClient(clientOr.value)" (change)="validateClient(clientOr.value)" #clientOr="ngModel" 
-                                        [class.is-invalid]="clientHasError && clientOr.touched"
-                                         class="form-control" name="clientOr" [(ngModel)]="orderModel.cedulaCliente">
+                                        <select (blur)="validateClient(clientOr.value)"
+                                            (change)="validateClient(clientOr.value)" #clientOr="ngModel"
+                                            [class.is-invalid]="clientHasError && clientOr.touched" class="form-control"
+                                            name="clientOr" [(ngModel)]="orderModel.cedulaCliente">
                                             <option value="default">Cliente</option>
-                                            <option *ngFor="let com of clientAList" value="{{com.cedula}}">{{com.nombre}}</option>
+                                            <option *ngFor="let com of clientAList" value="{{com.cedula}}">
+                                                {{com.nombre}}</option>
                                         </select>
-                                        <p><small class="text-danger" [class.d-none]="!clientHasError || clientOr.untouched">Cliente Requerido</small></p>
+                                        <p><small class="text-danger"
+                                                [class.d-none]="!clientHasError || clientOr.untouched">Cliente
+                                                Requerido</small></p>
                                     </div>
                                 </td>
                             </tr>
@@ -618,12 +626,16 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #nombreI="ngModel" class="form-control"
-                                        [class.is-invalid]="nombreI.invalid && nombreI.touched"
-                                         placeholder="Nombre" name="nombreI" [(ngModel)]="inputModel.nombre">
+                                            [class.is-invalid]="nombreI.invalid && nombreI.touched" placeholder="Nombre"
+                                            name="nombreI" [(ngModel)]="inputModel.nombre">
                                         <div *ngIf="nombreI.errors && (nombreI.invalid || nombreI.touched)">
-                                            <p><small class="text-danger" *ngIf="nombreI.errors.required && nombreI.touched">Nombre requerido</small></p>
-                                            <p><small class="text-danger" *ngIf="nombreI.errors.pattern">Nombre invalido</small></p>
-                                            <p><small class="text-danger" *ngIf="nombreI.errors.pattern">50 dígitos</small></p>
+                                            <p><small class="text-danger"
+                                                    *ngIf="nombreI.errors.required && nombreI.touched">Nombre
+                                                    requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="nombreI.errors.pattern">Nombre
+                                                    invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="nombreI.errors.pattern">50
+                                                    dígitos</small></p>
                                         </div>
                                     </div>
                                 </td>
@@ -635,16 +647,20 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #codigoI="ngModel" class="form-control"
-                                        [class.is-invalid]="codigoI.invalid && codigoI.touched"
-                                         placeholder="Codigo" name="codigoI" [(ngModel)]="inputModel.id">
+                                            [class.is-invalid]="codigoI.invalid && codigoI.touched" placeholder="Codigo"
+                                            name="codigoI" [(ngModel)]="inputModel.id">
                                         <div *ngIf="codigoI.errors && (codigoI.invalid || codigoI.touched)">
-                                            
+
                                             *ngFor="let com of inputList; let i = index"
                                             *ngIf="com.id === codigoI.value"
-                                            
-                                            <p><small class="text-danger" *ngIf="codigoI.errors.required && codigoI.touched">Codigo requerido</small></p>
-                                            <p><small class="text-danger" *ngIf="codigoI.errors.pattern">Nombre invalido</small></p>
-                                            <p><small class="text-danger" *ngIf="codigoI.errors.pattern">50 dígitos</small></p>
+
+                                            <p><small class="text-danger"
+                                                    *ngIf="codigoI.errors.required && codigoI.touched">Codigo
+                                                    requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="codigoI.errors.pattern">Nombre
+                                                    invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="codigoI.errors.pattern">50
+                                                    dígitos</small></p>
                                         </div>
                                     </div>
                                 </td>
@@ -656,10 +672,12 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="number" required #minI="ngModel" class="form-control"
-                                        [class.is-invalid]="minI.invalid && minI.touched"
-                                         placeholder="Min" name="minI" [(ngModel)]="inputModel.cantMinStock">
+                                            [class.is-invalid]="minI.invalid && minI.touched" placeholder="Min"
+                                            name="minI" [(ngModel)]="inputModel.cantMinStock">
                                         <div *ngIf="minI.errors && (minI.invalid || minI.touched)">
-                                            <p><small class="text-danger" *ngIf="minI.errors.required && minI.touched">Minimo requerido</small></p>
+                                            <p><small class="text-danger"
+                                                    *ngIf="minI.errors.required && minI.touched">Minimo
+                                                    requerido</small></p>
                                         </div>
                                     </div>
                                 </td>
@@ -670,13 +688,15 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <select (blur)="validateUnit(unitI.value)" (change)="validateUnit(unitI.value)" #unitI="ngModel" 
-                                        [class.is-invalid]="unitHasError && unitI.touched"
-                                         class="form-control" name="unitI" [(ngModel)]="inputModel.unidad">
+                                        <select (blur)="validateUnit(unitI.value)" (change)="validateUnit(unitI.value)"
+                                            #unitI="ngModel" [class.is-invalid]="unitHasError && unitI.touched"
+                                            class="form-control" name="unitI" [(ngModel)]="inputModel.unidad">
                                             <option value="default">Unidad de medida</option>
-                                            <option *ngFor="let com of unitList">{{com}}</option>
+                                            <option *ngFor="let com of unitList">{{com.unidad}}</option>
                                         </select>
-                                        <p><small class="text-danger" [class.d-none]="!unitHasError || unitI.untouched">Unidad requerida</small></p>
+                                        <p><small class="text-danger"
+                                                [class.d-none]="!unitHasError || unitI.untouched">Unidad
+                                                requerida</small></p>
                                     </div>
                                 </td>
                             </tr>
@@ -687,7 +707,8 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button [disabled]="inputForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal" (click)="postInput()">Crear</button>
+                <button [disabled]="inputForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
+                    (click)="postInput()">Crear</button>
             </div>
 
         </div>
@@ -738,12 +759,16 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #nombreU="ngModel" class="form-control"
-                                        [class.is-invalid]="nombreU.invalid && nombreU.touched"
-                                         placeholder="Nombre" name="nombreU" [(ngModel)]="userModel.nombre">
+                                            [class.is-invalid]="nombreU.invalid && nombreU.touched" placeholder="Nombre"
+                                            name="nombreU" [(ngModel)]="userModel.nombre">
                                         <div *ngIf="nombreU.errors && (nombreU.invalid || nombreU.touched)">
-                                            <p><small class="text-danger" *ngIf="nombreU.errors.required && nombreU.touched">Nombre requerido</small></p>
-                                            <p><small class="text-danger" *ngIf="nombreU.errors.pattern">Nombre invalido</small></p>
-                                            <p><small class="text-danger" *ngIf="nombreU.errors.pattern">50 dígitos</small></p>
+                                            <p><small class="text-danger"
+                                                    *ngIf="nombreU.errors.required && nombreU.touched">Nombre
+                                                    requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="nombreU.errors.pattern">Nombre
+                                                    invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="nombreU.errors.pattern">50
+                                                    dígitos</small></p>
                                         </div>
                                     </div>
                                 </td>
@@ -755,12 +780,16 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #apellidosU="ngModel" class="form-control"
-                                        [class.is-invalid]="apellidosU.invalid && apellidosU.touched"
-                                         placeholder="Apellidos" name="apellidosU" [(ngModel)]="userModel.apellidos">
+                                            [class.is-invalid]="apellidosU.invalid && apellidosU.touched"
+                                            placeholder="Apellidos" name="apellidosU" [(ngModel)]="userModel.apellidos">
                                         <div *ngIf="apellidosU.errors && (apellidosU.invalid || apellidosU.touched)">
-                                            <p><small class="text-danger" *ngIf="apellidosU.errors.required && apellidosU.touched">Nombre requerido</small></p>
-                                            <p><small class="text-danger" *ngIf="apellidosU.errors.pattern">Nombre invalido</small></p>
-                                            <p><small class="text-danger" *ngIf="apellidosU.errors.pattern">10 dígitos, sin cero al inicio ni guiones</small></p>
+                                            <p><small class="text-danger"
+                                                    *ngIf="apellidosU.errors.required && apellidosU.touched">Nombre
+                                                    requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="apellidosU.errors.pattern">Nombre
+                                                    invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="apellidosU.errors.pattern">10 dígitos,
+                                                    sin cero al inicio ni guiones</small></p>
                                         </div>
                                     </div>
                                 </td>
@@ -771,15 +800,20 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="text" required #correoU="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-                                         class="form-control" [class.is-invalid]="correoU.invalid && correoU.touched"
-                                         placeholder="correo@mail.com" name="correoU" [(ngModel)]="userModel.correo">
-                                         <div *ngIf="correoU.errors && (correoU.invalid || correoU.touched)">
-                                            <p><small class="text-danger" *ngIf="correoU.errors.required && correoU.touched">Correo requerido</small></p>
-                                            <p><small class="text-danger" *ngIf="correoU.errors.pattern">Correo invalido</small></p>
-                                            <p><small class="text-danger" *ngIf="correoU.errors.pattern">Ejemplo: xxxx@mail.com</small></p>
+                                        <input type="text" required #correoU="ngModel"
+                                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control"
+                                            [class.is-invalid]="correoU.invalid && correoU.touched"
+                                            placeholder="correo@mail.com" name="correoU" [(ngModel)]="userModel.correo">
+                                        <div *ngIf="correoU.errors && (correoU.invalid || correoU.touched)">
+                                            <p><small class="text-danger"
+                                                    *ngIf="correoU.errors.required && correoU.touched">Correo
+                                                    requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="correoU.errors.pattern">Correo
+                                                    invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="correoU.errors.pattern">Ejemplo:
+                                                    xxxx@mail.com</small></p>
                                         </div>
-                                    </div>    
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -788,15 +822,17 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <select (blur)="validateRol(rolU.value)" (change)="validateRol(rolU.value)" #rolU="ngModel" 
-                                        [class.is-invalid]="rolHasError && rolU.touched"
-                                         class="form-control" name="rolU" [(ngModel)]="userModel.rol">
+                                        <select (blur)="validateRol(rolU.value)" (change)="validateRol(rolU.value)"
+                                            #rolU="ngModel" [class.is-invalid]="rolHasError && rolU.touched"
+                                            class="form-control" name="rolU" [(ngModel)]="userModel.rol">
                                             <option value="default">Rol de usuario</option>
                                             <option value="OPERARIO">Operario</option>
                                             <option value="SUPERVISOR">Supervisor</option>
                                             <option value="ADMINISTRADOR">Administrador</option>
                                         </select>
-                                        <p><small class="text-danger" [class.d-none]="!rolHasError || rolU.untouched">Rol requerido</small></p>
+                                        <p><small class="text-danger"
+                                                [class.d-none]="!rolHasError || rolU.untouched">Rol requerido</small>
+                                        </p>
                                     </div>
                                 </td>
                             </tr>
@@ -807,7 +843,8 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button button [disabled]="userForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal" (click)="postUser()">Crear</button>
+                <button button [disabled]="userForm.form.invalid" type="submit" class="btn btn-primary"
+                    data-dismiss="modal" (click)="postUser()">Crear</button>
             </div>
 
         </div>
@@ -856,15 +893,19 @@
                                     Identificación:
                                 </th>
                                 <td>
-                                    
+
                                     <div class="form-field">
-                                        <input type="text" required #cedula="ngModel" pattern="^\d{10}$" class="form-control"
-                                        [class.is-invalid]="cedula.invalid && cedula.touched"
-                                         placeholder="1234567890" name="cedula" [(ngModel)]="clientModel.cedula">
+                                        <input type="text" required #cedula="ngModel" pattern="^\d{10}$"
+                                            class="form-control" [class.is-invalid]="cedula.invalid && cedula.touched"
+                                            placeholder="1234567890" name="cedula" [(ngModel)]="clientModel.cedula">
                                         <div *ngIf="cedula.errors && (cedula.invalid || cedula.touched)">
-                                            <p><small class="text-danger" *ngIf="cedula.errors.required && cedula.touched">Cédula requerida</small></p>
-                                            <p><small class="text-danger" *ngIf="cedula.errors.pattern">Cédula  invalida</small></p>
-                                            <p><small class="text-danger" *ngIf="cedula.errors.pattern">10 dígitos, sin cero al inicio ni guiones</small></p>
+                                            <p><small class="text-danger"
+                                                    *ngIf="cedula.errors.required && cedula.touched">Cédula
+                                                    requerida</small></p>
+                                            <p><small class="text-danger" *ngIf="cedula.errors.pattern">Cédula
+                                                    invalida</small></p>
+                                            <p><small class="text-danger" *ngIf="cedula.errors.pattern">10 dígitos, sin
+                                                    cero al inicio ni guiones</small></p>
                                         </div>
                                     </div>
                                 </td>
@@ -876,9 +917,10 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #nombre="ngModel" class="form-control"
-                                        [class.is-invalid]="nombre.invalid && nombre.touched"
-                                         placeholder="Nombre" name="nombre" [(ngModel)]="clientModel.nombre">
-                                         <small class="text-danger" [class.d-none]="nombre.valid || nombre.untouched">Nombre requerido</small>
+                                            [class.is-invalid]="nombre.invalid && nombre.touched" placeholder="Nombre"
+                                            name="nombre" [(ngModel)]="clientModel.nombre">
+                                        <small class="text-danger"
+                                            [class.d-none]="nombre.valid || nombre.untouched">Nombre requerido</small>
                                     </div>
                                 </td>
                             </tr>
@@ -889,9 +931,12 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #direccion="ngModel" class="form-control"
-                                        [class.is-invalid]="direccion.invalid && direccion.touched"
-                                         placeholder="Dirección" name="direccion" [(ngModel)]="clientModel.direccion">
-                                         <small class="text-danger" [class.d-none]="direccion.valid || direccion.untouched">Dirección requerida</small>
+                                            [class.is-invalid]="direccion.invalid && direccion.touched"
+                                            placeholder="Dirección" name="direccion"
+                                            [(ngModel)]="clientModel.direccion">
+                                        <small class="text-danger"
+                                            [class.d-none]="direccion.valid || direccion.untouched">Dirección
+                                            requerida</small>
                                     </div>
                                 </td>
                             </tr>
@@ -901,13 +946,19 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="tel" required #telefono="ngModel" pattern="\([0-9]{3}\) [0-9]{4}[ -][0-9]{4}" class="form-control"
-                                        [class.is-invalid]="telefono.invalid && telefono.touched"
-                                         placeholder="(506) 5555-5555" name="telefono" [(ngModel)]="clientModel.telefono">
+                                        <input type="tel" required #telefono="ngModel"
+                                            pattern="\([0-9]{3}\) [0-9]{4}[ -][0-9]{4}" class="form-control"
+                                            [class.is-invalid]="telefono.invalid && telefono.touched"
+                                            placeholder="(506) 5555-5555" name="telefono"
+                                            [(ngModel)]="clientModel.telefono">
                                         <div *ngIf="telefono.errors && (telefono.invalid || telefono.touched)">
-                                            <p><small class="text-danger" *ngIf="telefono.errors.required && telefono.touched">Correo requerido</small></p>
-                                            <p><small class="text-danger" *ngIf="telefono.errors.pattern">Teléfono invalido</small></p>
-                                            <p><small class="text-danger" *ngIf="telefono.errors.pattern">Ejemplo: (506) 5555-5555</small></p>
+                                            <p><small class="text-danger"
+                                                    *ngIf="telefono.errors.required && telefono.touched">Correo
+                                                    requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="telefono.errors.pattern">Teléfono
+                                                    invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="telefono.errors.pattern">Ejemplo: (506)
+                                                    5555-5555</small></p>
                                         </div>
                                     </div>
                                 </td>
@@ -918,15 +969,21 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="text" #correo="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"  required
-                                         class="form-control" [class.is-invalid]="correo.invalid && correo.touched"
-                                         placeholder="correo@mail.com" name="correo" [(ngModel)]="clientModel.correo">
-                                         <div *ngIf="correo.errors && (correo.invalid || correo.touched)">
-                                            <p><small class="text-danger" *ngIf="correo.errors.required && correo.touched">Correo requerido</small></p>
-                                            <p><small class="text-danger" *ngIf="correo.errors.pattern">Correo invalido</small></p>
-                                            <p><small class="text-danger" *ngIf="correo.errors.pattern">Ejemplo: xxxx@mail.com</small></p>
+                                        <input type="text" #correo="ngModel"
+                                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required
+                                            class="form-control" [class.is-invalid]="correo.invalid && correo.touched"
+                                            placeholder="correo@mail.com" name="correo"
+                                            [(ngModel)]="clientModel.correo">
+                                        <div *ngIf="correo.errors && (correo.invalid || correo.touched)">
+                                            <p><small class="text-danger"
+                                                    *ngIf="correo.errors.required && correo.touched">Correo
+                                                    requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="correo.errors.pattern">Correo
+                                                    invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="correo.errors.pattern">Ejemplo:
+                                                    xxxx@mail.com</small></p>
                                         </div>
-                                    </div>    
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -936,7 +993,8 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button [disabled]="clientForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal" (click)="postClient()">Crear</button>
+                <button [disabled]="clientForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
+                    (click)="postClient()">Crear</button>
             </div>
 
         </div>
@@ -964,7 +1022,7 @@
             </div>
 
             <div class="modal-body">
-                <form  #productForm="ngForm" (ngSubmit)="postProduct()" novalidate>
+                <form #productForm="ngForm" (ngSubmit)="postProduct()" novalidate>
                     <div class="form-group">
                         <div class="tab-header clearfix">
                             <div class="float-left">
@@ -987,11 +1045,14 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #nombreP="ngModel" class="form-control"
-                                        [class.is-invalid]="nombreP.invalid && nombreP.touched"
-                                         placeholder="Nombre del producto" name="nombreP" [(ngModel)]="productModel.nombre">
-                                        
-                                         <div *ngIf="nombreP.invalid || nombreP.touched">
-                                            <p><small class="text-danger" *ngIf="nombreP.invalid && nombreP.touched">Nombre requerido</small></p>
+                                            [class.is-invalid]="nombreP.invalid && nombreP.touched"
+                                            placeholder="Nombre del producto" name="nombreP"
+                                            [(ngModel)]="productModel.nombre">
+
+                                        <div *ngIf="nombreP.invalid || nombreP.touched">
+                                            <p><small class="text-danger"
+                                                    *ngIf="nombreP.invalid && nombreP.touched">Nombre requerido</small>
+                                            </p>
                                         </div>
 
                                     </div>
@@ -1004,11 +1065,12 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #idP="ngModel" class="form-control"
-                                        [class.is-invalid]="idP.invalid && idP.touched"
-                                         placeholder="Código del producto" name="idP" [(ngModel)]="productModel.id">
-                                        
-                                         <div *ngIf="idP.invalid || idP.touched">
-                                            <p><small class="text-danger" *ngIf="idP.invalid && idP.touched">Código requerido</small></p>
+                                            [class.is-invalid]="idP.invalid && idP.touched"
+                                            placeholder="Código del producto" name="idP" [(ngModel)]="productModel.id">
+
+                                        <div *ngIf="idP.invalid || idP.touched">
+                                            <p><small class="text-danger" *ngIf="idP.invalid && idP.touched">Código
+                                                    requerido</small></p>
                                         </div>
 
                                     </div>
@@ -1021,11 +1083,14 @@
                                 <td>
                                     <div class="form-field">
                                         <textarea type="text" required #descripcionP="ngModel" class="form-control "
-                                        [class.is-invalid]="descripcionP.invalid && descripcionP.touched"
-                                         placeholder="Descripción del producto" name="descripcionP" [(ngModel)]="productModel.descripcion">
+                                            [class.is-invalid]="descripcionP.invalid && descripcionP.touched"
+                                            placeholder="Descripción del producto" name="descripcionP"
+                                            [(ngModel)]="productModel.descripcion">
                                         </textarea>
-                                         <div *ngIf="descripcionP.invalid || descripcionP.touched">
-                                            <p><small class="text-danger" *ngIf="descripcionP.invalid && descripcionP.touched">Descripción requerida</small></p>
+                                        <div *ngIf="descripcionP.invalid || descripcionP.touched">
+                                            <p><small class="text-danger"
+                                                    *ngIf="descripcionP.invalid && descripcionP.touched">Descripción
+                                                    requerida</small></p>
                                         </div>
                                     </div>
                                 </td>
@@ -1037,7 +1102,8 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button [disabled]="productForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal" (click)="postProduct()" class="btn btn-primary">Crear</button>
+                <button [disabled]="productForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
+                    (click)="postProduct()" class="btn btn-primary">Crear</button>
             </div>
 
         </div>
@@ -1065,7 +1131,7 @@
             </div>
 
             <div class="modal-body">
-                <form  #cellarForm="ngForm" (ngSubmit)="postGetCellar()" novalidate>
+                <form #cellarForm="ngForm" (ngSubmit)="postGetCellar()" novalidate>
                     <div class="form-group">
                         <div class="tab-header clearfix">
                             <div class="float-left">
@@ -1088,11 +1154,14 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #nombreC="ngModel" class="form-control"
-                                        [class.is-invalid]="nombreC.invalid && nombreC.touched"
-                                         placeholder="Nombre de la bodega" name="nombreC" [(ngModel)]="cellarModel.nombre">
-                                        
-                                         <div *ngIf="nombreC.invalid || nombreC.touched">
-                                            <p><small class="text-danger" *ngIf="nombreC.invalid && nombreC.touched">Nombre requerido</small></p>
+                                            [class.is-invalid]="nombreC.invalid && nombreC.touched"
+                                            placeholder="Nombre de la bodega" name="nombreC"
+                                            [(ngModel)]="cellarModel.nombre">
+
+                                        <div *ngIf="nombreC.invalid || nombreC.touched">
+                                            <p><small class="text-danger"
+                                                    *ngIf="nombreC.invalid && nombreC.touched">Nombre requerido</small>
+                                            </p>
                                         </div>
 
                                     </div>
@@ -1105,11 +1174,12 @@
                                 <td>
                                     <div class="form-field">
                                         <textarea type="text" required #dirC="ngModel" class="form-control"
-                                        [class.is-invalid]="dirC.invalid && dirC.touched"
-                                         placeholder="Dirección" name="dirC" [(ngModel)]="cellarModel.direccion">
+                                            [class.is-invalid]="dirC.invalid && dirC.touched" placeholder="Dirección"
+                                            name="dirC" [(ngModel)]="cellarModel.direccion">
                                         </textarea>
-                                         <div *ngIf="dirC.invalid || dirC.touched">
-                                            <p><small class="text-danger" *ngIf="dirC.invalid && dirC.touched">Dirección requerida</small></p>
+                                        <div *ngIf="dirC.invalid || dirC.touched">
+                                            <p><small class="text-danger" *ngIf="dirC.invalid && dirC.touched">Dirección
+                                                    requerida</small></p>
                                         </div>
 
                                     </div>
@@ -1122,11 +1192,12 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #telC="ngModel" class="form-control"
-                                        [class.is-invalid]="telC.invalid && telC.touched"
-                                         placeholder="+506 1234-5678" name="telC" [(ngModel)]="cellarModel.telefono">
-                                        
-                                         <div *ngIf="telC.invalid || telC.touched">
-                                            <p><small class="text-danger" *ngIf="telC.invalid && telC.touched">Telefono requerido</small></p>
+                                            [class.is-invalid]="telC.invalid && telC.touched"
+                                            placeholder="+506 1234-5678" name="telC" [(ngModel)]="cellarModel.telefono">
+
+                                        <div *ngIf="telC.invalid || telC.touched">
+                                            <p><small class="text-danger" *ngIf="telC.invalid && telC.touched">Telefono
+                                                    requerido</small></p>
                                         </div>
                                     </div>
                                 </td>
@@ -1138,7 +1209,8 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button [disabled]="cellarForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal" (click)="postGetCellar()" class="btn btn-primary">Crear</button>
+                <button [disabled]="cellarForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
+                    (click)="postGetCellar()" class="btn btn-primary">Crear</button>
             </div>
 
         </div>
@@ -1166,7 +1238,7 @@
             </div>
 
             <div class="modal-body">
-                <form  #unitForm="ngForm" (ngSubmit)="postUnit()" novalidate>
+                <form #unitForm="ngForm" (ngSubmit)="postUnit()" novalidate>
                     <div class="form-group">
                         <div class="tab-header clearfix">
                             <div class="float-left">
@@ -1189,17 +1261,20 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #nombreUn="ngModel" class="form-control"
-                                        [class.is-invalid]="nombreUn.invalid && nombreUn.touched"
-                                         placeholder="Nombre de la unidad" name="nombreUn" [(ngModel)]="unitModel.unidad">
-                                        
-                                         <div *ngIf="nombreUn.invalid || nombreUn.touched">
-                                            <p><small class="text-danger" *ngIf="nombreUn.invalid && nombreUn.touched">Nombre requerido</small></p>
+                                            [class.is-invalid]="nombreUn.invalid && nombreUn.touched"
+                                            placeholder="Nombre de la unidad" name="nombreUn"
+                                            [(ngModel)]="unitModel.unidad">
+
+                                        <div *ngIf="nombreUn.invalid || nombreUn.touched">
+                                            <p><small class="text-danger"
+                                                    *ngIf="nombreUn.invalid && nombreUn.touched">Nombre
+                                                    requerido</small></p>
                                         </div>
 
                                     </div>
                                 </td>
                             </tr>
-                            
+
                         </tbody>
                     </table>
                 </form>
@@ -1207,7 +1282,8 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button [disabled]="unitForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal" (click)="postUnit()" class="btn btn-primary">Crear</button>
+                <button [disabled]="unitForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
+                    (click)="postUnit()" class="btn btn-primary">Crear</button>
             </div>
 
         </div>
