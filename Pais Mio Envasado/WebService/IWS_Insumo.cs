@@ -60,6 +60,6 @@ namespace WebService
             BodyStyle = WebMessageBodyStyle.Bare,
             Method = "GET",
             UriTemplate = "listarUnidades")]
-        List<String> listarUnidades();
+        List<DO_Unidad> listarUnidades();
     }
 }

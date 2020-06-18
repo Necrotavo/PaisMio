@@ -17,5 +17,10 @@ namespace DO
         {
             this.unidad = "";
         }
+
+        public DO_Unidad(string v)
+        {
+            this.unidad = v;
+        }
     }
 }

@@ -58,10 +58,10 @@ namespace DAO
         /// Método para listar las unidades de medida disponibles en la base de datos.
         /// </summary>
         /// <returns>(List<String>) lista de unidades de medida.</returns>
-        public List<String> listaUnidades()
+        public List<DO_Unidad> listaUnidades()
         {
             SqlCommand comandoBuscar = new SqlCommand("SELECT * FROM UNIDAD_DE_MEDIDA", conexion);
-            List<String> listaUnidades = new List<string>();
+            List<DO_Unidad> listaUnidades = new List<DO_Unidad>();
             try
             {
                 if (conexion.State != ConnectionState.Open)
@@ -74,7 +74,7 @@ namespace DAO
                 {
                     while (lector.Read())
                     {
-                        listaUnidades.Add((String)lector["UDM_UNIDAD"]);
+                        listaUnidades.Add(new DO_Unidad((String)lector["UDM_UNIDAD"]));
                     }
                 }
                 return listaUnidades;
