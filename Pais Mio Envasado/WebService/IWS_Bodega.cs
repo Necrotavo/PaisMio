@@ -85,6 +85,6 @@ namespace WebService
             BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "obtenerInsumosBodega")]
-        List<DO_InsumoEnBodega> obtenerInsumosBodega(Int32 codigoBodega);
+        List<DO_InsumoEnBodega> obtenerInsumosBodega(int codigoBodega);
     }
 }

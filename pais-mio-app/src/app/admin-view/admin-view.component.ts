@@ -117,25 +117,14 @@ export class AdminViewComponent implements OnInit {
     );
 
     /** Gets all Inputs on Init */
-    this.apiService.getInput().subscribe(
-      data => {
-        this.inputList = data;
-      }
-    );
+    this.getInput();
+    
 
     /** Gets all Users on Init */
-    this.apiService.getUser().subscribe(
-      data => {
-        this.userList = data;
-      }
-    );
+    this.getUser();
 
     /** Gets all clients on Init */
-    this.apiService.getClient().subscribe(
-      data => {
-        this.clientList = data;
-      }
-    );
+    this.getClient();
 
     /** Gets all available clients on Init */
     this.apiService.getAClient().subscribe(
@@ -145,11 +134,7 @@ export class AdminViewComponent implements OnInit {
     );
 
     /** Gets all products on Init */
-    this.apiService.getProduct().subscribe(
-      data => {
-        this.productList = data;
-      }
-    );
+    this.getProduct();
 
     /** Gets all unit types on Init */
     this.getUnits();
@@ -199,6 +184,17 @@ export class AdminViewComponent implements OnInit {
     this.apiService.addInput(this.inputModel).subscribe(
       data => {
         this.objInput = data;
+        this.getInput();
+        this.objInput = new Input(0, '', 0, '', '', '');
+      }
+    );
+  }
+
+  getInput(){
+
+    this.apiService.getInput().subscribe(
+      data => {
+        this.inputList = data;
       }
     );
   }
@@ -209,6 +205,17 @@ export class AdminViewComponent implements OnInit {
     this.apiService.addUser(this.userModel).subscribe(
       data => {
         this.objUser = data;
+        this.getUser();
+        this.objUser = new User('', '', '', '', '', 'default');
+      }
+    );
+  }
+
+  getUser(){
+
+    this.apiService.getUser().subscribe(
+      data => {
+        this.userList = data;
       }
     );
   }
@@ -220,17 +227,41 @@ export class AdminViewComponent implements OnInit {
     this.apiService.addClient(this.clientModel).subscribe(
       data => {
         this.objClient = data;
+        this.getClient();
+        this.objClient = new Client('', '', '', '', '', '');
       }
     );
   }
 
+  getClient(){
+    this.apiService.getClient().subscribe(
+      data => {
+        this.clientList = data;
+      }
+    );
+  }
   postProduct(){
 
     this.apiService.addProduct(this.productModel).subscribe(
       data => {
         this.objProduct = data;
+        this.getProduct();
+        this.objProduct = new Product(0, '', '', '', '');
       }
     );
+  }
+
+  getProduct(){
+    this.apiService.getProduct().subscribe(
+      data => {
+        this.productList = data;
+      }
+    );
+  }
+
+  postGetCellar(){
+    this.postCellar();
+    this.getCellar();
   }
 
   postCellar(){

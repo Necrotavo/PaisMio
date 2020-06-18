@@ -42,14 +42,14 @@ namespace WebService
         ResponseFormat = WebMessageFormat.Json,
         BodyStyle = WebMessageBodyStyle.Bare, 
         Method = "POST", UriTemplate = "Buscar")]
-        DO_Cliente buscarCliente(String cedula);
+        DO_Cliente buscarCliente(DO_Cliente doCliente);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json, 
         BodyStyle = WebMessageBodyStyle.Bare, 
         Method = "POST", UriTemplate = "ModificarEstado")]
-        bool modificarEstado(String estado, String cedula);
+        bool modificarEstado(DO_Cliente doCliente);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,

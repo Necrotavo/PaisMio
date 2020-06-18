@@ -341,7 +341,7 @@ const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
 
   addInputQ(inputQ: InputQ): Observable<InputQ> {
     return this.http.post<InputQ>(inputQPOST, inputQ, HttpOptions).pipe(
-      tap((i: InputQ) => console.log(`added input w/ id=${i.input.nombre}`)),
+      tap((i: InputQ) => console.log(`added input w/ id=${i.insumo.nombre}`)),
       catchError(this.handleErrors<InputQ>(`addInput`))
     );
   }
@@ -716,7 +716,7 @@ const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
   /** Complex post */
   inputEntry(cellar: CellarAdmin): Observable<CellarAdmin> {
     return this.http.post<CellarAdmin>(cellarInputPUT, cellar, HttpOptions).pipe(
-      tap((i: CellarAdmin) => console.log(`The input list has been added to the cellar w/ id=${i.doBodega.nombre}`)),
+      tap((i: CellarAdmin) => console.log(`The input list has been added to the cellar w/ id=${i}`)),
       catchError(this.handleErrors<CellarAdmin>(`cellarInputPut`))
     );
   }

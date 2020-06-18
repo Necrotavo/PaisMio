@@ -24,27 +24,27 @@ namespace WebService
         ResponseFormat = WebMessageFormat.Json, 
         BodyStyle = WebMessageBodyStyle.Bare, 
         Method = "POST", UriTemplate = "Eliminar")]
-        bool eliminarPedido(Int32 codigo);
+        bool eliminarPedido(int codigo);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json, 
         BodyStyle = WebMessageBodyStyle.Bare, 
         Method = "POST", UriTemplate = "Modificar")]
-        bool modificarEstado(Int32 codigo, String estado);
+        bool modificarEstado(DO_Pedido doPedido);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json, 
         BodyStyle = WebMessageBodyStyle.Bare, 
         Method = "POST", UriTemplate = "Consultar")]
-        DO_Pedido consultarDetallesPedido(Int32 codigo);
+        DO_Pedido consultarDetallesPedido(int codigo);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json, 
         ResponseFormat = WebMessageFormat.Json, 
         BodyStyle = WebMessageBodyStyle.Bare, Method = "POST", UriTemplate = "Despachar")]
-        bool despacharPedido(Int32 codigo, String correoAdminDespacho, String estado);
+        bool despacharPedido(DO_Pedido doPedido);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json, 
