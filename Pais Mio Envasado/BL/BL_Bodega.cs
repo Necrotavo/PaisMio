@@ -22,7 +22,7 @@ namespace BL
         /// <param name="correoOperario">Correo del operario que realiza la entrada</param>
         /// <returns>True si se ingresan los insumos en la bodega, false si sucede un error</returns>
         public bool entradaInsumos(DO_Bodega doBodega, String correoOperario) {
-            if (correoOperario is null || correoOperario == "" || entradaInvalida(doBodega))
+            if (correoOperario.Equals("") || entradaInvalida(doBodega))
             {
                 return false;
             }
@@ -40,10 +40,10 @@ namespace BL
         private bool entradaInvalida(DO_Bodega doBodega) {
             if (doBodega.codigo <= 0 || doBodega.listaInsumosEnBodega is null
                 || doBodega.listaInsumosEnBodega.Count <= 0) {
-                return false;
+                return true;
             }
             else {
-                return true;
+                return false;
             }
         }
 
