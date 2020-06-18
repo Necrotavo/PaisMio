@@ -10,8 +10,6 @@ namespace DO
     [DataContract]
     public class DO_Unidad
     {
-        private string v;
-
         [DataMember]
         public string unidad { get; set; }
 
@@ -22,7 +20,7 @@ namespace DO
 
         public DO_Unidad(string v)
         {
-            this.v = v;
+            this.unidad = v;
         }
     }
 }
