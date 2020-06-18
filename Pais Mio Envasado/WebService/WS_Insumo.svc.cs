@@ -32,13 +32,6 @@ namespace WebService
             return blInsumo.buscarInsumo(codigoInsumo);
         }
 
-        public bool entradaInsumos(DO_Bodega doBodega, string correoAdministrador)
-        {
-            BL_Bodega blBodega = new BL_Bodega();
-
-            return blBodega.entradaInsumos(doBodega, correoAdministrador);
-        }
-
         public List<string> listarUnidades()
         {
             BL_UnidadDeMedida blUnidadDeMedida = new BL_UnidadDeMedida();
