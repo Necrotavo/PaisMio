@@ -75,6 +75,7 @@ export class AdminViewComponent implements OnInit {
   objCellarAdmin: CellarAdmin;
   objInputRequest: InputRequest;
   objInputRequestDesicion: InputRequestDesicion;
+  objUnit: Unit;
 
   /** Filter terms */
   termO: string; // for Orders
@@ -84,6 +85,7 @@ export class AdminViewComponent implements OnInit {
   termC: string; // for Clients
   termP: string; // for Products
   termB: string; // for Bodegas
+  termUn: string; // for Units
 
   /** Combo validations */
   rolHasError = true;
@@ -102,6 +104,7 @@ export class AdminViewComponent implements OnInit {
   moveInputModel = new MoveInput(0, 0, 0, 0);
   inputRequestModel = new InputRequest(0, 0, 0, this.inputQList, this.inputQListDiscard, '', '', '', '');
   inputRequestDesicionModel = new InputRequestDesicion(this.inputRequest, this.user, '');
+  unitModel = new Unit("");
 
 
   ngOnInit(): void {
@@ -149,13 +152,27 @@ export class AdminViewComponent implements OnInit {
     );
 
     /** Gets all unit types on Init */
+    this.getUnits();
+    this.getCellar();
+
+  }
+
+  postUnit(){
+    this.apiService.addUnit(this.unitModel).subscribe(
+      data => {
+        this.objUnit = data;
+        this.getUnits();
+      }
+    );
+
+  }
+
+  getUnits(){
     this.apiService.getUnits().subscribe(
       data => {
         this.unitList = data;
       }
     );
-
-    this.getCellar();
 
   }
 
@@ -221,6 +238,7 @@ export class AdminViewComponent implements OnInit {
     this.apiService.addCellar(this.cellarModel).subscribe(
       data => {
         this.objCellar = data;
+        this.getCellar();
       }
     );
   }

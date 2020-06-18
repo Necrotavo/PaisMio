@@ -27,6 +27,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#cellars" role="tab" data-toggle="tab">Bodegas</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#units" role="tab" data-toggle="tab">Unidades de Medida</a>
+                </li>
             </ul>
 
 
@@ -312,13 +315,50 @@
 
 </div>
 
+<!--Aqui estoy-->
+<div role="tabpanel" class="tab-pane" id="units">
+
+    <div class="tab-header clearfix">
+        <div class="float-left">
+            <div class="search-field">
+                <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="termUn">
+            </div>
+            <br>
+            
+                <button type="button" class="btn btn-success" data-toggle="modal"
+                    data-target="#unitModal">
+                    <i class="icon ion-plus">
+                    </i>
+                    Ingresar Unidad de Medida
+                </button>
+            
+        </div>
+    </div>
+
+    <table class="table table-striped table-responsive">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor= "let unit of unitList | filter:termB">
+                <td>
+                    {{unit}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
                 <div role="tabpanel" class="tab-pane" id="clients">
 
                     <div class="tab-header clearfix">
 
                         <div class="float-left">
                             <div class="search-field">
-                                <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="termC">
+                                <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="termUn">
                             </div>
                             <br>
                             
@@ -326,7 +366,7 @@
                                     data-target="#clientsModal">
                                     <i class="icon ion-plus">
                                     </i>
-                                    Crear cliente
+                                    Crear Unidad
                                 </button>
                             
                         </div>
@@ -1099,6 +1139,75 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button [disabled]="cellarForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal" (click)="postCellar()" class="btn btn-primary">Crear</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal end -->
+
+<!-- Modal Units *****-->
+
+<!-- Modal start -->
+
+<div class="modal fade" id="unitModal" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="unitsModallabel1">Ingresar Nueva Unidad</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form  #unitForm="ngForm" (ngSubmit)="postUnit()" novalidate>
+                    <div class="form-group">
+                        <div class="tab-header clearfix">
+                            <div class="float-left">
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Unidad
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" required #nombreUn="ngModel" class="form-control"
+                                        [class.is-invalid]="nombreUn.invalid && nombreUn.touched"
+                                         placeholder="Nombre de la unidad" name="nombreUn" [(ngModel)]="unitModel.unidad">
+                                        
+                                         <div *ngIf="nombreUn.invalid || nombreUn.touched">
+                                            <p><small class="text-danger" *ngIf="nombreUn.invalid && nombreUn.touched">Nombre requerido</small></p>
+                                        </div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button [disabled]="unitForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal" (click)="postUnit()" class="btn btn-primary">Crear</button>
             </div>
 
         </div>
