@@ -647,7 +647,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Crear</button>
+                <button [disabled]="inputForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal" (click)="postInput()">Crear</button>
             </div>
 
         </div>
