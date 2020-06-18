@@ -216,6 +216,11 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  postGetCellar(){
+    this.postCellar();
+    this.getCellar();
+  }
+
   postCellar(){
 
     this.apiService.addCellar(this.cellarModel).subscribe(

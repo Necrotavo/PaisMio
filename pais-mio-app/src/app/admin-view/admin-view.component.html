@@ -1025,7 +1025,7 @@
             </div>
 
             <div class="modal-body">
-                <form  #cellarForm="ngForm" (ngSubmit)="postCellar()" novalidate>
+                <form  #cellarForm="ngForm" (ngSubmit)="postGetCellar()" novalidate>
                     <div class="form-group">
                         <div class="tab-header clearfix">
                             <div class="float-left">
@@ -1098,7 +1098,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button [disabled]="cellarForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal" (click)="postCellar()" class="btn btn-primary">Crear</button>
+                <button [disabled]="cellarForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal" (click)="postGetCellar()" class="btn btn-primary">Crear</button>
             </div>
 
         </div>
