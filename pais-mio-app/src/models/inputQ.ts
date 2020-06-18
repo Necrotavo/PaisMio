@@ -1,11 +1,11 @@
 import { Input } from './input';
 
 export class InputQ {
-    cantidad: number;
-    input: Input;
+    cantidadDisponible: number;
+    insumo: Input;
 
-    constructor(cantidad: number, input: Input) {
-        this.cantidad = cantidad;
-        this.input = input;
+    constructor(cantidadDisponible: number, insumo: Input) {
+        this.cantidadDisponible = cantidadDisponible;
+        this.insumo = insumo;
     }
 }

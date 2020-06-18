@@ -46,6 +46,9 @@ export class InventoryControlComponent implements OnInit {
   /** Combo validations */
   cellarHasError = true;
 
+  /** Aux variables */
+  auxQ: number;
+
 
   constructor(private apiService: ApiService) { }
 
@@ -104,8 +107,7 @@ export class InventoryControlComponent implements OnInit {
   }
 
   /** Used to add a input entry */
-  inputEntry(){
-    this.cellarEntryModel.listaInsumosEnBodega = this.inputEntryList;
+  inputEntry() {
     this.cellarAdminModel.doBodega = this.cellarEntryModel;
     this.cellarAdminModel.correoAdministrador = 'pal@lomo.com';
 
@@ -116,13 +118,22 @@ export class InventoryControlComponent implements OnInit {
     );
   }
 
-  pushIntoEntryList(){
+  pushIntoEntryList() {
+    this.inputExist = false;
+    this.inputEntryModel.cantidadDisponible = this.auxQ;
+    this.inputEntryModel.insumo = this.searchInputModel2;
     this.inputEntryList.push(this.inputEntryModel);
+    console.log(this.cellarAdminModel);
+    this.inputEntryModel = new InputQ(0, this.input);
+    this.auxQ = 0;
+    this.searchInputModel2 = new Input(0, '', 0, '', '', '');
+    this.searchInputModel = new Input(0, '', 0, '', '', '');
   }
 
-  searchInput(){
-    for (const i of this.inputList){
-      if (this.searchInputModel.nombre === i.nombre){
+  searchInput() {
+    for (const i of this.inputList) {
+      console.log(i.nombre);
+      if (this.searchInputModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
         this.inputExist = true;
         this.searchInputModel2 = i;
         return;
@@ -131,5 +142,6 @@ export class InventoryControlComponent implements OnInit {
       }
     }
   }
+
 
 }
