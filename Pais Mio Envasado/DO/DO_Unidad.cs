@@ -10,12 +10,19 @@ namespace DO
     [DataContract]
     public class DO_Unidad
     {
+        private string v;
+
         [DataMember]
         public string unidad { get; set; }
 
         public DO_Unidad()
         {
             this.unidad = "";
+        }
+
+        public DO_Unidad(string v)
+        {
+            this.v = v;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace WebService
             return blInsumo.buscarInsumo(codigoInsumo);
         }
 
-        public List<string> listarUnidades()
+        public List<DO_Unidad> listarUnidades()
         {
             BL_UnidadDeMedida blUnidadDeMedida = new BL_UnidadDeMedida();
             return blUnidadDeMedida.listarUnidades();
