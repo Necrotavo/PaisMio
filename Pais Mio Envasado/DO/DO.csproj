@@ -61,6 +61,7 @@
     <Compile Include="DO_ProductoEnPedido.cs" />
     <Compile Include="DO_ReportePedido.cs" />
     <Compile Include="DO_SolicitudInsumos.cs" />
+    <Compile Include="DO_Unidad.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

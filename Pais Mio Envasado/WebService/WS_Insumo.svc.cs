@@ -20,10 +20,10 @@ namespace WebService
             return blInsumo.guardarInsumo(doInsumo);
         }
 
-        public bool agregarUnidadDeMedida(string unidad)
+        public bool agregarUnidadDeMedida(DO_Unidad unidad)
         {
             BL_UnidadDeMedida blUnidadDeMedida = new BL_UnidadDeMedida();
-            return blUnidadDeMedida.agregarUnidad(unidad);
+            return blUnidadDeMedida.agregarUnidad(unidad.unidad);
         }
 
         public DO_Insumo buscarInsumo(int codigoInsumo)
