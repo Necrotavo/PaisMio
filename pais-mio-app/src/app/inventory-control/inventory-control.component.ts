@@ -25,6 +25,7 @@ export class InventoryControlComponent implements OnInit {
   /** Input list validations */
   inputList: Input[];
   inputExist = false;
+  listIsNotEmpty = false;
 
   /** Models */
   inputQModel = new InputQ(0, this.input);
@@ -128,11 +129,12 @@ export class InventoryControlComponent implements OnInit {
     this.auxQ = 0;
     this.searchInputModel2 = new Input(0, '', 0, '', '', '');
     this.searchInputModel = new Input(0, '', 0, '', '', '');
+    this.validateList();
+    this.inputExist = false;
   }
 
   searchInput() {
     for (const i of this.inputList) {
-      console.log(i.nombre);
       if (this.searchInputModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
         this.inputExist = true;
         this.searchInputModel2 = i;
@@ -141,6 +143,17 @@ export class InventoryControlComponent implements OnInit {
         this.inputExist = false;
       }
     }
+  }
+
+  validateList(){
+    if (this.inputEntryList.length > 0){
+      this.listIsNotEmpty = true;
+    }
+  }
+
+  removeFromList(i: number){
+    console.log(i);
+    console.log('borro:' + this.inputEntryList.splice(i, 1));
   }
 
 
