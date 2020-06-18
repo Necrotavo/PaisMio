@@ -113,7 +113,7 @@
                             </div>
                         </div>
                     </div>
-                    {{inputQForm.value | json}}
+                    {{cellarEntryModel | json}}
                     <table class="table table-striped table-responsive">
                         <thead>
                             <tr>
@@ -176,7 +176,7 @@
                                     <div class="form-field">
                                         <input type="number" required #inputIQ="ngModel" class="form-control"
                                             [class.is-invalid]="inputIQ.invalid && inputIQ.touched" placeholder="Cantidad"
-                                            name="inputIQ" [(ngModel)]="inputEntryModel.cantidad">
+                                            name="inputIQ" [(ngModel)]="auxQ">
                                         <div *ngIf="inputIQ.errors && (inputIQ.invalid || inputIQ.touched)">
                                             <p><small class="text-danger"
                                                     *ngIf="inputIQ.errors.required && inputIQ.touched">Minimo
@@ -184,8 +184,15 @@
                                         </div>
                                     </div>
                                 </td>
+                            </tr>
+                            <tr *ngIf="inputExist">
+                                <th>
+                                </th>
                                 <td>
-                                    
+                                    <div class="search-field">
+                                        <button type="button" class="btn btn-success center"
+                                            (click)="pushIntoEntryList()">Agregar insumo</button>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -195,7 +202,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Crear</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="inputEntry()">Crear</button>
             </div>
 
         </div>
