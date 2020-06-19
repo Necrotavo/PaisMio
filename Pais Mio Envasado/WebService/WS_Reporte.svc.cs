@@ -13,28 +13,23 @@ namespace WebService
     // NOTE: In order to launch WCF Test Client for testing this service, please select WS_Reporte.svc or WS_Reporte.svc.cs at the Solution Explorer and start debugging.
     public class WS_Reporte : IWS_Reporte
     {
-        public List<DO_ReporteInsumoComparativo> obtenerReporteInsumosComparativo(string inicioMes1, string finalMes1, string inicioMes2, string finalMes2)
+        public DO_ReporteInsumosComparativo obtenerReporteInsumosComparativo(DO_ReporteInsumosComparativo reporteInsumosComparativo)
         {
             BL_Reportes blReporte = new BL_Reportes();
-            return blReporte.reporteInsumosComparativo(inicioMes1, finalMes1, inicioMes2, finalMes2);
+            return blReporte.reporteInsumosComparativo(reporteInsumosComparativo.inicioMes1, reporteInsumosComparativo.finalMes1,
+                reporteInsumosComparativo.inicioMes2, reporteInsumosComparativo.finalMes2);
         }
 
-        //public List<DO_ReporteInsumos> obtenerReporteInsumos(string fechaInicio, string fechaFinal)
-        //{
-        //    BL_Reportes blReporte = new BL_Reportes();
-        //    return blReporte.obtenerReporteInsumos(fechaInicio, fechaFinal);
-        //}
-
-        public List<DO_ReporteInsumos> reporteInsumos(string fechaInicio, string fechaFinal)
+        public DO_ReporteInsumos reporteInsumos(DO_ReporteInsumos reporteInsumos)
         {
             BL_Reportes blReporte = new BL_Reportes();
-            return blReporte.reporteInsumos(fechaInicio, fechaFinal);
+            return blReporte.reporteInsumos(reporteInsumos.fechaInicio, reporteInsumos.fechaFinal);
         }
 
-        public List<DO_ReportePedido> reportePedidos(int mes, int anho)
+        public DO_ReportePedido reportePedidos(DO_ReportePedido reportePedido)
         {
             BL_Reportes blReporte = new BL_Reportes();
-            return blReporte.reportePedidos(mes,anho);
+            return blReporte.reportePedidos(reportePedido.mes, reportePedido.anho);
         }
     }
 }
