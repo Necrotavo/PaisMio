@@ -46,7 +46,7 @@ namespace DAO
 
         //            insumoConsumido.insumo.codigo = Convert.ToInt32(fila["INS_CODIGO"]);
         //            insumoConsumido.cantidadDisponible = Convert.ToInt32(fila["TOTAL_POR_INSUMO"]);
-                    
+
         //            listaInsumosConsumidos.Add(insumoConsumido);
 
         //        }
@@ -114,13 +114,13 @@ namespace DAO
         //    }
         //}
 
-        public List<DO_ReporteInsumos> reporteInsumos(String inicio, String final) {
+        public List<DO_InsumoReportable> reporteInsumos(String inicio, String final) {
             try
             {
                 //Formato del string para la fecha 2020-05-30
                 SqlDataAdapter adaptador = new SqlDataAdapter();
                 DataTable datatable = new DataTable();
-                List<DO_ReporteInsumos> listaReportados = new List<DO_ReporteInsumos>();
+                List<DO_InsumoReportable> listaReportados = new List<DO_InsumoReportable>();
 
                 adaptador.SelectCommand = new SqlCommand("SELECT * FROM (Select INS_CODIGO AS INS_CODIGO_CONSUMIR, SUM(ACS_CANTIDAD) AS TOTAL_CONSUMIDO from SOL_A_CONSUMIR_INS " +
                     "INNER JOIN (Select SOL_CODIGO from SOLICITUD_INSUMO where SOL_FECHA BETWEEN CONVERT(datetime, @fechaInicio) AND CONVERT(datetime, @fechaFinal)) as temporal " +
@@ -142,7 +142,7 @@ namespace DAO
 
                 foreach (DataRow fila in datatable.Rows)
                 {
-                    DO_ReporteInsumos insumoConsumido = new DO_ReporteInsumos();
+                    DO_InsumoReportable insumoConsumido = new DO_InsumoReportable();
                     insumoConsumido.insumo = new DO_Insumo();
                     Object codigoConsumir = fila["INS_CODIGO_CONSUMIR"];
                     if (!(codigoConsumir is DBNull))
@@ -190,10 +190,11 @@ namespace DAO
         /// <param name="mes">Mes de los pedidos a buscar (int)</param>
         /// <param name="anho">Año del pedido a buscar(int)</param>
         /// <returns>Lista de pedidos en el mes especificado</returns>
-        public List<DO_ReportePedido> reportePedidos(Int32 mes, Int32 anho)
+        public DO_ReportePedido reportePedidos(Int32 mes, Int32 anho)
         {
 
-            List<DO_ReportePedido> listaReportes = new List<DO_ReportePedido>();
+            DO_ReportePedido reportePedido = new DO_ReportePedido();
+            reportePedido.listaPedidos = new List<DO_Pedido>();
             SqlCommand comandoBuscar = new SqlCommand("SELECT PEDIDO.PED_CODIGO, CLIENTE.CLI_NOMBRE, PEDIDO.ESTADO, PEDIDO.OPE_CORREO,PEDIDO.ADM_OPE_CORREO," +
                                                     "PEDIDO.PED_FECHA_INGRESO,PEDIDO.PED_FECHA_DESPACHO FROM PEDIDO, CLIENTE WHERE PEDIDO.CLI_CEDULA = CLIENTE.CLI_CEDULA AND (MONTH(PEDIDO.PED_FECHA_DESPACHO) = @mes AND YEAR(PEDIDO.PED_FECHA_DESPACHO) = @anho)",conexion);
 
@@ -212,17 +213,18 @@ namespace DAO
                 {
                     while (lector.Read())
                     {
-                        DO_ReportePedido reportePedido = new DO_ReportePedido();
+                        DO_Pedido doPedido = new DO_Pedido();
 
-                        reportePedido.codigo = Convert.ToInt32(lector["PED_CODIGO"]);
-                        reportePedido.nombreCliente = (string)lector["CLI_NOMBRE"];
-                        reportePedido.nombreAdminIngreso = (string)lector["OPE_CORREO"];
-                        reportePedido.nombreAdminDespacho = (string)lector["ADM_OPE_CORREO"];
-                        reportePedido.fechaIngreso = (DateTime)lector["PED_FECHA_INGRESO"];
-                        reportePedido.fechaDespacho = (DateTime)lector["PED_FECHA_DESPACHO"];
-                        
+                        doPedido.codigo = Convert.ToInt32(lector["PED_CODIGO"]);
+                        doPedido.cliente = new DO_Cliente();
+                        doPedido.cliente.nombre = (string)lector["CLI_NOMBRE"];
+                        doPedido.correoAdminIngreso = (string)lector["OPE_CORREO"];
+                        doPedido.correoAdminDespacho = (string)lector["ADM_OPE_CORREO"];
+                        doPedido.fechaIngreso = (DateTime)lector["PED_FECHA_INGRESO"];
+                        doPedido.fechaDespacho = (DateTime)lector["PED_FECHA_DESPACHO"];
 
-                        listaReportes.Add(reportePedido);
+
+                        reportePedido.listaPedidos.Add(doPedido);
                     }
                 }
                 
@@ -238,25 +240,27 @@ namespace DAO
                     conexion.Close();
                 }
             }
+            DAO_Pais_Mio daoPaisMio = new DAO_Pais_Mio();
+            reportePedido.infoPaisMio = daoPaisMio.obtenerDatos();
 
-            obtenerProductos(listaReportes); //Se envía la lista de pedidos al método encargado de asignar los respectivos productos con los pedidos.
+            obtenerProductos(reportePedido.listaPedidos); //Se envía la lista de pedidos al método encargado de asignar los respectivos productos con los pedidos.
 
-            return listaReportes;
+            return reportePedido;
         }
 
         /// <summary>
         /// Método para obtener agregar los productos en la lista de pedidos de reporte
         /// </summary>
-        /// <param name="listaReportes"></param>
-        public void obtenerProductos(List<DO_ReportePedido> listaReportes)
+        /// <param name="listaPedidos"></param>
+        public void obtenerProductos(List<DO_Pedido> listaPedidos)
         {
                       
-            foreach (DO_ReportePedido pedido in listaReportes)
+            foreach (DO_Pedido pedido in listaPedidos)
             {
                 SqlCommand comandoBuscarProductos = new SqlCommand("SELECT PRODUCTO.PRO_NOMBRE, PRODUCTO.PRO_CODIGO,PRODUCTO.PRO_DESCRIPCION,PRODUCTO.EST_HAB_ESTADO, PED_POSEE_PRO.PPP_CANTIDAD " +
                 "FROM PED_POSEE_PRO,PRODUCTO WHERE PED_POSEE_PRO.PRO_CODIGO = PRODUCTO.PRO_CODIGO AND (PED_POSEE_PRO.PED_CODIGO = @codigoPedido)", conexion);
                 comandoBuscarProductos.Parameters.AddWithValue("@codigoPedido", pedido.codigo);
-                List<DO_ProductoEnPedido> listaPedidos = new List<DO_ProductoEnPedido>();
+                List<DO_ProductoEnPedido> listaProductos = new List<DO_ProductoEnPedido>();
 
                 try
                 {
@@ -282,14 +286,12 @@ namespace DAO
                             productoEnPedido.producto = producto;
                             productoEnPedido.cantidad = Convert.ToInt32(lector["PPP_CANTIDAD"]);
 
-                            listaPedidos.Add(productoEnPedido);
+                            listaProductos.Add(productoEnPedido);
                         }
+                        pedido.listaProductos = listaProductos;
                     }
                 }
-                catch (SqlException)
-                {
-                  
-                }
+                catch (SqlException){}
                 finally
                 {
                     if (conexion.State != ConnectionState.Closed)
@@ -297,11 +299,7 @@ namespace DAO
                         conexion.Close();
                     }
                 }
-
-                pedido.productos = listaPedidos;
             }
-
-
         }
     }
 }

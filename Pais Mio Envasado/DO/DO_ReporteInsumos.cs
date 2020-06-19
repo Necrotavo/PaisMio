@@ -7,30 +7,27 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    /// <summary>
-    /// Esta clase contiene un insumo, y las cantidades que se consumieron o descartaron del mismo para reportarlos
-    /// </summary>
     [DataContract]
     public class DO_ReporteInsumos
     {
-        [DataMember(Name = "CantidadConsumida")]
-        public Int32 cantidadConsumida;
+        [DataMember(Name = "listaInsumos")]
+        public List<DO_InsumoReportable> listaInsumos { get; set; }
 
-        [DataMember(Name = "cantidadDescartada")]
-        public Int32 cantidadDescartada;
+        [DataMember(Name = "infoPaisMio")]
+        public DO_PaisMio infoPaisMio { get; set; }
 
-        [DataMember(Name = "insumo")]
-        public DO_Insumo insumo;
+        [DataMember(Name = "fechaInicio")]
+        public string fechaInicio { get; set; }
 
-        [DataMember(Name = "total")]
-        public Int32 total { set; get; }
+        [DataMember(Name = "fechaFinal")]
+        public string fechaFinal { get; set; }
 
-        public DO_ReporteInsumos(int cantidadConsumida, int cantidadDescartada, DO_Insumo insumo, int total)
+        public DO_ReporteInsumos(List<DO_InsumoReportable> listaInsumos, DO_PaisMio infoPaisMio, string fechaInicio, string fechaFinal)
         {
-            this.cantidadConsumida = cantidadConsumida;
-            this.cantidadDescartada = cantidadDescartada;
-            this.insumo = insumo;
-            this.total = total;
+            this.listaInsumos = listaInsumos;
+            this.infoPaisMio = infoPaisMio;
+            this.fechaInicio = fechaInicio;
+            this.fechaFinal = fechaFinal;
         }
 
         public DO_ReporteInsumos(){}

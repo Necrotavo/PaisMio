@@ -15,6 +15,9 @@ export class OrderViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.data.activeOrder.subscribe(order => this.order = order);
+    if (this.order === null) {
+      console.log('Soy null :(');
+    }
   }
 
 }
