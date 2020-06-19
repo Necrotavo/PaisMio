@@ -29,7 +29,7 @@ namespace DAO
             comandoInsertar.Parameters.AddWithValue("@cedula", pedido.cliente.cedula);
             comandoInsertar.Parameters.AddWithValue("@correoAdmin", pedido.correoAdminIngreso);
             comandoInsertar.Parameters.AddWithValue("@estado", pedido.estado);
-            comandoInsertar.Parameters.AddWithValue("@fechaIngreso", pedido.fechaIngreso.ToString("dd/MM/yyyy hh:mm:ss"));
+            comandoInsertar.Parameters.AddWithValue("@fechaIngreso", pedido.fechaIngreso);
 
             try
             {

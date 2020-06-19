@@ -18,6 +18,7 @@ namespace BL
         public bool registrarPedido(DO_Pedido pedido)
         {
             DAO_Pedido daoPedido = new DAO_Pedido();
+            pedido.listaProductos = unificarLista(pedido.listaProductos);
             return daoPedido.guardarPedido(pedido);
         }
 
@@ -74,5 +75,48 @@ namespace BL
             DAO_Pedido daoPedido = new DAO_Pedido();
             return daoPedido.listarPedidos();
         }
+
+        public List<DO_ProductoEnPedido> unificarLista(List<DO_ProductoEnPedido>listaCompleta)
+        {
+            List<DO_ProductoEnPedido> listaFinal = new List<DO_ProductoEnPedido>();
+            //xxyyzz
+            foreach (DO_ProductoEnPedido producto in listaCompleta)
+            {
+                if (listaFinal.Count==0)
+                {
+                    listaFinal.Add(producto);
+
+                } else
+                {
+                    if (!buscarProductoFinal(listaFinal, producto))
+                    {
+                        listaFinal.Add(producto);
+
+                    }
+                }                                               
+            }
+
+            return listaFinal;
+        }
+
+        public bool buscarProductoFinal(List<DO_ProductoEnPedido> listaFinal, DO_ProductoEnPedido producto)
+        {
+            foreach (DO_ProductoEnPedido productoFinal in listaFinal)
+            {
+
+                //producto =x producto final = x
+                if (producto.producto.codigo.Equals(productoFinal.producto.codigo))
+                {
+                    productoFinal.cantidad += producto.cantidad;
+                    return true;
+                }
+                
+            }
+
+            return false;
+        }
+
+
+
     }
 }
