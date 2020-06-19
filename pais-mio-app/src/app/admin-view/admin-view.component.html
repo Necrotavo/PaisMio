@@ -63,19 +63,19 @@
                     </div>
                     <br>
                     
-                    <div id="accordion">
+                    <div id="accordionO">
                         <div class="card" *ngFor="let com of orderList | filter:termO | filter:termO2; let i = index">
                             <div class="card-header" id="headingOne">
                                 <h5 class="mb-0">
                                     <button class="btn btn-link" data-toggle="collapse"
                                         attr.data-target="#collapseO{{i}}" aria-expanded="true"
                                         attr.aria-controls="collapseO{{i}}">
-                                        {{com.codigo}} | {{com.cliente.cedula}}
+                                        {{com.cliente.nombre}} | {{com.cliente.cedula}}
                                     </button>
                                 </h5>
                             </div>
                             <div attr.id="collapseO{{i}}" class="collapse" aria-labelledby="headingOne"
-                                data-parent="#accordion">
+                                data-parent="#accordionO">
                                 <div class="card-body">
 
                                     <table class="table table-striped table-responsive">
@@ -93,7 +93,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>Identificación cliente</th>
                                                 <td>
                                                     {{com.cliente.cedula}}
                                                 </td>
@@ -379,7 +379,7 @@
                                     <button class="btn btn-link" data-toggle="collapse"
                                         attr.data-target="#collapse{{i}}" aria-expanded="true"
                                         attr.aria-controls="collapse{{i}}">
-                                        {{item.cedula}} | {{item.nombre}}
+                                        {{item.nombre}} | {{item.cedula}}
                                     </button>
                                 </h5>
                             </div>
@@ -398,7 +398,7 @@
                                             <tr>
                                                 <th>Identificación</th>
                                                 <td>
-                                                    {{item.cliene}}
+                                                    {{item.cedula}}
                                                 </td>
                                             </tr>
                                             <tr>
