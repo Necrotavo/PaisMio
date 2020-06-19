@@ -22,7 +22,6 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 /** Extra modules imports */
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import { ClientComponent } from './client/client.component';
 import { ApiService } from './api.service';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AuthService } from './auth.service';
@@ -42,8 +41,7 @@ import { AuthService } from './auth.service';
     InventoryControlComponent,
     OrderViewComponent,
     UserViewComponent,
-    ErrorPageComponent,
-    ClientComponent
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
