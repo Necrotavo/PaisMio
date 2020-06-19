@@ -48,6 +48,7 @@ export class AdminViewComponent implements OnInit {
   cellarAdmin: CellarAdmin;
   inputRequest: InputRequest;
   inputRequestDesicion: InputRequestDesicion;
+  clientOrder: Client;
 
   /** Object Lists */
   orderList: Order[];
@@ -62,7 +63,8 @@ export class AdminViewComponent implements OnInit {
   inputQListDiscard: InputQ[];
   cellarList: Cellar[];
   cellarList2: Cellar[];
-  inputRequestList: InputRequest[]
+  inputRequestList: InputRequest[];
+  productEntryList: Array<ProductInOrder> = [];
 
   /** Data return objects */
   objOrder: Order;
@@ -93,18 +95,30 @@ export class AdminViewComponent implements OnInit {
   clientHasError = true;
   cellarHasError = true;
 
+  /** Input list validations */
+  productExist = false;
+  listIsNotEmpty = false;
+
+  /** Aux variables */
+  auxQ: number;
+
   /** Models */
   clientModel = new Client('', '', '', '', '', '');
   userModel = new User('', '', '', '', '', 'default');
   inputModel = new Input(0, '', 0, '', '', '');
   productModel = new Product(0, '', '', '', '');
-  orderModel = new Order(0, '', '', this.productInOrderList);
+  clientEntryModel = new Client('', '', '', '', '', '');
+  orderModel = new Order(0, this.clientEntryModel, '', this.productEntryList);
   cellarModel = new Cellar(0, '', '', '', '', this.inputQList);
   cellarAdminModel = new CellarAdmin(this.cellar, '');
   moveInputModel = new MoveInput(0, 0, 0, 0);
   inputRequestModel = new InputRequest(0, 0, 0, this.inputQList, this.inputQListDiscard, '', '', '', '');
   inputRequestDesicionModel = new InputRequestDesicion(this.inputRequest, this.user, '');
   unitModel = new Unit('');
+
+  productEntryModel = new ProductInOrder(this.product, 0);
+  searchProductModel = new Product(0, '', '', '', '');
+  searchProductModel2 = new Product(0, '', '', '', '');
 
 
   ngOnInit(): void {
@@ -426,6 +440,62 @@ export class AdminViewComponent implements OnInit {
       } else {
         this.cellarHasError = false;
       }
+    }
+
+    /** Used to add a product entry */
+  orderEntry() {
+
+    for (const i of this.clientAList) {
+      if (this.clientEntryModel.cedula.toUpperCase() === i.cedula.toUpperCase()) {
+        this.orderModel.cliente = i;
+      }
+    }
+
+    this.orderModel.correoAdminIngreso = 'pal@lomo.com';
+    this.apiService.addOrder(this.orderModel).subscribe(
+      data => {
+        this.objOrder = data;
+      }
+    );
+  }
+
+    pushIntoEntryList() {
+      this.productExist = false;
+      this.productEntryModel.cantidad = this.auxQ;
+      this.productEntryModel.producto = this.searchProductModel2;
+      this.productEntryList.push(this.productEntryModel);
+      this.productEntryModel = new ProductInOrder(this.product, 0);
+      this.auxQ = 0;
+      this.searchProductModel2 = new Product(0, '', '', '', '');
+      this.searchProductModel = new Product(0, '',  '', '', '');
+      this.validateList();
+      this.productExist = false;
+    }
+
+    searchProduct() {
+      for (const i of this.productList) {
+        if (this.searchProductModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
+          this.productExist = true;
+          this.searchProductModel2 = i;
+          return;
+        } else {
+          this.productExist = false;
+        }
+      }
+    }
+
+    /** Validations for inputs in order */
+    validateList(){
+      if (this.productEntryList.length > 0){
+        this.listIsNotEmpty = true;
+      } else {
+        this.listIsNotEmpty = false;
+      }
+    }
+
+    removeFromList(i: number){
+      this.productEntryList.splice(i, 1);
+      this.validateList();
     }
 
 }

@@ -87,7 +87,7 @@ const orderDELETE = 'https://www.spepaismio.tk/WS_Pedido.svc/Eliminar';
 const orderSEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/Consultar';
 const orderPACKOFF = 'https://www.spepaismio.tk/WS_Pedido.svc/Despachar';
 
-/**Falta Analysis API URLs */
+/** Falta Analysis API URLs */
 const analysisPost = 'https://www.spepaismio.tk/WS_Pedido.svc/AgregarAnalisisAA';
 const analysisAASEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/BuscarAnalisisAA';
 
@@ -182,7 +182,7 @@ export class ApiService {
     );
   }
 
-  /** Users CRUD*/
+  /** Users CRUD */
   getUser(): Observable<User[]> {
     return this.http.get<User[]>(`${userGET}`)
       .pipe(
@@ -271,7 +271,7 @@ export class ApiService {
     );
   }
 
-  /** Inputs CRUD 
+  /** Inputs CRUD
    * const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
 const inputGetA = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
 const unitGet = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
@@ -621,11 +621,11 @@ const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
       );
   }
 
-  getClientByEmail(email: string): Observable<Client> {
-    const url = `${apiURL}/${email}`;
+  getClientByID(cedula: string): Observable<Client> {
+    const url = `${clientSEARCH}/${cedula}`;
     return this.http.get<Client>(url).pipe(
-      tap(_ => console.log(`fetch client id=${email}`)),
-      catchError(this.handleErrors<Client>(`getClientByEmail id=${email}`))
+      tap(_ => console.log(`fetch client id=${cedula}`)),
+      catchError(this.handleErrors<Client>(`getClientByEmail id=${cedula}`))
     );
   }
 

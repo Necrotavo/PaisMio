@@ -124,7 +124,6 @@ export class InventoryControlComponent implements OnInit {
     this.inputEntryModel.cantidadDisponible = this.auxQ;
     this.inputEntryModel.insumo = this.searchInputModel2;
     this.inputEntryList.push(this.inputEntryModel);
-    console.log(this.cellarAdminModel);
     this.inputEntryModel = new InputQ(0, this.input);
     this.auxQ = 0;
     this.searchInputModel2 = new Input(0, '', 0, '', '', '');

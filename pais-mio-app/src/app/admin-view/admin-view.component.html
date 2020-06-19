@@ -70,7 +70,7 @@
                                     <button class="btn btn-link" data-toggle="collapse"
                                         attr.data-target="#collapseO{{i}}" aria-expanded="true"
                                         attr.aria-controls="collapseO{{i}}">
-                                        {{com.codigo}} | {{com.cedulaCliente}}
+                                        {{com.codigo}} | {{com.cliente.cedula}}
                                     </button>
                                 </h5>
                             </div>
@@ -96,7 +96,7 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <td>
-                                                    {{com.cedulaCliente}}
+                                                    {{com.cliente.cedula}}
                                                 </td>
                                             </tr>
                                             <tr *ngFor="let prod of com.listaProductos; let i = index">
@@ -367,7 +367,7 @@
                                 data-target="#clientsModal">
                                 <i class="icon ion-plus">
                                 </i>
-                                Crear Unidad
+                                Crear Cliente
                             </button>
 
                         </div>
@@ -400,7 +400,7 @@
                                             <tr>
                                                 <th>Identificación</th>
                                                 <td>
-                                                    {{item.cedula}}
+                                                    {{item.cliene}}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -510,7 +510,7 @@
             </div>
 
             <div class="modal-body">
-                <form #orderForm="ngForm" (ngSubmit)="postOrder()" novalidate>
+                <form #orderForm="ngForm" (ngSubmit)="orderEntry()" novalidate>
                     <div class="form-group">
                         <div class="tab-header clearfix">
                             <div class="float-left">
@@ -528,7 +528,7 @@
                             </div>
                         </div>
                     </div>
-                    {{orderForm.value | json}}
+                    {{orderModel | json}}
                     <table class="table table-striped table-responsive">
                         <thead>
                             <tr>
@@ -546,7 +546,7 @@
                                         <select (blur)="validateClient(clientOr.value)"
                                             (change)="validateClient(clientOr.value)" #clientOr="ngModel"
                                             [class.is-invalid]="clientHasError && clientOr.touched" class="form-control"
-                                            name="clientOr" [(ngModel)]="orderModel.cedulaCliente">
+                                            name="clientOr" [(ngModel)]="clientEntryModel.cedula">
                                             <option value="default">Cliente</option>
                                             <option *ngFor="let com of clientAList" value="{{com.cedula}}">
                                                 {{com.nombre}}</option>
@@ -557,14 +557,77 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr *ngFor="let com of productList">
+                            <tr>
                                 <th>
-                                    {{com.nombre}}
+                                    Nombre
+                                </th>
+                                <td>
+                                    <div class="form-field" *ngIf="!productExist">
+                                        <input type="text" (keyup)="searchProduct()" required #nombrePQ="ngModel"
+                                            class="form-control" [class.is-invalid]="!productExist && nombrePQ.touched "
+                                            placeholder="Codigo" name="nombrePQ" [(ngModel)]="searchProductModel.nombre">
+                                        <div *ngIf="nombrePQ.errors && (nombrePQ.invalid || nombrePQ.touched)">
+                                            <p><small class="text-danger"
+                                                    *ngIf="nombrePQ.errors.required && nombrePQ.touched">Nombre de
+                                                    producto
+                                                    requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="nombrePQ.touched && !productExist">El
+                                                    producto no
+                                                    existe </small></p>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="productExist">
+                                        {{searchProductModel2.nombre}}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="productExist">
+                                <th>
+                                    Cantidad
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="number" class="form-control" placeholder="Cantidad...">
+                                        <input type="number" required #productIQ="ngModel" class="form-control"
+                                            [class.is-invalid]="productIQ.invalid && productIQ.touched"
+                                            placeholder="Cantidad" name="productIQ" [(ngModel)]="auxQ">
+                                        <div *ngIf="productIQ.errors && (productIQ.invalid || productIQ.touched)">
+                                            <p><small class="text-danger"
+                                                    *ngIf="productIQ.errors.required && productIQ.touched">Minimo
+                                                    requerido</small></p>
+                                        </div>
                                     </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="productExist">
+                                <th>
+                                </th>
+                                <td>
+
+                                    <button type="button" class="btn btn-success center" (click)="pushIntoEntryList()">
+                                        <i class="icon ion-plus">
+                                        </i>
+                                        Agregar producto</button>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table *ngIf="listIsNotEmpty" class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Cantidad a agregar</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of productEntryList; let i = index">
+                                <td>{{item.producto.nombre}}</td>
+                                <td>{{item.cantidad}}</td>
+                                <td><button type="button" attr.value="{{i}}" class="btn btn-danger center" (click)="removeFromList(i)">
+                                    <i class="icon ion-minus">
+                                    </i>
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -574,7 +637,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Crear</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="orderEntry()">Crear</button>
             </div>
 
         </div>
