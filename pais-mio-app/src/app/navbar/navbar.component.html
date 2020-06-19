@@ -6,9 +6,9 @@
         </a>
         <ul class="menu-right float-right">
           <li>
-            <a routerLink="/order-view/" class="cart">
+            <a routerLink="/order-view/" class="cart" >
               <i class="ion-ios-wineglass"></i>
-              <span>X Pedidos activos</span>
+              <span>{{activeMessage}}</span>
             </a>
           </li>
           <li>
@@ -34,8 +34,7 @@
                   <i class="ion-chevron-down"></i>
                 </a>
                 <div class="dropdown-menu" role="menu">
-                  <a class="dropdown-item" routerLink="/order-view/">Pedido 1</a>
-                  <a class="dropdown-item" routerLink="/order-view/">Pedido 2</a>
+                  <a class="dropdown-item" *ngFor="let item of orderList; let i = index" attr.value="{{i}}" routerLink="/order-view/" (click)="newOrder(i)">{{item.codigo}} | {{item.cliente.nombre}}</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -77,7 +76,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                  <a class="nav-link dropdown-toggle" routerLink="/index.html/">Cerrar sesión</a>
+                  <a class="nav-link dropdown-toggle" routerLink="/index-pm-app/">Cerrar sesión</a>
               </li>
             </ul>
           </div>
