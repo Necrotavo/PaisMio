@@ -68,7 +68,7 @@ const inputQSEARCH = 'https://www.spepaismio.tk/WS_Insumo.svc/buscarInsumo';
 
 /** Units Request URL's*/
 const unitPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidad';
-const unitGET = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidad';
+const unitGET = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
 
 /** Input Request URL's*/
 const inputRequestPost = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/ingresoSolicitud';
@@ -87,7 +87,7 @@ const orderDELETE = 'https://www.spepaismio.tk/WS_Pedido.svc/Eliminar';
 const orderSEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/Consultar';
 const orderPACKOFF = 'https://www.spepaismio.tk/WS_Pedido.svc/Despachar';
 
-/**Falta Analysis API URLs */
+/** Falta Analysis API URLs */
 const analysisPost = 'https://www.spepaismio.tk/WS_Pedido.svc/AgregarAnalisisAA';
 const analysisAASEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/BuscarAnalisisAA';
 
@@ -182,7 +182,7 @@ export class ApiService {
     );
   }
 
-  /** Users CRUD*/
+  /** Users CRUD */
   getUser(): Observable<User[]> {
     return this.http.get<User[]>(`${userGET}`)
       .pipe(
@@ -271,7 +271,7 @@ export class ApiService {
     );
   }
 
-  /** Inputs CRUD 
+  /** Inputs CRUD
    * const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
 const inputGetA = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
 const unitGet = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
@@ -341,7 +341,7 @@ const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
 
   addInputQ(inputQ: InputQ): Observable<InputQ> {
     return this.http.post<InputQ>(inputQPOST, inputQ, HttpOptions).pipe(
-      tap((i: InputQ) => console.log(`added input w/ id=${i.input.nombre}`)),
+      tap((i: InputQ) => console.log(`added input w/ id=${i.insumo.nombre}`)),
       catchError(this.handleErrors<InputQ>(`addInput`))
     );
   }
@@ -366,7 +366,7 @@ const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
   getUnits(): Observable<Unit[]> {
     return this.http.get<Unit[]>(`${unitGET}`)
       .pipe(
-        tap(input => console.log(`fetch unit`)),
+        tap(_ => console.log(`fetch unit`)),
         catchError(this.handleErrors(`getUnit`, []))
       );
   }
@@ -621,11 +621,11 @@ const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
       );
   }
 
-  getClientByEmail(email: string): Observable<Client> {
-    const url = `${apiURL}/${email}`;
+  getClientByID(cedula: string): Observable<Client> {
+    const url = `${clientSEARCH}/${cedula}`;
     return this.http.get<Client>(url).pipe(
-      tap(_ => console.log(`fetch client id=${email}`)),
-      catchError(this.handleErrors<Client>(`getClientByEmail id=${email}`))
+      tap(_ => console.log(`fetch client id=${cedula}`)),
+      catchError(this.handleErrors<Client>(`getClientByEmail id=${cedula}`))
     );
   }
 
@@ -716,7 +716,7 @@ const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
   /** Complex post */
   inputEntry(cellar: CellarAdmin): Observable<CellarAdmin> {
     return this.http.post<CellarAdmin>(cellarInputPUT, cellar, HttpOptions).pipe(
-      tap((i: CellarAdmin) => console.log(`The input list has been added to the cellar w/ id=${i.doBodega.nombre}`)),
+      tap((i: CellarAdmin) => console.log(`The input list has been added to the cellar w/ id=${i}`)),
       catchError(this.handleErrors<CellarAdmin>(`cellarInputPut`))
     );
   }

@@ -48,6 +48,7 @@ export class AdminViewComponent implements OnInit {
   cellarAdmin: CellarAdmin;
   inputRequest: InputRequest;
   inputRequestDesicion: InputRequestDesicion;
+  clientOrder: Client;
 
   /** Object Lists */
   orderList: Order[];
@@ -62,7 +63,8 @@ export class AdminViewComponent implements OnInit {
   inputQListDiscard: InputQ[];
   cellarList: Cellar[];
   cellarList2: Cellar[];
-  inputRequestList: InputRequest[]
+  inputRequestList: InputRequest[];
+  productEntryList: Array<ProductInOrder> = [];
 
   /** Data return objects */
   objOrder: Order;
@@ -75,6 +77,7 @@ export class AdminViewComponent implements OnInit {
   objCellarAdmin: CellarAdmin;
   objInputRequest: InputRequest;
   objInputRequestDesicion: InputRequestDesicion;
+  objUnit: Unit;
 
   /** Filter terms */
   termO: string; // for Orders
@@ -84,6 +87,7 @@ export class AdminViewComponent implements OnInit {
   termC: string; // for Clients
   termP: string; // for Products
   termB: string; // for Bodegas
+  termUn: string; // for Units
 
   /** Combo validations */
   rolHasError = true;
@@ -91,17 +95,30 @@ export class AdminViewComponent implements OnInit {
   clientHasError = true;
   cellarHasError = true;
 
+  /** Input list validations */
+  productExist = false;
+  listIsNotEmpty = false;
+
+  /** Aux variables */
+  auxQ: number;
+
   /** Models */
   clientModel = new Client('', '', '', '', '', '');
   userModel = new User('', '', '', '', '', 'default');
   inputModel = new Input(0, '', 0, '', '', '');
   productModel = new Product(0, '', '', '', '');
-  orderModel = new Order(0, '', '', this.productInOrderList);
+  clientEntryModel = new Client('', '', '', '', '', '');
+  orderModel = new Order(0, this.clientEntryModel, '', this.productEntryList);
   cellarModel = new Cellar(0, '', '', '', '', this.inputQList);
   cellarAdminModel = new CellarAdmin(this.cellar, '');
   moveInputModel = new MoveInput(0, 0, 0, 0);
   inputRequestModel = new InputRequest(0, 0, 0, this.inputQList, this.inputQListDiscard, '', '', '', '');
   inputRequestDesicionModel = new InputRequestDesicion(this.inputRequest, this.user, '');
+  unitModel = new Unit('');
+
+  productEntryModel = new ProductInOrder(this.product, 0);
+  searchProductModel = new Product(0, '', '', '', '');
+  searchProductModel2 = new Product(0, '', '', '', '');
 
 
   ngOnInit(): void {
@@ -114,25 +131,13 @@ export class AdminViewComponent implements OnInit {
     );
 
     /** Gets all Inputs on Init */
-    this.apiService.getInput().subscribe(
-      data => {
-        this.inputList = data;
-      }
-    );
+    this.getInput();
 
     /** Gets all Users on Init */
-    this.apiService.getUser().subscribe(
-      data => {
-        this.userList = data;
-      }
-    );
+    this.getUser();
 
     /** Gets all clients on Init */
-    this.apiService.getClient().subscribe(
-      data => {
-        this.clientList = data;
-      }
-    );
+    this.getClient();
 
     /** Gets all available clients on Init */
     this.apiService.getAClient().subscribe(
@@ -142,20 +147,30 @@ export class AdminViewComponent implements OnInit {
     );
 
     /** Gets all products on Init */
-    this.apiService.getProduct().subscribe(
+    this.getProduct();
+
+    /** Gets all unit types on Init */
+    this.getUnits();
+    this.getCellar();
+
+  }
+
+  postUnit(){
+    this.apiService.addUnit(this.unitModel).subscribe(
       data => {
-        this.productList = data;
+        this.objUnit = data;
+        this.getUnits();
       }
     );
 
-    /** Gets all unit types on Init */
+  }
+
+  getUnits(){
     this.apiService.getUnits().subscribe(
       data => {
         this.unitList = data;
       }
     );
-
-    this.getCellar();
 
   }
 
@@ -182,6 +197,17 @@ export class AdminViewComponent implements OnInit {
     this.apiService.addInput(this.inputModel).subscribe(
       data => {
         this.objInput = data;
+        this.getInput();
+        this.objInput = new Input(0, '', 0, '', '', '');
+      }
+    );
+  }
+
+  getInput(){
+
+    this.apiService.getInput().subscribe(
+      data => {
+        this.inputList = data;
       }
     );
   }
@@ -192,6 +218,17 @@ export class AdminViewComponent implements OnInit {
     this.apiService.addUser(this.userModel).subscribe(
       data => {
         this.objUser = data;
+        this.getUser();
+        this.objUser = new User('', '', '', '', '', 'default');
+      }
+    );
+  }
+
+  getUser(){
+
+    this.apiService.getUser().subscribe(
+      data => {
+        this.userList = data;
       }
     );
   }
@@ -203,15 +240,34 @@ export class AdminViewComponent implements OnInit {
     this.apiService.addClient(this.clientModel).subscribe(
       data => {
         this.objClient = data;
+        this.getClient();
+        this.objClient = new Client('', '', '', '', '', '');
       }
     );
   }
 
+  getClient(){
+    this.apiService.getClient().subscribe(
+      data => {
+        this.clientList = data;
+      }
+    );
+  }
   postProduct(){
 
     this.apiService.addProduct(this.productModel).subscribe(
       data => {
         this.objProduct = data;
+        this.getProduct();
+        this.objProduct = new Product(0, '', '', '', '');
+      }
+    );
+  }
+
+  getProduct(){
+    this.apiService.getProduct().subscribe(
+      data => {
+        this.productList = data;
       }
     );
   }
@@ -226,6 +282,7 @@ export class AdminViewComponent implements OnInit {
     this.apiService.addCellar(this.cellarModel).subscribe(
       data => {
         this.objCellar = data;
+        this.getCellar();
       }
     );
   }
@@ -383,6 +440,62 @@ export class AdminViewComponent implements OnInit {
       } else {
         this.cellarHasError = false;
       }
+    }
+
+    /** Used to add a product entry */
+  orderEntry() {
+
+    for (const i of this.clientAList) {
+      if (this.clientEntryModel.cedula.toUpperCase() === i.cedula.toUpperCase()) {
+        this.orderModel.cliente = i;
+      }
+    }
+
+    this.orderModel.correoAdminIngreso = 'pal@lomo.com';
+    this.apiService.addOrder(this.orderModel).subscribe(
+      data => {
+        this.objOrder = data;
+      }
+    );
+  }
+
+    pushIntoEntryList() {
+      this.productExist = false;
+      this.productEntryModel.cantidad = this.auxQ;
+      this.productEntryModel.producto = this.searchProductModel2;
+      this.productEntryList.push(this.productEntryModel);
+      this.productEntryModel = new ProductInOrder(this.product, 0);
+      this.auxQ = 0;
+      this.searchProductModel2 = new Product(0, '', '', '', '');
+      this.searchProductModel = new Product(0, '',  '', '', '');
+      this.validateList();
+      this.productExist = false;
+    }
+
+    searchProduct() {
+      for (const i of this.productList) {
+        if (this.searchProductModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
+          this.productExist = true;
+          this.searchProductModel2 = i;
+          return;
+        } else {
+          this.productExist = false;
+        }
+      }
+    }
+
+    /** Validations for inputs in order */
+    validateList(){
+      if (this.productEntryList.length > 0){
+        this.listIsNotEmpty = true;
+      } else {
+        this.listIsNotEmpty = false;
+      }
+    }
+
+    removeFromList(i: number){
+      this.productEntryList.splice(i, 1);
+      this.validateList();
     }
 
 }

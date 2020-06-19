@@ -25,7 +25,7 @@ namespace BL
        /// Método para mostrar las unidades de medida disponibles
        /// </summary>
        /// <returns>(List<String> lista de las unidades de medida.)</returns>
-        public List<String> listarUnidades()
+        public List<DO_Unidad> listarUnidades()
         {
             DAO_UnidadDeMedida daoUnidad = new DAO_UnidadDeMedida();
             return daoUnidad.listaUnidades();

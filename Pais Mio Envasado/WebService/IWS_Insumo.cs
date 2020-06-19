@@ -52,7 +52,7 @@ namespace WebService
             BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "agregarUnidad")]
-        bool agregarUnidadDeMedida(string unidad);
+        bool agregarUnidadDeMedida(DO_Unidad unidad);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
@@ -60,6 +60,6 @@ namespace WebService
             BodyStyle = WebMessageBodyStyle.Bare,
             Method = "GET",
             UriTemplate = "listarUnidades")]
-        List<String> listarUnidades();
+        List<DO_Unidad> listarUnidades();
     }
 }
