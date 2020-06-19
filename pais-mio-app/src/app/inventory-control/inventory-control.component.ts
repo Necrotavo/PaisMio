@@ -14,6 +14,7 @@ import { CellarAdmin } from 'src/models/cellarAdmin';
 export class InventoryControlComponent implements OnInit {
 
 
+  /** List declarations */
   inputQList: InputQ[];
   inputQListInCellar: Array<InputQ> = [];
   cellarList: Cellar[];

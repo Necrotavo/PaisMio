@@ -60,17 +60,17 @@ const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
 const inputGetA = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
 
 
-/** Input Q API URLs Hay que quitarlo*/
+/** InputQ API URLs */
 const inputQPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarInsumo';
 const inputQGET = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
 const inputQUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
 const inputQSEARCH = 'https://www.spepaismio.tk/WS_Insumo.svc/buscarInsumo';
 
-/** Units Request URL's*/
+/** Units Request URLs */
 const unitPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidad';
 const unitGET = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
 
-/** Input Request URL's*/
+/** Input Request URLs */
 const inputRequestPost = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/ingresoSolicitud';
 const inputRequestDESICION = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/decisionAdmin';
 const inputRequestGET = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/listarSolicitudes';
@@ -271,12 +271,8 @@ export class ApiService {
     );
   }
 
-  /** Inputs CRUD
-   * const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
-const inputGetA = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
-const unitGet = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
-const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
-  */
+  /** Inputs CRUD */
+
   getInput(): Observable<Input[]> {
     return this.http.get<Input[]>(`${inputGET}`)
       .pipe(
@@ -563,47 +559,6 @@ const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
     );
   }
 
-  /**
-  getReportC(): Observable<ReportC[]> {
-    return this.http.get<ReportC[]>(`${apiURL}`)
-      .pipe(
-        tap(reportC => console.log(`fetch report comparative`)),
-        catchError(this.handleErrors(`getReportC`, []))
-      );
-  }
-
-  getReportCByID(id: string): Observable<ReportC> {
-    const url = `${apiURL}/${id}`;
-    return this.http.get<ReportC>(url).pipe(
-      tap(_ => console.log(`fetch report comparative id=${id}`)),
-      catchError(this.handleErrors<ReportC>(`getReportCByID id=${id}`))
-    );
-  }
-
-  addReportC(reportC: ReportC): Observable<ReportM> {
-    return this.http.post<ReportC>(apiURL, reportC, HttpOptions).pipe(
-      tap((i: ReportC) => console.log(`added reporth comparative w/ id=${i.id}`)),
-      catchError(this.handleErrors<ReportC>(`addReportC`))
-    );
-  }
-
-  updateReportC(id: string, reportC: ReportC): Observable<any> {
-    const url = `${apiURL}/${id}`;
-    return this.http.put(url, reportC, HttpOptions).pipe(
-      tap(_ => console.log(`updated report comparative id=${id}`)),
-      catchError(this.handleErrors<any>(`updateReportC`))
-    );
-  }
-
-  deleteReportC(id: string): Observable<ReportC> {
-    const url = `${apiURL}/${id}`;
-    return this.http.delete<ReportC>(url, HttpOptions).pipe(
-      tap(_ => console.log(`deleted report comparative id=${id}`)),
-      catchError(this.handleErrors<ReportC>(`deletedReportC`))
-    );
-  }
-   */
-
   /** Client CRUD */
   getClient(): Observable<Client[]> {
     return this.http.get<Client[]>(`${clientGET}`)
@@ -656,16 +611,6 @@ const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
       catchError(this.handleErrors<Client>(`addUser`))
     );
   }
-
-
- /** updateClientStatus(nombre: string, client: Client): Observable<any> {
-    const url = `${apiURL}/${nombre}`;
-    return this.http.put(url, client, HttpOptions).pipe(
-      tap(_ => console.log(`updated client status id=${nombre}`)),
-      catchError(this.handleErrors<any>(`updateClientStatus`))
-    );
-  } */
-
 
   deleteClient(nombre: string): Observable<Client> {
     const url = `${apiURL}/${nombre}`;
@@ -743,3 +688,63 @@ const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
     );
   }
 }
+
+
+
+
+/** TODO */
+/** const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
+const inputGetA = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
+const unitGet = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
+const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
+*/
+
+
+  /** updateClientStatus(nombre: string, client: Client): Observable<any> {
+     const url = `${apiURL}/${nombre}`;
+     return this.http.put(url, client, HttpOptions).pipe(
+       tap(_ => console.log(`updated client status id=${nombre}`)),
+       catchError(this.handleErrors<any>(`updateClientStatus`))
+     );
+   } */
+
+  /**
+  getReportC(): Observable<ReportC[]> {
+    return this.http.get<ReportC[]>(`${apiURL}`)
+      .pipe(
+        tap(reportC => console.log(`fetch report comparative`)),
+        catchError(this.handleErrors(`getReportC`, []))
+      );
+  }
+
+  getReportCByID(id: string): Observable<ReportC> {
+    const url = `${apiURL}/${id}`;
+    return this.http.get<ReportC>(url).pipe(
+      tap(_ => console.log(`fetch report comparative id=${id}`)),
+      catchError(this.handleErrors<ReportC>(`getReportCByID id=${id}`))
+    );
+  }
+
+  addReportC(reportC: ReportC): Observable<ReportM> {
+    return this.http.post<ReportC>(apiURL, reportC, HttpOptions).pipe(
+      tap((i: ReportC) => console.log(`added reporth comparative w/ id=${i.id}`)),
+      catchError(this.handleErrors<ReportC>(`addReportC`))
+    );
+  }
+
+  updateReportC(id: string, reportC: ReportC): Observable<any> {
+    const url = `${apiURL}/${id}`;
+    return this.http.put(url, reportC, HttpOptions).pipe(
+      tap(_ => console.log(`updated report comparative id=${id}`)),
+      catchError(this.handleErrors<any>(`updateReportC`))
+    );
+  }
+
+  deleteReportC(id: string): Observable<ReportC> {
+    const url = `${apiURL}/${id}`;
+    return this.http.delete<ReportC>(url, HttpOptions).pipe(
+      tap(_ => console.log(`deleted report comparative id=${id}`)),
+      catchError(this.handleErrors<ReportC>(`deletedReportC`))
+    );
+  }
+   */
