@@ -6,7 +6,6 @@
             </li>
             <li class="breadcrumb-item active">Pedido X</li>
         </ol>
-
         <div class="description">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
@@ -42,13 +41,13 @@
                         <tr>
                             <th>Pedido</th>
                             <td>
-                                001
+                                {{order.codigo}}
                             </td>
                         </tr>
                         <tr>
                             <th>Cliente</th>
                             <td>
-                                Lico X
+                                {{order.cliente.nombre}}
                             </td>
                         </tr>
                         <tr>
@@ -60,13 +59,13 @@
                         <tr>
                             <th>Responsable</th>
                             <td>
-                                Admin 01
+                                {{order.correoAdminIngreso}}
                             </td>
                         </tr>
                         <tr>
                             <th>Estado</th>
                             <td>
-                                <span class="badge badge-primary">En proceso</span>
+                                <span class="badge badge-primary">{{order.estado}}</span>
                             </td>
                         </tr>
                     </tbody>
@@ -79,16 +78,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>Pacha</th>
+                        <tr *ngFor="let item of order.listaProductos">
+                            <th>{{item.producto.nombre}}</th>
                             <td>
-                                50
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Litro</th>
-                            <td>
-                                20
+                                {{item.cantidad}}
                             </td>
                         </tr>
                     </tbody>

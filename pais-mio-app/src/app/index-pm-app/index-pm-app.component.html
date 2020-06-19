@@ -19,16 +19,16 @@
           <div class="card-body">
 
             <!--Buttons here are the ACTIVE orders so it should get the order ID-->
-            <a routerLink="/order-view/" class="btn btn-lg btn-outline-light btn-block">
+            <a *ngFor="let item of orderList; let i = index" attr.value="{{i}}" routerLink="/order-view/" class="btn btn-lg btn-outline-light btn-block" (click)="newOrder(i)">
               <div class="row">
                 <div class="col-1">
-                  001
+                  {{item.codigo}}
                 </div>
                 <div class="col-6">
-                  Lico X
+                  {{item.cliente.nombre}}
                 </div>
                 <div class="col">
-                  15/5/2020
+                  {{item.codigo}}
                 </div>
               </div>
             </a>
