@@ -143,4 +143,7 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
+  asignRequest(request: InputRequest){
+    this.inputRequest = request;
+  }
 }
