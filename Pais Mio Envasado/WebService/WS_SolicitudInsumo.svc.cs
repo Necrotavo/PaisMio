@@ -48,10 +48,10 @@ namespace WebService
             return blSolicitud.decisionAdmin(rolUpgrade.solicitud, rolUpgrade.admin, rolUpgrade.estado);
         }
 
-        public List<DO_SolicitudInsumos> listarSolicitudesPorPedido(int pedido)
+        public List<DO_SolicitudInsumos> listarSolicitudesPorPedido(DO_Pedido pedido)
         {
             BL_SolicitudInsumos blSolicitud = new BL_SolicitudInsumos();
-            return blSolicitud.listaSolicitudesPorPedido(pedido);
+            return blSolicitud.listaSolicitudesPorPedido(pedido.codigo);
         }
 
         public List<DO_SolicitudInsumos> listarSolicitudesPorOperario( string operario)

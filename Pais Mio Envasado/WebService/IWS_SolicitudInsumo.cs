@@ -21,7 +21,7 @@ namespace WebService
             BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "solicitudPorPedido")]
-        List<DO_SolicitudInsumos> listarSolicitudesPorPedido(int pedido);//tested
+        List<DO_SolicitudInsumos> listarSolicitudesPorPedido(DO_Pedido pedido);//tested
 
         /*
          {

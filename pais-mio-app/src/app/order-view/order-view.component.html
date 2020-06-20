@@ -19,7 +19,7 @@
                 </li>
             </ul>
         </div>
-
+                        {{order | json}}
         <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="detalles">
@@ -119,13 +119,13 @@
                         </tr>
                     </thead>
                     <tbody>
-
-                        <tr>
+<!--AQUI ESTOY-->
+                        <tr *ngFor="let solicitud of inputRequestListByOrder">
                             <td>
-                                001
+                                {{solicitud.codigo}}
                             </td>
                             <td>
-                                Usuario
+                                {{solicitud.operario}}
                             </td>
                             <td>
                                 <a href="#detailsModal" data-toggle="modal">Ver detalles</a>
@@ -135,39 +135,6 @@
                                 <button class="btn btn-sm btn-danger">Rechazar</button>
                             </td>
                         </tr>
-
-                        <tr>
-                            <td>
-                                002
-                            </td>
-                            <td>
-                                Usuario
-                            </td>
-                            <td>
-                                <a href="#detailsModal">Ver detalles</a>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-success">Aceptar</button>
-                                <button class="btn btn-sm btn-danger">Rechazar</button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                003
-                            </td>
-                            <td>
-                                Usuario
-                            </td>
-                            <td>
-                                <a href="#detailsModal">Ver detalles</a>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-success">Aceptar</button>
-                                <button class="btn btn-sm btn-danger">Rechazar</button>
-                            </td>
-                        </tr>
-
 
 
                     </tbody>
@@ -506,7 +473,6 @@
                             <tr>
                                 <th>Insumo</th>
                                 <th>Cantidad</th>
-                                <th>Descarte</th>
                                 <th>Total</th>
                             </tr>
                         </thead>
@@ -521,30 +487,9 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <input type="number" min="1" max="99" value="3" />
-                                </td>
-                                <td>
                                     33
                                 </td>
                             </tr>
-
-                            <tr>
-                                <td>
-                                    pacha
-                                </td>
-                                <td>
-                                    <div>
-                                        <input type="number" min="1" max="99" value="33" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <input type="number" min="1" max="99" value="3" />
-                                </td>
-                                <td>
-                                    33
-                                </td>
-                            </tr>
-
                             <tr>
                                 <td>
                                     Tapa de pacha
@@ -555,7 +500,29 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <input type="number" min="1" max="99" value="3" />
+                                    33
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Insumo</th>
+                                <th>Cantidad</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    pacha
+                                </td>
+                                <td>
+                                    <div>
+                                        <input type="number" min="1" max="99" value="33" />
+                                    </div>
                                 </td>
                                 <td>
                                     33
@@ -605,14 +572,15 @@
                             </div>
                         </div>
                     </div>
-
+                    <div>
+                        <th>Insumos a consumir</th>
+                        <br>
+                    </div>
                     <table class="table table-striped table-responsive">
                         <thead>
                             <tr>
                                 <th>Insumo</th>
                                 <th>Cantidad</th>
-                                <th>Descarte</th>
-                                <th>Total</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -621,31 +589,39 @@
                                     Tapa de pacha
                                 </td>
                                 <td>
-                                    30
+                                    33
                                 </td>
+                            </tr>
+                            <tr>
                                 <td>
-                                    3
+                                    Tapa de pacha
                                 </td>
                                 <td>
                                     33
                                 </td>
                             </tr>
-
+                        </tbody>
+                    </table>
+                    <div>
+                        <th>Insumos descartados</th>
+                        <br>
+                    </div>
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Insumo</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             <tr>
                                 <td>
                                     pacha
                                 </td>
                                 <td>
-                                    30
-                                </td>
-                                <td>
-                                    3
-                                </td>
-                                <td>
                                     33
                                 </td>
                             </tr>
-
                         </tbody>
                     </table>
                     <div class="form-group">

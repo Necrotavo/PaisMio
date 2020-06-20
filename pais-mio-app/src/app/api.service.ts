@@ -396,10 +396,10 @@ export class ApiService {
     );
   }
 
-  getInputRequestByOrder(order: Order): Observable<InputRequest> {
-    return this.http.post<InputRequest>(inputRequestGETBYORDER, order, HttpOptions).pipe(
-      tap((i: InputRequest) => console.log(`searched input request w/ id=${i.codigo} by order`)),
-      catchError(this.handleErrors<InputRequest>(`getInputRequestByOrder`))
+  getInputRequestByOrder(order: Order): Observable<InputRequest[]> {
+    return this.http.post<InputRequest[]>(inputRequestGETBYORDER, order, HttpOptions).pipe(
+      tap((i: InputRequest[]) => console.log(`searched input request w/ id=${i} by order`)),
+      catchError(this.handleErrors<InputRequest[]>(`getInputRequestByOrder`))
     );
   }
 
