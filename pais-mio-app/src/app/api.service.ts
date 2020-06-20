@@ -456,7 +456,7 @@ export class ApiService {
     );
   }
 
-  updateProduct(id: string, product: Product): Observable<any> {
+  updateProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(productUPDATE, product, HttpOptions).pipe(
       tap((i: Product) => console.log(`added product w/ id=${i.nombre}`)),
       catchError(this.handleErrors<Product>(`addProduct`))

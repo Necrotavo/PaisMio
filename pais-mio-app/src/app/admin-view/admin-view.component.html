@@ -312,7 +312,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let bodega of cellarList | filter:termB">
+                            <tr *ngFor="let bodega of cellarList | filter:termB" (click)="chargeCellarToUpdate(bodega)" data-toggle="modal"
+                            data-target="#cellarUpdateModal">
                                 <td>
                                     {{bodega.nombre}}
                                 </td>
@@ -404,7 +405,8 @@
                                 data-parent="#accordionC">
                                 <div class="card-body">
 
-                                    <table class="table table-striped table-responsive">
+                                    <table class="table table-striped table-responsive" (click) ="chargeClientToUpdate(item)" data-toggle="modal"
+                                    data-target="#clientsUpdateModal">
                                         <thead>
                                             <tr>
                                                 <th>Parametro</th>
@@ -488,7 +490,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let com of productList | filter:termP">
+                            <tr *ngFor="let com of productList | filter:termP" (click)="chargeProductToUpdate(com)" data-toggle="modal"
+                            data-target="#productsUpdateModal">
                                 <td>
                                     {{com.id}}
                                 </td>
@@ -1365,6 +1368,172 @@
 
 <!-- Modal end -->
 
+<!-- Modal client update-->
+
+<!-- Modal start -->
+
+<div class="modal fade" id="clientsUpdateModal" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="clientsUpdateModallabel1">Modificar Cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form #clientUpdateForm="ngForm" (ngSubmit)="updateClient()" novalidate>
+                    <div class="form-group">
+                        <div class="tab-header clearfix">
+                            <div class="float-left">
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Identificación:
+                                </th>
+                                <td>
+
+                                    <div class="form-field">
+                                        <input type="text" required #cedulaCUP="ngModel" pattern="^\d{10}$"
+                                            class="form-control" [class.is-invalid]="cedulaCUP.invalid && cedulaCUP.touched"
+                                            placeholder="1234567890" name="cedulaCUP" [(ngModel)]="clientUpdateModel.cedula" disabled>
+                                        <div *ngIf="cedulaCUP.errors && (cedulaCUP.invalid || cedulaCUP.touched)">
+                                            <p><small class="text-danger"
+                                                    *ngIf="cedulaCUP.errors.required && cedulaCUP.touched">Cédula
+                                                    requerida</small></p>
+                                            <p><small class="text-danger" *ngIf="cedulaCUP.errors.pattern">Cédula
+                                                    invalida</small></p>
+                                            <p><small class="text-danger" *ngIf="cedulaCUP.errors.pattern">10 dígitos, sin
+                                                    cero al inicio ni guiones</small></p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Nombre:
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" required #nombreCUP="ngModel" class="form-control"
+                                            [class.is-invalid]="nombreCUP.invalid && nombreCUP.touched" placeholder="Nombre"
+                                            name="nombreCUP" [(ngModel)]="clientUpdateModel.nombre">
+                                        <small class="text-danger"
+                                            [class.d-none]="nombreCUP.valid || nombreCUP.untouched">Nombre requerido</small>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Dirección:
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" required #direccionCUP="ngModel" class="form-control"
+                                            [class.is-invalid]="direccionCUP.invalid && direccionCUP.touched"
+                                            placeholder="Dirección" name="direccionCUP"
+                                            [(ngModel)]="clientUpdateModel.direccion">
+                                        <small class="text-danger"
+                                            [class.d-none]="direccionCUP.valid || direccionCUP.untouched">Dirección
+                                            requerida</small>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Teléfono:
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="tel" required #telefonoCUP="ngModel"
+                                            pattern="\([0-9]{3}\) [0-9]{4}[ -][0-9]{4}" class="form-control"
+                                            [class.is-invalid]="telefonoCUP.invalid && telefonoCUP.touched"
+                                            placeholder="(506) 5555-5555" name="telefonoCUP"
+                                            [(ngModel)]="clientUpdateModel.telefono">
+                                        <div *ngIf="telefonoCUP.errors && (telefonoCUP.invalid || telefonoCUP.touched)">
+                                            <p><small class="text-danger"
+                                                    *ngIf="telefonoCUP.errors.required && telefonoCUP.touched">Correo
+                                                    requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="telefonoCUP.errors.pattern">Teléfono
+                                                    invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="telefonoCUP.errors.pattern">Ejemplo: (506)
+                                                    5555-5555</small></p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Correo electronico:
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" #correoCUP="ngModel"
+                                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required
+                                            class="form-control" [class.is-invalid]="correoCUP.invalid && correoCUP.touched"
+                                            placeholder="correo@mail.com" name="correoCUP"
+                                            [(ngModel)]="clientUpdateModel.correo">
+                                        <div *ngIf="correoCUP.errors && (correoCUP.invalid || correoCUP.touched)">
+                                            <p><small class="text-danger"
+                                                    *ngIf="correoCUP.errors.required && correoCUP.touched">Correo
+                                                    requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="correoCUP.errors.pattern">Correo
+                                                    invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="correoCUP.errors.pattern">Ejemplo:
+                                                    xxxx@mail.com</small></p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Estado
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <select (blur)="validateUserStatus(statusCUP.value)" (change)="validateStatus(statusCUP.value)"
+                                            #statusCUP="ngModel" [class.is-invalid]="statusUHasError && statusCUP.touched"
+                                            class="form-control" name="statusCUP" [(ngModel)]="clientUpdateModel.estado">
+                                            <option >{{clientUpdateModel.estado}}</option>
+                                            <option *ngIf="clientUpdateModel.estado === 'HABILITADO'">DESHABILITADO</option>
+                                            <option *ngIf="clientUpdateModel.estado === 'DESHABILITADO'">HABILITADO</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button [disabled]="clientUpdateForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
+                    (click)="updateClient()">Actualizar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal end -->
+
 <!-- Modal products -->
 
 <!-- Modal start -->
@@ -1474,6 +1643,131 @@
 
 <!-- Modal end -->
 
+<!-- Modal products update -->
+
+<!-- Modal start -->
+
+<div class="modal fade" id="productsUpdateModal" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="productsUpdateModallabel1">Modificar producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form #productUpdateForm="ngForm" (ngSubmit)="updateProduct()" novalidate>
+                    <div class="form-group">
+                        <div class="tab-header clearfix">
+                            <div class="float-left">
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Nombre
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" required #nombrePUP="ngModel" class="form-control"
+                                            [class.is-invalid]="nombrePUP.invalid && nombrePUP.touched"
+                                            placeholder="Nombre del producto" name="nombrePUP"
+                                            [(ngModel)]="productUpdateModel.nombre">
+
+                                        <div *ngIf="nombrePUP.invalid || nombrePUP.touched">
+                                            <p><small class="text-danger"
+                                                    *ngIf="nombrePUP.invalid && nombrePUP.touched">Nombre requerido</small>
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Código
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" required #idPUP="ngModel" class="form-control"
+                                            [class.is-invalid]="idPUP.invalid && idPUP.touched"
+                                            placeholder="Código del producto" name="idPUP" [(ngModel)]="productUpdateModel.id">
+
+                                        <div *ngIf="idPUP.invalid || idPUP.touched">
+                                            <p><small class="text-danger" *ngIf="idPUP.invalid && idPUP.touched">Código
+                                                    requerido</small></p>
+                                        </div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Descripción
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <textarea type="text" required #descripcionPUP="ngModel" class="form-control "
+                                            [class.is-invalid]="descripcionPUP.invalid && descripcionPUP.touched"
+                                            placeholder="Descripción del producto" name="descripcionP"
+                                            [(ngModel)]="productUpdateModel.descripcion">
+                                        </textarea>
+                                        <div *ngIf="descripcionPUP.invalid || descripcionPUP.touched">
+                                            <p><small class="text-danger"
+                                                    *ngIf="descripcionPUP.invalid && descripcionPUP.touched">Descripción
+                                                    requerida</small></p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Estado
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <select (blur)="validateUserStatus(statusPUP.value)" (change)="validateStatus(statusPUP.value)"
+                                            #statusPUP="ngModel" [class.is-invalid]="statusUHasError && statusPUP.touched"
+                                            class="form-control" name="statusPUP" [(ngModel)]="productUpdateModel.estado">
+                                            <option >{{productUpdateModel.estado}}</option>
+                                            <option *ngIf="productUpdateModel.estado === 'HABILITADO'">DESHABILITADO</option>
+                                            <option *ngIf="productUpdateModel.estado === 'DESHABILITADO'">HABILITADO</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button [disabled]="productUpdateForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
+                    (click)="updateProduct()" class="btn btn-primary">Actualizar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal end -->
+
 <!-- Modal Cellar -->
 
 <!-- Modal start -->
@@ -1572,6 +1866,129 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button [disabled]="cellarForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
                     (click)="postGetCellar()" class="btn btn-primary">Crear</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal end -->
+
+<!-- Modal Cellar Update-->
+
+<!-- Modal start -->
+
+<div class="modal fade" id="cellarUpdateModal" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="cellarsUpdateModallabel1">Modificar Bodega</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form #cellarUpdateForm="ngForm" (ngSubmit)="updateCellars()" novalidate>
+                    <div class="form-group">
+                        <div class="tab-header clearfix">
+                            <div class="float-left">
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Nombre
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" required #nombreCEUP="ngModel" class="form-control"
+                                            [class.is-invalid]="nombreCEUP.invalid && nombreCEUP.touched"
+                                            placeholder="Nombre de la bodega" name="nombreC"
+                                            [(ngModel)]="cellarUpdateModel.nombre">
+
+                                        <div *ngIf="nombreCEUP.invalid || nombreCEUP.touched">
+                                            <p><small class="text-danger"
+                                                    *ngIf="nombreCEUP.invalid && nombreCEUP.touched">Nombre requerido</small>
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Dirección
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <textarea type="text" required #dirCEUP="ngModel" class="form-control"
+                                            [class.is-invalid]="dirCEUP.invalid && dirCEUP.touched" placeholder="Dirección"
+                                            name="dirCEUP" [(ngModel)]="cellarUpdateModel.direccion">
+                                        </textarea>
+                                        <div *ngIf="dirCEUP.invalid || dirCEUP.touched">
+                                            <p><small class="text-danger" *ngIf="dirCEUP.invalid && dirCEUP.touched">Dirección
+                                                    requerida</small></p>
+                                        </div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Telefono
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" required #telCEUP="ngModel" class="form-control"
+                                            [class.is-invalid]="telCEUP.invalid && telCEUP.touched"
+                                            placeholder="+506 1234-5678" name="telCEUP" [(ngModel)]="cellarUpdateModel.telefono">
+
+                                        <div *ngIf="telCEUP.invalid || telCEUP.touched">
+                                            <p><small class="text-danger" *ngIf="telCEUP.invalid && telCEUP.touched">Teléfono
+                                                    requerido</small></p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Estado
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <select (blur)="validateUserStatus(statusCEUP.value)" (change)="validateStatus(statusCEUP.value)"
+                                            #statusCEUP="ngModel" [class.is-invalid]="statusUHasError && statusCEUP.touched"
+                                            class="form-control" name="statusCEUP" [(ngModel)]="cellarUpdateModel.estado">
+                                            <option >{{cellarUpdateModel.estado}}</option>
+                                            <option *ngIf="cellarUpdateModel.estado === 'HABILITADO'">DESHABILITADO</option>
+                                            <option *ngIf="cellarUpdateModel.estado === 'DESHABILITADO'">HABILITADO</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button [disabled]="cellarUpdateForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
+                    (click)="updateCellars()" class="btn btn-primary">Actualizar</button>
             </div>
 
         </div>
