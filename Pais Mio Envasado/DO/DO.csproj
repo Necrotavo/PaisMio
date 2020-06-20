@@ -53,12 +53,14 @@
     <Compile Include="DO_InsumoEnBodega.cs" />
     <Compile Include="DO_OpeRolUpgradeUsuario.cs" />
     <Compile Include="DO_PaisMio.cs" />
-    <Compile Include="DO_ReporteInsumoComparativo.cs" />
-    <Compile Include="DO_ReporteInsumos.cs" />
+    <Compile Include="DO_InsumosComparados.cs" />
+    <Compile Include="DO_InsumoReportable.cs" />
     <Compile Include="DO_Operario.cs" />
     <Compile Include="DO_Pedido.cs" />
     <Compile Include="DO_Producto.cs" />
     <Compile Include="DO_ProductoEnPedido.cs" />
+    <Compile Include="DO_ReporteInsumos.cs" />
+    <Compile Include="DO_ReporteInsumosComparativo.cs" />
     <Compile Include="DO_ReportePedido.cs" />
     <Compile Include="DO_SolicitudInsumos.cs" />
     <Compile Include="DO_Unidad.cs" />

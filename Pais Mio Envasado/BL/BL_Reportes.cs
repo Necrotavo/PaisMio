@@ -64,7 +64,7 @@ namespace BL
         /// <param name="inicio">Fecha de inicio del periodo</param>
         /// <param name="final">Fecha de final del periodo</param>
         /// <returns>El reporte de insumos del periodo</returns>
-        public List<DO_ReporteInsumos> reporteInsumos(String inicio, String final) {
+        public DO_ReporteInsumos reporteInsumos(String inicio, String final) {
             if (inicio is null || final is null
                 || inicio == "" || final == "")
             {
@@ -72,17 +72,25 @@ namespace BL
             }
             else {
                 DAO_Reporte daoReporte = new DAO_Reporte();
-                return daoReporte.reporteInsumos(inicio, final);
+                DO_ReporteInsumos doReporteInsumos = new DO_ReporteInsumos();
+                doReporteInsumos.listaInsumos = daoReporte.reporteInsumos(inicio, final);
+
+                DAO_Pais_Mio daoPaisMio = new DAO_Pais_Mio();
+                doReporteInsumos.infoPaisMio = daoPaisMio.obtenerDatos();
+                doReporteInsumos.fechaInicio = inicio;
+                doReporteInsumos.fechaFinal = final;
+
+                return doReporteInsumos;
             }
         }
 
         /// <summary>
-        /// Método que se enarga de listar los pedidos con sus respectivos datos que ocurrieron en un mes determinado.
+        /// Método que se encarga de listar los pedidos con sus respectivos datos que ocurrieron en un mes determinado.
         /// </summary>
         /// <param name="mes">Mes a buscar los pedidos</param>
         /// <param name="anho">Año de los pedidos a buscar</param>
         /// <returns>Lista de reporte de pedidos de ese mes</returns>
-        public List<DO_ReportePedido> reportePedidos(Int32 mes, Int32 anho)
+        public DO_ReportePedido reportePedidos(Int32 mes, Int32 anho)
         {
             if (mes <= 0 || anho <= 0)
             {
@@ -90,11 +98,14 @@ namespace BL
             }
             else {
                 DAO_Reporte daoReporte = new DAO_Reporte();
-                return daoReporte.reportePedidos(mes, anho);
+                DO_ReportePedido reporte = daoReporte.reportePedidos(mes, anho);
+                reporte.mes = mes;
+                reporte.anho = anho;
+                return reporte;
             }
         }
 
-        public List<DO_ReporteInsumoComparativo> reporteInsumosComparativo(String inicioMes1, String finalMes1, String inicioMes2, String finalMes2)
+        public DO_ReporteInsumosComparativo reporteInsumosComparativo(String inicioMes1, String finalMes1, String inicioMes2, String finalMes2)
         {
             if (inicioMes1 is null || finalMes1 is null || inicioMes2 is null || finalMes2 is null
                 || inicioMes1 == "" || finalMes1 == "" || inicioMes2 == "" || finalMes2 == "")
@@ -104,52 +115,60 @@ namespace BL
             else
             {
                 DAO_Reporte daoReporte = new DAO_Reporte();
-                List<DO_ReporteInsumoComparativo> listaReporteComparativo = new List<DO_ReporteInsumoComparativo>();
-                List<DO_ReporteInsumos> listaPrimerMes = daoReporte.reporteInsumos(inicioMes1, finalMes1);
-                List<DO_ReporteInsumos> listaSegundoMes = daoReporte.reporteInsumos(inicioMes2, finalMes2);
+                DO_ReporteInsumosComparativo reporteInsComparativo = new DO_ReporteInsumosComparativo();
+                reporteInsComparativo.listaInsumos = new List<DO_InsumosComparados>();
+                List<DO_InsumoReportable> listaPrimerMes = daoReporte.reporteInsumos(inicioMes1, finalMes1);
+                List<DO_InsumoReportable> listaSegundoMes = daoReporte.reporteInsumos(inicioMes2, finalMes2);
 
-                foreach (DO_ReporteInsumos insumoPrimerMes in listaPrimerMes) {
-                    DO_ReporteInsumoComparativo reporteComparativo = new DO_ReporteInsumoComparativo();
-                    reporteComparativo.insumoPrimerMes = insumoPrimerMes;
-                    reporteComparativo.insumoSegundoMes = seRepite(insumoPrimerMes.insumo.codigo, listaSegundoMes);
+                foreach (DO_InsumoReportable insumoPrimerMes in listaPrimerMes) {
+                    DO_InsumosComparados insumoComparado = new DO_InsumosComparados();
+                    insumoComparado.insumoPrimerMes = insumoPrimerMes;
+                    insumoComparado.insumoSegundoMes = seRepite(insumoPrimerMes.insumo.codigo, listaSegundoMes);
 
-                    if (!(reporteComparativo.insumoSegundoMes is null))
+                    if (!(insumoComparado.insumoSegundoMes is null))
                     {
-                        reporteComparativo.diferenciaConsumir = sacarDiferenciaPorcentual(
-                            reporteComparativo.insumoPrimerMes.cantidadConsumida,
-                            reporteComparativo.insumoSegundoMes.cantidadConsumida);
+                        insumoComparado.diferenciaConsumir = sacarDiferenciaPorcentual(
+                            insumoComparado.insumoPrimerMes.cantidadConsumida,
+                            insumoComparado.insumoSegundoMes.cantidadConsumida);
 
-                        reporteComparativo.diferenciaDescarte = sacarDiferenciaPorcentual(
-                            reporteComparativo.insumoPrimerMes.cantidadDescartada,
-                            reporteComparativo.insumoSegundoMes.cantidadDescartada);
+                        insumoComparado.diferenciaDescarte = sacarDiferenciaPorcentual(
+                            insumoComparado.insumoPrimerMes.cantidadDescartada,
+                            insumoComparado.insumoSegundoMes.cantidadDescartada);
 
-                        reporteComparativo.diferenciaTotal = sacarDiferenciaPorcentual(
-                            reporteComparativo.insumoPrimerMes.total,
-                            reporteComparativo.insumoSegundoMes.total);
+                        insumoComparado.diferenciaTotal = sacarDiferenciaPorcentual(
+                            insumoComparado.insumoPrimerMes.total,
+                            insumoComparado.insumoSegundoMes.total);
 
-                        listaSegundoMes.Remove(reporteComparativo.insumoSegundoMes);
+                        listaSegundoMes.Remove(insumoComparado.insumoSegundoMes);
                     }
                     else {
-                        reporteComparativo.diferenciaConsumir = -100;
-                        reporteComparativo.diferenciaDescarte = -100;
-                        reporteComparativo.diferenciaTotal = -100;
+                        insumoComparado.diferenciaConsumir = -100;
+                        insumoComparado.diferenciaDescarte = -100;
+                        insumoComparado.diferenciaTotal = -100;
                     }
-                    listaReporteComparativo.Add(reporteComparativo);
+                    reporteInsComparativo.listaInsumos.Add(insumoComparado);
                 }
 
-                foreach (DO_ReporteInsumos insumoSegundoMes in listaSegundoMes)
+                foreach (DO_InsumoReportable insumoSegundoMes in listaSegundoMes)
                 {
-                    DO_ReporteInsumoComparativo reporteComparativo = new DO_ReporteInsumoComparativo();
+                    DO_InsumosComparados insumoComparado = new DO_InsumosComparados();
 
-                    reporteComparativo.insumoSegundoMes = insumoSegundoMes;
-                    reporteComparativo.diferenciaConsumir = 100;
-                    reporteComparativo.diferenciaDescarte = 100;
-                    reporteComparativo.diferenciaTotal = 100;
+                    insumoComparado.insumoSegundoMes = insumoSegundoMes;
+                    insumoComparado.diferenciaConsumir = 100;
+                    insumoComparado.diferenciaDescarte = 100;
+                    insumoComparado.diferenciaTotal = 100;
 
-                    listaReporteComparativo.Add(reporteComparativo);
+                    reporteInsComparativo.listaInsumos.Add(insumoComparado);
                 }
 
-                return listaReporteComparativo;
+                DAO_Pais_Mio daoPaisMio = new DAO_Pais_Mio();
+                reporteInsComparativo.infoPaisMio = daoPaisMio.obtenerDatos();
+                reporteInsComparativo.inicioMes1 = inicioMes1;
+                reporteInsComparativo.inicioMes2 = inicioMes2;
+                reporteInsComparativo.finalMes1 = finalMes1;
+                reporteInsComparativo.finalMes2 = finalMes2;
+
+                return reporteInsComparativo;
             }
         }
 
@@ -160,9 +179,9 @@ namespace BL
             return total;
         }
 
-        private DO_ReporteInsumos seRepite(Int32 insumoPrimerMes, List<DO_ReporteInsumos> listaSegundoMes)
+        private DO_InsumoReportable seRepite(Int32 insumoPrimerMes, List<DO_InsumoReportable> listaSegundoMes)
         {
-            foreach (DO_ReporteInsumos insumoSegundoMes in listaSegundoMes)
+            foreach (DO_InsumoReportable insumoSegundoMes in listaSegundoMes)
             {
                 if (insumoPrimerMes == insumoSegundoMes.insumo.codigo)
                 {

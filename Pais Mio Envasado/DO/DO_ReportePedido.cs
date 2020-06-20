@@ -13,40 +13,26 @@ namespace DO
     [DataContract]
     public class DO_ReportePedido
     {
-        [DataMember(Name = "codigoPedido")]
-        public Int32 codigo { set; get; }
+        [DataMember(Name = "listaPedidos")]
+        public List<DO_Pedido> listaPedidos { get; set; }
 
-        [DataMember(Name = "nombreCliente")]
-        public String nombreCliente { set; get; }
+        [DataMember(Name = "infoPaisMio")]
+        public DO_PaisMio infoPaisMio { get; set; }
 
-        [DataMember(Name = "adminIngreso")]
-        public String nombreAdminIngreso { set; get; }
+        [DataMember(Name = "mes")]
+        public Int32 mes { get; set; }
 
-        [DataMember(Name = "adminDespacho")]
-        public String nombreAdminDespacho { set; get; }
+        [DataMember(Name = "anho")]
+        public Int32 anho { get; set; }
 
-        [DataMember(Name = "fechaIngreso")]
-        public DateTime fechaIngreso { set; get; }
-
-        [DataMember(Name = "fechaDespacho")]
-        public DateTime fechaDespacho { set; get; }
-
-        [DataMember(Name = "productos")]
-        public List<DO_ProductoEnPedido> productos { set; get; }
-
-        public DO_ReportePedido(int codigo, string nombreCliente, string nombreAdminIngreso, string nombreAdminDespacho, DateTime fechaIngreso, DateTime fechaDespacho, List<DO_ProductoEnPedido> productos)
+        public DO_ReportePedido(List<DO_Pedido> listaPedidos, DO_PaisMio infoPaisMio, int mes, int anho)
         {
-            this.codigo = codigo;
-            this.nombreCliente = nombreCliente;
-            this.nombreAdminIngreso = nombreAdminIngreso;
-            this.nombreAdminDespacho = nombreAdminDespacho;
-            this.fechaIngreso = fechaIngreso;
-            this.fechaDespacho = fechaDespacho;
-            this.productos = productos;
+            this.listaPedidos = listaPedidos;
+            this.infoPaisMio = infoPaisMio;
+            this.mes = mes;
+            this.anho = anho;
         }
 
-        public DO_ReportePedido()
-        {
-        }
+        public DO_ReportePedido(){}
     }
 }

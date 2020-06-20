@@ -70,12 +70,31 @@ namespace BL
             return daoPedido.despacharPedido (codigoPedido, correoAdmin, fechaDespacho,estado);
         }
 
+        /// <summary>
+        /// Método para listar los pedidos activos del momento.
+        /// </summary>
+        /// <returns>Lista de los pedidos activos</returns>
         public List<DO_Pedido> listarPedidosHabilitados()
         {
             DAO_Pedido daoPedido = new DAO_Pedido();
             return daoPedido.listarPedidos();
         }
 
+        /// <summary>
+        /// Método para listar los pedidos totales registrados.
+        /// </summary>
+        /// <returns>Lista de los pedidos activos</returns>
+        public List<DO_Pedido> listarPedidosTotales()
+        {
+            DAO_Pedido daoPedido = new DAO_Pedido();
+            return daoPedido.listarPedidosTotales();
+        }
+
+        /// <summary>
+        /// Método para unificar la lista de los productos dentro el pedido.
+        /// </summary>
+        /// <param name="listaCompleta"></param>
+        /// <returns>Lista sin productos repetidos.</returns>
         public List<DO_ProductoEnPedido> unificarLista(List<DO_ProductoEnPedido>listaCompleta)
         {
             List<DO_ProductoEnPedido> listaFinal = new List<DO_ProductoEnPedido>();
@@ -99,6 +118,12 @@ namespace BL
             return listaFinal;
         }
 
+        /// <summary>
+        /// Método auxiliar para realizar la unificación de la lista
+        /// </summary>
+        /// <param name="listaFinal"></param>
+        /// <param name="producto"></param>
+        /// <returns></returns>
         public bool buscarProductoFinal(List<DO_ProductoEnPedido> listaFinal, DO_ProductoEnPedido producto)
         {
             foreach (DO_ProductoEnPedido productoFinal in listaFinal)

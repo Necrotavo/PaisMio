@@ -431,9 +431,6 @@ namespace DAO
                 {
                     pedidoEnLista.listaProductos = listaProductos(pedidoEnLista.codigo);
                 }
-
-                
-
                 return listaPedidos;
             }
             catch (SqlException)
@@ -448,5 +445,81 @@ namespace DAO
                 }
             }
         }
+
+        /// <summary>
+        /// Método para buscar todos los pedidos.
+        /// </summary>
+        /// <returns>Lista con todos los pedidos</returns>
+        public List<DO_Pedido> listarPedidosTotales()
+        {
+            SqlCommand comandoConsultar = new SqlCommand("SELECT * FROM PEDIDO", conexion);
+            DAO_Cliente daoCliente = new DAO_Cliente();
+
+            List<DO_Pedido> listaPedidos = new List<DO_Pedido>();
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                SqlDataReader lector = comandoConsultar.ExecuteReader();
+
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        DO_Pedido pedido = new DO_Pedido();
+
+                        pedido.codigo = Convert.ToInt32(lector["PED_CODIGO"]);
+                        pedido.cliente = daoCliente.buscarCliente((String)(lector["CLI_CEDULA"]));
+                        pedido.correoAdminIngreso = (String)(lector["OPE_CORREO"]);
+                        pedido.fechaIngreso = (DateTime)(lector["PED_FECHA_INGRESO"]);
+                        pedido.estado = (String)(lector["ESTADO"]);
+
+                        if (lector["ADM_OPE_CORREO"] is System.DBNull)
+                        {
+                            pedido.correoAdminDespacho = "";
+                        }
+                        else
+                        {
+                            pedido.correoAdminDespacho = (String)(lector["ADM_OPE_CORREO"]);
+                        }
+
+                        if (lector["PED_FECHA_DESPACHO"] is System.DBNull)
+                        {
+                            pedido.fechaDespacho = null;
+                        }
+                        else
+                        {
+                            pedido.fechaDespacho = (DateTime)(lector["PED_FECHA_DESPACHO"]);
+                        }
+
+                        listaPedidos.Add(pedido);
+                    }
+                }
+                conexion.Close();
+
+                foreach (DO_Pedido pedidoEnLista in listaPedidos)
+                {
+                    pedidoEnLista.listaProductos = listaProductos(pedidoEnLista.codigo);
+                }
+                return listaPedidos;
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
+
     }
 }

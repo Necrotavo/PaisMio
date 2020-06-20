@@ -11,13 +11,13 @@ namespace DO
     /// En esta clase se toman los datos necesarios para hacer un reporte comparativo de insumos
     /// </summary>
     [DataContract]
-    public class DO_ReporteInsumoComparativo
+    public class DO_InsumosComparados
     {
         [DataMember(Name = "insumoPrimerMes")]
-        public DO_ReporteInsumos insumoPrimerMes { set; get; }
+        public DO_InsumoReportable insumoPrimerMes { set; get; }
 
         [DataMember (Name= "insumoSegundoMes")]
-        public DO_ReporteInsumos insumoSegundoMes { set; get; }
+        public DO_InsumoReportable insumoSegundoMes { set; get; }
 
         [DataMember(Name = "diferenciaConsumir")]
         public double diferenciaConsumir { set; get; }
@@ -28,7 +28,7 @@ namespace DO
         [DataMember(Name = "diferenciaTotal")]
         public double diferenciaTotal { set; get; }
 
-        public DO_ReporteInsumoComparativo(DO_ReporteInsumos insumoPrimerMes, DO_ReporteInsumos insumoSegundoMes, double diferenciaConsumir, double diferenciaDescarte, double diferenciaTotal)
+        public DO_InsumosComparados(DO_InsumoReportable insumoPrimerMes, DO_InsumoReportable insumoSegundoMes, double diferenciaConsumir, double diferenciaDescarte, double diferenciaTotal)
         {
             this.insumoPrimerMes = insumoPrimerMes;
             this.insumoSegundoMes = insumoSegundoMes;
@@ -37,6 +37,6 @@ namespace DO
             this.diferenciaTotal = diferenciaTotal;
         }
 
-        public DO_ReporteInsumoComparativo() { }
+        public DO_InsumosComparados() { }
     }
 }

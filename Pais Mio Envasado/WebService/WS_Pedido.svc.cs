@@ -64,6 +64,13 @@ namespace WebService
             return blPedido.listarPedidosHabilitados();
         }
 
+        public List<DO_Pedido> listarPedidosTotales()
+        {
+            BL_Pedido blPedido = new BL_Pedido();
+
+            return blPedido.listarPedidosTotales();
+        }
+
         public bool modificarEstado(DO_Pedido doPedido)
         {
             BL_Pedido blPedido = new BL_Pedido();
