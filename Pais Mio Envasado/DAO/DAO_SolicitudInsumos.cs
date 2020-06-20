@@ -292,7 +292,14 @@ namespace DAO
                         insumo.estado = (string)lector["EST_SOL_ESTADO"];
                         insumo.fechaSolicitud = Convert.ToDateTime(lector["SOL_FECHA"]);
                         insumo.codigoBodega = Convert.ToInt32(lector["BODEGA"]);
-                        insumo.notas = (string)lector["SOL_NOTAS"];
+                        if (lector["SOL_NOTAS"] is System.DBNull)
+                        {
+                            insumo.notas = "";
+                        }
+                        else
+                        {
+                            insumo.notas = (string)lector["SOL_NOTAS"];
+                        }
                         listaSolicitud.Add(insumo);
                     }
                 }
