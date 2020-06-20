@@ -116,5 +116,12 @@ namespace WebService
 
             return BLoperario.login(doUsuario.correo, doUsuario.contrasena);
         }
+
+        public bool modificarUsuario(DO_Operario doUsuario)
+        {
+            BL_Operario BLoperario = new BL_Operario();
+
+            return BLoperario.modificarUsuario(doUsuario);
+        }
     }
 }
