@@ -23,13 +23,14 @@ namespace DAO
         /// <returns></returns>
         public bool guardarSolicitudInsumos(DO_SolicitudInsumos solicitudInsumos)
         {
-            SqlCommand insert = new SqlCommand("INSERT INTO SOLICITUD_INSUMO (OPE_CORREO, PED_CODIGO, EST_SOL_ESTADO, SOL_FECHA, BODEGA)" +
-                "VALUES (@operadorId, @codigoPedido, @estado, @fecha, @bodega)", conexion);
+            SqlCommand insert = new SqlCommand("INSERT INTO SOLICITUD_INSUMO (OPE_CORREO, PED_CODIGO, EST_SOL_ESTADO, SOL_FECHA, BODEGA, SOL_NOTAS)" +
+                "VALUES (@operadorId, @codigoPedido, @estado, @fecha, @bodega, @notas)", conexion);
             insert.Parameters.AddWithValue("@operadorId", solicitudInsumos.correoOperario);
             insert.Parameters.AddWithValue("@codigoPedido", solicitudInsumos.codigoPedido);
             insert.Parameters.AddWithValue("@estado", solicitudInsumos.estado);
             insert.Parameters.AddWithValue("@fecha", solicitudInsumos.fechaSolicitud);
             insert.Parameters.AddWithValue("@bodega", solicitudInsumos.codigoBodega);
+            insert.Parameters.AddWithValue("@notas", solicitudInsumos.notas);
             try
             {
                 if (conexion.State != ConnectionState.Open)
@@ -291,6 +292,7 @@ namespace DAO
                         insumo.estado = (string)lector["EST_SOL_ESTADO"];
                         insumo.fechaSolicitud = Convert.ToDateTime(lector["SOL_FECHA"]);
                         insumo.codigoBodega = Convert.ToInt32(lector["BODEGA"]);
+                        insumo.notas = (string)lector["SOL_NOTAS"];
                         listaSolicitud.Add(insumo);
                     }
                 }
@@ -354,7 +356,8 @@ namespace DAO
                         }
                         insumo.estado = (string)lector["EST_SOL_ESTADO"];
                         insumo.fechaSolicitud = Convert.ToDateTime(lector["SOL_FECHA"]);
-                        insumo.codigoBodega = Convert.ToInt32(lector["BODEGA"]);
+                        insumo.codigoBodega = Convert.ToInt32(lector["BODEGA"]); 
+                        insumo.notas = (string)lector["SOL_NOTAS"];
                         listaSolicitud.Add(insumo);
                     }
                 }
@@ -419,6 +422,7 @@ namespace DAO
                         insumo.estado = (string)lector["EST_SOL_ESTADO"];
                         insumo.fechaSolicitud = Convert.ToDateTime(lector["SOL_FECHA"]);
                         insumo.codigoBodega = Convert.ToInt32(lector["BODEGA"]);
+                        insumo.notas = (string)lector["SOL_NOTAS"];
                         listaSolicitud.Add(insumo);
                     }
                 }
@@ -571,6 +575,7 @@ namespace DAO
                         insumo.estado = (string)lector["EST_SOL_ESTADO"];
                         insumo.fechaSolicitud = (DateTime)lector["SOL_FECHA"];
                         insumo.codigoBodega = Convert.ToInt32(lector["BODEGA"]);
+                        insumo.notas = (string)lector["SOL_NOTAS"];
                     }
                 }
                 conexion.Close();
