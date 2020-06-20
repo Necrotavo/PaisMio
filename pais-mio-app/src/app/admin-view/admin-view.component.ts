@@ -95,6 +95,7 @@ export class AdminViewComponent implements OnInit {
   clientHasError = true;
   cellarHasError = true;
   statusHasError = true;
+  statusUHasError = true;
 
   /** Input list validations */
   productExist = false;
@@ -106,6 +107,7 @@ export class AdminViewComponent implements OnInit {
   /** Models */
   clientModel = new Client('', '', '', '', '', '');
   userModel = new User('', '', '', '', '', 'default');
+  userUpdateModel = new User('', '', '', '', '', 'default');
   inputModel = new Input(0, '', 0, '', '', '');
   inputUpdateModel = new Input(0, '', 0, '', '', '');
   productModel = new Product(0, '', '', '', '');
@@ -381,6 +383,16 @@ export class AdminViewComponent implements OnInit {
       this.statusHasError = false;
     }
   }
+  
+   /** Used to validate combo on input update status */
+   validateUserStatus(value){
+    if (value === 'default'){
+      this.statusUHasError = true;
+    } else {
+      this.statusUHasError = false;
+    }
+  }
+
 
     /** Used to validate combo on user rol */
     validateClient(value){
@@ -456,16 +468,34 @@ export class AdminViewComponent implements OnInit {
     }
 
     /** Update methods */
+
+    /**Input */
     chargeInputToUpdate(inputToUpdate: Input){
       this.inputUpdateModel = inputToUpdate;
     }
 
     updateInput(){
-      console.log(this.clientModel);
+      //console.log(this.clientModel);
       this.apiService.updateInput(this.inputUpdateModel).subscribe(
         data => {
           this.objInput = data;
           this.getInput();
+        }
+      );
+    }
+
+    /**User */
+
+    chargeUserToUpdate(userToUpdate: User){
+      this.userUpdateModel = userToUpdate;
+    }
+
+    updateUser(){
+      
+      this.apiService.updateUser(this.userUpdateModel).subscribe(
+        data => {
+          this.objUser = data;
+          this.getUser();
         }
       );
     }
