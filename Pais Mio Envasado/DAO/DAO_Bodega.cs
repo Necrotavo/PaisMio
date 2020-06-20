@@ -477,12 +477,14 @@ namespace DAO
             SqlCommand modificarBodega = new SqlCommand("UPDATE BODEGA SET " +
                 "BOD_NOMBRE = @nombre, " +
                 "BOD_DIRECCION = @direccion, " +
-                "BOD_TELEFONO = @telefono " +
+                "BOD_TELEFONO = @telefono, " +
+                "EST_HAB_ESTADO = @estado" +
                 "WHERE BOD_CODIGO = @codigoBodega", conexion);
             modificarBodega.Parameters.AddWithValue("@nombre", doBodega.nombre);
             modificarBodega.Parameters.AddWithValue("@direccion", doBodega.direccion);
             modificarBodega.Parameters.AddWithValue("@telefono", doBodega.telefono);
             modificarBodega.Parameters.AddWithValue("@codigoBodega", doBodega.codigo);
+            modificarBodega.Parameters.AddWithValue("@estado",doBodega.estado);
 
             try
             {
