@@ -478,7 +478,7 @@ namespace DAO
                 "BOD_NOMBRE = @nombre, " +
                 "BOD_DIRECCION = @direccion, " +
                 "BOD_TELEFONO = @telefono, " +
-                "EST_HAB_ESTADO = @estado" +
+                "EST_HAB_ESTADO = @estado " +
                 "WHERE BOD_CODIGO = @codigoBodega", conexion);
             modificarBodega.Parameters.AddWithValue("@nombre", doBodega.nombre);
             modificarBodega.Parameters.AddWithValue("@direccion", doBodega.direccion);
