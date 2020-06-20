@@ -21,7 +21,7 @@ namespace DO
         [DataMember(Name = "insumosConsumo")] public List<DO_InsumoEnBodega> listaConsumo { set; get; }
         [DataMember(Name = "insumosDescarte")] public List<DO_InsumoEnBodega> listaDescarte { set; get; }
         [DataMember(Name = "bodega")] public int codigoBodega { get; set; }
-        [DataMember(Name = "bodega")] public string notas { get; set; }
+        [DataMember(Name = "notas")] public string notas { get; set; }
         /**  public DO_SolicitudInsumos(string operarioId, int bodega)
           {
               fechaSolicitud = System.DateTime.Now;
