@@ -75,8 +75,8 @@ namespace DAO
             comandoInsertar.Parameters.AddWithValue("@examenG", analisisAA.exGustativo);
             comandoInsertar.Parameters.AddWithValue("@examenO", analisisAA.exOlfativo);
             comandoInsertar.Parameters.AddWithValue("@examenV", analisisAA.exVisual);
-            comandoInsertar.Parameters.AddWithValue("@fechaEmision", System.DateTime.Now.ToString("yyyy/MM/dd"));
-            comandoInsertar.Parameters.AddWithValue("@fechaVigencia", System.DateTime.Now.AddDays(100).ToString("yyyy/MM/dd"));
+            comandoInsertar.Parameters.AddWithValue("@fechaEmision", System.DateTime.Now);
+            comandoInsertar.Parameters.AddWithValue("@fechaVigencia", System.DateTime.Now.AddDays(100));
             comandoInsertar.Parameters.AddWithValue("@nombreProducto", analisisAA.nombreProducto);
             comandoInsertar.Parameters.AddWithValue("@notas", analisisAA.notas);
             comandoInsertar.Parameters.AddWithValue("@pedCodigo", analisisAA.pedCodigo);
