@@ -5,6 +5,7 @@ import { Order } from '../models/order';
 @Injectable({
   providedIn: 'root'
 })
+
 export class DataService {
 
   orderList: Order[];
@@ -14,7 +15,7 @@ export class DataService {
 
   constructor() { }
 
-  changeOrder(order: Order){
+  changeOrder(order: Order) {
     this.orderSource.next(order);
   }
 

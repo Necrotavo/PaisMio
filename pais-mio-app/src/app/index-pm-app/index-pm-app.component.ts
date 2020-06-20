@@ -24,6 +24,10 @@ export class IndexPmAppComponent implements OnInit {
         this.orderList = data;
       }
     );
+    const myOrder = { Order: this.order };
+    localStorage.setItem('1', JSON.stringify(myOrder));
+    const item = JSON.parse(localStorage.getItem('1'));
+    console.log('Imprimo: ' + item);
   }
 
   newOrder(i: number) {
