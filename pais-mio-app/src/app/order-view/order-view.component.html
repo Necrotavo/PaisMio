@@ -577,7 +577,7 @@
                     </div>
                     {{ inputRequestModel | json }}
                     <div>
-                        <th>Insumos a consumir</th>
+                        <h5>Insumos a consumir</h5>
                         <br>
                     </div>
                     <table class="table table-striped table-responsive">
@@ -588,9 +588,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngfor="let consume of inputRequestModel.insumosConsumo">
+                            <tr *ngFor="let consume of inputRequestModel.insumosConsumo">
                                 <td>
-                                    {{consume.nombre}}
+                                    {{consume.insumo.nombre}}
                                 </td>
                                 <td>
                                     {{consume.cantidadDisponible}}
@@ -599,7 +599,7 @@
                         </tbody>
                     </table>
                     <div>
-                        <th>Insumos descartados</th>
+                        <h5>Insumos descartados</h5>
                         <br>
                     </div>
                     <table class="table table-striped table-responsive">
@@ -610,7 +610,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngfor="let discard of inputRequestModel.insumosDescarte">
+                            <tr *ngFor="let discard of inputRequestModel.insumosDescarte">
                                 <td>
                                     {{discard.insumo.nombre}}
                                 </td>

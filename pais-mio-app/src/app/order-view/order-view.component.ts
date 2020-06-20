@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Order } from 'src/models/order';
 import { ApiService } from '../api.service';
-import { InputRequest } from 'src/models/inputRequest'
-import { InputQ } from 'src/models/inputQ'
+import { InputRequest } from 'src/models/inputRequest';
+import { InputQ } from 'src/models/inputQ';
 import { InputRequestDesicion } from 'src/models/inputRequestDecision';
 import { User } from 'src/models/user';
 import { Client } from 'src/models/client';
-import { ProductInOrder } from 'src/models/productInOrder'
+import { ProductInOrder } from 'src/models/productInOrder';
 
 @Component({
   selector: 'app-order-view',
@@ -19,14 +19,15 @@ export class OrderViewComponent implements OnInit {
   analysisExist = false;
 
   constructor(private data: DataService, private apiService: ApiService) { }
-  //Object Declarations
+
+  /** Object Declarations */
   order: Order;
   inputRequest: InputRequest;
 
   user: User;
   client: Client;
 
-  //Object Lists
+  /** Object Lists */
   orderList: Order[];
   consumeList: InputQ[];
   discardList: InputQ[];
@@ -35,20 +36,21 @@ export class OrderViewComponent implements OnInit {
   inputRequestList: InputRequest[];
   productEntryList: Array<ProductInOrder> = [];
 
-  //Data Return Objects
+  /** Data Return Objects */
   objInputRequest: InputRequest;
   objInputRequestDesicion: InputRequestDesicion;
 
 
-  //Filter Terms
-  //Combo Validations
-  //Models
-  inputRequestModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, '', '', '','');
+  /** Filter Terms */
+  /** Combo Validations */
+  /** Models */
+  inputRequestModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, '', '', '', '');
+  inputRequestDetailsModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, '', '', '', '');
   inputRequestDesicionModel = new InputRequestDesicion(this.inputRequest, this.user, '');
   userModel = new User('', '', '', '', '', 'default');
- /*
+
+  /*
   clientModel = new Client('', '', '', '', '', '');
-  
   inputModel = new Input(0, '', 0, '', '', '');
   productModel = new Product(0, '', '', '', '');
   clientEntryModel = new Client('', '', '', '', '', '');
@@ -57,7 +59,7 @@ export class OrderViewComponent implements OnInit {
   cellarAdminModel = new CellarAdmin(this.cellar, '');
   moveInputModel = new MoveInput(0, 0, 0, 0);
   inputRequestModel = new InputRequest(0, 0, 0, this.inputQList, this.inputQListDiscard, '', '', '', '');
-  
+
   unitModel = new Unit('');
 */
 
