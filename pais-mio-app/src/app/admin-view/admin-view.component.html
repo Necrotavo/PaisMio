@@ -107,8 +107,14 @@
                                             </tr>
                                             <tr>
                                                 <th>Estado</th>
-                                                <td>
+                                                <td *ngIf="com.estado === 'CONFORME'">
                                                     <span class="badge badge-success">{{com.estado}}</span>
+                                                </td>
+                                                <td *ngIf="com.estado === 'NO CONFORME'">
+                                                    <span class="badge badge-danger">{{com.estado}}</span>
+                                                </td>
+                                                <td *ngIf="com.estado === 'EN PROCESO'">
+                                                    <span class="badge badge-primary">{{com.estado}}</span>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -175,7 +181,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let com of inputList | filter:termI">
+                            <tr *ngFor="let com of inputList | filter:termI" (click)="chargeInputToUpdate(com)"
+                                data-toggle="modal"
+                                data-target="#inputUpdateModal">
                                 <td>
                                     {{com.codigo}}
                                 </td>
@@ -188,8 +196,11 @@
                                 <td>
                                     {{com.unidad}}
                                 </td>
-                                <td>
+                                <td *ngIf="com.estado === 'HABILITADO'">
                                     <span class="badge badge-success">{{com.estado}}</span>
+                                </td>
+                                <td *ngIf="com.estado === 'DESHABILITADO'">
+                                    <span class="badge badge-danger">{{com.estado}}</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -256,8 +267,11 @@
                                         </div>
                                      -->
                                 </td>
-                                <td>
+                                <td *ngIf="user.estado === 'HABILITADO'">
                                     <span class="badge badge-success">{{user.estado}}</span>
+                                </td>
+                                <td *ngIf="user.estado === 'DESHABILITADO'">
+                                    <span class="badge badge-danger">{{user.estado}}</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -304,8 +318,11 @@
                                 <td>
                                     {{bodega.telefono}}
                                 </td>
-                                <td>
+                                <td *ngIf="bodega.estado === 'HABILITADO'">
                                     <span class="badge badge-success">{{bodega.estado}}</span>
+                                </td>
+                                <td *ngIf="bodega.estado === 'DESHABILITADO'">
+                                    <span class="badge badge-danger">{{bodega.estado}}</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -313,7 +330,6 @@
 
                 </div>
 
-                <!--Aqui estoy-->
                 <div role="tabpanel" class="tab-pane" id="units">
 
                     <div class="tab-header clearfix">
@@ -424,8 +440,11 @@
                                             </tr>
                                             <tr>
                                                 <th>Estado</th>
-                                                <td>
+                                                <td *ngIf="item.estado === 'HABILITADO'">
                                                     <span class="badge badge-success">{{item.estado}}</span>
+                                                </td>
+                                                <td *ngIf="item.estado === 'DESHABILITADO'">
+                                                    <span class="badge badge-danger">{{item.estado}}</span>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -475,8 +494,11 @@
                                 <td>
                                     {{com.descripcion}}
                                 </td>
-                                <td>
+                                <td *ngIf="com.estado === 'HABILITADO'">
                                     <span class="badge badge-success">{{com.estado}}</span>
+                                </td>
+                                <td *ngIf="com.estado === 'DESHABILITADO'">
+                                    <span class="badge badge-danger">{{com.estado}}</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -755,6 +777,155 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button [disabled]="inputForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
                     (click)="postInput()">Crear</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal end -->
+
+<!-- Modal input update -->
+
+<!-- Modal start -->
+
+<div class="modal fade" id="inputUpdateModal" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="inputUpdateModallabel1">Modificar insumo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form #inputUpdateForm="ngForm" (ngSubmit)="updateInput()" novalidate>
+                    <div class="form-group">
+                        <div class="tab-header clearfix">
+                            <div class="float-left">
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Nombre
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" required #nombreIUP="ngModel" class="form-control"
+                                            [class.is-invalid]="nombreIUP.invalid && nombreIUP.touched"
+                                            name="nombreIUP" [(ngModel)]="inputUpdateModel.nombre">
+                                        <div *ngIf="nombreIUP.errors && (nombreIUP.invalid || nombreIUP.touched)">
+                                            <p><small class="text-danger"
+                                                    *ngIf="nombreIUP.errors.required && nombreIUP.touched">Nombre
+                                                    requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="nombreIUP.errors.pattern">Nombre
+                                                    invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="nombreIUP.errors.pattern">50
+                                                    dígitos</small></p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Código
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" required #codigoIUP="ngModel" class="form-control"
+                                            [class.is-invalid]="codigoIUP.invalid && codigoIUP.touched" placeholder="Codigo"
+                                            name="codigoIUP" [(ngModel)]="inputUpdateModel.id">
+                                        <div *ngIf="codigoIUP.errors && (codigoIUP.invalid || codigoIUP.touched)">
+
+                                            <p><small class="text-danger"
+                                                    *ngIf="codigoIUP.errors.required && codigoIUP.touched">Codigo
+                                                    requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="codigoIUP.errors.pattern">Nombre
+                                                    invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="codigoIUP.errors.pattern">50
+                                                    dígitos</small></p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Mínimo en stock
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="number" required #minIUP="ngModel" class="form-control"
+                                            [class.is-invalid]="minIUP.invalid && minIUP.touched" placeholder="Min"
+                                            name="minI" [(ngModel)]="inputUpdateModel.cantMinStock">
+                                        <div *ngIf="minI.errors && (minIUP.invalid || minIUP.touched)">
+                                            <p><small class="text-danger"
+                                                    *ngIf="minIUP.errors.required && minIUP.touched">Minimo
+                                                    requerido</small></p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Unidad de medida
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <select (blur)="validateUnit(unitIUP.value)" (change)="validateUnit(unitIUP.value)"
+                                            #unitIUP="ngModel" [class.is-invalid]="unitHasError && unitIUP.touched"
+                                            class="form-control" name="unitIUP" [(ngModel)]="inputUpdateModel.unidad">
+                                            <option value="inputUpdateModel.unidad">{{inputUpdateModel.unidad}}</option>
+                                            <option *ngFor="let com of unitList">{{com.unidad}}</option>
+                                        </select>
+                                        <p><small class="text-danger"
+                                                [class.d-none]="!unitHasError || unitIUP.untouched">Unidad
+                                                requerida</small></p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Estado
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <select (blur)="validateUnit(statusIUP.value)" (change)="validateUnit(statusIUP.value)"
+                                            #statusIUP="ngModel" [class.is-invalid]="unitHasError && statusIUP.touched"
+                                            class="form-control" name="statusIUP" [(ngModel)]="inputUpdateModel.estado">
+                                            <option >{{inputUpdateModel.estado}}</option>
+                                            <option *ngIf="inputUpdateModel.estado === 'HABILITADO'">DESHABILITADO</option>
+                                            <option *ngIf="inputUpdateModel.estado === 'DESHABILITADO'">HABILITADO</option>
+                                        </select>
+                                        <p><small class="text-danger"
+                                                [class.d-none]="!unitHasError || statusIUP.untouched">Estado
+                                                requerida</small></p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button [disabled]="inputUpdateForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
+                    (click)="updateInput()">Crear</button>
             </div>
 
         </div>

@@ -94,6 +94,7 @@ export class AdminViewComponent implements OnInit {
   unitHasError = true;
   clientHasError = true;
   cellarHasError = true;
+  statusHasError = true;
 
   /** Input list validations */
   productExist = false;
@@ -106,6 +107,7 @@ export class AdminViewComponent implements OnInit {
   clientModel = new Client('', '', '', '', '', '');
   userModel = new User('', '', '', '', '', 'default');
   inputModel = new Input(0, '', 0, '', '', '');
+  inputUpdateModel = new Input(0, '', 0, '', '', '');
   productModel = new Product(0, '', '', '', '');
   clientEntryModel = new Client('', '', '', '', '', '');
   orderModel = new Order(0, this.clientEntryModel, '', this.productEntryList);
@@ -425,6 +427,15 @@ export class AdminViewComponent implements OnInit {
     }
   }
 
+  /** Used to validate combo on input update status */
+  validateStatus(value){
+    if (value === 'default'){
+      this.statusHasError = true;
+    } else {
+      this.statusHasError = false;
+    }
+  }
+
     /** Used to validate combo on user rol */
     validateClient(value){
       if (value === 'default'){
@@ -496,6 +507,21 @@ export class AdminViewComponent implements OnInit {
     removeFromList(i: number){
       this.productEntryList.splice(i, 1);
       this.validateList();
+    }
+
+    /** Update methods */
+    chargeInputToUpdate(inputToUpdate: Input){
+      this.inputUpdateModel = inputToUpdate;
+    }
+
+    updateInput(){
+      console.log(this.clientModel);
+      this.apiService.updateInput(this.inputUpdateModel).subscribe(
+        data => {
+          this.objInput = data;
+          this.getInput();
+        }
+      );
     }
 
 }
