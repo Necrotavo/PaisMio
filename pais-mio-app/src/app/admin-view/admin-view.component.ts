@@ -350,61 +350,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-  /** InputRequest CRUD */
 
-  postInputRequest(){
-
-    this.apiService.addInputRequest(this.inputRequestModel).subscribe(
-      data => {
-        this.objInputRequest = data;
-      }
-    );
-  }
-
-  getInputRequest(){
-
-    this.apiService.getInputRequest().subscribe(
-      data => {
-        this.inputRequestList = data;
-      }
-    );
-  }
-
-  setInputRequestDesicion(){
-
-    this.apiService.setInputRequestDecision(this.inputRequestDesicionModel).subscribe(
-      data => {
-        this.objInputRequestDesicion = data;
-      }
-    );
-  }
-
-  getInputRequestByUser(){
-
-    this.apiService.getInputRequestByUser(this.userModel).subscribe(
-      data => {
-        this.objInputRequest = data;
-      }
-    );
-  }
-
-  getInputRequestByOrder(){
-
-    this.apiService.getInputRequestByOrder(this.orderModel).subscribe(
-      data => {
-        this.objInputRequest = data;
-      }
-    );
-  }
-
-  searchInputRequest(){
-
-    this.apiService.getInputRequestByID(this.inputRequestModel).subscribe(
-      data => {
-        this.objInputRequest = data;
-      }
-    );
-  }
 
 
   /** Used to validate combo on user rol */

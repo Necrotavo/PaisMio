@@ -119,13 +119,13 @@
                         </tr>
                     </thead>
                     <tbody>
-
-                        <tr>
+<!--AQUI ESTOY-->
+                        <tr *ngFor="let solicitud of inputRequestListByOrder">
                             <td>
-                                001
+                                {{solicitud.codigo}}
                             </td>
                             <td>
-                                Usuario
+                                {{solicitud.operario}}
                             </td>
                             <td>
                                 <a href="#detailsModal" data-toggle="modal">Ver detalles</a>
@@ -135,39 +135,6 @@
                                 <button class="btn btn-sm btn-danger">Rechazar</button>
                             </td>
                         </tr>
-
-                        <tr>
-                            <td>
-                                002
-                            </td>
-                            <td>
-                                Usuario
-                            </td>
-                            <td>
-                                <a href="#detailsModal">Ver detalles</a>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-success">Aceptar</button>
-                                <button class="btn btn-sm btn-danger">Rechazar</button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                003
-                            </td>
-                            <td>
-                                Usuario
-                            </td>
-                            <td>
-                                <a href="#detailsModal">Ver detalles</a>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-success">Aceptar</button>
-                                <button class="btn btn-sm btn-danger">Rechazar</button>
-                            </td>
-                        </tr>
-
 
 
                     </tbody>
