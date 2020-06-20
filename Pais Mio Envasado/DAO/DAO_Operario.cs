@@ -640,5 +640,43 @@ namespace DAO
             }
             return null;
         }
+
+        public bool modificarUsuario(DO_Operario doOperario)
+        {
+            SqlCommand comando = new SqlCommand("UPDATE OPERARIO SET OPE_NOMBRE = @nombre, OPE_APELLIDOS = @apellidos, EST_HAB_ESTADO = @estado WHERE OPE_CORREO = @correo", conexion);
+            
+            comando.Parameters.AddWithValue("@nombre", doOperario.nombre);
+            comando.Parameters.AddWithValue("@apellidos", doOperario.apellidos);
+            comando.Parameters.AddWithValue("@estado", doOperario.estado);
+            comando.Parameters.AddWithValue("@correo", doOperario.correo);
+
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                if (comando.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+            finally
+            {
+
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
     }
 }

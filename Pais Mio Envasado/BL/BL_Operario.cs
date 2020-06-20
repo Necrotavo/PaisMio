@@ -168,5 +168,12 @@ namespace BL
             return false;
         }
 
+        public bool modificarUsuario(DO_Operario operario)
+        {
+            DAO_Operario daoOperario = new DAO_Operario();
+
+            return daoOperario.modificarUsuario(operario);
+        }
+
     }
 }

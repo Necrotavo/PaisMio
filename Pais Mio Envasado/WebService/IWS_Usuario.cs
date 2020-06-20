@@ -91,5 +91,13 @@ namespace WebService
             Method = "POST",
             UriTemplate = "supervisorRolUpgrade")]
         bool supRolUpgrade(DO_OpeRolUpgradeUsuario rolUpgrade);
+
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            Method = "POST",
+            UriTemplate = "modificarUsuario")]
+        bool modificarUsuario(DO_Operario doUsuario);
     }
 }
