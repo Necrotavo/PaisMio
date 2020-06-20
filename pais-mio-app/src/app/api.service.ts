@@ -43,6 +43,7 @@ const clientSEARCH = 'https://www.spepaismio.tk/WS_Cliente.svc/Buscar';
 const userPOST = 'https://spepaismio.tk/WS_Usuario.svc/CrearOperario';
 const userGET = 'https://www.spepaismio.tk/WS_Usuario.svc/Lista';
 const userLoginPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/Login';
+const userUpdatePOST = 'https://www.spepaismio.tk/WS_Usuario.svc/modificarUsuario';
 /** Falta User */
 const passwordRecoveryPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/RecuperarContrasena';
 const generatePasswordPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/GenerarPass';
@@ -247,11 +248,11 @@ export class ApiService {
     );
   }
 
-  updateUser(correo: string, user: User): Observable<any> {
-    const url = `${apiURL}/${correo}`;
-    return this.http.put(url, user, HttpOptions).pipe(
-      tap(_ => console.log(`updated user id=${correo}`)),
-      catchError(this.handleErrors<any>(`updateUser`))
+  updateUser(user: User): Observable<User> {
+    
+    return this.http.post(userUpdatePOST, user, HttpOptions).pipe(
+      tap((i: User) => console.log(`update user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<User>(`updateUser`))
     );
   }
 
