@@ -55,7 +55,6 @@ const upgradeOperatorRolPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/operari
 const inputPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarInsumo';
 const inputGET = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumos';
 const inputSEARCH = 'https://www.spepaismio.tk/WS_Insumo.svc/buscarInsumo';
-/** Falta input */
 const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
 const inputGetA = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
 
