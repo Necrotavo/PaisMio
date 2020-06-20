@@ -45,7 +45,6 @@ export class OrderViewComponent implements OnInit {
   inputRequestModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, '', '', '','');
   inputRequestDesicionModel = new InputRequestDesicion(this.inputRequest, this.user, '');
   userModel = new User('', '', '', '', '', 'default');
-  orderModel = new Order(0, this.client, '', this.productEntryList);
  /*
   clientModel = new Client('', '', '', '', '', '');
   
