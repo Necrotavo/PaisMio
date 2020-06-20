@@ -120,19 +120,22 @@
                     </thead>
                     <tbody>
 <!--AQUI ESTOY-->
-                        <tr *ngFor="let solicitud of inputRequestListByOrder">
+                        <tr *ngFor="let request of inputRequestListByOrder" data-target="#detailsModal" data-toggle="modal" (click)="asignRequest(request)">
                             <td>
-                                {{solicitud.codigo}}
+                                {{request.codigo}}
                             </td>
                             <td>
-                                {{solicitud.operario}}
+                                {{request.operario}}
                             </td>
                             <td>
-                                <a href="#detailsModal" data-toggle="modal">Ver detalles</a>
+                                <a >Ver detalles</a>
                             </td>
                             <td>
-                                <button class="btn btn-sm btn-success">Aceptar</button>
-                                <button class="btn btn-sm btn-danger">Rechazar</button>
+                                {{request.estado}}
+                                <!--
+                                    <button class="btn btn-sm btn-success">Aceptar</button>
+                                    <button class="btn btn-sm btn-danger">Rechazar</button>
+                                -->
                             </td>
                         </tr>
 
@@ -572,6 +575,7 @@
                             </div>
                         </div>
                     </div>
+                    {{ inputRequestModel | json }}
                     <div>
                         <th>Insumos a consumir</th>
                         <br>
@@ -584,20 +588,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngfor="let consume of inputRequestModel.insumosConsumo">
                                 <td>
-                                    Tapa de pacha
+                                    {{consume.nombre}}
                                 </td>
                                 <td>
-                                    33
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Tapa de pacha
-                                </td>
-                                <td>
-                                    33
+                                    {{consume.cantidadDisponible}}
                                 </td>
                             </tr>
                         </tbody>
@@ -614,12 +610,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngfor="let discard of inputRequestModel.insumosDescarte">
                                 <td>
-                                    pacha
+                                    {{discard.insumo.nombre}}
                                 </td>
                                 <td>
-                                    33
+                                    {{discard.cantidadDisponible}}
                                 </td>
                             </tr>
                         </tbody>

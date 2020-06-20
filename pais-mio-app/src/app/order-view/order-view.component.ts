@@ -22,6 +22,7 @@ export class OrderViewComponent implements OnInit {
   //Object Declarations
   order: Order;
   inputRequest: InputRequest;
+
   user: User;
   client: Client;
 
@@ -144,6 +145,6 @@ export class OrderViewComponent implements OnInit {
   }
 
   asignRequest(request: InputRequest){
-    this.inputRequest = request;
+    this.inputRequestModel = request;
   }
 }
