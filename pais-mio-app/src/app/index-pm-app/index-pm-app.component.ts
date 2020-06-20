@@ -33,6 +33,7 @@ export class IndexPmAppComponent implements OnInit {
 
   newOrder(i: number) {
     this.data.changeOrder(this.orderList[i]);
+    localStorage.setItem('active order', JSON.stringify(this.orderList[i]));
   }
 
 }

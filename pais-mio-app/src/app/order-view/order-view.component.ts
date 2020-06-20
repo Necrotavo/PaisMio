@@ -75,7 +75,8 @@ export class OrderViewComponent implements OnInit {
 
     this.data.activeOrder.subscribe(order => this.order = order);
     if (this.order === null) {
-      console.log('Soy null :(');
+      this.order = JSON.parse(localStorage.getItem('active order'));
+      console.log('Imprimo: ' + this.order.cliente);
     }
 
     this.getInputRequestByOrder();
