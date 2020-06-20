@@ -209,7 +209,7 @@
 
                 </div>
 
-                <div role="tabpanel" class="tab-pane" id="users">
+                <div role="tabpanel" class="tab-pane" id="users" >
 
                     <div class="tab-header clearfix">
                         <div class="float-left">
@@ -231,15 +231,19 @@
                         <thead>
                             <tr>
                                 <th>Nombre</th>
+                                <th>Apellidos</th>
                                 <th>Correo</th>
                                 <th>Rol</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of userList | filter:termU">
+                            <tr *ngFor="let user of userList | filter:termU" (click)="chargeUserToUpdate(user)" data-toggle="modal" data-target="#usersUpdateModal">
                                 <td>
                                     {{user.nombre}}
+                                </td>
+                                <td>
+                                    {{user.apellidos}}
                                 </td>
                                 <td>
                                     {{user.correo}}
@@ -1001,10 +1005,10 @@
                                             placeholder="Apellidos" name="apellidosU" [(ngModel)]="userModel.apellidos">
                                         <div *ngIf="apellidosU.errors && (apellidosU.invalid || apellidosU.touched)">
                                             <p><small class="text-danger"
-                                                    *ngIf="apellidosU.errors.required && apellidosU.touched">Nombre
+                                                    *ngIf="apellidosU.errors.required && apellidosU.touched">Apellido
                                                     requerido</small></p>
-                                            <p><small class="text-danger" *ngIf="apellidosU.errors.pattern">Nombre
-                                                    invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="apellidosU.errors.pattern">Apellido
+                                                    inválido</small></p>
                                             <p><small class="text-danger" *ngIf="apellidosU.errors.pattern">10 dígitos,
                                                     sin cero al inicio ni guiones</small></p>
                                         </div>
@@ -1013,7 +1017,7 @@
                             </tr>
                             <tr>
                                 <th>
-                                    Correo electronico
+                                    Correo electrónico
                                 </th>
                                 <td>
                                     <div class="form-field">
@@ -1026,7 +1030,7 @@
                                                     *ngIf="correoU.errors.required && correoU.touched">Correo
                                                     requerido</small></p>
                                             <p><small class="text-danger" *ngIf="correoU.errors.pattern">Correo
-                                                    invalido</small></p>
+                                                    inválido</small></p>
                                             <p><small class="text-danger" *ngIf="correoU.errors.pattern">Ejemplo:
                                                     xxxx@mail.com</small></p>
                                         </div>
@@ -1062,6 +1066,146 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button button [disabled]="userForm.form.invalid" type="submit" class="btn btn-primary"
                     data-dismiss="modal" (click)="postUser()">Crear</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal end -->
+
+<!-- Modal users update-->
+
+<!-- Modal start -->
+
+<div class="modal fade" id="usersUpdateModal" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="usersUpdateModallabel1">Modificar usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form #userUpdateForm="ngForm" (ngSubmit)="updateUser()" novalidate>
+                    <div class="form-group">
+                        <div class="tab-header clearfix">
+                            <div class="float-left">
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Nombre
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" required #nombreUUP="ngModel" class="form-control" placeholder="Nombre"
+                                            [class.is-invalid]="nombreUUP.invalid && nombreUUP.touched"
+                                            name="nombreUUP" [(ngModel)]="userUpdateModel.nombre">
+                                        <div *ngIf="nombreUUP.errors && (nombreUUP.invalid || nombreUUP.touched)">
+                                            <p><small class="text-danger"
+                                                    *ngIf="nombreUUP.errors.required && nombreUUP.touched">Nombre
+                                                    requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="nombreUUP.errors.pattern">Nombre
+                                                    invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="nombreUUP.errors.pattern">50
+                                                    dígitos</small></p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Apellidos
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" required #apellidosUUP="ngModel" class="form-control"
+                                            [class.is-invalid]="apellidosUUP.invalid && apellidosUUP.touched"
+                                            placeholder="Apellidos" name="apellidosU" [(ngModel)]="userUpdateModel.apellidos">
+                                        <div *ngIf="apellidosUUP.errors && (apellidosUUP.invalid || apellidosUUP.touched)">
+                                            <p><small class="text-danger"
+                                                    *ngIf="apellidosUUP.errors.required && apellidosUUP.touched">Apellido
+                                                    requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="apellidosUUP.errors.pattern">Apellido
+                                                    inválido</small></p>
+                                            <p><small class="text-danger" *ngIf="apellidosUUP.errors.pattern">10 dígitos,
+                                                    sin cero al inicio ni guiones</small></p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Correo electrónico
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <input type="text" required #correoUUP="ngModel"
+                                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control"
+                                            [class.is-invalid]="correoUUP.invalid && correoUUP.touched"
+                                            placeholder="correo@mail.com" name="correoUUP" [(ngModel)]="userUpdateModel.correo" disabled>
+                                        <div *ngIf="correoUUP.errors && (correoUUP.invalid || correoUUP.touched)">
+                                            <p><small class="text-danger"
+                                                    *ngIf="correoUUP.errors.required && correoUUP.touched">Correo
+                                                    requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="correoUUP.errors.pattern">Correo
+                                                    invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="correoUUP.errors.pattern">Ejemplo:
+                                                    xxxx@mail.com</small></p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Rol
+                                </th>
+                                <td>
+                                    {{userUpdateModel.rol}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Estado
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <select (blur)="validateUserStatus(statusUUP.value)" (change)="validateStatus(statusUUP.value)"
+                                            #statusUUP="ngModel" [class.is-invalid]="statusUHasError && statusUUP.touched"
+                                            class="form-control" name="statusUUP" [(ngModel)]="userUpdateModel.estado">
+                                            <option >{{userUpdateModel.estado}}</option>
+                                            <option *ngIf="userUpdateModel.estado === 'HABILITADO'">DESHABILITADO</option>
+                                            <option *ngIf="userUpdateModel.estado === 'DESHABILITADO'">HABILITADO</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button button [disabled]="userUpdateForm.form.invalid" type="submit" class="btn btn-primary"
+                     (click)="updateUser()" data-dismiss="modal">Actualizar</button>
             </div>
 
         </div>
