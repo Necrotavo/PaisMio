@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Order } from 'src/models/order';
+import { User } from 'src/models/user';
 import { ApiService } from '../api.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +17,9 @@ export class NavbarComponent implements OnInit {
   count: number;
   activeMessage: string;
 
-  constructor(private data: DataService, private apiService: ApiService) { }
+  userIn = new User('', '', '', '', '', '');
+
+  constructor(private data: DataService, private apiService: ApiService, private router: Router) { }
 
   ngOnInit(): void {
     this.data.activeOrder.subscribe(order => this.order = order);
@@ -34,10 +38,25 @@ export class NavbarComponent implements OnInit {
         }
       }
     );
+
   }
 
   newOrder(i: number) {
     this.data.changeOrder(this.orderList[i]);
+  }
+
+  checkNavbar() {
+    JSON.parse(localStorage.getItem('user logged'));
+    if (this.userIn.correo === '') {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  logout() {
+    localStorage.removeItem('userLogged');
+    this.router.navigateByUrl('/sign-in');
   }
 
 }
