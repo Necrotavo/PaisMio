@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Order } from 'src/models/order';
 import { ApiService } from '../api.service';
+import { User } from 'src/models/user';
 
 @Component({
   selector: 'app-index-pm-app',
@@ -12,6 +13,7 @@ export class IndexPmAppComponent implements OnInit {
 
   order: Order;
   orderList: Order[];
+  userIn = new User('', '', '', '', '', '');
 
   constructor(private data: DataService, private apiService: ApiService) { }
 
@@ -24,6 +26,9 @@ export class IndexPmAppComponent implements OnInit {
         this.orderList = data;
       }
     );
+
+    this.userIn = JSON.parse(localStorage.getItem('user logged'));
+    console.log('Imprimo: ' + this.userIn.correo);
   }
 
   newOrder(i: number) {

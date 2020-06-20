@@ -4,7 +4,7 @@
             <li class="breadcrumb-item">
                 <a routerLink="/index-pm-app/">Inicio</a>
             </li>
-            <li class="breadcrumb-item active">Pedido X</li>
+            <li class="breadcrumb-item active">Pedido {{order.codigo}}</li>
         </ol>
         <div class="description">
             <ul class="nav nav-tabs" role="tablist">
@@ -19,7 +19,7 @@
                 </li>
             </ul>
         </div>
-                        {{order | json}}
+        
         <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="detalles">
@@ -132,10 +132,6 @@
                             </td>
                             <td>
                                 {{request.estado}}
-                                <!--
-                                    <button class="btn btn-sm btn-success">Aceptar</button>
-                                    <button class="btn btn-sm btn-danger">Rechazar</button>
-                                -->
                             </td>
                         </tr>
 
@@ -575,9 +571,45 @@
                             </div>
                         </div>
                     </div>
-                    {{ inputRequestModel | json }}
+                    <table class="table table-striped table-responsive">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Fecha
+                                </td>
+                                <td>
+                                    {{inputRequestModel.fecha}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Correo del Operario
+                                </td>
+                                <td>
+                                    {{inputRequestModel.operario}}
+                                </td>
+                            </tr>
+                            <!-- Aqui falta un if por si el correo del admin es nulo -->
+                            <tr>
+                                <td>
+                                    Correo del Administrador
+                                </td>
+                                <td>
+                                    {{inputRequestModel.admin}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Estado
+                                </td>
+                                <td>
+                                    {{inputRequestModel.estado}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <div>
-                        <h5>Insumos a consumir</h5>
+                        <h6>Insumos a consumir</h6>
                         <br>
                     </div>
                     <table class="table table-striped table-responsive">
@@ -599,7 +631,7 @@
                         </tbody>
                     </table>
                     <div>
-                        <h5>Insumos descartados</h5>
+                        <h6>Insumos descartados</h6>
                         <br>
                     </div>
                     <table class="table table-striped table-responsive">
@@ -623,14 +655,15 @@
                     <div class="form-group">
                         <label for="message-text" class="form-control-label">Notas:</label>
                         <textarea class="form-control" id="request-text"
-                            placeholder="Necesito 3 extra, por que se dañaron."></textarea>
+                            placeholder="Necesito 3 extra, por que se dañaron.">{{inputRequestModel.notas}}</textarea>
                     </div>
                 </form>
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Enviar solicitud</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Rechazar</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
             </div>
 
         </div>

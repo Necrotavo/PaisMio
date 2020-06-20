@@ -18,7 +18,7 @@
             </div> 
 
             <div class="form-field">
-                <input type="password" required #contrasenaU="ngModel"
+                <input type="password" required #contrasenaU="ngModel" placeholder="Contraseña"
                  class="form-control" [class.is-invalid]="contrasenaU.invalid && contrasenaU.touched"
                   name="contrasenaU" [(ngModel)]="loginUser.contrasena">
                  <div *ngIf="contrasenaU.errors && (contrasenaU.invalid || contrasenaU.touched)">
@@ -33,7 +33,8 @@
             </div>
             -->
             <div class="form-action">
-                <input button [disabled]="loginForm.form.invalid" type="submit" class="btn-shadow btn-shadow-primary" value="Ingresar">
+                <input button [disabled]="loginForm.form.invalid" type="submit" class="btn-shadow btn-shadow-primary" value="Ingresar"
+                >
             </div>
             <div class="form-bottom">
                 <a routerLink="/recover-password/">¿Olvidó su contraseña?</a>

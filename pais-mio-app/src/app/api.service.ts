@@ -249,7 +249,6 @@ export class ApiService {
   }
 
   updateUser(user: User): Observable<User> {
-    
     return this.http.post(userUpdatePOST, user, HttpOptions).pipe(
       tap((i: User) => console.log(`update user w/ id=${i.nombre}`)),
       catchError(this.handleErrors<User>(`updateUser`))
