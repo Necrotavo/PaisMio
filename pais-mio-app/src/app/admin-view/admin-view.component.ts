@@ -106,14 +106,17 @@ export class AdminViewComponent implements OnInit {
 
   /** Models */
   clientModel = new Client('', '', '', '', '', '');
+  clientUpdateModel = new Client('', '', '', '', '', '');
   userModel = new User('', '', '', '', '', 'default');
   userUpdateModel = new User('', '', '', '', '', 'default');
   inputModel = new Input(0, '', 0, '', '', '');
   inputUpdateModel = new Input(0, '', 0, '', '', '');
   productModel = new Product(0, '', '', '', '');
+  productUpdateModel = new Product(0, '', '', '', '');
   clientEntryModel = new Client('', '', '', '', '', '');
   orderModel = new Order(0, this.clientEntryModel, '', this.productEntryList);
   cellarModel = new Cellar(0, '', '', '', '', this.inputQList);
+  cellarUpdateModel = new Cellar(0, '', '', '', '', this.inputQList);
   cellarAdminModel = new CellarAdmin(this.cellar, '');
   moveInputModel = new MoveInput(0, 0, 0, 0);
   inputRequestModel = new InputRequest(0, 0, 0, this.inputQList, this.inputQListDiscard, '', '', '', '');
@@ -491,7 +494,7 @@ export class AdminViewComponent implements OnInit {
     }
 
     updateUser(){
-      
+
       this.apiService.updateUser(this.userUpdateModel).subscribe(
         data => {
           this.objUser = data;
@@ -499,5 +502,54 @@ export class AdminViewComponent implements OnInit {
         }
       );
     }
+
+    /**Client */
+
+    chargeClientToUpdate(clientToUpdate: Client){
+      this.clientUpdateModel = clientToUpdate;
+    }
+
+    updateClient(){
+
+      this.apiService.updateClient(this.clientUpdateModel).subscribe(
+        data => {
+          this.objClient = data;
+          this.getClient();
+        }
+      );
+    }
+
+    /**Product */
+
+    chargeProductToUpdate(productToUpdate: Product){
+      this.productUpdateModel = productToUpdate;
+    }
+
+    updateProduct(){
+
+      this.apiService.updateProduct(this.productUpdateModel).subscribe(
+        data => {
+          this.objProduct = data;
+          this.getProduct();
+        }
+      );
+    }
+
+    /**Cellar */
+
+    chargeCellarToUpdate(cellarToUpdate: Cellar){
+      this.cellarUpdateModel = cellarToUpdate;
+    }
+
+    updateCellars(){
+
+      this.apiService.updateCellar(this.cellarUpdateModel).subscribe(
+        data => {
+          this.objCellar = data;
+          this.getCellar();
+        }
+      );
+    }
+
 
 }
