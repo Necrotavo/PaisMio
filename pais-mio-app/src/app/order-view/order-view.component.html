@@ -178,11 +178,11 @@
 
                 <div class="tab-header clearfix">
 
-                    <div class="float-left">
+                    <div class="float-left" *ngIf="!analysisExist">
 
                         <!-- Modal + button start -->
                         <!--Only when there is no analysis made-->
-                        <!--
+                        
                             
                                 <button type="button" class="btn btn-success" data-toggle="modal"
                                     data-target="#analysisModal">
@@ -191,7 +191,7 @@
                                     Ingresar análisis
                                 </button>
                             
-                        -->
+                        
                         <br>
                         <br>
                         <!-- Modal + button end -->

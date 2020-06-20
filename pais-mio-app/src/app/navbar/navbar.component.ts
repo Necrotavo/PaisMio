@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   constructor(private data: DataService, private apiService: ApiService) { }
 
   ngOnInit(): void {
-    this.data.activeOrder.subscribe(order => this.order = this.order);
+    this.data.activeOrder.subscribe(order => this.order = order);
 
     /** Gets all Orders on Init */
     this.apiService.getOrder().subscribe(
