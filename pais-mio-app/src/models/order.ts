@@ -1,6 +1,7 @@
 import { ProductInOrder } from './productInOrder';
 import { Client } from './client';
 import { Analysis } from './analysis';
+import {AnalysisPC} from './analysisPC';
 export class Order {
     codigo: number;
     cliente: Client;
@@ -18,6 +19,8 @@ export class Order {
         this.cliente = cliente;
         this.correoAdminIngreso = correoAdminIngreso;
         this.listaProductos = listaProductos;
+
+        this.doAnalisisAA = new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array <AnalysisPC>());
 
     }
 

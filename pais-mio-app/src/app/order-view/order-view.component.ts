@@ -105,7 +105,12 @@ export class OrderViewComponent implements OnInit {
       }
     );
 
+    /**Get current order */
     this.data.activeOrder.subscribe(order => this.order = order);
+    this.data.activeOrder.subscribe((order) => {this.order = order;
+      this.changeAnalysis(this.order);
+    });
+
     if (this.order === null) {
       this.order = JSON.parse(localStorage.getItem('active order'));
       console.log('Imprimo: ' + this.order.cliente);
@@ -140,6 +145,16 @@ export class OrderViewComponent implements OnInit {
       }
     );
 
+  }
+
+  /**Analysis */
+  changeAnalysis( ordero : Order){
+    this.apiService.getAnalysisByID(this.order.codigo).subscribe(
+      data => {
+        this.order.doAnalisisAA = data;
+         
+      }
+    );
   }
 
   validateAnalysisExistance(){
