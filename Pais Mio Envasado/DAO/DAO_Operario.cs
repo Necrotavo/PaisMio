@@ -329,7 +329,7 @@ namespace DAO
         /// <returns>true si se agregó correctamente, false si ocurrió algún error</returns>
         public string agregarOperario(DO_Operario doOperario) {
 
-            SqlCommand comandoInsertar = new SqlCommand("BEGIN TRANSACTION " + queryInsertar + " COMMIT", conexion);
+            SqlCommand comandoInsertar = new SqlCommand("BEGIN TRANSACTION BEGIN TRY " + queryInsertar + " COMMIT END TRY BEGIN CATCH ROLLBACK END CATCH", conexion);
       
             comandoInsertar.Parameters.AddWithValue("@correo", doOperario.correo);
             comandoInsertar.Parameters.AddWithValue("@estado", "HABILITADO");
@@ -342,11 +342,17 @@ namespace DAO
                 {
                     conexion.Open();
                 }
-                comandoInsertar.ExecuteNonQuery();
 
-                
-                ///fALTA MANDAR LA CONTRASENA AUTOGENERADA AL CORREO DEL USUARIO
-                return nuevaContrasena(doOperario.correo); ;
+                if (comandoInsertar.ExecuteNonQuery() > 0)
+                {
+
+                    ///fALTA MANDAR LA CONTRASENA AUTOGENERADA AL CORREO DEL USUARIO
+                    return nuevaContrasena(doOperario.correo);
+                }
+                else {
+                    return null;
+                }
+
             }
             catch (Exception)
             {

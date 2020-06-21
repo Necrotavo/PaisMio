@@ -9,6 +9,7 @@ import { InputRequestDesicion } from 'src/models/inputRequestDecision';
 import { User } from 'src/models/user';
 import { Client } from 'src/models/client';
 import { ProductInOrder } from 'src/models/productInOrder';
+import { Cellar } from 'src/models/cellar';
 
 @Component({
   selector: 'app-order-view',
@@ -26,10 +27,12 @@ export class OrderViewComponent implements OnInit {
   inputRequest: InputRequest;
   input: Input;
 
+
   user: User;
   client: Client;
 
   /** Object Lists */
+  cellarList: Cellar[];
   orderList: Order[];
   consumeList: InputQ[];
   discardList: InputQ[];
@@ -40,6 +43,8 @@ export class OrderViewComponent implements OnInit {
   inputList: Input[];
   inputConsumeList: Array<InputQ> = [];
   inputDiscardList: Array<InputQ> = [];
+  inputEntryList: Array<InputQ> = [];
+  inputQListInCellar: Array<InputQ> = [];
 
   /** Data Return Objects */
   objInputRequest: InputRequest;
@@ -52,19 +57,24 @@ export class OrderViewComponent implements OnInit {
   inputExist = false;
   listIsNotEmpty = false;
   discardListIsNotEmpty = false;
+  cellarHasError = false;
 
   /** Models */
   inputRequestModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, '', '', '', '', '');
   inputPostRequestModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, 'jojo@goldenwind.com', '', '', '', '');
   inputRequestDetailsModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, '', '', '', '', '');
-  inputRequestDesicionModel = new InputRequestDesicion(this.inputRequest, this.user, '');
+  inputRequestDesicionModel = new InputRequestDesicion(this.inputRequestModel, this.user, '');
   userModel = new User('', '', '', '', '', 'default');
   searchInputModel = new Input(0, '', 0, '', '', '');
   searchInputModel2 = new Input(0, '', 0, '', '', '');
   inputEntryModel = new InputQ(0, this.input);
+  localUser = new User('', '', '', '', '', '');
+  cellarEntryModel = new Cellar(0, '', '', '', '', this.inputEntryList);
+
 
   /** Aux variables */
   auxQ: number;
+  auxN: string;
 
   /*
   clientModel = new Client('', '', '', '', '', '');
@@ -83,6 +93,7 @@ export class OrderViewComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.localUser = JSON.parse(localStorage.getItem('user logged'));
     /** Gets all Orders on Init */
     this.apiService.getOrder().subscribe(
       data => {
@@ -104,6 +115,17 @@ export class OrderViewComponent implements OnInit {
       }
     );
 
+    this.apiService.getCellar().subscribe(
+      data => {
+        this.cellarList = data;
+        this.cellarList.forEach(element => {
+          for (const i of element.listaInsumosEnBodega) {
+            this.inputQListInCellar.push(i);
+          }
+        });
+      }
+    );
+
   }
 
   validateAnalysisExistance(){
@@ -117,8 +139,13 @@ export class OrderViewComponent implements OnInit {
   /** InputRequest CRUD */
 
   postInputRequest(){
+    this.inputPostRequestModel.operario = this.localUser.correo;
     this.inputPostRequestModel.insumosConsumo = this.inputConsumeList;
     this.inputPostRequestModel.insumosDescarte = this.inputDiscardList;
+    this.inputPostRequestModel.codigoPedido = this.order.codigo;
+    this.inputPostRequestModel.fecha = "\/Date(928171200000-0600)\/";
+    this.inputPostRequestModel.bodega = this.cellarEntryModel.codigo;
+    
 
     console.log(this.inputPostRequestModel);
     this.apiService.addInputRequest(this.inputPostRequestModel).subscribe(
@@ -178,16 +205,17 @@ export class OrderViewComponent implements OnInit {
   }
 
   searchInput() {
-    for (const i of this.inputList) {
-      if (this.searchInputModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
+    for (const i of this.cellarEntryModel.listaInsumosEnBodega) {
+      if (this.searchInputModel.nombre.toUpperCase() === i.insumo.nombre.toUpperCase()) {
         this.inputExist = true;
-        this.searchInputModel2 = i;
+        this.searchInputModel2 = i.insumo;
         return;
       } else {
         this.inputExist = false;
       }
     }
   }
+  
 
   pushIntoEntryList() {
     this.inputExist = false;
@@ -239,4 +267,44 @@ export class OrderViewComponent implements OnInit {
     this.inputDiscardList.splice(i, 1);
     this.validateDiscarList();
   }
+
+  /** Metodos de bodega */
+    /** Used to validate combo on cellar */
+    validateCellar(value){
+      if (value === 'default'){
+        this.cellarHasError = true;
+      } else {
+        this.cellarHasError = false;
+        this.searchCellar();
+      }
+    }
+
+    searchCellar() {
+      for (const i of this.cellarList) {
+        if (this.auxN.toUpperCase() === i.nombre.toUpperCase()) {
+          this.cellarEntryModel = i;
+          return;
+        }
+      }
+    }
+
+
+
+
+    requestDecision(value: string){
+      this.inputRequestDesicionModel.admin = this.localUser;
+      this.inputRequestDesicionModel.solicitud = this.inputRequestModel;
+      this.inputRequestDesicionModel.estado = value;
+      this.apiService.setInputRequestDecision(this.inputRequestDesicionModel).subscribe(
+        data => {
+          this.inputRequestDesicionModel = data;
+        }
+      );
+    }
+
+
+
+
+
+
 }
