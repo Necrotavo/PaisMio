@@ -41,8 +41,8 @@ namespace DAO
         /// <returns>true si se agregó correctamente, false si ocurrió algún error</returns>
         public string agregarSupervisor(DO_Operario doOperario, string queryOperario) {
 
-            Console.WriteLine("BEGIN TRANSACTION " + queryOperario + queryInsertar + " COMMIT");
-            SqlCommand comandoInsertar = new SqlCommand("BEGIN TRANSACTION "+queryOperario+queryInsertar+" COMMIT", conexion);
+            Console.WriteLine("BEGIN TRANSACTION BEGIN TRY " + queryOperario + queryInsertar + " COMMIT END TRY BEGIN CATCH ROLLBACK END CATCH");
+            SqlCommand comandoInsertar = new SqlCommand("BEGIN TRANSACTION BEGIN TRY " + queryOperario+queryInsertar+ " COMMIT END TRY BEGIN CATCH ROLLBACK END CATCH", conexion);
             comandoInsertar.Parameters.AddWithValue("@correo", doOperario.correo);
             comandoInsertar.Parameters.AddWithValue("@estado", "HABILITADO");
             comandoInsertar.Parameters.AddWithValue("@nombre", doOperario.nombre);
@@ -55,11 +55,17 @@ namespace DAO
                     conexion.Open();
                 }
 
-                comandoInsertar.ExecuteNonQuery();
+                if (comandoInsertar.ExecuteNonQuery() > 0)
+                {
+                    DAO_Operario DAOoperario = new DAO_Operario();
 
-                DAO_Operario DAOoperario = new DAO_Operario();
+                    return DAOoperario.nuevaContrasena(doOperario.correo);
+                }
+                else {
+                    return null;
+                }
+
                 
-                return DAOoperario.nuevaContrasena(doOperario.correo);
             }
             catch (Exception)
             {
