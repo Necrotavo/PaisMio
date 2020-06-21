@@ -20,7 +20,7 @@ export class Order {
         this.correoAdminIngreso = correoAdminIngreso;
         this.listaProductos = listaProductos;
 
-        this.doAnalisisAA = new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array <AnalysisPC>());
+        this.doAnalisisAA = new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', new Array <AnalysisPC>());
 
     }
 
