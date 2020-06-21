@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportComparativeComponent implements OnInit {
 
-  constructor() { }
+  years: Array<number>;
+  months: Array<string>;
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.years = [ 2018, 2019, 2020, 2021, 2022, 2023, 2024 ];
+    this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   }
+
+  constructor() { }
 
 }

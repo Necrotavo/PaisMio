@@ -422,7 +422,7 @@ export class ApiService {
 
   setInputRequestDecision(inputRequestDesicion: InputRequestDesicion): Observable<InputRequestDesicion> {
     return this.http.post<InputRequestDesicion>(inputRequestDESICION, inputRequestDesicion, HttpOptions).pipe(
-      tap((i: InputRequestDesicion) => console.log(`searched input request w/ id=${i.solicitud.codigo} by order`)),
+      tap((i: InputRequestDesicion) => console.log(`searched input request w/ id=${i.solicitud} by order`)),
       catchError(this.handleErrors<InputRequestDesicion>(`getInputRequestByOrder`))
     );
   }
