@@ -4,6 +4,7 @@ import { Order } from 'src/models/order';
 import { ApiService } from '../api.service';
 import { InputRequest } from 'src/models/inputRequest';
 import { InputQ } from 'src/models/inputQ';
+import { Input } from 'src/models/input';
 import { InputRequestDesicion } from 'src/models/inputRequestDecision';
 import { User } from 'src/models/user';
 import { Client } from 'src/models/client';
@@ -23,6 +24,7 @@ export class OrderViewComponent implements OnInit {
   /** Object Declarations */
   order: Order;
   inputRequest: InputRequest;
+  input: Input;
 
   user: User;
   client: Client;
@@ -35,6 +37,9 @@ export class OrderViewComponent implements OnInit {
   inputRequestListByUser: InputRequest[];
   inputRequestList: InputRequest[];
   productEntryList: Array<ProductInOrder> = [];
+  inputList: Input[];
+  inputConsumeList: Array<InputQ> = [];
+  inputDiscardList: Array<InputQ> = [];
 
   /** Data Return Objects */
   objInputRequest: InputRequest;
@@ -42,12 +47,24 @@ export class OrderViewComponent implements OnInit {
 
 
   /** Filter Terms */
-  /** Combo Validations */
+
+  /** Validations */
+  inputExist = false;
+  listIsNotEmpty = false;
+  discardListIsNotEmpty = false;
+
   /** Models */
-  inputRequestModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, '', '', '', '');
-  inputRequestDetailsModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, '', '', '', '');
+  inputRequestModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, '', '', '', '', '');
+  inputPostRequestModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, 'jojo@goldenwind.com', '', '', '', '');
+  inputRequestDetailsModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, '', '', '', '', '');
   inputRequestDesicionModel = new InputRequestDesicion(this.inputRequest, this.user, '');
   userModel = new User('', '', '', '', '', 'default');
+  searchInputModel = new Input(0, '', 0, '', '', '');
+  searchInputModel2 = new Input(0, '', 0, '', '', '');
+  inputEntryModel = new InputQ(0, this.input);
+
+  /** Aux variables */
+  auxQ: number;
 
   /*
   clientModel = new Client('', '', '', '', '', '');
@@ -75,10 +92,17 @@ export class OrderViewComponent implements OnInit {
 
     this.data.activeOrder.subscribe(order => this.order = order);
     if (this.order === null) {
-      console.log('Soy null :(');
+      this.order = JSON.parse(localStorage.getItem('active order'));
+      console.log('Imprimo: ' + this.order.cliente);
     }
 
     this.getInputRequestByOrder();
+
+    this.apiService.getInputA().subscribe(
+      data => {
+        this.inputList = data;
+      }
+    );
 
   }
 
@@ -93,8 +117,11 @@ export class OrderViewComponent implements OnInit {
   /** InputRequest CRUD */
 
   postInputRequest(){
+    this.inputPostRequestModel.insumosConsumo = this.inputConsumeList;
+    this.inputPostRequestModel.insumosDescarte = this.inputDiscardList;
 
-    this.apiService.addInputRequest(this.inputRequestModel).subscribe(
+    console.log(this.inputPostRequestModel);
+    this.apiService.addInputRequest(this.inputPostRequestModel).subscribe(
       data => {
         this.objInputRequest = data;
       }
@@ -148,5 +175,68 @@ export class OrderViewComponent implements OnInit {
 
   asignRequest(request: InputRequest){
     this.inputRequestModel = request;
+  }
+
+  searchInput() {
+    for (const i of this.inputList) {
+      if (this.searchInputModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
+        this.inputExist = true;
+        this.searchInputModel2 = i;
+        return;
+      } else {
+        this.inputExist = false;
+      }
+    }
+  }
+
+  pushIntoEntryList() {
+    this.inputExist = false;
+    this.inputEntryModel.cantidadDisponible = this.auxQ;
+    this.inputEntryModel.insumo = this.searchInputModel2;
+    this.inputConsumeList.push(this.inputEntryModel);
+    this.inputEntryModel = new InputQ(0, this.input);
+    this.auxQ = 0;
+    this.searchInputModel2 = new Input(0, '', 0, '', '', '');
+    this.searchInputModel = new Input(0, '', 0, '', '', '');
+    this.validateList();
+    this.inputExist = false;
+  }
+
+  validateList(){
+    if (this.inputConsumeList.length > 0){
+      this.listIsNotEmpty = true;
+    } else {
+      this.listIsNotEmpty = false;
+    }
+  }
+
+  removeFromList(i: number){
+    this.inputConsumeList.splice(i, 1);
+    this.validateList();
+  }
+
+  pushIntoDiscardList() {
+    this.inputEntryModel.cantidadDisponible = this.auxQ;
+    this.inputEntryModel.insumo = this.searchInputModel2;
+    this.inputDiscardList.push(this.inputEntryModel);
+    this.inputEntryModel = new InputQ(0, this.input);
+    this.auxQ = 0;
+    this.searchInputModel2 = new Input(0, '', 0, '', '', '');
+    this.searchInputModel = new Input(0, '', 0, '', '', '');
+    this.validateDiscarList();
+    this.inputExist = false;
+  }
+
+  validateDiscarList(){
+    if (this.inputDiscardList.length > 0){
+      this.discardListIsNotEmpty = true;
+    } else {
+      this.discardListIsNotEmpty = false;
+    }
+  }
+
+  removeFromDiscardList(i: number){
+    this.inputDiscardList.splice(i, 1);
+    this.validateDiscarList();
   }
 }

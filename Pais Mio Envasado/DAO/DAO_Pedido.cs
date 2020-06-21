@@ -339,9 +339,18 @@ namespace DAO
         {
             SqlCommand comandoActualizar = new SqlCommand("UPDATE PEDIDO SET ADM_OPE_CORREO = @correo, ESTADO = @estado, PED_FECHA_DESPACHO = @fecha WHERE PED_CODIGO = @codigo", conexion);
 
+            if (estado == "EN PROCESO")
+            {
+                comandoActualizar.Parameters.AddWithValue("@correo", DBNull.Value);
+                comandoActualizar.Parameters.AddWithValue("@fecha", DBNull.Value);
+            }
+            else
+            {
+                comandoActualizar.Parameters.AddWithValue("@correo", correoAdmin);
+                comandoActualizar.Parameters.AddWithValue("@fecha", fechaDespacho);
+            }
             comandoActualizar.Parameters.AddWithValue("@estado", estado);
-            comandoActualizar.Parameters.AddWithValue("@correo", correoAdmin);
-            comandoActualizar.Parameters.AddWithValue("@fecha", fechaDespacho.ToString("dd/MM/yyyy"));
+           
             comandoActualizar.Parameters.AddWithValue("@codigo", codigoPedido);
 
 

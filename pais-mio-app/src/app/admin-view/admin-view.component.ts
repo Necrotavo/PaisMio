@@ -120,7 +120,7 @@ export class AdminViewComponent implements OnInit {
   cellarUpdateModel = new Cellar(0, '', '', '', '', this.inputQList);
   cellarAdminModel = new CellarAdmin(this.cellar, '');
   moveInputModel = new MoveInput(0, 0, 0, 0);
-  inputRequestModel = new InputRequest(0, 0, 0, this.inputQList, this.inputQListDiscard, '', '', '', '');
+  inputRequestModel = new InputRequest(0, 0, 0, this.inputQList, this.inputQListDiscard, '', '', '', '', '');
   inputRequestDesicionModel = new InputRequestDesicion(this.inputRequest, this.user, '');
   unitModel = new Unit('');
 
@@ -399,7 +399,7 @@ export class AdminViewComponent implements OnInit {
       this.statusHasError = false;
     }
   }
-  
+
    /** Used to validate combo on input update status */
    validateUserStatus(value){
     if (value === 'default'){
@@ -485,13 +485,12 @@ export class AdminViewComponent implements OnInit {
 
     /** Update methods */
 
-    /**Input */
+    /** Input */
     chargeInputToUpdate(inputToUpdate: Input){
       this.inputUpdateModel = inputToUpdate;
     }
 
     updateInput(){
-      //console.log(this.clientModel);
       this.apiService.updateInput(this.inputUpdateModel).subscribe(
         data => {
           this.objInput = data;
@@ -500,7 +499,7 @@ export class AdminViewComponent implements OnInit {
       );
     }
 
-    /**User */
+    /** User */
 
     chargeUserToUpdate(userToUpdate: User){
       this.userUpdateModel = userToUpdate;
@@ -516,7 +515,7 @@ export class AdminViewComponent implements OnInit {
       );
     }
 
-    /**Client */
+    /** Client */
 
     chargeClientToUpdate(clientToUpdate: Client){
       this.clientUpdateModel = clientToUpdate;
@@ -532,7 +531,7 @@ export class AdminViewComponent implements OnInit {
       );
     }
 
-    /**Product */
+    /** Product */
 
     chargeProductToUpdate(productToUpdate: Product){
       this.productUpdateModel = productToUpdate;
@@ -548,7 +547,7 @@ export class AdminViewComponent implements OnInit {
       );
     }
 
-    /**Cellar */
+    /** Cellar */
 
     chargeCellarToUpdate(cellarToUpdate: Cellar){
       this.cellarUpdateModel = cellarToUpdate;
