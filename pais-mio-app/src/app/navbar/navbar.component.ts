@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit {
   orderList: Order[];
   count: number;
   activeMessage: string;
+  userExist = false;
 
   userIn = new User('', '', '', '', '', '');
 
@@ -24,7 +25,10 @@ export class NavbarComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit(): void {
+
     this.data.activeOrder.subscribe(order => this.order = order);
+
+    this.checkNavbar();
 
     /** Gets all Orders on Init */
     this.apiService.getOrder().subscribe(
@@ -40,7 +44,6 @@ export class NavbarComponent implements OnInit {
         }
       }
     );
-
   }
 
   newOrder(i: number) {
@@ -49,10 +52,10 @@ export class NavbarComponent implements OnInit {
 
   checkNavbar() {
     JSON.parse(localStorage.getItem('user logged'));
-    if (this.userIn.correo === '') {
-      return false;
+    if (this.userIn === null) {
+      return this.userExist = true;
     } else {
-      return true;
+      return this.userExist = false;
     }
   }
 
