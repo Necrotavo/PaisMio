@@ -19,7 +19,7 @@
                 </li>
             </ul>
         </div>
-        
+
         <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="detalles">
@@ -94,14 +94,13 @@
 
                         <!--Modal + Button start-->
 
-                        
-                            <button type="button" class="btn btn-success" data-toggle="modal"
-                                data-target="#requestModal">
-                                <i class="icon ion-plus">
-                                </i>
-                                Crear solicitud de insumos
-                            </button>
-                        
+
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#requestModal">
+                            <i class="icon ion-plus">
+                            </i>
+                            Crear solicitud de insumos
+                        </button>
+
 
                         <!--Modal + Button end-->
                         <br>
@@ -119,7 +118,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let request of inputRequestListByOrder" data-target="#detailsModal" data-toggle="modal" (click)="asignRequest(request)">
+                        <tr *ngFor="let request of inputRequestListByOrder" data-target="#detailsModal"
+                            data-toggle="modal" (click)="asignRequest(request)">
                             <td>
                                 {{request.codigo}}
                             </td>
@@ -127,7 +127,7 @@
                                 {{request.operario}}
                             </td>
                             <td>
-                                <a >Ver detalles</a>
+                                <a>Ver detalles</a>
                             </td>
                             <td>
                                 {{request.estado}}
@@ -147,16 +147,15 @@
 
                         <!-- Modal + button start -->
                         <!--Only when there is no analysis made-->
-                        
-                            
-                                <button type="button" class="btn btn-success" data-toggle="modal"
-                                    data-target="#analysisModal">
-                                    <i class="icon ion-ios-flask">
-                                    </i>
-                                    Ingresar análisis
-                                </button>
-                            
-                        
+
+
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#analysisModal">
+                            <i class="icon ion-ios-flask">
+                            </i>
+                            Ingresar análisis
+                        </button>
+
+
                         <br>
                         <br>
                         <!-- Modal + button end -->
@@ -463,6 +462,30 @@
                             </tr>
                         </thead>
                         <tbody>
+
+
+                            <tr>
+                                <th>
+                                    Bodega
+                                </th>
+                                <td>
+                                    <div class="form-field">
+                                        <select (blur)="validateCellar(cellarC.value)"
+                                            (change)="validateCellar(cellarC.value)" #cellarC="ngModel"
+                                            [class.is-invalid]="cellarHasError && cellarC.touched" class="form-control"
+                                            name="cellarC" [(ngModel)]="auxN">
+                                            <option value="default">Bodega</option>
+                                            <option *ngFor="let com of cellarList" value="{{com.nombre}}">{{com.nombre}}
+                                            </option>
+                                        </select>
+                                        <p><small class="text-danger"
+                                                [class.d-none]="!cellarHasError || cellarC.untouched">Bodega
+                                                Requerida</small></p>
+                                    </div>
+                                </td>
+                            </tr>
+
+
                             <tr>
                                 <th>
                                     Nombre de insumo
@@ -535,9 +558,10 @@
                             <tr *ngFor="let item of inputConsumeList; let i = index">
                                 <td>{{item.insumo.nombre}}</td>
                                 <td>{{item.cantidadDisponible}}</td>
-                                <td><button type="button" attr.value="{{i}}" class="btn btn-danger center" (click)="removeFromList(i)">
-                                    <i class="icon ion-minus">
-                                    </i>
+                                <td><button type="button" attr.value="{{i}}" class="btn btn-danger center"
+                                        (click)="removeFromList(i)">
+                                        <i class="icon ion-minus">
+                                        </i>
                                     </button>
                                 </td>
                             </tr>
@@ -558,9 +582,10 @@
                             <tr *ngFor="let item of inputDiscardList; let i = index">
                                 <td>{{item.insumo.nombre}}</td>
                                 <td>{{item.cantidadDisponible}}</td>
-                                <td><button type="button" attr.value="{{i}}" class="btn btn-danger center" (click)="removeFromDiscardList(i)">
-                                    <i class="icon ion-minus">
-                                    </i>
+                                <td><button type="button" attr.value="{{i}}" class="btn btn-danger center"
+                                        (click)="removeFromDiscardList(i)">
+                                        <i class="icon ion-minus">
+                                        </i>
                                     </button>
                                 </td>
                             </tr>
@@ -572,7 +597,8 @@
                                 Notas
                             </td>
                             <td>
-                                <textarea class="form-control" id="request-text" #nameInputR="ngModel" name="nameInputR" [(ngModel)]="inputPostRequestModel.notas"
+                                <textarea class="form-control" id="request-text" #nameInputR="ngModel" name="nameInputR"
+                                    [(ngModel)]="inputPostRequestModel.notas"
                                     placeholder="Necesito 3 extra, por que se dañaron."></textarea>
                             </td>
                         </tr>
@@ -581,7 +607,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" (click)="postInputRequest()">Enviar solicitud</button>
+                <button type="button" class="btn btn-primary" (click)="postInputRequest()" data-dismiss="modal">Enviar solicitud</button>
             </div>
 
         </div>
@@ -638,7 +664,7 @@
                                     Correo del Administrador
                                 </td>
                                 <td>
-                                    {{inputRequestModel.admin}}
+                                    {{inputRequestModel.administrador}}
                                 </td>
                             </tr>
                             <tr>
@@ -697,8 +723,7 @@
                     </table>
                     <div class="form-group">
                         <label for="message-text" class="form-control-label">Notas:</label>
-                        <textarea class="form-control" id="request-notes"
-                            placeholder="Necesito 3 extra, por que se dañaron.">{{inputRequestModel.notas}}</textarea>
+                        <textarea class="form-control" id="request-notes" disabled>{{inputRequestModel.notas}}</textarea>
                     </div>
                 </form>
             </div>
