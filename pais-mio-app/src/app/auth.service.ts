@@ -33,7 +33,7 @@ export class AuthService {
 
   userLogin(user: LoginUser): Observable<User> {
     return this.userData$ = this.http.post<User>(userLoginPOST, user, HttpOptions).pipe(
-      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
+      tap((i: User) => console.log(`added user w/ id=${i}`)),
       catchError(this.handleErrors<User>(`addUser`))
     );
   }
