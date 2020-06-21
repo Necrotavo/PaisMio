@@ -119,7 +119,6 @@
                         </tr>
                     </thead>
                     <tbody>
-<!--AQUI ESTOY-->
                         <tr *ngFor="let request of inputRequestListByOrder" data-target="#detailsModal" data-toggle="modal" (click)="asignRequest(request)">
                             <td>
                                 {{request.codigo}}
@@ -429,7 +428,6 @@
     </div>
 </div>
 
-
 <!-- Modal Input request Start-->
 <!-- Modal -->
 <div class="modal fade" id="requestModal" tabindex="-1" role="dialog">
@@ -447,98 +445,143 @@
             </div>
 
             <div class="modal-body">
-                <form>
+                <div>
+                    <h6>Ingrese los insumo</h6>
+                </div>
+                <form #inputRequestForm="ngForm" (ngSubmit)="postInputRequest()" novalidate>
                     <div class="form-group">
                         <div class="tab-header clearfix">
                             <div class="float-left">
-                                <div class="search-field">
-                                    <i class="ion-android-search"></i>
-                                    <input type="text" class="input-search" placeholder=" Buscar...">
-                                </div>
-                                <br>
-                                <a href="#">
-                                    <button type="button" class="btn btn-success">
-                                        <i class="icon ion-plus">
-                                        </i>
-                                        Agregar insumo
-                                    </button>
-                                </a>
                             </div>
                         </div>
                     </div>
-
                     <table class="table table-striped table-responsive">
                         <thead>
                             <tr>
-                                <th>Insumo</th>
-                                <th>Cantidad</th>
-                                <th>Total</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <th>
+                                    Nombre de insumo
+                                </th>
                                 <td>
-                                    Tapa de pacha
-                                </td>
-                                <td>
-                                    <div>
-                                        <input type="number" min="1" max="99" value="33" />
+                                    <div class="form-field" *ngIf="!inputExist">
+                                        <input type="text" (keyup)="searchInput()" required #nombreIQ="ngModel"
+                                            class="form-control" [class.is-invalid]="!inputExist && nombreIQ.touched "
+                                            placeholder="Codigo" name="nombreIQ" [(ngModel)]="searchInputModel.nombre">
+                                        <div *ngIf="nombreIQ.errors && (nombreIQ.invalid || nombreIQ.touched)">
+                                            <p><small class="text-danger"
+                                                    *ngIf="nombreIQ.errors.required && nombreIQ.touched">Nombre de
+                                                    insumo
+                                                    requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="nombreIQ.touched && !inputExist">El
+                                                    insumo no
+                                                    existe </small></p>
+                                        </div>
                                     </div>
-                                </td>
-                                <td>
-                                    33
+                                    <div *ngIf="inputExist">
+                                        {{searchInputModel2.nombre}}
+                                    </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="inputExist">
+                                <th>
+                                    Cantidad
+                                </th>
                                 <td>
-                                    Tapa de pacha
-                                </td>
-                                <td>
-                                    <div>
-                                        <input type="number" min="1" max="99" value="33" />
+                                    <div class="form-field">
+                                        <input type="number" required #inputIQ="ngModel" class="form-control"
+                                            [class.is-invalid]="inputIQ.invalid && inputIQ.touched"
+                                            placeholder="Cantidad" name="inputIQ" [(ngModel)]="auxQ">
+                                        <div *ngIf="inputIQ.errors && (inputIQ.invalid || inputIQ.touched)">
+                                            <p><small class="text-danger"
+                                                    *ngIf="inputIQ.errors.required && inputIQ.touched">Cantidad
+                                                    requerida</small></p>
+                                        </div>
                                     </div>
                                 </td>
+                            </tr>
+                            <tr *ngIf="inputExist">
                                 <td>
-                                    33
+                                    <button type="button" class="btn btn-success center" (click)="pushIntoEntryList()">
+                                        <i class="icon ion-plus">
+                                        </i>
+                                        Consumir</button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger center" (click)="pushIntoDiscardList()">
+                                        <i class="icon ion-plus">
+                                        </i>
+                                        Descartar</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-
-                    <table class="table table-striped table-responsive">
-                        <thead>
-                            <tr>
-                                <th>Insumo</th>
-                                <th>Cantidad</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    pacha
-                                </td>
-                                <td>
-                                    <div>
-                                        <input type="number" min="1" max="99" value="33" />
-                                    </div>
-                                </td>
-                                <td>
-                                    33
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="form-group">
-                        <label for="message-text" class="form-control-label">Notas:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
+                    <div *ngIf="listIsNotEmpty">
+                        <h6>Insumos a consumir</h6>
                     </div>
+                    <table *ngIf="listIsNotEmpty" class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Cantidad a agregar</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of inputConsumeList; let i = index">
+                                <td>{{item.insumo.nombre}}</td>
+                                <td>{{item.cantidadDisponible}}</td>
+                                <td><button type="button" attr.value="{{i}}" class="btn btn-danger center" (click)="removeFromList(i)">
+                                    <i class="icon ion-minus">
+                                    </i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div *ngIf="discardListIsNotEmpty">
+                        <h6>Insumos por descarte</h6>
+                    </div>
+                    <table *ngIf="discardListIsNotEmpty" class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Cantidad a agregar</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of inputDiscardList; let i = index">
+                                <td>{{item.insumo.nombre}}</td>
+                                <td>{{item.cantidadDisponible}}</td>
+                                <td><button type="button" attr.value="{{i}}" class="btn btn-danger center" (click)="removeFromDiscardList(i)">
+                                    <i class="icon ion-minus">
+                                    </i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped table-responsive">
+                        <tr>
+                            <td>
+                                Notas
+                            </td>
+                            <td>
+                                <textarea class="form-control" id="request-text" #nameInputR="ngModel" name="nameInputR" [(ngModel)]="inputPostRequestModel.notas"
+                                    placeholder="Necesito 3 extra, por que se dañaron."></textarea>
+                            </td>
+                        </tr>
+                    </table>
                 </form>
             </div>
-
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Enviar solicitud</button>
+                <button type="button" class="btn btn-primary" (click)="postInputRequest()">Enviar solicitud</button>
             </div>
 
         </div>

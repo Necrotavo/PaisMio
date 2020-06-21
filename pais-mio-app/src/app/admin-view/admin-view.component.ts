@@ -52,6 +52,7 @@ export class AdminViewComponent implements OnInit {
 
   /** Object Lists */
   orderList: Order[];
+  orderTlist: Order[];
   inputList: Input[];
   userList: User[];
   clientList: Client[];
@@ -119,7 +120,7 @@ export class AdminViewComponent implements OnInit {
   cellarUpdateModel = new Cellar(0, '', '', '', '', this.inputQList);
   cellarAdminModel = new CellarAdmin(this.cellar, '');
   moveInputModel = new MoveInput(0, 0, 0, 0);
-  inputRequestModel = new InputRequest(0, 0, 0, this.inputQList, this.inputQListDiscard, '', '', '', '');
+  inputRequestModel = new InputRequest(0, 0, 0, this.inputQList, this.inputQListDiscard, '', '', '', '', '');
   inputRequestDesicionModel = new InputRequestDesicion(this.inputRequest, this.user, '');
   unitModel = new Unit('');
 
@@ -136,6 +137,9 @@ export class AdminViewComponent implements OnInit {
         this.orderList = data;
       }
     );
+
+    /**Get Total Orders on Init */
+    this.getTorder();
 
     /** Gets all Inputs on Init */
     this.getInput();
@@ -195,6 +199,15 @@ export class AdminViewComponent implements OnInit {
     this.apiService.addOrder(this.orderModel).subscribe(
       data => {
         this.objOrder = data;
+        this.getTorder();
+      }
+    );
+  }
+
+  getTorder(){
+    this.apiService.getTOrder().subscribe(
+      data => {
+        this.orderTlist = data;
       }
     );
   }
