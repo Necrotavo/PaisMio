@@ -116,8 +116,8 @@ export class OrderViewComponent implements OnInit {
     /** Gets Analysis Aguardiente */
     this.apiService.getAnalysisByID(this.order.codigo).subscribe(
       data => {
-        this.analysisModel = data;
-        this.order.doAnalisisAA = this.analysisModel;
+        this.order.doAnalisisAA = data;
+         
       }
     );
 
