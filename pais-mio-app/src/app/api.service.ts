@@ -490,8 +490,9 @@ export class ApiService {
       );
   }
 
-  getAnalysisByID(analysis: Analysis): Observable<Analysis> {
-    return this.http.post<Analysis>(analysisAASEARCH, analysis, HttpOptions).pipe(
+  getAnalysisByID(pedCodigo: number): Observable<Analysis> {
+    console.log(`CODIGO PEDIDO ${pedCodigo}`)
+    return this.http.post<Analysis>(analysisAASEARCH, pedCodigo, HttpOptions).pipe(
       tap((i: Analysis) => console.log(`added analysis w/ id=${i.pedCodigo}`)),
       catchError(this.handleErrors<Analysis>(`addAnalysis`))
     );
