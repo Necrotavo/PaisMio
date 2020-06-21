@@ -646,8 +646,8 @@ export class ApiService {
       );
   }
 
-  getOneCellar(cellar: Cellar): Observable<Cellar> {
-    return this.http.post<Cellar>(cellarGetOne, cellar, HttpOptions).pipe(
+  getOneCellar(code: number): Observable<Cellar> {
+    return this.http.post<Cellar>(cellarGetOne, code, HttpOptions).pipe(
       tap((i: Cellar) => console.log(`The cellar w/ id=${i} has returned`)),
       catchError(this.handleErrors<Cellar>(`getOneCellar`))
     );
