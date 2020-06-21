@@ -63,13 +63,14 @@ export class OrderViewComponent implements OnInit {
   inputRequestModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, '', '', '', '', '');
   inputPostRequestModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, 'jojo@goldenwind.com', '', '', '', '');
   inputRequestDetailsModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, '', '', '', '', '');
-  inputRequestDesicionModel = new InputRequestDesicion(this.inputRequest, this.user, '');
+  inputRequestDesicionModel = new InputRequestDesicion(this.inputRequestModel, this.user, '');
   userModel = new User('', '', '', '', '', 'default');
   searchInputModel = new Input(0, '', 0, '', '', '');
   searchInputModel2 = new Input(0, '', 0, '', '', '');
   inputEntryModel = new InputQ(0, this.input);
   localUser = new User('', '', '', '', '', '');
   cellarEntryModel = new Cellar(0, '', '', '', '', this.inputEntryList);
+
 
   /** Aux variables */
   auxQ: number;
@@ -286,6 +287,24 @@ export class OrderViewComponent implements OnInit {
         }
       }
     }
+
+
+
+
+    requestDecision(value: string){
+      this.inputRequestDesicionModel.admin = this.localUser;
+      this.inputRequestDesicionModel.solicitud = this.inputRequestModel;
+      this.inputRequestDesicionModel.estado = value;
+      this.apiService.setInputRequestDecision(this.inputRequestDesicionModel).subscribe(
+        data => {
+          this.inputRequestDesicionModel = data;
+        }
+      );
+    }
+
+
+
+
 
 
 }
