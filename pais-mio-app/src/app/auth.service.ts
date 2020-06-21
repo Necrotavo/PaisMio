@@ -2,22 +2,27 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpErrorResponse, HttpRequest } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 import { User } from '../models/user';
 import { LoginUser } from '../models/loginUser';
+import {Router} from '@angular/router';
+
 
 const HttpOptions = {
   headers: new HttpHeaders({'Content-type': 'application/json'})
 };
 
-const loginURL = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientes';
+const userLoginPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/Login';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  public userData$: Observable<User>;
+
+  constructor(private http: HttpClient, private router: Router) { }
 
   private handleErrors<T>(operation = 'operation', result?: T){
     return (error: any): Observable<T> => {
@@ -26,11 +31,23 @@ export class AuthService {
     };
   }
 
-  loginUser(loginUser: LoginUser): Observable<User> {
-    return this.http.post<User>(loginURL, loginUser, HttpOptions).pipe(
-      tap((i: User) => console.log(`logged in as user w/ id=${i.correo}`)),
-      catchError(this.handleErrors<User>(`loginUser`))
+  userLogin(user: LoginUser): Observable<User> {
+    return this.userData$ = this.http.post<User>(userLoginPOST, user, HttpOptions).pipe(
+      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
+      catchError(this.handleErrors<User>(`addUser`))
     );
+  }
+
+  async isLoggedIn() {
+    this.userData$ = JSON.parse(localStorage.getItem('user logged'));
+    console.log('Imprimo: ' + this.userData$);
+    if (localStorage.getItem('user logged')){
+    }
+  }
+
+  async logout() {
+    localStorage.removeItem('user logged');
+    this.router.navigateByUrl('/sign-in');
   }
 
 }
