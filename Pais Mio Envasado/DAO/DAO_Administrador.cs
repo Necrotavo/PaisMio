@@ -37,7 +37,7 @@ namespace DAO
         public string agregarAdministrador(DO_Operario doOperario, string querySupervisor) {
 
 
-            SqlCommand comandoInsertar = new SqlCommand("BEGIN TRANSACTION "+querySupervisor+queryInsertar+ " COMMIT", conexion);
+            SqlCommand comandoInsertar = new SqlCommand("BEGIN TRANSACTION BEGIN TRY " + querySupervisor+queryInsertar+ " COMMIT END TRY BEGIN CATCH ROLLBACK END CATCH", conexion);
 
             comandoInsertar.Parameters.AddWithValue("@correo", doOperario.correo);
             comandoInsertar.Parameters.AddWithValue("@estado", "HABILITADO");
@@ -50,12 +50,19 @@ namespace DAO
                 {
                     conexion.Open();
                 }
-                
-                comandoInsertar.ExecuteNonQuery();
 
-                DAO_Operario DAOoperario = new DAO_Operario();
+                if (comandoInsertar.ExecuteNonQuery() > 0)
+                {
 
-                return DAOoperario.nuevaContrasena(doOperario.correo);
+                    DAO_Operario DAOoperario = new DAO_Operario();
+
+                    return DAOoperario.nuevaContrasena(doOperario.correo);
+                }
+                else {
+                    return null;
+                }
+
+               
             }
             catch (Exception)
             {
