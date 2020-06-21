@@ -81,6 +81,7 @@ const inputRequestSEARCH = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/sol
 /** Order API URLs */
 const orderPOST = 'https://www.spepaismio.tk/WS_Pedido.svc/agregarPedido';
 const orderGET = 'https://www.spepaismio.tk/WS_Pedido.svc/listarPedidos';
+const orderGETtotalList = 'https://www.spepaismio.tk/WS_Pedido.svc/listarPedidosTotales';
 /** Falta Order */
 const orderUPDATE = 'https://www.spepaismio.tk/WS_Pedido.svc/Modificar';
 const orderDELETE = 'https://www.spepaismio.tk/WS_Pedido.svc/Eliminar';
@@ -138,6 +139,15 @@ export class ApiService {
         catchError(this.handleErrors(`getOrder`, []))
       );
   }
+
+  getTOrder(): Observable<Order[]> {
+    return this.http.get<Order[]>(`${orderGETtotalList}`)
+      .pipe(
+        tap(order => console.log('fetch order')),
+        catchError(this.handleErrors(`getTOrder`, []))
+      );
+  }
+  
 
   getOrderByClient(client: string): Observable<User> {
     const url = `${apiURL}/${client}`;
