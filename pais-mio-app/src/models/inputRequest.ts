@@ -13,8 +13,8 @@ export class InputRequest {
     notas: string;
 
     constructor(codigo: number, bodega: number, codigoPedido: number,
-        insumosConsumo: InputQ[], insumosDescarte: InputQ[], operario: string,
-        admin: string, estado: string, fecha: string, notas: string) {
+                insumosConsumo: InputQ[], insumosDescarte: InputQ[], operario: string,
+                admin: string, estado: string, fecha: string, notas: string) {
         this.codigo = codigo;
         this.bodega = bodega;
         this.codigoPedido = codigoPedido;

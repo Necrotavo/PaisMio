@@ -13,25 +13,22 @@ import {Router} from '@angular/router';
 })
 export class SignInComponent implements OnInit {
 
-  constructor(private apiService: ApiService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) { }
 
   loginUser = new LoginUser('', '');
   objLogin: User = new User('', '', '', '', '', 'default');
   isCorrect = false;
 
-  /** constructor(private auth: AuthService) { } */
-
   ngOnInit(): void {
   }
 
   login(){
-    return this.apiService.userLogin(this.loginUser).subscribe(
+    return this.auth.userLogin(this.loginUser).subscribe(
       data => {
         this.objLogin = data;
         this.isCorrect = true;
-
         localStorage.setItem('user logged', JSON.stringify(this.objLogin));
-        this.router.navigateByUrl('/index-pm-app');
+        this.router.navigateByUrl('/');
       }
     );
   }

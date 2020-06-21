@@ -12,21 +12,22 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { UserViewComponent } from './user-view/user-view.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { RouterGuardGuard } from './router-guard.guard';
 
 
 const routes: Routes = [
-  {path: '', component: IndexPmAppComponent},
-  {path: 'index-pm-app', component: IndexPmAppComponent},
-  {path: 'admin-view', component: AdminViewComponent},
-  {path: 'change-password', component: ChangePasswordComponent},
-  {path: 'inventory-control', component: InventoryControlComponent},
-  {path: 'order-view', component: OrderViewComponent},
-  {path: 'recover-password', component: RecoverPasswordComponent},
-  {path: 'report-comparative', component: ReportComparativeComponent},
-  {path: 'report-monthly', component: ReportMonthlyComponent},
+  {path: '', component: IndexPmAppComponent , canActivate: [RouterGuardGuard]},
+  {path: 'index-pm-app', component: IndexPmAppComponent, canActivate: [RouterGuardGuard]},
+  {path: 'admin-view', component: AdminViewComponent, canActivate: [RouterGuardGuard]},
+  {path: 'change-password', component: ChangePasswordComponent, canActivate: [RouterGuardGuard]},
+  {path: 'inventory-control', component: InventoryControlComponent, canActivate: [RouterGuardGuard]},
+  {path: 'order-view', component: OrderViewComponent, canActivate: [RouterGuardGuard]},
+  {path: 'recover-password', component: RecoverPasswordComponent, canActivate: [RouterGuardGuard]},
+  {path: 'report-comparative', component: ReportComparativeComponent, canActivate: [RouterGuardGuard]},
+  {path: 'report-monthly', component: ReportMonthlyComponent, canActivate: [RouterGuardGuard]},
   {path: 'sign-in', component: SignInComponent},
-  {path: 'sign-up', component: SignUpComponent},
-  {path: 'user-view', component: UserViewComponent},
+  {path: 'sign-up', component: SignUpComponent, canActivate: [RouterGuardGuard]},
+  {path: 'user-view', component: UserViewComponent, canActivate: [RouterGuardGuard]},
   {path: '**', component: ErrorPageComponent}
 ];
 

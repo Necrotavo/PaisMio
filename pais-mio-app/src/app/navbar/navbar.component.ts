@@ -3,7 +3,8 @@ import { DataService } from '../data.service';
 import { Order } from 'src/models/order';
 import { User } from 'src/models/user';
 import { ApiService } from '../api.service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +20,8 @@ export class NavbarComponent implements OnInit {
 
   userIn = new User('', '', '', '', '', '');
 
-  constructor(private data: DataService, private apiService: ApiService, private router: Router) { }
+  constructor(private data: DataService, private apiService: ApiService, private router: Router,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.data.activeOrder.subscribe(order => this.order = order);
@@ -31,7 +33,7 @@ export class NavbarComponent implements OnInit {
         this.count = this.orderList.length;
         if (this.count === 1) {
           this.activeMessage = this.count + ' Pedido activo';
-        } else  if (this.count === 0){
+        } else if (this.count === 0) {
           this.activeMessage = 'No hay pedidos activos';
         } else {
           this.activeMessage = this.count + ' Pedidos activos';
@@ -55,8 +57,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('userLogged');
-    this.router.navigateByUrl('/sign-in');
+    this.authService.logout();
   }
 
 }
