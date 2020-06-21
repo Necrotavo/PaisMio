@@ -327,7 +327,7 @@ export class AdminViewComponent implements OnInit {
 
   getOneCellar(){
 
-    this.apiService.getOneCellar(this.cellarModel).subscribe(
+    this.apiService.getOneCellar(this.cellarModel.codigo).subscribe(
       data => {
         this.objCellar = data;
       }

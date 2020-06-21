@@ -117,7 +117,6 @@
                             <th>Usuario</th>
                             <th>Detalles</th>
                             <th>Estado</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -130,7 +129,7 @@
                                 {{request.operario}}
                             </td>
                             <td>
-                                <a>Ver detalles</a>
+                                <a style="color: #1a75ff;">Ver detalles</a>
                             </td>
                             <td *ngIf="request.estado === 'APROBADA'">
                                 <span class="badge badge-success">{{request.estado}}</span>
@@ -654,10 +653,10 @@
 
                             <tr>
                                 <td>
-                                    Codigo de bodega
+                                    Bodega
                                 </td>
                                 <td>
-                                    {{inputRequestModel.bodega}}
+                                    {{cellarDetailModel.nombre}}
                                 </td>
                             </tr>
                             <tr >
@@ -754,8 +753,8 @@
 <!--Decision del admin-->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="requestDecision('RECHAZADA')">Rechazar</button>
-                <button type="button" class="btn btn-success" data-dismiss="modal" (click)="requestDecision('APROBADA')">Aceptar</button>
+                <button *ngIf="inputRequestModel.estado === 'PENDIENTE' && localUser.rol === 'ADMINISTRADOR'" type="button" class="btn btn-danger" data-dismiss="modal" (click)="requestDecision('RECHAZADA')">Rechazar</button>
+                <button *ngIf="inputRequestModel.estado === 'PENDIENTE' && localUser.rol === 'ADMINISTRADOR'" type="button" class="btn btn-success" data-dismiss="modal" (click)="requestDecision('APROBADA')">Aceptar</button>
             </div>
 
         </div>

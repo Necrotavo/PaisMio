@@ -191,8 +191,9 @@ namespace DAO
         /// <returns>El código de la entrada de insumo registrada, 0 si sucede un error</returns>
         public Int32 registrarEntradaInsumo(String correoOperario) {
             //return 6;
-            SqlCommand registrarEntrada = new SqlCommand("INSERT INTO ENTRADA_INSUMO (OPE_CORREO, ENI_FECHA) VALUES (@correoOperario," + DateTime.Now.ToString("dd/MM/yyyy") + ")", conexion);
+            SqlCommand registrarEntrada = new SqlCommand("INSERT INTO ENTRADA_INSUMO (OPE_CORREO, ENI_FECHA) VALUES (@correoOperario, @fecha)", conexion);
             registrarEntrada.Parameters.AddWithValue("@correoOperario", correoOperario);
+            registrarEntrada.Parameters.AddWithValue("@fecha", DateTime.Now);
 
             try
             {

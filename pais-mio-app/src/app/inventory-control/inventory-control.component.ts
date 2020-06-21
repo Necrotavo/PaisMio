@@ -5,6 +5,7 @@ import { InputQ } from 'src/models/inputQ';
 import { Input } from 'src/models/input';
 import { Cellar } from 'src/models/cellar';
 import { CellarAdmin } from 'src/models/cellarAdmin';
+import { User } from 'src/models/user';
 
 @Component({
   selector: 'app-inventory-control',
@@ -36,6 +37,7 @@ export class InventoryControlComponent implements OnInit {
   inputEntryModel = new InputQ(0, this.input);
   searchInputModel = new Input(0, '', 0, '', '', '');
   searchInputModel2 = new Input(0, '', 0, '', '', '');
+  localUser = new User('', '', '', '', '', '');
 
   /** Data return objects */
   objInputQ: InputQ;
@@ -80,6 +82,7 @@ export class InventoryControlComponent implements OnInit {
       }
     );
 
+    this.localUser = JSON.parse(localStorage.getItem('user logged'));
   }
 
   getInputQOnClick(){
@@ -111,7 +114,7 @@ export class InventoryControlComponent implements OnInit {
   /** Used to add a input entry */
   inputEntry() {
     this.cellarAdminModel.doBodega = this.cellarEntryModel;
-    this.cellarAdminModel.correoAdministrador = 'pal@lomo.com';
+    this.cellarAdminModel.correoAdministrador = this.localUser.correo;
 
     this.apiService.inputEntry(this.cellarAdminModel).subscribe(
       data => {

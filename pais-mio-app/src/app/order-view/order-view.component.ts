@@ -74,6 +74,7 @@ export class OrderViewComponent implements OnInit {
   analysisModel = new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array <AnalysisPC>());
   localUser = new User('', '', '', '', '', '');
   cellarEntryModel = new Cellar(0, '', '', '', '', this.inputEntryList);
+  cellarDetailModel = new Cellar(0, '', '', '', '', null);
 
 
   /** Aux variables */
@@ -144,7 +145,6 @@ export class OrderViewComponent implements OnInit {
         });
       }
     );
-
   }
 
   /**Analysis */
@@ -174,14 +174,14 @@ export class OrderViewComponent implements OnInit {
     this.inputPostRequestModel.codigoPedido = this.order.codigo;
     this.inputPostRequestModel.fecha = "\/Date(928171200000-0600)\/";
     this.inputPostRequestModel.bodega = this.cellarEntryModel.codigo;
-    
 
-    console.log(this.inputPostRequestModel);
     this.apiService.addInputRequest(this.inputPostRequestModel).subscribe(
       data => {
         this.objInputRequest = data;
       }
     );
+
+    this.getInputRequestByOrder();
   }
 
   getInputRequest(){
@@ -229,8 +229,18 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
+  getCellarById(code: number){
+
+    this.apiService.getOneCellar(code).subscribe(
+      data => {
+        this.cellarDetailModel = data;
+      }
+    );
+  }
+
   asignRequest(request: InputRequest){
     this.inputRequestModel = request;
+    this.getCellarById(this.inputRequestModel.bodega);
   }
 
   searchInput() {
@@ -244,7 +254,6 @@ export class OrderViewComponent implements OnInit {
       }
     }
   }
-  
 
   pushIntoEntryList() {
     this.inputExist = false;
@@ -317,9 +326,6 @@ export class OrderViewComponent implements OnInit {
       }
     }
 
-
-
-
     requestDecision(value: string){
       this.inputRequestDesicionModel.admin = this.localUser;
       this.inputRequestDesicionModel.solicitud = this.inputRequestModel;
@@ -329,11 +335,7 @@ export class OrderViewComponent implements OnInit {
           this.inputRequestDesicionModel = data;
         }
       );
+
+      this.getInputRequestByOrder();
     }
-
-
-
-
-
-
 }
