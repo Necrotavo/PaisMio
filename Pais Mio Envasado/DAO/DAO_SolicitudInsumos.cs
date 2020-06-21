@@ -155,7 +155,7 @@ namespace DAO
         private string descartadosConstructor(DO_SolicitudInsumos solicitud)
         {
             string query;
-            if (solicitud.listaConsumo.Count == 0)
+            if (solicitud.listaDescarte.Count == 0)
             {
                 return "";
             }
