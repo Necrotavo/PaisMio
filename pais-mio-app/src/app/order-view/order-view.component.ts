@@ -9,6 +9,9 @@ import { InputRequestDesicion } from 'src/models/inputRequestDecision';
 import { User } from 'src/models/user';
 import { Client } from 'src/models/client';
 import { ProductInOrder } from 'src/models/productInOrder';
+import { Analysis } from 'src/models/analysis';
+import { AnalysisPC } from 'src/models/analysisPC';
+
 
 @Component({
   selector: 'app-order-view',
@@ -62,6 +65,7 @@ export class OrderViewComponent implements OnInit {
   searchInputModel = new Input(0, '', 0, '', '', '');
   searchInputModel2 = new Input(0, '', 0, '', '', '');
   inputEntryModel = new InputQ(0, this.input);
+  analysisModel = new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array <AnalysisPC>());
 
   /** Aux variables */
   auxQ: number;
@@ -95,6 +99,16 @@ export class OrderViewComponent implements OnInit {
       this.order = JSON.parse(localStorage.getItem('active order'));
       console.log('Imprimo: ' + this.order.cliente);
     }
+
+
+
+    /** Gets Analysis Aguardiente */
+    this.apiService.getAnalysisByID(this.order.codigo).subscribe(
+      data => {
+        this.analysisModel = data;
+        this.order.doAnalisisAA = this.analysisModel;
+      }
+    );
 
     this.getInputRequestByOrder();
 

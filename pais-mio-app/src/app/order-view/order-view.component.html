@@ -17,6 +17,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#analysis" role="tab" data-toggle="tab">Análisis</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#despachar" role="tab" data-toggle="tab">Despachar</a>
+                </li>
             </ul>
         </div>
         
@@ -53,7 +56,7 @@
                         <tr>
                             <th>Fecha Emisión</th>
                             <td>
-                                01/05/2020
+                                {{order.fechaIngreso.substr(6,13) | date: 'dd/MM/yyyy'}}
                             </td>
                         </tr>
                         <tr>
@@ -195,6 +198,7 @@
                                 data-toggle="tab">Evaluación #2 <small
                                     class="form-text text-muted">Fisioquímica</small></a>
                         </li>
+                        
                     </ul>
                 </div>
 
@@ -215,17 +219,17 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row">
-                                            Cliente Fisico:
+                                            Cliente:
                                         <td>
-                                            Lico X
+                                            {{order.cliente.nombre}}
                                         </td>
                                     </tr>
                                     <tr>
                                         <th scope="row">
-                                            Cedula Jurídica:
+                                            Cédula:
                                         </th>
                                         <td>
-                                            3-101-XXX
+                                            {{order.cliente.cedula}}
                                         </td>
                                     </tr>
                                     <tr>
@@ -271,7 +275,7 @@
                                     </th>
                                     <td>
                                         <p class="badge badge-success">
-                                            Cumple
+                                            {{analysisModel.exGustativo}}
                                         </p>
                                     </td>
                                 </tr>
@@ -422,8 +426,7 @@
                         </table>
                     </div>
                 </div>
-            </div>
-
+            </div>           
         </div>
     </div>
 </div>
