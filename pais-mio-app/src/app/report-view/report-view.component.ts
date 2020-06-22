@@ -20,12 +20,12 @@ export class ReportViewComponent implements OnInit {
 
 
   /** Models */
-  inputReport = new InputReport(new ReportedInput[0], new InfoPaisMio(0,'','','','','',''), '','');
-  inputComparativeReport = new InputComparativeReport(new InputCompared[0], new InfoPaisMio(0,'','','','','',''),'','','','');
-  orderReport = new OrderReport(new Order[0],new InfoPaisMio(0,'','','','','',''),0,0);
+  inputReport = new InputReport(null, null, '','');
+  inputComparativeReport = new InputComparativeReport(null, null,'','','','');
+  orderReport = new OrderReport(null,null,0,0);
 
   /** Auxiliars */
-  auxN : string;
+  auxN = 'insumos';
 
   /** For combo validation */
   reportHasError = true;
