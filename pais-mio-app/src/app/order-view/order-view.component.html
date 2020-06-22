@@ -276,21 +276,30 @@
                                 <tr>
                                     <th>
                                         Examen visual:
-                                    </th>
-                                    <td>
+                                    </th>                                    
+                                    <td *ngIf ="order.doAnalisisAA.exVisual === 1">
                                         <p class="badge badge-success">
-                                            {{order.doAnalisisAA.exVisual}}
+                                            Cumple
+                                        </p>
+                                    </td>
+                                    <td *ngIf ="order.doAnalisisAA.exVisual === 0">
+                                        <p class="badge badge-danger">
+                                            No cumple
                                         </p>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <th>
                                         Examen olfativo:
                                     </th>
-                                    <td>
+                                    <td *ngIf ="order.doAnalisisAA.exOlfativo === 1">
                                         <p class="badge badge-success">
-                                            {{order.doAnalisisAA.exOlfativo}}
+                                            Cumple
+                                        </p>
+                                    </td>
+                                    <td *ngIf ="order.doAnalisisAA.exOlfativo === 0">
+                                        <p class="badge badge-danger">
+                                            No cumple
                                         </p>
                                     </td>
                                 </tr>
@@ -299,9 +308,14 @@
                                     <th>
                                         Examen gustativo:
                                     </th>
-                                    <td>
+                                    <td *ngIf ="order.doAnalisisAA.exGustativo === 1">
                                         <p class="badge badge-success">
-                                            {{order.doAnalisisAA.exGustativo}}
+                                            Cumple
+                                        </p>
+                                    </td>
+                                    <td *ngIf ="order.doAnalisisAA.exGustativo === 0">
+                                        <p class="badge badge-danger">
+                                            No cumple
                                         </p>
                                     </td>
                                 </tr>
@@ -310,9 +324,14 @@
                                     <th>
                                         Armonía sensorial:
                                     </th>
-                                    <td>
+                                    <td *ngIf ="order.doAnalisisAA.aSensorial === 1">
                                         <p class="badge badge-success">
-                                            {{order.doAnalisisAA.aSensorial}}
+                                            Cumple
+                                        </p>
+                                    </td>
+                                    <td *ngIf ="order.doAnalisisAA.aSensorial === 0">
+                                        <p class="badge badge-danger">
+                                            No cumple
                                         </p>
                                     </td>
                                 </tr>
@@ -338,94 +357,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                
+                                <tr *ngFor="let afq of order.doAnalisisAA.analisisFQs">
                                     <th>
-                                        Grado Alcohólico Aparente
+                                        {{afq.tipoAnalisisFQ | titlecase}}
                                     </th>
                                     <td>
-                                        30.6±0.6
+                                        {{afq.medicionResultado}}
                                     </td>
                                     <td>
-                                        °GL a 20°C
+                                        {{afq.unidadCondicion}}
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th>
-                                        pH
-                                    </th>
-                                    <td>
-                                        6.8±0.5
-                                    </td>
-                                    <td>
-                                        a 20°C
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        Turbiedad
-                                    </th>
-                                    <td>
-                                        0.6±0.1
-                                    </td>
-                                    <td>
-                                        NTU’s
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        Densidad aparente
-                                    </th>
-                                    <td>
-                                        0.93±0.08
-                                    </td>
-                                    <td>
-                                        g/mL
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        Alcoholes Superiores
-                                    </th>
-                                    <td>
-                                        &lt;100
-                                    </td>
-                                    <td>
-                                        mg/L*
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        Aldehídos
-                                    </th>
-                                    <td>
-                                        &lt;100
-                                    </td>
-                                    <td>
-                                        mg/L*
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        Ésteres
-                                    </th>
-                                    <td>
-                                        &lt;100
-                                    </td>
-                                    <td>
-                                        mg/L de acetato de etilo*
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        Metanol
-                                    </th>
-                                    <td>
-                                        &lt;100
-                                    </td>
-                                    <td>
-                                        mg/L*
-                                    </td>
-                                </tr>
+                                
+                               
+                                
                             </tbody>
                         </table>
                     </div>
@@ -524,9 +470,9 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="number" required #inputIQ="ngModel" class="form-control"
+                                        <input type="number" min="1" max="{{aviableQuantity}}" required #inputIQ="ngModel" class="form-control"
                                             [class.is-invalid]="inputIQ.invalid && inputIQ.touched"
-                                            placeholder="Cantidad" name="inputIQ" [(ngModel)]="auxQ">
+                                            placeholder="Cantidad" name="inputIQ" [(ngModel)]="auxQ" (keyup)="validateEnryQuantity()">
                                         <div *ngIf="inputIQ.errors && (inputIQ.invalid || inputIQ.touched)">
                                             <p><small class="text-danger"
                                                     *ngIf="inputIQ.errors.required && inputIQ.touched">Cantidad
@@ -700,12 +646,9 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div>
-                        <h6>Insumos a consumir</h6>
-                        <br>
-                    </div>
                     <table class="table table-striped table-responsive">
                         <thead>
+                            <h6>Insumos a consumir</h6>
                             <tr>
                                 <th>Insumo</th>
                                 <th>Cantidad</th>
@@ -722,12 +665,9 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div>
-                        <h6>Insumos descartados</h6>
-                        <br>
-                    </div>
                     <table class="table table-striped table-responsive">
                         <thead>
+                            <h6>Insumos descartados</h6>
                             <tr>
                                 <th>Insumo</th>
                                 <th>Cantidad</th>
@@ -763,7 +703,7 @@
 
 <!-- Modal Input details End -->
 
-
+<!--Aquí estoy perro-->
 <!-- Analysis Modal Start -->
 <!-- Modal -->
 <div class="modal fade" id="analysisModal" tabindex="-1" role="dialog">
@@ -784,16 +724,16 @@
                 <div class="description">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#product-data" role="tab" data-toggle="tab">Datos
+                            <a class="nav-link active" href="#add-product-data" role="tab" data-toggle="tab">Datos
                                 <small class="form-text text-muted">Producto</small></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#sen-org-evaluation" role="tab" data-toggle="tab">Evaluación
+                            <a class="nav-link" href="#add-sen-org-evaluation" role="tab" data-toggle="tab">Evaluación
                                 #1 <small class="form-text text-muted">Sensorial y
                                     Organoléptica</small></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#physicochemical-evaluation" role="tab"
+                            <a class="nav-link" href="#add-physicochemical-evaluation" role="tab"
                                 data-toggle="tab">Evaluación #2 <small
                                     class="form-text text-muted">Fisioquímica</small></a>
                         </li>
@@ -802,7 +742,7 @@
 
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="product-data">
+                        <div role="tabpanel" class="tab-pane active" id="add-product-data">
 
                             <div class="tab-header clearfix">
                                 <div class="float-left">
@@ -820,35 +760,36 @@
                                     <tbody>
                                         <tr>
                                             <th scope="row">
-                                                <select>
+                                                <!--<select>
                                                     <option selected>Seleccionar
                                                     </option>
                                                     <option value="1">Cliente Físico:
                                                     </option>
                                                     <option value="2">Razón Social:
                                                     </option>
-                                                </select>
-
+                                                </select>-->
+                                                <p>Cliente: </p>   
                                             <td>
                                                 <div class="form-field">
-                                                    <input type="text" placeholder="Ingresar datos...">
+                                                    <p>{{order.cliente.nombre}}</p>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row">
-                                                <select>
+                                                <!--<select>
                                                     <option selected>Seleccionar
                                                     </option>
                                                     <option value="1">Cedula Física:
                                                     </option>
                                                     <option value="2">Cedula Jurídica:
                                                     </option>
-                                                </select>
+                                                </select>-->
+                                            <p>Cédula: </p>
                                             </th>
                                             <td>
                                                 <div class="form-field">
-                                                    <input type="text" placeholder="Ingresar datos...">
+                                                    <p>{{order.cliente.cedula}}</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -868,7 +809,7 @@
                                             </th>
                                             <td>
                                                 <div class="form-field">
-                                                    <input type="text" placeholder="Ingresar datos...">
+                                                    <p>{{order.codigo}}</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -878,7 +819,7 @@
 
                         </div>
 
-                        <div role="tabpane1" class="tab-pane" id="sen-org-evaluation">
+                        <div role="tabpane1" class="tab-pane" id="add-sen-org-evaluation">
                             <div class="tab-header clearfix">
                                 <div class="float-left">
                                     <h4>Evaluación Sensorial y Organoléptica</h4>
@@ -902,7 +843,7 @@
                                                 <option selected>Seleccionar</option>
                                                 <option value="1" class="badge badge-success">Cumple
                                                 </option>
-                                                <option value="2" class="badge badge-danger">No cumple
+                                                <option value="0" class="badge badge-danger">No cumple
                                                 </option>
                                             </select>
                                         </td>
@@ -917,7 +858,7 @@
                                                 <option selected>Seleccionar</option>
                                                 <option value="1" class="badge badge-success">Cumple
                                                 </option>
-                                                <option value="2" class="badge badge-danger">No cumple
+                                                <option value="0" class="badge badge-danger">No cumple
                                                 </option>
                                             </select>
                                         </td>
@@ -932,7 +873,7 @@
                                                 <option selected>Seleccionar</option>
                                                 <option value="1" class="badge badge-success">Cumple
                                                 </option>
-                                                <option value="2" class="badge badge-danger">No cumple
+                                                <option value="0" class="badge badge-danger">No cumple
                                                 </option>
                                             </select>
                                         </td>
@@ -947,7 +888,7 @@
                                                 <option selected>Seleccionar</option>
                                                 <option value="1" class="badge badge-success">Cumple
                                                 </option>
-                                                <option value="2" class="badge badge-danger">No cumple
+                                                <option value="0" class="badge badge-danger">No cumple
                                                 </option>
                                             </select>
                                         </td>
@@ -957,11 +898,11 @@
                             </table>
                         </div>
 
-                        <div role="tabpanel" class="tab-pane" id="physicochemical-evaluation">
+                        <div role="tabpanel" class="tab-pane" id="add-physicochemical-evaluation">
 
                             <div class="tab-header clearfix">
                                 <div class="float-left">
-                                    <h4>Evaluación Fisioquímica</h4>
+                                    <h4>Evaluación Fisioquímico</h4>
                                 </div>
                             </div>
 
@@ -974,9 +915,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th>
-                                            Grado Alcohólico Aparente
+                                    <tr *ngFor="let pq of pqsAnalysisList" >
+                                        <th>                                          
+                                            {{pq.tipoAnalisisFQ | titlecase}}
                                         </th>
                                         <td>
                                             <input type="text" placeholder="Ingresar datos...">
@@ -985,83 +926,7 @@
                                             <input type="text" placeholder="Ingresar datos...">
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th>
-                                            pH
-                                        </th>
-                                        <td>
-                                            <input type="text" placeholder="Ingresar datos...">
-                                        </td>
-                                        <td>
-                                            <input type="text" placeholder="Ingresar datos...">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            Turbiedad
-                                        </th>
-                                        <td>
-                                            <input type="text" placeholder="Ingresar datos...">
-                                        </td>
-                                        <td>
-                                            <input type="text" placeholder="Ingresar datos...">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            Densidad aparente
-                                        </th>
-                                        <td>
-                                            <input type="text" placeholder="Ingresar datos...">
-                                        </td>
-                                        <td>
-                                            <input type="text" placeholder="Ingresar datos...">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            Alcoholes Superiores
-                                        </th>
-                                        <td>
-                                            <input type="text" placeholder="Ingresar datos...">
-                                        </td>
-                                        <td>
-                                            <input type="text" placeholder="Ingresar datos...">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            Aldehídos
-                                        </th>
-                                        <td>
-                                            <input type="text" placeholder="Ingresar datos...">
-                                        </td>
-                                        <td>
-                                            <input type="text" placeholder="Ingresar datos...">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            Ésteres
-                                        </th>
-                                        <td>
-                                            <input type="text" placeholder="Ingresar datos...">
-                                        </td>
-                                        <td>
-                                            <input type="text" placeholder="Ingresar datos...">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            Metanol
-                                        </th>
-                                        <td>
-                                            <input type="text" placeholder="Ingresar datos...">
-                                        </td>
-                                        <td>
-                                            <input type="text" placeholder="Ingresar datos...">
-                                        </td>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
                         </div>

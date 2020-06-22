@@ -48,6 +48,7 @@ export class OrderViewComponent implements OnInit {
   inputDiscardList: Array<InputQ> = [];
   inputEntryList: Array<InputQ> = [];
   inputQListInCellar: Array<InputQ> = [];
+  pqsAnalysisList: Array <AnalysisPC> = [];
 
   /** Data Return Objects */
   objInputRequest: InputRequest;
@@ -80,6 +81,7 @@ export class OrderViewComponent implements OnInit {
   /** Aux variables */
   auxQ: number;
   auxN: string;
+  aviableQuantity: number;
 
   /*
   clientModel = new Client('', '', '', '', '', '');
@@ -99,6 +101,7 @@ export class OrderViewComponent implements OnInit {
   ngOnInit(): void {
 
     this.localUser = JSON.parse(localStorage.getItem('user logged'));
+    
     /** Gets all Orders on Init */
     this.apiService.getOrder().subscribe(
       data => {
@@ -106,10 +109,11 @@ export class OrderViewComponent implements OnInit {
       }
     );
 
-    /**Get current order */
+    /** Get current order */
     this.data.activeOrder.subscribe(order => this.order = order);
     this.data.activeOrder.subscribe((order) => {this.order = order;
       this.changeAnalysis(this.order);
+      this.getInputRequestByOrder();
     });
 
     if (this.order === null) {
@@ -123,11 +127,12 @@ export class OrderViewComponent implements OnInit {
     this.apiService.getAnalysisByID(this.order.codigo).subscribe(
       data => {
         this.order.doAnalisisAA = data;
-         
       }
     );
 
     this.getInputRequestByOrder();
+
+    this.getPQsAnalysis();
 
     this.apiService.getInputA().subscribe(
       data => {
@@ -147,15 +152,23 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
-  /**Analysis */
-  changeAnalysis( ordero : Order){
+  /** Analysis */
+  changeAnalysis( ordero: Order){
     this.apiService.getAnalysisByID(this.order.codigo).subscribe(
       data => {
         this.order.doAnalisisAA = data;
-         
       }
     );
   }
+
+  getPQsAnalysis(){
+    this.apiService.getPQAnalsis().subscribe(
+      data => {
+        this.pqsAnalysisList = data;
+      }
+    );
+  }
+
 
   validateAnalysisExistance(){
     if (this.order.doAnalisisAA !== null){
@@ -248,6 +261,7 @@ export class OrderViewComponent implements OnInit {
       if (this.searchInputModel.nombre.toUpperCase() === i.insumo.nombre.toUpperCase()) {
         this.inputExist = true;
         this.searchInputModel2 = i.insumo;
+        this.aviableQuantity = i.cantidadDisponible;
         return;
       } else {
         this.inputExist = false;
@@ -321,9 +335,21 @@ export class OrderViewComponent implements OnInit {
       for (const i of this.cellarList) {
         if (this.auxN.toUpperCase() === i.nombre.toUpperCase()) {
           this.cellarEntryModel = i;
+          this.resetInputRequestModal();
           return;
         }
       }
+    }
+
+    resetInputRequestModal(){
+      this.inputExist = false;
+      this.searchInputModel.nombre = '';
+      this.inputConsumeList = new Array<InputQ>();
+      this.inputDiscardList = Array<InputQ>();
+      this.listIsNotEmpty = false;
+      this.discardListIsNotEmpty = false;
+      this.auxQ = 0;
+      this.inputPostRequestModel.notas = '';
     }
 
     requestDecision(value: string){
@@ -337,5 +363,14 @@ export class OrderViewComponent implements OnInit {
       );
 
       this.getInputRequestByOrder();
+    }
+
+    validateEnryQuantity(){
+      if(this.auxQ > this.aviableQuantity){
+        this.auxQ = this.aviableQuantity;
+      } 
+      if(this.auxQ < 0){
+        this.auxQ = 0;
+      }
     }
 }
