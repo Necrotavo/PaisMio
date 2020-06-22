@@ -470,9 +470,9 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="number" required #inputIQ="ngModel" class="form-control"
+                                        <input type="number" min="1" max="{{aviableQuantity}}" required #inputIQ="ngModel" class="form-control"
                                             [class.is-invalid]="inputIQ.invalid && inputIQ.touched"
-                                            placeholder="Cantidad" name="inputIQ" [(ngModel)]="auxQ">
+                                            placeholder="Cantidad" name="inputIQ" [(ngModel)]="auxQ" (keyup)="validateEnryQuantity()">
                                         <div *ngIf="inputIQ.errors && (inputIQ.invalid || inputIQ.touched)">
                                             <p><small class="text-danger"
                                                     *ngIf="inputIQ.errors.required && inputIQ.touched">Cantidad
@@ -646,12 +646,9 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div>
-                        <h6>Insumos a consumir</h6>
-                        <br>
-                    </div>
                     <table class="table table-striped table-responsive">
                         <thead>
+                            <h6>Insumos a consumir</h6>
                             <tr>
                                 <th>Insumo</th>
                                 <th>Cantidad</th>
@@ -668,12 +665,9 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div>
-                        <h6>Insumos descartados</h6>
-                        <br>
-                    </div>
                     <table class="table table-striped table-responsive">
                         <thead>
+                            <h6>Insumos descartados</h6>
                             <tr>
                                 <th>Insumo</th>
                                 <th>Cantidad</th>

@@ -81,6 +81,7 @@ export class OrderViewComponent implements OnInit {
   /** Aux variables */
   auxQ: number;
   auxN: string;
+  aviableQuantity: number;
 
   /*
   clientModel = new Client('', '', '', '', '', '');
@@ -100,6 +101,7 @@ export class OrderViewComponent implements OnInit {
   ngOnInit(): void {
 
     this.localUser = JSON.parse(localStorage.getItem('user logged'));
+    
     /** Gets all Orders on Init */
     this.apiService.getOrder().subscribe(
       data => {
@@ -111,6 +113,7 @@ export class OrderViewComponent implements OnInit {
     this.data.activeOrder.subscribe(order => this.order = order);
     this.data.activeOrder.subscribe((order) => {this.order = order;
       this.changeAnalysis(this.order);
+      this.getInputRequestByOrder();
     });
 
     if (this.order === null) {
@@ -258,6 +261,7 @@ export class OrderViewComponent implements OnInit {
       if (this.searchInputModel.nombre.toUpperCase() === i.insumo.nombre.toUpperCase()) {
         this.inputExist = true;
         this.searchInputModel2 = i.insumo;
+        this.aviableQuantity = i.cantidadDisponible;
         return;
       } else {
         this.inputExist = false;
@@ -331,9 +335,21 @@ export class OrderViewComponent implements OnInit {
       for (const i of this.cellarList) {
         if (this.auxN.toUpperCase() === i.nombre.toUpperCase()) {
           this.cellarEntryModel = i;
+          this.resetInputRequestModal();
           return;
         }
       }
+    }
+
+    resetInputRequestModal(){
+      this.inputExist = false;
+      this.searchInputModel.nombre = '';
+      this.inputConsumeList = new Array<InputQ>();
+      this.inputDiscardList = Array<InputQ>();
+      this.listIsNotEmpty = false;
+      this.discardListIsNotEmpty = false;
+      this.auxQ = 0;
+      this.inputPostRequestModel.notas = '';
     }
 
     requestDecision(value: string){
@@ -347,5 +363,14 @@ export class OrderViewComponent implements OnInit {
       );
 
       this.getInputRequestByOrder();
+    }
+
+    validateEnryQuantity(){
+      if(this.auxQ > this.aviableQuantity){
+        this.auxQ = this.aviableQuantity;
+      } 
+      if(this.auxQ < 0){
+        this.auxQ = 0;
+      }
     }
 }
