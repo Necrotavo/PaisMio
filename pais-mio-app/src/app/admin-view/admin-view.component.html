@@ -51,7 +51,8 @@
 
                             </div>
                             <br>
-                            <button type="button" class="btn btn-success" data-toggle="modal"
+                            <button type="button" class="btn btn-success" (click)="orderForm.reset()"
+                                data-toggle="modal"
                                 data-target="#ordersModal">
                                 <i class="icon ion-plus">
                                 </i>
@@ -163,7 +164,8 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" data-toggle="modal"
+                            <button type="button" class="btn btn-success" (click)="inputForm.reset()"
+                            data-toggle="modal" 
                                 data-target="#inputsModal">
                                 <i class="icon ion-plus">
                                 </i>
@@ -188,9 +190,9 @@
                                 data-toggle="modal"
                                 data-target="#inputUpdateModal">
                                 <td>
-                                    {{com.codigo}}
+                                    {{com.id}}
                                 </td>
-                                <td>
+                                <td class="btn btn-link">
                                     {{com.nombre}}
                                 </td>
                                 <td>
@@ -221,7 +223,9 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#usersModal">
+                            <button type="button" class="btn btn-success" (click)="userForm.reset()"
+                            data-toggle="modal"
+                             data-target="#usersModal">
                                 <i class="icon ion-plus">
                                 </i>
                                 Crear usuario
@@ -248,7 +252,7 @@
                                 <td>
                                     {{user.apellidos}}
                                 </td>
-                                <td>
+                                <td class="btn btn-link">
                                     {{user.correo}}
                                 </td>
                                 <td>
@@ -295,11 +299,12 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" data-toggle="modal"
+                            <button type="button" class="btn btn-success" (click)="cellarForm.reset()"
+                            data-toggle="modal"
                                 data-target="#cellarModal">
                                 <i class="icon ion-plus">
                                 </i>
-                                Ingresar Bodega
+                                Crear Bodega
                             </button>
 
                         </div>
@@ -317,7 +322,7 @@
                         <tbody>
                             <tr *ngFor="let bodega of cellarList | filter:termB" (click)="chargeCellarToUpdate(bodega)" data-toggle="modal"
                             data-target="#cellarUpdateModal">
-                                <td>
+                                <td class="btn btn-link">
                                     {{bodega.nombre}}
                                 </td>
                                 <td>
@@ -347,10 +352,12 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#unitModal">
+                            <button type="button" class="btn btn-success" (click)="unitForm.reset()"
+                            data-toggle="modal" 
+                            data-target="#unitModal">
                                 <i class="icon ion-plus">
                                 </i>
-                                Ingresar Unidad de Medida
+                                Crear Unidad de Medida
                             </button>
 
                         </div>
@@ -383,8 +390,9 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" data-toggle="modal"
-                                data-target="#clientsModal">
+                            <button type="button" class="btn btn-success" (click)="clientForm.reset()"
+                             data-toggle="modal"
+                                data-target="#clientsModal" >
                                 <i class="icon ion-plus">
                                 </i>
                                 Crear Cliente
@@ -425,7 +433,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Nombre</th>
-                                                <td>
+                                                <td class="btn btn-link">
                                                     {{item.nombre}}
                                                 </td>
                                             </tr>
@@ -473,7 +481,8 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" data-toggle="modal"
+                            <button type="button" class="btn btn-success" (click)="productForm.reset()"
+                            data-toggle="modal"
                                 data-target="#productsModal">
                                 <i class="icon ion-plus">
                                 </i>
@@ -498,7 +507,7 @@
                                 <td>
                                     {{com.id}}
                                 </td>
-                                <td>
+                                <td class="btn btn-link">
                                     {{com.nombre}}
                                 </td>
                                 <td>
@@ -651,7 +660,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" (click)="orderForm.reset()" data-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="orderEntry()">Crear</button>
             </div>
 
@@ -681,7 +690,7 @@
             </div>
 
             <div class="modal-body">
-                <form #inputForm="ngForm" (ngSubmit)="postInput()" novalidate>
+                <form #inputForm="ngForm" (ngSubmit)="postInput();" novalidate>
                     <div class="form-group">
                         <div class="tab-header clearfix">
                             <div class="float-left">
@@ -728,9 +737,6 @@
                                             [class.is-invalid]="codigoI.invalid && codigoI.touched" placeholder="Codigo"
                                             name="codigoI" [(ngModel)]="inputModel.id">
                                         <div *ngIf="codigoI.errors && (codigoI.invalid || codigoI.touched)">
-
-                                            *ngFor="let com of inputList; let i = index"
-                                            *ngIf="com.id === codigoI.value"
 
                                             <p><small class="text-danger"
                                                     *ngIf="codigoI.errors.required && codigoI.touched">Codigo
@@ -784,7 +790,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" (click)="inputForm.reset()" data-dismiss="modal">Cerrar</button>
                 <button [disabled]="inputForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
                     (click)="postInput()">Crear</button>
             </div>
@@ -934,8 +940,8 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button [disabled]="inputUpdateForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
-                    (click)="updateInput()">Crear</button>
+                <button [disabled]="inputUpdateForm.form.invalid" type="submit" class="btn btn-primary"
+                    (click)="updateInput();" data-dismiss="modal">Crear</button>
             </div>
 
         </div>
@@ -963,7 +969,7 @@
             </div>
 
             <div class="modal-body">
-                <form #userForm="ngForm" (ngSubmit)="postUser()" novalidate>
+                <form #userForm="ngForm" (ngSubmit)="postUser();" novalidate>
                     <div class="form-group">
                         <div class="tab-header clearfix">
                             <div class="float-left">
@@ -1069,7 +1075,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" (click)="userForm.reset()" data-dismiss="modal">Cerrar</button>
                 <button button [disabled]="userForm.form.invalid" type="submit" class="btn btn-primary"
                     data-dismiss="modal" (click)="postUser()">Crear</button>
             </div>
@@ -1239,7 +1245,7 @@
             </div>
 
             <div class="modal-body">
-                <form #clientForm="ngForm" (ngSubmit)="postClient()" novalidate>
+                <form #clientForm="ngForm" (ngSubmit)="postClient();" novalidate>
                     <div class="form-group">
                         <div class="tab-header clearfix">
                             <div class="float-left">
@@ -1359,7 +1365,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" (click)="clientForm.reset()" data-dismiss="modal">Cerrar</button>
                 <button [disabled]="clientForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
                     (click)="postClient()">Crear</button>
             </div>
@@ -1634,7 +1640,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" (click)="productForm.reset()" data-dismiss="modal">Cerrar</button>
                 <button [disabled]="productForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
                     (click)="postProduct()" class="btn btn-primary">Crear</button>
             </div>
@@ -1782,7 +1788,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title" id="cellarsModallabel1">Ingresar Bodega</h5>
+                <h5 class="modal-title" id="cellarsModallabel1">Crear Bodega</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -1866,7 +1872,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" (click)="cellarForm.reset()" data-dismiss="modal">Cerrar</button>
                 <button [disabled]="cellarForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
                     (click)="postGetCellar()" class="btn btn-primary">Crear</button>
             </div>
@@ -2012,7 +2018,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title" id="unitsModallabel1">Ingresar Nueva Unidad</h5>
+                <h5 class="modal-title" id="unitsModallabel1">Crear Unidad</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -2062,7 +2068,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" (click)="unitForm.reset()" data-dismiss="modal">Cerrar</button>
                 <button [disabled]="unitForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
                     (click)="postUnit()" class="btn btn-primary">Crear</button>
             </div>

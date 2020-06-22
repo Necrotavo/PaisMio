@@ -98,7 +98,8 @@
                         <!--Modal + Button start-->
 
 
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#requestModal">
+                        <button type="button" class="btn btn-success" (click)=" inputRequestForm.reset()"
+                        data-toggle="modal" data-target="#requestModal">
                             <i class="icon ion-plus">
                             </i>
                             Crear solicitud de insumos
@@ -128,8 +129,8 @@
                             <td>
                                 {{request.operario}}
                             </td>
-                            <td>
-                                <a style="color: #1a75ff;">Ver detalles</a>
+                            <td class="btn btn-link">
+                                Ver detalles
                             </td>
                             <td *ngIf="request.estado === 'APROBADA'">
                                 <span class="badge badge-success">{{request.estado}}</span>
@@ -141,8 +142,6 @@
                                 <span class="badge badge-primary">{{request.estado}}</span>
                             </td>
                         </tr>
-                        
-
                     </tbody>
                 </table>
             </div>
@@ -455,7 +454,7 @@
                 <div>
                     <h6>Ingrese los insumo</h6>
                 </div>
-                <form #inputRequestForm="ngForm" (ngSubmit)="postInputRequest()" novalidate>
+                <form #inputRequestForm="ngForm" (ngSubmit)="postInputRequest()"  novalidate>
                     <div class="form-group">
                         <div class="tab-header clearfix">
                             <div class="float-left">
@@ -614,7 +613,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" (click)="inputRequestForm.reset()" data-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary" (click)="postInputRequest()" data-dismiss="modal">Enviar solicitud</button>
             </div>
 

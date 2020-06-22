@@ -16,7 +16,8 @@
                         [(ngModel)]="termIQ2">
                 </div>
                 <br>
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#inputsQModal">
+                <button type="button" class="btn btn-success" (click)="inputQForm.reset()"
+                data-toggle="modal" data-target="#inputsQModal">
                     <i class="icon ion-plus">
                     </i>
                     Ingresar insumos
@@ -58,8 +59,14 @@
                                     <td>
                                         {{com.insumo.nombre}}
                                     </td>
-                                    <td>
-                                        {{com.cantidadDisponible}}
+                                    <td *ngIf="com.insumo.cantMinStock > com.cantidadDisponible || 
+                                        com.insumo.cantMinStock == com.cantidadDisponible">
+                                        <span class="badge badge-danger">{{com.cantidadDisponible}}
+                                        </span>                                  
+                                    </td>
+                                    <td *ngIf="com.cantidadDisponible > com.insumo.cantMinStock">
+                                        <span class="badge badge-success">{{com.cantidadDisponible}}
+                                        </span>                                    
                                     </td>
                                     <td>
                                         {{com.insumo.unidad}}
@@ -207,7 +214,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" (click)="inputQForm.reset()" data-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="inputEntry()">Crear</button>
             </div>
 

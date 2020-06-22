@@ -138,7 +138,7 @@ export class AdminViewComponent implements OnInit {
       }
     );
 
-    /**Get Total Orders on Init */
+    /** Get Total Orders on Init */
     this.getTorder();
 
     /** Gets all Inputs on Init */
