@@ -69,5 +69,11 @@ namespace WebService
         ResponseFormat = WebMessageFormat.Json,
         BodyStyle = WebMessageBodyStyle.Bare, Method = "GET", UriTemplate = "listarPedidosTotales")]
         List<DO_Pedido> listarPedidosTotales();
+
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json,
+        BodyStyle = WebMessageBodyStyle.Bare, Method = "GET", UriTemplate = "tiposAnalisisFQs")]
+        List<DO_Analisis_FQ> listAnalisisFQs();
     }
 }
