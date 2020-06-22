@@ -1,18 +1,29 @@
 <div class="account-page">
     <div class="container">
 
-      <form class="" action="#" method="get">
+        <form class="" action="#" method="get">
+            <div class="float-center">
+                <h5>Tipo de reporte</h5>
+                <select  #reportName="ngModel"
+                    class="form-control"
+                    name="reportName" [(ngModel)]="auxN">
+                    <!--<option value="default">Reporte</option>-->
+                    <option value="insumos">Insumos</option>
+                    <option value="pedidos">Pedidos</option>
+                    <option value="entrada">Entradas de insumos</option>
+                    <option value="comparativo">Comparativo de insumos</option>
+                </select>
+            </div>
+            <div id="reportrange" class="form-action">
+                <i class="fa fa-calendar"></i>&nbsp;
+                <span></span> <i class="fa fa-caret-down"></i>
+            </div>
+            <br>
 
-        <div id="reportrange" class="form-action">
-            <i class="fa fa-calendar"></i>&nbsp;
-            <span></span> <i class="fa fa-caret-down"></i>
-        </div>
-        <br>
-
-       <div class="form-action">
-        <input type="submit" class="btn btn-success" value="Generar reporte">
-      </div>
-       </form>
+            <div class="form-action">
+                <input type="submit" class="btn btn-success" value="Generar reporte">
+            </div>
+        </form>
     </div>
 </div>
 

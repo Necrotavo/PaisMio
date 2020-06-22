@@ -13,7 +13,7 @@ namespace DO
     [DataContract]
     public class DO_InsumoReportable
     {
-        [DataMember(Name = "CantidadConsumida")]
+        [DataMember(Name = "cantidadConsumida")]
         public Int32 cantidadConsumida;
 
         [DataMember(Name = "cantidadDescartada")]

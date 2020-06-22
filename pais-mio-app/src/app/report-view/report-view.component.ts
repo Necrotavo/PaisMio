@@ -10,6 +10,9 @@ export class ReportViewComponent implements OnInit {
 
   constructor(private apiService: ApiService) { }
 
+  /** Auxiliar */
+  auxN : string;
+
   ngOnInit(): void {
   }
 
