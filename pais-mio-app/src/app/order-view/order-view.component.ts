@@ -72,10 +72,13 @@ export class OrderViewComponent implements OnInit {
   searchInputModel = new Input(0, '', 0, '', '', '');
   searchInputModel2 = new Input(0, '', 0, '', '', '');
   inputEntryModel = new InputQ(0, this.input);
-  analysisModel = new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array <AnalysisPC>());
+  analysisModel = new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array<AnalysisPC>());
   localUser = new User('', '', '', '', '', '');
   cellarEntryModel = new Cellar(0, '', '', '', '', this.inputEntryList);
   cellarDetailModel = new Cellar(0, '', '', '', '', null);
+
+  /** Form models */
+  inputRequestForm;
 
 
   /** Aux variables */
@@ -101,7 +104,7 @@ export class OrderViewComponent implements OnInit {
   ngOnInit(): void {
 
     this.localUser = JSON.parse(localStorage.getItem('user logged'));
-    
+
     /** Gets all Orders on Init */
     this.apiService.getOrder().subscribe(
       data => {
@@ -111,7 +114,8 @@ export class OrderViewComponent implements OnInit {
 
     /** Get current order */
     this.data.activeOrder.subscribe(order => this.order = order);
-    this.data.activeOrder.subscribe((order) => {this.order = order;
+    this.data.activeOrder.subscribe((order) => {
+      this.order = order;
       this.changeAnalysis(this.order);
       this.getInputRequestByOrder();
     });
@@ -127,6 +131,7 @@ export class OrderViewComponent implements OnInit {
     this.apiService.getAnalysisByID(this.order.codigo).subscribe(
       data => {
         this.order.doAnalisisAA = data;
+
       }
     );
 
@@ -180,24 +185,25 @@ export class OrderViewComponent implements OnInit {
 
   /** InputRequest CRUD */
 
-  postInputRequest(){
+  postInputRequest() {
     this.inputPostRequestModel.operario = this.localUser.correo;
     this.inputPostRequestModel.insumosConsumo = this.inputConsumeList;
     this.inputPostRequestModel.insumosDescarte = this.inputDiscardList;
     this.inputPostRequestModel.codigoPedido = this.order.codigo;
-    this.inputPostRequestModel.fecha = "\/Date(928171200000-0600)\/";
+    this.inputPostRequestModel.fecha = '\/Date(928171200000-0600)\/';
     this.inputPostRequestModel.bodega = this.cellarEntryModel.codigo;
 
     this.apiService.addInputRequest(this.inputPostRequestModel).subscribe(
       data => {
         this.objInputRequest = data;
+        this.inputRequestForm.reset();
       }
     );
 
     this.getInputRequestByOrder();
   }
 
-  getInputRequest(){
+  getInputRequest() {
 
     this.apiService.getInputRequest().subscribe(
       data => {
@@ -206,7 +212,7 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
-  setInputRequestDesicion(){
+  setInputRequestDesicion() {
 
     this.apiService.setInputRequestDecision(this.inputRequestDesicionModel).subscribe(
       data => {
@@ -215,7 +221,7 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
-  getInputRequestByUser(){
+  getInputRequestByUser() {
 
     this.apiService.getInputRequestByUser(this.userModel).subscribe(
       data => {
@@ -224,7 +230,7 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
-  getInputRequestByOrder(){
+  getInputRequestByOrder() {
 
     this.apiService.getInputRequestByOrder(this.order).subscribe(
       data => {
@@ -233,7 +239,7 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
-  searchInputRequest(){
+  searchInputRequest() {
 
     this.apiService.getInputRequestByID(this.inputRequestModel).subscribe(
       data => {
@@ -242,7 +248,7 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
-  getCellarById(code: number){
+  getCellarById(code: number) {
 
     this.apiService.getOneCellar(code).subscribe(
       data => {
@@ -251,7 +257,7 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
-  asignRequest(request: InputRequest){
+  asignRequest(request: InputRequest) {
     this.inputRequestModel = request;
     this.getCellarById(this.inputRequestModel.bodega);
   }
@@ -282,15 +288,15 @@ export class OrderViewComponent implements OnInit {
     this.inputExist = false;
   }
 
-  validateList(){
-    if (this.inputConsumeList.length > 0){
+  validateList() {
+    if (this.inputConsumeList.length > 0) {
       this.listIsNotEmpty = true;
     } else {
       this.listIsNotEmpty = false;
     }
   }
 
-  removeFromList(i: number){
+  removeFromList(i: number) {
     this.inputConsumeList.splice(i, 1);
     this.validateList();
   }
@@ -307,70 +313,76 @@ export class OrderViewComponent implements OnInit {
     this.inputExist = false;
   }
 
-  validateDiscarList(){
-    if (this.inputDiscardList.length > 0){
+  validateDiscarList() {
+    if (this.inputDiscardList.length > 0) {
       this.discardListIsNotEmpty = true;
     } else {
       this.discardListIsNotEmpty = false;
     }
   }
 
-  removeFromDiscardList(i: number){
+  removeFromDiscardList(i: number) {
     this.inputDiscardList.splice(i, 1);
     this.validateDiscarList();
   }
 
   /** Metodos de bodega */
-    /** Used to validate combo on cellar */
-    validateCellar(value){
-      if (value === 'default'){
-        this.cellarHasError = true;
-      } else {
-        this.cellarHasError = false;
-        this.searchCellar();
+  /** Used to validate combo on cellar */
+  validateCellar(value) {
+    if (value === 'default') {
+      this.cellarHasError = true;
+    } else {
+      this.cellarHasError = false;
+      this.searchCellar();
+    }
+  }
+
+  searchCellar() {
+    for (const i of this.cellarList) {
+      if (this.auxN.toUpperCase() === i.nombre.toUpperCase()) {
+        this.cellarEntryModel = i;
+        this.resetInputRequestModal();
+        return;
       }
     }
+  }
 
-    searchCellar() {
-      for (const i of this.cellarList) {
-        if (this.auxN.toUpperCase() === i.nombre.toUpperCase()) {
-          this.cellarEntryModel = i;
-          this.resetInputRequestModal();
-          return;
-        }
+  requestDecision(value: string) {
+    this.inputRequestDesicionModel.admin = this.localUser;
+    this.inputRequestDesicionModel.solicitud = this.inputRequestModel;
+    this.inputRequestDesicionModel.estado = value;
+    this.apiService.setInputRequestDecision(this.inputRequestDesicionModel).subscribe(
+      data => {
+        this.inputRequestDesicionModel = data;
       }
-    }
+    );
 
-    resetInputRequestModal(){
-      this.inputExist = false;
-      this.searchInputModel.nombre = '';
-      this.inputConsumeList = new Array<InputQ>();
-      this.inputDiscardList = Array<InputQ>();
-      this.listIsNotEmpty = false;
-      this.discardListIsNotEmpty = false;
+    this.getInputRequestByOrder();
+  }
+
+  inputRequestFormReset() {
+    this.inputRequestForm.reset();
+  }
+  resetInputRequestModal() {
+    this.inputExist = false;
+    this.searchInputModel.nombre = '';
+    this.inputConsumeList = new Array<InputQ>();
+    this.inputDiscardList = Array<InputQ>();
+    this.listIsNotEmpty = false;
+    this.discardListIsNotEmpty = false;
+    this.auxQ = 0;
+    this.inputPostRequestModel.notas = '';
+  }
+
+  /** Change quantity */
+  validateEntryQuantity() {
+    if (this.auxQ > this.aviableQuantity) {
+      this.auxQ = this.aviableQuantity;
+    }
+    if (this.auxQ < 0) {
       this.auxQ = 0;
-      this.inputPostRequestModel.notas = '';
     }
+  }
 
-    requestDecision(value: string){
-      this.inputRequestDesicionModel.admin = this.localUser;
-      this.inputRequestDesicionModel.solicitud = this.inputRequestModel;
-      this.inputRequestDesicionModel.estado = value;
-      this.apiService.setInputRequestDecision(this.inputRequestDesicionModel).subscribe(
-        data => {
-          this.inputRequestDesicionModel = data;
-        }
-      );
 
-      this.getInputRequestByOrder();
-    }
-
-    validateEnryQuantity(){
-      if(this.auxQ > this.aviableQuantity){
-        this.auxQ = this.aviableQuantity;
-      } 
-      if(this.auxQ < 0){
-        this.auxQ = 0;
-      }
-    }
 }

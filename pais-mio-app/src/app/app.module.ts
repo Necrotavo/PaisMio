@@ -25,6 +25,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { ApiService } from './api.service';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AuthService } from './auth.service';
+import { ReportViewComponent } from './report-view/report-view.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AuthService } from './auth.service';
     InventoryControlComponent,
     OrderViewComponent,
     UserViewComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    ReportViewComponent
   ],
   imports: [
     BrowserModule,

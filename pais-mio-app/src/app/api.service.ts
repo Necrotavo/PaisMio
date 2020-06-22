@@ -10,7 +10,6 @@ import { InputRequest } from '../models/inputRequest';
 import { Analysis } from '../models/analysis';
 import { Product } from '../models/product';
 import { InputReport } from '../models/inputReport';
-import { ReportM } from '../models/reportM';
 import { Client } from '../models/client';
 import { Order } from '../models/order';
 import { Unit } from '../models/unit';
@@ -528,46 +527,6 @@ export class ApiService {
     );
   }
 
-  /** Monthly Reports CRUD */
-  getReportM(): Observable<ReportM[]> {
-    return this.http.get<ReportM[]>(`${apiURL}`)
-      .pipe(
-        tap(reportM => console.log(`fetch report monthly`)),
-        catchError(this.handleErrors(`getReportM`, []))
-      );
-  }
-
-  getReportMByID(id: string): Observable<ReportM> {
-    const url = `${apiURL}/${id}`;
-    return this.http.get<ReportM>(url).pipe(
-      tap(_ => console.log(`fetch report monthly id=${id}`)),
-      catchError(this.handleErrors<ReportM>(`getReportMByID id=${id}`))
-    );
-  }
-
-  addReportM(reportM: ReportM): Observable<ReportM> {
-    return this.http.post<ReportM>(apiURL, reportM, HttpOptions).pipe(
-      tap((i: ReportM) => console.log(`added reporth monthly w/ id=${i.id}`)),
-      catchError(this.handleErrors<ReportM>(`addReportM`))
-    );
-  }
-
-  updateReportM(id: string, reportM: ReportM): Observable<any> {
-    const url = `${apiURL}/${id}`;
-    return this.http.put(url, reportM, HttpOptions).pipe(
-      tap(_ => console.log(`updated report Monthly id=${id}`)),
-      catchError(this.handleErrors<any>(`updateReportM`))
-    );
-  }
-
-  deleteReportM(id: string): Observable<ReportM> {
-    const url = `${apiURL}/${id}`;
-    return this.http.delete<ReportM>(url, HttpOptions).pipe(
-      tap(_ => console.log(`deleted report Monthly id=${id}`)),
-      catchError(this.handleErrors<ReportM>(`deletedReportM`))
-    );
-  }
-
   /** Comparative Reports CRUD */
   getInputReport(input: InputReport): Observable<InputReport> {
     return this.http.post<InputReport>(inputReportPOST, input, HttpOptions).pipe(
@@ -765,3 +724,43 @@ const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
     );
   }
    */
+
+    /** Monthly Reports CRUD
+  getReportM(): Observable<ReportM[]> {
+    return this.http.get<ReportM[]>(`${apiURL}`)
+      .pipe(
+        tap(reportM => console.log(`fetch report monthly`)),
+        catchError(this.handleErrors(`getReportM`, []))
+      );
+  }
+
+  getReportMByID(id: string): Observable<ReportM> {
+    const url = `${apiURL}/${id}`;
+    return this.http.get<ReportM>(url).pipe(
+      tap(_ => console.log(`fetch report monthly id=${id}`)),
+      catchError(this.handleErrors<ReportM>(`getReportMByID id=${id}`))
+    );
+  }
+
+  addReportM(reportM: ReportM): Observable<ReportM> {
+    return this.http.post<ReportM>(apiURL, reportM, HttpOptions).pipe(
+      tap((i: ReportM) => console.log(`added reporth monthly w/ id=${i.id}`)),
+      catchError(this.handleErrors<ReportM>(`addReportM`))
+    );
+  }
+
+  updateReportM(id: string, reportM: ReportM): Observable<any> {
+    const url = `${apiURL}/${id}`;
+    return this.http.put(url, reportM, HttpOptions).pipe(
+      tap(_ => console.log(`updated report Monthly id=${id}`)),
+      catchError(this.handleErrors<any>(`updateReportM`))
+    );
+  }
+
+  deleteReportM(id: string): Observable<ReportM> {
+    const url = `${apiURL}/${id}`;
+    return this.http.delete<ReportM>(url, HttpOptions).pipe(
+      tap(_ => console.log(`deleted report Monthly id=${id}`)),
+      catchError(this.handleErrors<ReportM>(`deletedReportM`))
+    );
+  }*/
