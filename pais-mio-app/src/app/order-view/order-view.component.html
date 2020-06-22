@@ -155,10 +155,12 @@
                         <!-- Modal + button start -->
                         <!--Only when there is no analysis made-->
 
-
+                        {{analysisExist}}
+                        {{order.doAnalisisAA | json}} 
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#analysisModal">
                             <i class="icon ion-ios-flask">
                             </i>
+                          
                             Ingresar análisis
                         </button>
 
@@ -207,7 +209,7 @@
 
 
                 <!-- Tab panes -->
-                <div class="tab-content">
+                <div class="tab-content" >
                     <div role="tabpanel" class="tab-pane active" id="product-data">
 
                         <div class="tab-header clearfix">
@@ -276,12 +278,12 @@
                                     <th>
                                         Examen visual:
                                     </th>
-                                    <td *ngIf="order.doAnalisisAA.exVisual === 1">
+                                    <td *ngIf="analysisModel.exVisual === 1">
                                         <p class="badge badge-success">
                                             Cumple
                                         </p>
                                     </td>
-                                    <td *ngIf="order.doAnalisisAA.exVisual === 0">
+                                    <td *ngIf="analysisModel.exVisual === 0">
                                         <p class="badge badge-danger">
                                             No cumple
                                         </p>
@@ -291,12 +293,12 @@
                                     <th>
                                         Examen olfativo:
                                     </th>
-                                    <td *ngIf="order.doAnalisisAA.exOlfativo === 1">
+                                    <td *ngIf="analysisModel.exOlfativo === 1">
                                         <p class="badge badge-success">
                                             Cumple
                                         </p>
                                     </td>
-                                    <td *ngIf="order.doAnalisisAA.exOlfativo === 0">
+                                    <td *ngIf="analysisModel.exOlfativo === 0">
                                         <p class="badge badge-danger">
                                             No cumple
                                         </p>
@@ -307,12 +309,12 @@
                                     <th>
                                         Examen gustativo:
                                     </th>
-                                    <td *ngIf="order.doAnalisisAA.exGustativo === 1">
+                                    <td *ngIf="analysisModel.exGustativo === 1">
                                         <p class="badge badge-success">
                                             Cumple
                                         </p>
                                     </td>
-                                    <td *ngIf="order.doAnalisisAA.exGustativo === 0">
+                                    <td *ngIf="analysisModel.exGustativo === 0">
                                         <p class="badge badge-danger">
                                             No cumple
                                         </p>
@@ -323,12 +325,12 @@
                                     <th>
                                         Armonía sensorial:
                                     </th>
-                                    <td *ngIf="order.doAnalisisAA.aSensorial === 1">
+                                    <td *ngIf="analysisModel.aSensorial === 1">
                                         <p class="badge badge-success">
                                             Cumple
                                         </p>
                                     </td>
-                                    <td *ngIf="order.doAnalisisAA.aSensorial === 0">
+                                    <td *ngIf="analysisModel.aSensorial === 0">
                                         <p class="badge badge-danger">
                                             No cumple
                                         </p>
@@ -357,7 +359,7 @@
                             </thead>
                             <tbody>
 
-                                <tr *ngFor="let afq of order.doAnalisisAA.analisisFQs">
+                                <tr *ngFor="let afq of analysisModel.analisisFQs">
                                     <th>
                                         {{afq.tipoAnalisisFQ | titlecase}}
                                     </th>
@@ -980,10 +982,10 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Agregar análisis</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="postAnalysis()">Agregar análisis</button>
                 </div>
 
-            </div>
+            </div> 
         </div>
     </div>
 </div>
