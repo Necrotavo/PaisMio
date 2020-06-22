@@ -21,6 +21,8 @@ import { InputRequestDesicion } from 'src/models/inputRequestDecision';
 import { UserRolUpgrade } from 'src/models/userRolUpgrade';
 import { LoginUser } from 'src/models/loginUser';
 import { AnalysisPC } from 'src/models/analysisPC';
+import { OrderReport } from 'src/models/orderReport';
+import { InputComparativeReport } from 'src/models/inputComparativeReport';
 
 const HttpOptions = {
   headers: new HttpHeaders({ 'Content-type': 'application/json' })
@@ -105,6 +107,8 @@ const productUPDATE = 'https://www.spepaismio.tk/WS_Producto.svc/modificarProduc
 const inputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumos';
 const comparativeInputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumosComparativo';
 const orderReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reportePedido';
+
+
 
 /** Cellar API URLs */
 const cellarGET = 'https://www.spepaismio.tk/WS_Bodega.svc/obtenerListaBodegas';
@@ -528,14 +532,6 @@ export class ApiService {
     );
   }
 
-  /** Comparative Reports CRUD */
-  getInputReport(input: InputReport): Observable<InputReport> {
-    return this.http.post<InputReport>(inputReportPOST, input, HttpOptions).pipe(
-      tap((i: InputReport) => console.log(`added client w/ id=${i.fechaFinal}`)),
-      catchError(this.handleErrors<InputReport>(`getInputReport`))
-    );
-  }
-
   /** Client CRUD */
   getClient(): Observable<Client[]> {
     return this.http.get<Client[]>(`${clientGET}`)
@@ -664,6 +660,29 @@ export class ApiService {
       catchError(this.handleErrors<Cellar>(`addCellar`))
     );
   }
+
+    /** Reports CRUD */
+    getInputReport(input: InputReport): Observable<InputReport> {
+      return this.http.post<InputReport>(inputReportPOST, input, HttpOptions).pipe(
+        tap((i: InputReport) => console.log(`added client w/ id=${i.fechaFinal}`)),
+        catchError(this.handleErrors<InputReport>(`getInputReport`))
+      );
+    }
+
+    getOrderReport(orderReport: OrderReport): Observable<OrderReport> {
+      return this.http.post<OrderReport>(orderReportPOST, orderReport, HttpOptions).pipe(
+        tap((i: OrderReport) => console.log(`id=${i.mes}`)),
+        catchError(this.handleErrors<OrderReport>(`getOrderReport`))
+      );
+    }
+
+    getInputComparativeReport(getInputComparativeReport: InputComparativeReport): Observable<InputComparativeReport> {
+      return this.http.post<InputComparativeReport>(orderReportPOST, getInputComparativeReport, HttpOptions).pipe(
+        tap((i: InputComparativeReport) => console.log(`reporte=${i}`)),
+        catchError(this.handleErrors<InputComparativeReport>(`getOrderReport`))
+      );
+    }
+
 }
 
 
@@ -686,13 +705,7 @@ const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
    } */
 
   /**
-  getReportC(): Observable<ReportC[]> {
-    return this.http.get<ReportC[]>(`${apiURL}`)
-      .pipe(
-        tap(reportC => console.log(`fetch report comparative`)),
-        catchError(this.handleErrors(`getReportC`, []))
-      );
-  }
+
 
   getReportCByID(id: string): Observable<ReportC> {
     const url = `${apiURL}/${id}`;

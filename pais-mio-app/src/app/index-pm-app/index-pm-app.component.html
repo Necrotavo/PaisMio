@@ -17,7 +17,6 @@
         <!--you can add "show" class if you want to show the active orders when someone opens the app-->
         <div id="collapseOne" class="collapse" role="tabpanel">
           <div class="card-body">
-
             <!--Buttons here are the ACTIVE orders so it should get the order ID-->
             <a *ngFor="let item of orderList; let i = index" attr.value="{{i}}" routerLink="/order-view/" class="btn btn-lg btn-outline-light btn-block" (click)="newOrder(i)">
               <div class="row">
@@ -90,10 +89,7 @@
         </div>
         <div id="collapseFour" class="collapse">
           <div class="card-body">
-
-            <a routerLink="/report-monthly/" class="btn-shadow btn-shadow-info btn-block">Reporte mensual</a>
-            <a routerLink="/report-comparative/" class="btn-shadow btn-shadow-info btn-block">Reporte comparativo</a>
-            <a routerLink="/report-view/" class="btn-shadow btn-shadow-info btn-block">Reportes</a>
+            <a routerLink="/report-view/" class="btn-shadow btn-shadow-info btn-block">Generar reportes</a>
           </div>
         </div>
       </div>
