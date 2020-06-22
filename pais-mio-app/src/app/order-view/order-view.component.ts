@@ -48,6 +48,7 @@ export class OrderViewComponent implements OnInit {
   inputDiscardList: Array<InputQ> = [];
   inputEntryList: Array<InputQ> = [];
   inputQListInCellar: Array<InputQ> = [];
+  pqsAnalysisList: Array <AnalysisPC> = [];
 
   /** Data Return Objects */
   objInputRequest: InputRequest;
@@ -128,6 +129,8 @@ export class OrderViewComponent implements OnInit {
 
     this.getInputRequestByOrder();
 
+    this.getPQsAnalysis();
+
     this.apiService.getInputA().subscribe(
       data => {
         this.inputList = data;
@@ -147,7 +150,7 @@ export class OrderViewComponent implements OnInit {
   }
 
   /** Analysis */
-  changeAnalysis( ordero : Order){
+  changeAnalysis( ordero: Order){
     this.apiService.getAnalysisByID(this.order.codigo).subscribe(
       data => {
         this.order.doAnalisisAA = data;
@@ -155,7 +158,15 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
-  
+  getPQsAnalysis(){
+    this.apiService.getPQAnalsis().subscribe(
+      data => {
+        this.pqsAnalysisList = data;
+      }
+    );
+  }
+
+
   validateAnalysisExistance(){
     if (this.order.doAnalisisAA !== null){
       this.analysisExist = true;

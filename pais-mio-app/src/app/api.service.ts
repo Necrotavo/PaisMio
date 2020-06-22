@@ -92,7 +92,7 @@ const orderPACKOFF = 'https://www.spepaismio.tk/WS_Pedido.svc/Despachar';
 /** Falta Analysis API URLs */
 const analysisPost = 'https://www.spepaismio.tk/WS_Pedido.svc/AgregarAnalisisAA';
 const analysisAASEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/BuscarAnalisisAA';
-const analysisPQSEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/listAnalisisFQs';
+const analysisPQSEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/AnalisisFQs';
 
 /** Product API URLs */
 const productPost = 'https://www.spepaismio.tk/WS_Producto.svc/ingresarProducto';
@@ -149,7 +149,6 @@ export class ApiService {
         catchError(this.handleErrors(`getTOrder`, []))
       );
   }
-  
 
   getOrderByClient(client: string): Observable<User> {
     const url = `${apiURL}/${client}`;
@@ -493,7 +492,7 @@ export class ApiService {
   }
 
   getAnalysisByID(pedCodigo: number): Observable<Analysis> {
-    console.log(`CODIGO PEDIDO ${pedCodigo}`)
+    console.log(`CODIGO PEDIDO ${pedCodigo}`);
     return this.http.post<Analysis>(analysisAASEARCH, pedCodigo, HttpOptions).pipe(
       tap((i: Analysis) => console.log(`added analysis w/ id=${i.pedCodigo}`)),
       catchError(this.handleErrors<Analysis>(`addAnalysis`))

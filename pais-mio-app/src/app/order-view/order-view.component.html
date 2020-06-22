@@ -766,35 +766,36 @@
                                     <tbody>
                                         <tr>
                                             <th scope="row">
-                                                <select>
+                                                <!--<select>
                                                     <option selected>Seleccionar
                                                     </option>
                                                     <option value="1">Cliente Físico:
                                                     </option>
                                                     <option value="2">Razón Social:
                                                     </option>
-                                                </select>
-
+                                                </select>-->
+                                                <p>Cliente: </p>   
                                             <td>
                                                 <div class="form-field">
-                                                    <input type="text" placeholder="Ingresar datos...">
+                                                    <p>{{order.cliente.nombre}}</p>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row">
-                                                <select>
+                                                <!--<select>
                                                     <option selected>Seleccionar
                                                     </option>
                                                     <option value="1">Cedula Física:
                                                     </option>
                                                     <option value="2">Cedula Jurídica:
                                                     </option>
-                                                </select>
+                                                </select>-->
+                                            <p>Cédula: </p>
                                             </th>
                                             <td>
                                                 <div class="form-field">
-                                                    <input type="text" placeholder="Ingresar datos...">
+                                                    <p>{{order.cliente.cedula}}</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -814,7 +815,7 @@
                                             </th>
                                             <td>
                                                 <div class="form-field">
-                                                    <input type="text" placeholder="Ingresar datos...">
+                                                    <p>{{order.codigo}}</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -848,7 +849,7 @@
                                                 <option selected>Seleccionar</option>
                                                 <option value="1" class="badge badge-success">Cumple
                                                 </option>
-                                                <option value="2" class="badge badge-danger">No cumple
+                                                <option value="0" class="badge badge-danger">No cumple
                                                 </option>
                                             </select>
                                         </td>
@@ -920,9 +921,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr >
-                                        <th>
-                                            Grado Alcohólico Aparente
+                                    <tr *ngFor="let pq of pqsAnalysisList" >
+                                        <th>                                          
+                                            {{pq.tipoAnalisisFQ | titlecase}}
                                         </th>
                                         <td>
                                             <input type="text" placeholder="Ingresar datos...">
