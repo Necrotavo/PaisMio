@@ -48,7 +48,7 @@ export class OrderViewComponent implements OnInit {
   inputDiscardList: Array<InputQ> = [];
   inputEntryList: Array<InputQ> = [];
   inputQListInCellar: Array<InputQ> = [];
-  pqsAnalysisList: Array <AnalysisPC> = [];
+  pqsAnalysisList: Array<AnalysisPC> = [];
 
   /** Data Return Objects */
   objInputRequest: InputRequest;
@@ -117,7 +117,7 @@ export class OrderViewComponent implements OnInit {
     this.data.activeOrder.subscribe(order => this.order = order);
     this.data.activeOrder.subscribe((order) => {
       this.order = order;
-      this.changeAnalysis(this.order);
+      this.changeAnalysis();
       this.getInputRequestByOrder();
 
     });
@@ -130,15 +130,17 @@ export class OrderViewComponent implements OnInit {
 
 
     /** Gets Analysis Aguardiente */
+    /**
     this.apiService.getAnalysisByID(this.order.codigo).subscribe(
       data => {
         this.order.doAnalisisAA = data;
         this.validateAnalysisExistance();
       }
     );
-
+    */
     this.getInputRequestByOrder();
 
+    /** get Analysis type */
     this.getPQsAnalysis();
 
     this.apiService.getInputA().subscribe(
@@ -160,15 +162,20 @@ export class OrderViewComponent implements OnInit {
   }
 
   /** Analysis */
-  changeAnalysis( ordero: Order){
-    this.apiService.getAnalysisByID(this.order.codigo).subscribe(
-      data => {
-        this.analysisModel = data;
-      }
-    );
+  changeAnalysis() {
+
+    if (this.order !== null) {
+      this.apiService.getAnalysisByID(this.order.codigo).subscribe(
+        data => {
+          this.analysisModel = data;
+          this.analysisModel.pedCodigo = this.order.codigo;
+          this.validateAnalysisExistance();
+        }
+      );
+    }
   }
 
-  getPQsAnalysis(){
+  getPQsAnalysis() {
     this.apiService.getPQAnalsis().subscribe(
       data => {
         this.pqsAnalysisList = data;
@@ -176,22 +183,28 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
-  postAnalysis(){
+  postAnalysis() {
     this.analysisModel.analisisFQs = this.pqsAnalysisList;
+    console.log(`ORDERCODE TO ADD${this.order.codigo}`);
     this.analysisModel.pedCodigo = this.order.codigo;
-    this.apiService. addAnalysis(this.analysisModel).subscribe(
+    console.log(`${this.analysisModel}`);
+    this.apiService.addAnalysis(this.analysisModel).subscribe(
       data => {
         this.objAnalysis = data;
       }
     );
+    this.analysisModel =  new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array<AnalysisPC>());
+    this.changeAnalysis();
   }
 
-  validateAnalysisExistance(){
-    if (this.analysisModel.fechaEmision !== null){
+  validateAnalysisExistance() {
+
+    if (this.analysisModel.fechaEmision !== null) {
       this.analysisExist = true;
     } else {
       this.analysisExist = false;
     }
+    console.log(`${this.analysisExist}`);
     return this.analysisExist;
   }
 

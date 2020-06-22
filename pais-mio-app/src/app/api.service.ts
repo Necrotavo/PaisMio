@@ -505,6 +505,7 @@ export class ApiService {
       );
   }
   addAnalysis(analysis: Analysis): Observable<Analysis> {
+    console.log(`AQUI analysis w/ id=${analysis.pedCodigo}`);
     return this.http.post<Analysis>(analysisPost, analysis, HttpOptions).pipe(
       tap((i: Analysis) => console.log(`added analysis w/ id=${i.pedCodigo}`)),
       catchError(this.handleErrors<Analysis>(`addAnalysis`))
