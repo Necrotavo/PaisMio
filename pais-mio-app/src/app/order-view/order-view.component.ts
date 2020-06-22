@@ -119,6 +119,7 @@ export class OrderViewComponent implements OnInit {
       this.order = order;
       this.changeAnalysis(this.order);
       this.getInputRequestByOrder();
+
     });
 
     if (this.order === null) {
@@ -132,7 +133,7 @@ export class OrderViewComponent implements OnInit {
     this.apiService.getAnalysisByID(this.order.codigo).subscribe(
       data => {
         this.order.doAnalisisAA = data;
-
+        this.validateAnalysisExistance();
       }
     );
 
@@ -162,7 +163,7 @@ export class OrderViewComponent implements OnInit {
   changeAnalysis( ordero: Order){
     this.apiService.getAnalysisByID(this.order.codigo).subscribe(
       data => {
-        this.order.doAnalisisAA = data;
+        this.analysisModel = data;
       }
     );
   }
@@ -186,11 +187,12 @@ export class OrderViewComponent implements OnInit {
   }
 
   validateAnalysisExistance(){
-    if (this.order.doAnalisisAA !== null){
+    if (this.analysisModel.fechaEmision !== null){
       this.analysisExist = true;
     } else {
       this.analysisExist = false;
     }
+    return this.analysisExist;
   }
 
   /** InputRequest CRUD */
