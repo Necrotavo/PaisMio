@@ -13,6 +13,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { UserViewComponent } from './user-view/user-view.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { RouterGuardGuard } from './router-guard.guard';
+import { ReportViewComponent } from './report-view/report-view.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: 'inventory-control', component: InventoryControlComponent, canActivate: [RouterGuardGuard]},
   {path: 'order-view', component: OrderViewComponent, canActivate: [RouterGuardGuard]},
   {path: 'recover-password', component: RecoverPasswordComponent, canActivate: [RouterGuardGuard]},
+  {path: 'report-view', component: ReportViewComponent, canActivate: [RouterGuardGuard]},
   {path: 'report-comparative', component: ReportComparativeComponent, canActivate: [RouterGuardGuard]},
   {path: 'report-monthly', component: ReportMonthlyComponent, canActivate: [RouterGuardGuard]},
   {path: 'sign-in', component: SignInComponent},

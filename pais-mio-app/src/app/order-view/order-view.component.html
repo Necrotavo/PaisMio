@@ -524,7 +524,6 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="number" min="1" max="{{aviableQuantity}}" required #inputIQ="ngModel" class="form-control"
-                                            [class.is-invalid]="inputIQ.invalid && inputIQ.touched"
                                             placeholder="Cantidad" name="inputIQ" [(ngModel)]="auxQ" (keyup)="validateEntryQuantity()">
                                         <div *ngIf="inputIQ.errors && (inputIQ.invalid || inputIQ.touched)">
                                             <p><small class="text-danger"
@@ -743,7 +742,6 @@
                     </div>
                 </form>
             </div>
-<!--Decision del admin-->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button *ngIf="inputRequestModel.estado === 'PENDIENTE' && localUser.rol === 'ADMINISTRADOR'" type="button" class="btn btn-danger" data-dismiss="modal" (click)="requestDecision('RECHAZADA')">Rechazar</button>
