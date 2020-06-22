@@ -854,7 +854,9 @@
                                                 Examen visual:
                                             </th>
                                             <td>
-                                                <select>
+                                                <select  (blur)="analysisExV.value" (change)="analysisExV.value"
+                                                #analysisExV="ngModel" [class.is-invalid]="analysisExV.touched"
+                                                class="form-control" name="analysisExV" [(ngModel)]="analysisModel.exVisual">
                                                     <option selected>Seleccionar</option>
                                                     <option value="1" class="badge badge-success">Cumple
                                                     </option>
@@ -869,7 +871,9 @@
                                                 Examen olfativo:
                                             </th>
                                             <td>
-                                                <select>
+                                                <select  (blur)="analysisExO.value" (change)="analysisExO.value"
+                                                #analysisExO="ngModel" [class.is-invalid]="analysisExO.touched"
+                                                class="form-control" name="analysisExO" [(ngModel)]="analysisModel.exOlfativo">
                                                     <option selected>Seleccionar</option>
                                                     <option value="1" class="badge badge-success">Cumple
                                                     </option>
@@ -884,7 +888,9 @@
                                                 Examen gustativo:
                                             </th>
                                             <td>
-                                                <select>
+                                                <select  (blur)="analysisExG.value" (change)="analysisExG.value"
+                                                #analysisExG="ngModel" [class.is-invalid]="analysisExV.touched"
+                                                class="form-control" name="analysisExG" [(ngModel)]="analysisModel.exGustativo">
                                                     <option selected>Seleccionar</option>
                                                     <option value="1" class="badge badge-success">Cumple
                                                     </option>
@@ -899,7 +905,9 @@
                                                 Armonía sensorial:
                                             </th>
                                             <td>
-                                                <select>
+                                                <select  (blur)="analysisAsen.value" (change)="analysisAsen.value"
+                                                #analysisAsen="ngModel" [class.is-invalid]="analysisAsen.touched"
+                                                class="form-control" name="analysisAsen" [(ngModel)]="analysisModel.aSensorial">
                                                     <option selected>Seleccionar</option>
                                                     <option value="1" class="badge badge-success">Cumple
                                                     </option>

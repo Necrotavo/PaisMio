@@ -53,6 +53,7 @@ export class OrderViewComponent implements OnInit {
   /** Data Return Objects */
   objInputRequest: InputRequest;
   objInputRequestDesicion: InputRequestDesicion;
+  objAnalysis: Analysis;
 
 
   /** Filter Terms */
@@ -174,6 +175,15 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
+  postAnalysis(){
+    this.analysisModel.analisisFQs = this.pqsAnalysisList;
+    this.analysisModel.pedCodigo = this.order.codigo;
+    this.apiService. addAnalysis(this.analysisModel).subscribe(
+      data => {
+        this.objAnalysis = data;
+      }
+    );
+  }
 
   validateAnalysisExistance(){
     if (this.order.doAnalisisAA !== null){
