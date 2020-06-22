@@ -57,7 +57,7 @@ namespace WebService
             return blPedido.eliminarPedido(codigoPedido);
         }
 
-        public List<DO_Analisis_FQ> listAnalisisFQs()
+        public List<DO_Analisis_FQ> listaAnalisisFQs()
         {
             BL_Analisis_AA BLanalisAA = new BL_Analisis_AA();
 

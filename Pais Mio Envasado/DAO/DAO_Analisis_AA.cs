@@ -204,7 +204,7 @@ namespace DAO
             try
             {
                 SqlDataAdapter adapter = new SqlDataAdapter();
-                adapter.SelectCommand = new SqlCommand("SELECT * FROM TIPO_ANALISIS_FISICOQUIMICO;", conexion);
+                adapter.SelectCommand = new SqlCommand("SELECT * FROM TIPO_ANALISIS_FISICOQUIMICO", conexion);
                 
                 DataTable datatable = new DataTable();
                 adapter.Fill(datatable);
