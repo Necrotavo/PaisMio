@@ -47,5 +47,11 @@ namespace BL
 
             return DAOanalisisAA.buscarAnalisisAAporPedCodigo(pedCodigo);
         }
+
+        public List<DO_Analisis_FQ> getTipoAnalisisFQs() {
+            DAO_Analisis_AA DAOanalisisAA = new DAO_Analisis_AA();
+
+            return DAOanalisisAA.getTipoAnalisisFQs();
+        }
     }
 }

@@ -197,5 +197,34 @@ namespace DAO
 
             return lista;
         }
+
+        public List<DO_Analisis_FQ> getTipoAnalisisFQs() {
+            List<DO_Analisis_FQ> lista = new List<DO_Analisis_FQ>();
+
+            try
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = new SqlCommand("SELECT * FROM TIPO_ANALISIS_FISICOQUIMICO;", conexion);
+                
+                DataTable datatable = new DataTable();
+                adapter.Fill(datatable);
+
+                foreach (DataRow row in datatable.Rows)
+                {
+                    DO_Analisis_FQ analisisFQ = new DO_Analisis_FQ();
+                    analisisFQ.pedCodigo = 0;
+                    analisisFQ.tipoAnalisisFQ = (String)row["TAF_TIPO_ANALISIS_FQ"];
+                    analisisFQ.medicionResultado = "";
+                    analisisFQ.unidadCondicion = "";
+                    lista.Add(analisisFQ);
+                }
+            }
+            catch
+            {
+                return null;
+            }
+
+            return lista;
+        }
     }
 }
