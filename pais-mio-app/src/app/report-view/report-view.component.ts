@@ -18,7 +18,6 @@ export class ReportViewComponent implements OnInit {
   constructor(private apiService: ApiService) { }
   /** Declarations */
 
-<<<<<<< HEAD
 
   /** Models */
   inputReport = new InputReport(new ReportedInput[0], new InfoPaisMio(0,'','','','','',''), '','');
@@ -27,14 +26,10 @@ export class ReportViewComponent implements OnInit {
 
   /** Auxiliars */
   auxN : string;
-=======
-  /** Auxiliar */
-  auxN: string;
 
   /** For combo validation */
   reportHasError = true;
 
->>>>>>> master
 
   /** returns */
   objInputReport: InputReport;
