@@ -11,13 +11,25 @@ export class ReportViewComponent implements OnInit {
   constructor(private apiService: ApiService) { }
 
   /** Auxiliar */
-  auxN : string;
+  auxN: string;
+
+  /** For combo validation */
+  reportHasError = true;
+
 
   ngOnInit(): void {
   }
 
   downloadPDF() {
     /* Report logic */
+  }
+
+  validateReportType(value){
+    if (value === 'default'){
+      this.reportHasError = true;
+    } else {
+      this.reportHasError = false;
+    }
   }
 
 }

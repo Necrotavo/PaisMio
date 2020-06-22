@@ -1,29 +1,47 @@
 <div class="account-page">
     <div class="container">
+        <div class="row justify-content-center">
 
-        <form class="" action="#" method="get">
-            <div class="float-center">
-                <h5>Tipo de reporte</h5>
-                <select  #reportName="ngModel"
-                    class="form-control"
-                    name="reportName" [(ngModel)]="auxN">
-                    <!--<option value="default">Reporte</option>-->
-                    <option value="insumos">Insumos</option>
-                    <option value="pedidos">Pedidos</option>
-                    <option value="entrada">Entradas de insumos</option>
-                    <option value="comparativo">Comparativo de insumos</option>
-                </select>
-            </div>
-            <div id="reportrange" class="form-action">
-                <i class="fa fa-calendar"></i>&nbsp;
-                <span></span> <i class="fa fa-caret-down"></i>
-            </div>
-            <br>
+            <form reportForm="ngForm" novalidate>
 
-            <div class="form-action">
-                <input type="submit" class="btn btn-success" value="Generar reporte">
-            </div>
-        </form>
+                <div class="float-center">
+                    <h5>Tipo de reporte</h5>
+
+                    <select  #reportName="ngModel"
+                    class="custom-select"
+                        name="reportName" [(ngModel)]="auxN"
+                        (blur)="validateReportType(auxN)"
+                        (change)="validateReportType(auxN)"
+                        [class.is-invalid]="reportHasError && reportName.touched"  
+                    >
+                        <!--<option value="default">Reporte</option>-->
+                        <option value="default"></option>
+                        <option value="insumos">Insumos</option>
+                        <option value="pedidos">Pedidos</option>
+                        <option value="entrada">Entradas de insumos</option>
+                        <option value="comparativo">Comparativo de insumos</option>
+                    </select>
+
+                </div>
+                <div *ngIf="auxN === 'insumos' || auxN === 'entrada' || auxN === 'pedidos'">
+                    <p>Insumos / Pedidos / Entrada de insumos</p>
+                </div>
+                <div *ngIf="auxN === 'comparativo'">
+                    <p>Comparativo</p>
+                    <div id="reportrange" class="form-action">
+                        <i class="fa fa-calendar"></i>&nbsp;
+                        <span></span> <i class="fa fa-caret-down"></i>
+                    </div>
+                </div>
+
+                
+                <br>
+    
+                <button [disabled]="reportForm.form.invalid" type="submit" class="btn btn-success">Generar reporte</button>
+
+            </form>
+
+        </div>
     </div>
 </div>
 
