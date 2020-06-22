@@ -106,7 +106,7 @@ export class OrderViewComponent implements OnInit {
       }
     );
 
-    /**Get current order */
+    /** Get current order */
     this.data.activeOrder.subscribe(order => this.order = order);
     this.data.activeOrder.subscribe((order) => {this.order = order;
       this.changeAnalysis(this.order);
@@ -123,7 +123,6 @@ export class OrderViewComponent implements OnInit {
     this.apiService.getAnalysisByID(this.order.codigo).subscribe(
       data => {
         this.order.doAnalisisAA = data;
-         
       }
     );
 
@@ -147,16 +146,16 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
-  /**Analysis */
+  /** Analysis */
   changeAnalysis( ordero : Order){
     this.apiService.getAnalysisByID(this.order.codigo).subscribe(
       data => {
         this.order.doAnalisisAA = data;
-         
       }
     );
   }
 
+  
   validateAnalysisExistance(){
     if (this.order.doAnalisisAA !== null){
       this.analysisExist = true;

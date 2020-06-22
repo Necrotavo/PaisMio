@@ -21,6 +21,7 @@ import { MoveInput } from 'src/models/moveInput';
 import { InputRequestDesicion } from 'src/models/inputRequestDecision';
 import { UserRolUpgrade } from 'src/models/userRolUpgrade';
 import { LoginUser } from 'src/models/loginUser';
+import { AnalysisPC } from 'src/models/analysisPC';
 
 const HttpOptions = {
   headers: new HttpHeaders({ 'Content-type': 'application/json' })
@@ -91,6 +92,7 @@ const orderPACKOFF = 'https://www.spepaismio.tk/WS_Pedido.svc/Despachar';
 /** Falta Analysis API URLs */
 const analysisPost = 'https://www.spepaismio.tk/WS_Pedido.svc/AgregarAnalisisAA';
 const analysisAASEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/BuscarAnalisisAA';
+const analysisPQSEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/listAnalisisFQs';
 
 /** Product API URLs */
 const productPost = 'https://www.spepaismio.tk/WS_Producto.svc/ingresarProducto';
@@ -497,7 +499,13 @@ export class ApiService {
       catchError(this.handleErrors<Analysis>(`addAnalysis`))
     );
   }
-
+  getPQAnalsis(): Observable<AnalysisPC[]> {
+    return this.http.get<AnalysisPC[]>(`${analysisPQSEARCH}`)
+      .pipe(
+        tap(analysisPC => console.log(`fetch analysysPC`)),
+        catchError(this.handleErrors(`getAnalysisPC`, []))
+      );
+  }
   addAnalysis(analysis: Analysis): Observable<Analysis> {
     return this.http.post<Analysis>(analysisPost, analysis, HttpOptions).pipe(
       tap((i: Analysis) => console.log(`added analysis w/ id=${i.pedCodigo}`)),
