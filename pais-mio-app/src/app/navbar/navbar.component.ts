@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataService } from '../data.service';
 import { Order } from 'src/models/order';
 import { User } from 'src/models/user';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -17,18 +18,28 @@ export class NavbarComponent implements OnInit {
   orderList: Order[];
   count: number;
   activeMessage: string;
-  userExist = false;
+  activeRole: string;
 
   userIn = new User('', '', '', '', '', '');
 
+  isLoggedIn$: Observable<boolean>;
+  isAdmin$: Observable<boolean>;
+  isSupervisor$: Observable<boolean>;
+
   constructor(private data: DataService, private apiService: ApiService, private router: Router,
-              private authService: AuthService) { }
+              private authService: AuthService) {}
 
   ngOnInit(): void {
 
+
     this.data.activeOrder.subscribe(order => this.order = order);
 
-    this.checkNavbar();
+    this.isLoggedIn$ = this.authService.isLoggedIn;
+    this.isAdmin$ = this.authService.isAdmin;
+    this.isSupervisor$ = this.authService.isSupervisor;
+
+    /** Checks user status for navbar */
+    this.authService.isLoggedInMethod();
 
     /** Gets all Orders on Init */
     this.apiService.getOrder().subscribe(
@@ -50,13 +61,9 @@ export class NavbarComponent implements OnInit {
     this.data.changeOrder(this.orderList[i]);
   }
 
-  checkNavbar() {
-    JSON.parse(localStorage.getItem('user logged'));
-    if (this.userIn === null) {
-      return this.userExist = true;
-    } else {
-      return this.userExist = false;
-    }
+  checkUserRole(){
+    this.userIn = JSON.parse(localStorage.getItem('user logged'));
+    this.activeRole = this.userIn.rol;
   }
 
   logout() {

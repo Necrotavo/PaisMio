@@ -17,7 +17,7 @@
         <!--you can add "show" class if you want to show the active orders when someone opens the app-->
         <div id="collapseOne" class="collapse" role="tabpanel">
           <div class="card-body">
-            <!--Buttons here are the ACTIVE orders so it should get the order ID-->
+            <!--Buttons here are the ACTIVE orders-->
             <a *ngFor="let item of orderList; let i = index" attr.value="{{i}}" routerLink="/order-view/" class="btn btn-lg btn-outline-light btn-block" (click)="newOrder(i)">
               <div class="row">
                 <div class="col-1">
@@ -37,7 +37,8 @@
       <!--End of option one-->
 
       <!--Start of option two-->
-      <div class="card bg-primary text-white text-center mb-3">
+      <div class="card bg-primary text-white text-center mb-3" 
+      *ngIf="userIn.rol === 'ADMINISTRADOR' || userIn.rol === 'SUPERVISOR'">
         <div class="card-header" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
           <br>
           <i class="ion-monitor"></i>
@@ -55,7 +56,8 @@
       <!--End of option one-->
 
       <!--Start of option three-->
-      <div class="card bg-success text-white text-center mb-3">
+      <div class="card bg-success text-white text-center mb-3" 
+      *ngIf="userIn.rol === 'ADMINISTRADOR'">
         <div class="card-header" id="headingThree" data-toggle="collapse" data-parent="#accordion"
           href="#collapseThree">
           <br>
@@ -76,7 +78,8 @@
       <!--End of option three-->
 
       <!--Start of option four-->
-      <div class="card bg-info text-white text-center mb-3">
+      <div class="card bg-info text-white text-center mb-3" 
+      *ngIf="userIn.rol === 'ADMINISTRADOR'">
         <div class="card-header" id="headingFour" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
           <br>
           <i class="ion-pie-graph"></i>
@@ -94,6 +97,11 @@
         </div>
       </div>
       <!--End of option four-->
+
+      <!-- For user experiencse purpose focus on operator -->
+      <div class="content" *ngIf="userIn.rol === 'OPERARIO'">
+        <P>Hello there!</P>
+      </div>
 
     </div>
   </div>

@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { User } from '../../models/user';
 import { LoginUser } from '../../models/loginUser';
-import { ApiService } from '../api.service';
-import {Router} from '@angular/router';
-
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -28,7 +26,10 @@ export class SignInComponent implements OnInit {
         this.objLogin = data;
         this.isCorrect = true;
         localStorage.setItem('user logged', JSON.stringify(this.objLogin));
+        localStorage.setItem('logged username', JSON.stringify(this.objLogin.nombre));
+        localStorage.setItem('logged role', JSON.stringify(this.objLogin.rol));
         this.router.navigateByUrl('/');
+        this.auth.overloadUser();
       }
     );
   }

@@ -3,6 +3,8 @@ import { DataService } from '../data.service';
 import { Order } from 'src/models/order';
 import { ApiService } from '../api.service';
 import { User } from 'src/models/user';
+import { Observable } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-index-pm-app',
@@ -15,7 +17,7 @@ export class IndexPmAppComponent implements OnInit {
   orderList: Order[];
   userIn = new User('', '', '', '', '', '');
 
-  constructor(private data: DataService, private apiService: ApiService) { }
+  constructor(private data: DataService, private apiService: ApiService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.data.activeOrder.subscribe(order => this.order = order);
