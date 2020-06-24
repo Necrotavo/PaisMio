@@ -78,9 +78,6 @@ export class OrderViewComponent implements OnInit {
   cellarEntryModel = new Cellar(0, '', '', '', '', this.inputEntryList);
   cellarDetailModel = new Cellar(0, '', '', '', '', null);
 
-  /** Form models */
-  inputRequestForm;
-
 
   /** Aux variables */
   auxQ: number;
@@ -221,7 +218,6 @@ export class OrderViewComponent implements OnInit {
     this.apiService.addInputRequest(this.inputPostRequestModel).subscribe(
       data => {
         this.objInputRequest = data;
-        this.inputRequestForm.reset();
       }
     );
 
@@ -385,9 +381,6 @@ export class OrderViewComponent implements OnInit {
     this.getInputRequestByOrder();
   }
 
-  inputRequestFormReset() {
-    this.inputRequestForm.reset();
-  }
   resetInputRequestModal() {
     this.inputExist = false;
     this.searchInputModel.nombre = '';
