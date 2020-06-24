@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import { ApiService } from '../api.service';
 import { Client } from 'src/models/client';
@@ -16,6 +16,7 @@ import { MoveInput } from 'src/models/moveInput';
 import { InputRequest } from 'src/models/inputRequest';
 import { InputRequestDesicion } from 'src/models/inputRequestDecision';
 import { UserRolUpgrade } from 'src/models/userRolUpgrade';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -24,8 +25,8 @@ import { UserRolUpgrade } from 'src/models/userRolUpgrade';
   styleUrls: ['./admin-view.component.scss'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0', display: 'none' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
@@ -128,6 +129,7 @@ export class AdminViewComponent implements OnInit {
   searchProductModel = new Product(0, '', '', '', '');
   searchProductModel2 = new Product(0, '', '', '', '');
 
+  Swal = ('sweetalert2');
 
   ngOnInit(): void {
 
@@ -166,17 +168,24 @@ export class AdminViewComponent implements OnInit {
 
   }
 
-  postUnit(){
+  postUnit() {
     this.apiService.addUnit(this.unitModel).subscribe(
       data => {
         this.objUnit = data;
         this.getUnits();
+        Swal.fire({
+          icon: 'success',
+          title: '!Listo!',
+          text: 'Unidad agregada con éxito',
+          showConfirmButton: false,
+          timer: 1500
+        });
       }
     );
 
   }
 
-  getUnits(){
+  getUnits() {
     this.apiService.getUnits().subscribe(
       data => {
         this.unitList = data;
@@ -185,7 +194,7 @@ export class AdminViewComponent implements OnInit {
 
   }
 
-  getAllClient(){
+  getAllClient() {
 
     this.apiService.getClient().subscribe(
       data => {
@@ -194,7 +203,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-  postOrder(){
+  postOrder() {
 
     this.apiService.addOrder(this.orderModel).subscribe(
       data => {
@@ -204,7 +213,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-  getTorder(){
+  getTorder() {
     this.apiService.getTOrder().subscribe(
       data => {
         this.orderTlist = data;
@@ -212,18 +221,25 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-  postInput(){
+  postInput() {
 
     this.apiService.addInput(this.inputModel).subscribe(
       data => {
         this.objInput = data;
         this.getInput();
         this.objInput = new Input(0, '', 0, '', '', '');
+        Swal.fire({
+          icon: 'success',
+          title: '!Listo!',
+          text: 'Insumo agregado con éxito',
+          showConfirmButton: false,
+          timer: 1500
+        });
       }
     );
   }
 
-  getInput(){
+  getInput() {
 
     this.apiService.getInput().subscribe(
       data => {
@@ -232,7 +248,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-  postUser(){
+  postUser() {
 
     this.userModel.estado = 'HABILITADO';
     this.apiService.addUser(this.userModel).subscribe(
@@ -240,11 +256,18 @@ export class AdminViewComponent implements OnInit {
         this.objUser = data;
         this.getUser();
         this.objUser = new User('', '', '', '', '', 'default');
+        Swal.fire({
+          icon: 'success',
+          title: '!Listo!',
+          text: 'Usuario agregado con éxito',
+          showConfirmButton: false,
+          timer: 1500
+        });
       }
     );
   }
 
-  getUser(){
+  getUser() {
 
     this.apiService.getUser().subscribe(
       data => {
@@ -253,7 +276,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-  postClient(){
+  postClient() {
 
     this.clientModel.estado = 'HABILITADO';
     console.log(this.clientModel);
@@ -262,29 +285,43 @@ export class AdminViewComponent implements OnInit {
         this.objClient = data;
         this.getClient();
         this.objClient = new Client('', '', '', '', '', '');
+        Swal.fire({
+          icon: 'success',
+          title: '!Listo!',
+          text: 'Cliente agregado con éxito',
+          showConfirmButton: false,
+          timer: 1500
+        });
       }
     );
   }
 
-  getClient(){
+  getClient() {
     this.apiService.getClient().subscribe(
       data => {
         this.clientList = data;
       }
     );
   }
-  postProduct(){
+  postProduct() {
 
     this.apiService.addProduct(this.productModel).subscribe(
       data => {
         this.objProduct = data;
         this.getProduct();
         this.objProduct = new Product(0, '', '', '', '');
+        Swal.fire({
+          icon: 'success',
+          title: '!Listo!',
+          text: 'Producto agregado con éxito',
+          showConfirmButton: false,
+          timer: 1500
+        });
       }
     );
   }
 
-  getProduct(){
+  getProduct() {
     this.apiService.getProduct().subscribe(
       data => {
         this.productList = data;
@@ -292,22 +329,29 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-  postGetCellar(){
+  postGetCellar() {
     this.postCellar();
     this.getCellar();
   }
 
-  postCellar(){
+  postCellar() {
 
     this.apiService.addCellar(this.cellarModel).subscribe(
       data => {
         this.objCellar = data;
         this.getCellar();
+        Swal.fire({
+          icon: 'success',
+          title: '!Listo!',
+          text: 'Bodega agregada con éxito',
+          showConfirmButton: false,
+          timer: 1500
+        });
       }
     );
   }
 
-  getCellar(){
+  getCellar() {
 
     this.apiService.getCellar().subscribe(
       data => {
@@ -316,7 +360,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-  getACellar(){
+  getACellar() {
 
     this.apiService.getACellar().subscribe(
       data => {
@@ -325,7 +369,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-  getOneCellar(){
+  getOneCellar() {
 
     this.apiService.getOneCellar(this.cellarModel.codigo).subscribe(
       data => {
@@ -334,7 +378,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-  updateCellar(){
+  updateCellar() {
 
     this.apiService.updateCellar(this.cellarModel).subscribe(
       data => {
@@ -343,7 +387,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-  cellarStatus(){
+  cellarStatus() {
 
     this.apiService.cellarStatus(this.cellarModel).subscribe(
       data => {
@@ -352,7 +396,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-  cellarMoveInput(){
+  cellarMoveInput() {
 
     this.apiService.cellarMoveInput(this.moveInputModel).subscribe(
       data => {
@@ -361,7 +405,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-  cellarGetInputList(){
+  cellarGetInputList() {
 
     this.apiService.getCellarInputList(this.cellarModel).subscribe(
       data => {
@@ -371,11 +415,9 @@ export class AdminViewComponent implements OnInit {
   }
 
 
-
-
   /** Used to validate combo on user rol */
-  validateRol(value){
-    if (value === 'default'){
+  validateRol(value) {
+    if (value === 'default') {
       this.rolHasError = true;
     } else {
       this.rolHasError = false;
@@ -383,8 +425,8 @@ export class AdminViewComponent implements OnInit {
   }
 
   /** Used to validate combo on input unit */
-  validateUnit(value){
-    if (value === 'default'){
+  validateUnit(value) {
+    if (value === 'default') {
       this.unitHasError = true;
     } else {
       this.unitHasError = false;
@@ -392,17 +434,17 @@ export class AdminViewComponent implements OnInit {
   }
 
   /** Used to validate combo on input update status */
-  validateStatus(value){
-    if (value === 'default'){
+  validateStatus(value) {
+    if (value === 'default') {
       this.statusHasError = true;
     } else {
       this.statusHasError = false;
     }
   }
 
-   /** Used to validate combo on input update status */
-   validateUserStatus(value){
-    if (value === 'default'){
+  /** Used to validate combo on input update status */
+  validateUserStatus(value) {
+    if (value === 'default') {
       this.statusUHasError = true;
     } else {
       this.statusUHasError = false;
@@ -410,24 +452,24 @@ export class AdminViewComponent implements OnInit {
   }
 
 
-    /** Used to validate combo on user rol */
-    validateClient(value){
-      if (value === 'default'){
-        this.clientHasError = true;
-      } else {
-        this.clientHasError = false;
-      }
+  /** Used to validate combo on user rol */
+  validateClient(value) {
+    if (value === 'default') {
+      this.clientHasError = true;
+    } else {
+      this.clientHasError = false;
     }
+  }
 
-    validateCellar(value){
-      if (value === 'default'){
-        this.cellarHasError = true;
-      } else {
-        this.cellarHasError = false;
-      }
+  validateCellar(value) {
+    if (value === 'default') {
+      this.cellarHasError = true;
+    } else {
+      this.cellarHasError = false;
     }
+  }
 
-    /** Used to add a product entry */
+  /** Used to add a product entry */
   orderEntry() {
 
     for (const i of this.clientAList) {
@@ -440,128 +482,204 @@ export class AdminViewComponent implements OnInit {
     this.apiService.addOrder(this.orderModel).subscribe(
       data => {
         this.objOrder = data;
+        Swal.fire({
+          icon: 'success',
+          title: '!Listo!',
+          text: 'Pedido agregado con éxito',
+          showConfirmButton: false,
+          timer: 1500
+        });
       }
     );
   }
 
-    pushIntoEntryList() {
-      this.productExist = false;
-      this.productEntryModel.cantidad = this.auxQ;
-      this.productEntryModel.producto = this.searchProductModel2;
-      this.productEntryList.push(this.productEntryModel);
-      this.productEntryModel = new ProductInOrder(this.product, 0);
-      this.auxQ = 0;
-      this.searchProductModel2 = new Product(0, '', '', '', '');
-      this.searchProductModel = new Product(0, '',  '', '', '');
-      this.validateList();
-      this.productExist = false;
-    }
+  pushIntoEntryList() {
+    this.productExist = false;
+    this.productEntryModel.cantidad = this.auxQ;
+    this.productEntryModel.producto = this.searchProductModel2;
+    this.productEntryList.push(this.productEntryModel);
+    this.productEntryModel = new ProductInOrder(this.product, 0);
+    this.auxQ = 0;
+    this.searchProductModel2 = new Product(0, '', '', '', '');
+    this.searchProductModel = new Product(0, '', '', '', '');
+    this.validateList();
+    this.productExist = false;
+  }
 
-    searchProduct() {
-      for (const i of this.productList) {
-        if (this.searchProductModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
-          this.productExist = true;
-          this.searchProductModel2 = i;
-          return;
-        } else {
-          this.productExist = false;
-        }
-      }
-    }
-
-    /** Validations for inputs in order */
-    validateList(){
-      if (this.productEntryList.length > 0){
-        this.listIsNotEmpty = true;
+  searchProduct() {
+    for (const i of this.productList) {
+      if (this.searchProductModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
+        this.productExist = true;
+        this.searchProductModel2 = i;
+        return;
       } else {
-        this.listIsNotEmpty = false;
+        this.productExist = false;
       }
     }
+  }
 
-    removeFromList(i: number){
-      this.productEntryList.splice(i, 1);
-      this.validateList();
+  /** Validations for inputs in order */
+  validateList() {
+    if (this.productEntryList.length > 0) {
+      this.listIsNotEmpty = true;
+    } else {
+      this.listIsNotEmpty = false;
     }
+  }
 
-    /** Update methods */
+  removeFromList(i: number) {
+    this.productEntryList.splice(i, 1);
+    this.validateList();
+  }
 
-    /** Input */
-    chargeInputToUpdate(inputToUpdate: Input){
-      this.inputUpdateModel = inputToUpdate;
-    }
+  /** Update methods */
 
-    updateInput(){
-      this.apiService.updateInput(this.inputUpdateModel).subscribe(
-        data => {
-          this.objInput = data;
-          this.getInput();
-        }
-      );
-    }
+  /** Input */
+  chargeInputToUpdate(inputToUpdate: Input) {
+    this.inputUpdateModel = inputToUpdate;
+  }
 
-    /** User */
+  updateInput() {
+    this.apiService.updateInput(this.inputUpdateModel).subscribe(
+      data => {
+        this.objInput = data;
+        this.getInput();
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'center',
+          showConfirmButton: false,
+          timer: 1000,
+          onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        });
+        Toast.fire({
+          icon: 'success',
+          title: 'Insumo actualizado'
+        });
+      }
+    );
+  }
 
-    chargeUserToUpdate(userToUpdate: User){
-      this.userUpdateModel = userToUpdate;
-    }
+  /** User */
 
-    updateUser(){
+  chargeUserToUpdate(userToUpdate: User) {
+    this.userUpdateModel = userToUpdate;
+  }
 
-      this.apiService.updateUser(this.userUpdateModel).subscribe(
-        data => {
-          this.objUser = data;
-          this.getUser();
-        }
-      );
-    }
+  updateUser() {
 
-    /** Client */
+    this.apiService.updateUser(this.userUpdateModel).subscribe(
+      data => {
+        this.objUser = data;
+        this.getUser();
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'center',
+          showConfirmButton: false,
+          timer: 1000,
+          onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        });
+        Toast.fire({
+          icon: 'success',
+          title: 'Usuario actualizado'
+        });
+      }
+    );
+  }
 
-    chargeClientToUpdate(clientToUpdate: Client){
-      this.clientUpdateModel = clientToUpdate;
-    }
+  /** Client */
 
-    updateClient(){
+  chargeClientToUpdate(clientToUpdate: Client) {
+    this.clientUpdateModel = clientToUpdate;
+  }
 
-      this.apiService.updateClient(this.clientUpdateModel).subscribe(
-        data => {
-          this.objClient = data;
-          this.getClient();
-        }
-      );
-    }
+  updateClient() {
 
-    /** Product */
+    this.apiService.updateClient(this.clientUpdateModel).subscribe(
+      data => {
+        this.objClient = data;
+        this.getClient();
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'center',
+          showConfirmButton: false,
+          timer: 1000,
+          onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        });
+        Toast.fire({
+          icon: 'success',
+          title: 'Cliente actualizado'
+        });
+      }
+    );
+  }
 
-    chargeProductToUpdate(productToUpdate: Product){
-      this.productUpdateModel = productToUpdate;
-    }
+  /** Product */
 
-    updateProduct(){
+  chargeProductToUpdate(productToUpdate: Product) {
+    this.productUpdateModel = productToUpdate;
+  }
 
-      this.apiService.updateProduct(this.productUpdateModel).subscribe(
-        data => {
-          this.objProduct = data;
-          this.getProduct();
-        }
-      );
-    }
+  updateProduct() {
 
-    /** Cellar */
+    this.apiService.updateProduct(this.productUpdateModel).subscribe(
+      data => {
+        this.objProduct = data;
+        this.getProduct();
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'center',
+          showConfirmButton: false,
+          timer: 1000,
+          onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        });
+        Toast.fire({
+          icon: 'success',
+          title: 'Producto actualizado'
+        });
+      }
+    );
+  }
 
-    chargeCellarToUpdate(cellarToUpdate: Cellar){
-      this.cellarUpdateModel = cellarToUpdate;
-    }
+  /** Cellar */
 
-    updateCellars(){
+  chargeCellarToUpdate(cellarToUpdate: Cellar) {
+    this.cellarUpdateModel = cellarToUpdate;
+  }
 
-      this.apiService.updateCellar(this.cellarUpdateModel).subscribe(
-        data => {
-          this.objCellar = data;
-          this.getCellar();
-        }
-      );
-    }
+  updateCellars() {
 
+    this.apiService.updateCellar(this.cellarUpdateModel).subscribe(
+      data => {
+        this.objCellar = data;
+        this.getCellar();
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'center',
+          showConfirmButton: false,
+          timer: 1000,
+          onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        });
+        Toast.fire({
+          icon: 'success',
+          title: 'Bodega actualizada'
+        });
+      }
+    );
+  }
 
 }

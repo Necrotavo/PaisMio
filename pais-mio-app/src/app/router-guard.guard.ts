@@ -24,7 +24,14 @@ export class RouterGuardGuard implements CanActivate {
       this.router.navigateByUrl('/sign-in');
       return false;
     }
-    return true;
+    if (this.userIn.rol === 'ADMINISTRADOR'){
+      console.log('Guard: ' + this.userIn.rol);
+      return true;
+    } else if (this.userIn.rol === 'SUPERVISOR'){
+      console.log('Guard: ' + this.userIn.rol);
+      this.router.navigateByUrl('/');
+      return true;
+    }
   }
 
 }
