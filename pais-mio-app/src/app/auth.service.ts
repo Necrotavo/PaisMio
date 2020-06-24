@@ -78,6 +78,7 @@ export class AuthService {
       } else if (this.userIn.rol === 'SUPERVISOR') {
         this.supervisorRole.next(true);
       }
+      this.supervisorRole.next(true);
     }
   }
 

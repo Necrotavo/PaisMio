@@ -415,8 +415,6 @@ export class AdminViewComponent implements OnInit {
   }
 
 
-
-
   /** Used to validate combo on user rol */
   validateRol(value) {
     if (value === 'default') {
@@ -546,6 +544,20 @@ export class AdminViewComponent implements OnInit {
       data => {
         this.objInput = data;
         this.getInput();
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'center',
+          showConfirmButton: false,
+          timer: 1000,
+          onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        });
+        Toast.fire({
+          icon: 'success',
+          title: 'Insumo actualizado'
+        });
       }
     );
   }
@@ -562,6 +574,20 @@ export class AdminViewComponent implements OnInit {
       data => {
         this.objUser = data;
         this.getUser();
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'center',
+          showConfirmButton: false,
+          timer: 1000,
+          onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        });
+        Toast.fire({
+          icon: 'success',
+          title: 'Usuario actualizado'
+        });
       }
     );
   }
@@ -578,6 +604,20 @@ export class AdminViewComponent implements OnInit {
       data => {
         this.objClient = data;
         this.getClient();
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'center',
+          showConfirmButton: false,
+          timer: 1000,
+          onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        });
+        Toast.fire({
+          icon: 'success',
+          title: 'Cliente actualizado'
+        });
       }
     );
   }
@@ -594,6 +634,20 @@ export class AdminViewComponent implements OnInit {
       data => {
         this.objProduct = data;
         this.getProduct();
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'center',
+          showConfirmButton: false,
+          timer: 1000,
+          onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        });
+        Toast.fire({
+          icon: 'success',
+          title: 'Producto actualizado'
+        });
       }
     );
   }
@@ -610,6 +664,20 @@ export class AdminViewComponent implements OnInit {
       data => {
         this.objCellar = data;
         this.getCellar();
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'center',
+          showConfirmButton: false,
+          timer: 1000,
+          onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        });
+        Toast.fire({
+          icon: 'success',
+          title: 'Bodega actualizada'
+        });
       }
     );
   }
