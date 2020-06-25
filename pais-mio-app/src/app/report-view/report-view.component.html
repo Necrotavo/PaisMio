@@ -214,12 +214,166 @@
                 <button type="button" class="btn btn-secondary" (click)="reportForm.reset()"
                     data-dismiss="modal">Cerrar</button>
                 <button [disabled]="reportForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
-                    (click)="downloadPDF()">Descargar PDF</button>
+                    (click)="openPDF()">Ver en PDF</button>
             </div>
 
         </div>
     </div>
 </div>
-
-
 <!-- Modal end -->
+
+<!-- Modal Order Report -->
+<div class="modal fade" id="orderReportModal" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="reportModallabel1">Detalles del reporte de pedidos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form #reportForm="ngForm"  novalidate>
+                    <div class="form-group">
+                        <div class="tab-header clearfix">
+                            <div class="float-left">
+                            </div>
+                        </div>
+                    </div>
+                    <div >
+                        <img src="{{objInputReport.infoPaisMio.logo}}" class="rounded mx-auto d-block" width="40%" width="40%">
+                    </div>
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <h5>
+                                {{objInputReport.infoPaisMio.nombre}}
+                            </h5>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Cedula
+                                </th>
+                                <td>
+                                   {{objInputReport.infoPaisMio.cedulaJuridica}}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>
+                                    Dirección
+                                </th>
+                                <td>
+                                    {{objInputReport.infoPaisMio.direccion}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Telefono
+                                </th>
+                                <td>
+                                    {{objInputReport.infoPaisMio.telefono}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Correo
+                                </th>
+                                <td>
+                                    {{objInputReport.infoPaisMio.correo}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div *ngIf="objInputReport.listaInsumos.length === 0">
+                        <h5>
+                            Del {{objInputReport.fechaInicio | date: 'dd/MM/yyyy'}} Al {{objInputReport.fechaFinal | date: 'dd/MM/yyyy'}}
+                        </h5>
+                        <h6>
+                            No hay datos para mostrar
+                        </h6>
+                    </div>
+                    <div id="pdfReport" #pdfReport>
+                        <table class="table table-striped table-responsive" *ngIf="objInputReport.listaInsumos.length > 0">
+                            <thead>
+                                <h5>
+                                    Del {{objInputReport.fechaInicio | date: 'dd/MM/yyyy'}} Al {{objInputReport.fechaFinal | date: 'dd/MM/yyyy'}}
+                                </h5>
+                            </thead>
+                            <tbody>
+                                <th>Nombre de Insumo</th>
+                                <th>Cantidad Descartada</th>
+                                <th>Cantidad Consumida</th>
+                                <th>Total</th>
+                                <tr *ngFor="let item of objInputReport.listaInsumos">
+                                    
+                                    <td>
+                                        {{item.insumo.nombre}}
+                                    </td>
+                                    <td>
+                                        {{item.cantidadDescartada}}
+                                    </td>
+                                    <td>
+                                        {{item.cantidadConsumida}}
+                                    </td>
+                                    <td>
+                                        {{item.total}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>    
+                    </div>
+                    
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="reportForm.reset()"
+                    data-dismiss="modal">Cerrar</button>
+                <button [disabled]="reportForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
+                    (click)="openPDF()">Ver en PDF</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Modal end -->
+
+<!-- Not visible Input report Modal start -->
+
+<div class="modal fade" id="pdfInsumos" tabindex="-1" role="dialog" #pdfInsumos>
+    <h1>{{objInputReport.infoPaisMio.nombre}}</h1> <br>
+    <h4>Cedula Jurídica: {{objInputReport.infoPaisMio.cedulaJuridica}}</h4> <br> <br>
+    <h4>Reporte de insumos del {{objInputReport.fechaInicio | date: 'dd/MM/yyyy'}} al {{objInputReport.fechaFinal | date: 'dd/MM/yyyy'}}</h4> <br> <br>
+    <table>
+        <thead>
+            <th>Nombre</th>
+            <th>Descarte</th>
+            <th>Consumo</th>
+            <th>Total</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let reportedInput of objInputReport.listaInsumos">
+                
+                <td>
+                    {{reportedInput.insumo.nombre}}
+                </td>
+                <td>
+                    {{reportedInput.cantidadDescartada}}
+                </td>
+                <td>
+                    {{reportedInput.cantidadConsumida}}
+                </td>
+                <td>
+                    {{reportedInput.total}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Not visible Input report Modal ends -->

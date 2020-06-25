@@ -14,7 +14,7 @@ import { ReportedInput } from 'src/models/reportedInput';
   styleUrls: ['./report-view.component.scss']
 })
 export class ReportViewComponent implements OnInit {
-  @ViewChild('pdfReport') pdfReport:ElementRef;
+  @ViewChild('pdfInsumos') pdfInsumos:ElementRef;
   
 
   constructor(private apiService: ApiService) { }
@@ -82,25 +82,6 @@ export class ReportViewComponent implements OnInit {
     );
   }
 
-
-  downloadPDF() {
-      
-      let DATA = this.pdfReport.nativeElement;
-      let doc = new jsPDF('p','pt', 'a4');
-      let handleElement = {
-        '#editor':function(element,renderer){
-          return true;
-        }
-      };
-      doc.fromHTML(DATA.innerHTML,15,15,{
-        'width': 200,
-        'elementHandlers': handleElement
-      });
-  
-      doc.save('angular-demo.pdf');
-
-    }
-
   validateReportType(value){
     if (value === 'default'){
       this.reportHasError = true;
@@ -109,4 +90,26 @@ export class ReportViewComponent implements OnInit {
     }
   }
 
+  downloadPDF() {
+    let DATA = this.pdfInsumos.nativeElement;
+    let doc = new jsPDF('p','pt', 'a4');
+    let handleElement = {
+      '#editor':function(element,renderer){
+        return true;
+      }
+    };
+    doc.fromHTML(DATA.innerHTML,15,15,{
+      'width': 200,
+      'elementHandlers': handleElement
+    });
+  
+    doc.save('angular-demo.pdf');
+  }
+
+  openPDF():void {
+    let DATA = this.pdfInsumos.nativeElement;
+    let doc = new jsPDF('p','pt', 'a4');
+    doc.fromHTML(DATA.innerHTML,15,15);
+    doc.output('dataurlnewwindow');
+  }
 }
