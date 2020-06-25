@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { InputReport } from '../../models/inputReport';
 import { InputComparativeReport } from '../../models/inputComparativeReport';
 import { OrderReport } from '../../models/orderReport';
-import { InfoPaisMio } from '../../models/infoPaisMio';
-import { ReportedInput } from '../../models/reportedInput';
-import { InputCompared } from '../../models/inputCompared';
-import { Order } from '../../models/order';
+import * as jsPDF from 'jspdf';
+import { InfoPaisMio } from 'src/models/infoPaisMio';
+import { ReportedInput } from 'src/models/reportedInput';
+
 
 @Component({
   selector: 'app-report-view',
@@ -14,10 +14,12 @@ import { Order } from '../../models/order';
   styleUrls: ['./report-view.component.scss']
 })
 export class ReportViewComponent implements OnInit {
+  @ViewChild('pdfReport') pdfReport:ElementRef;
+  
 
   constructor(private apiService: ApiService) { }
   /** Declarations */
-
+  listReportedInput: Array<ReportedInput> = [];
 
   /** Models */
   inputReport = new InputReport(null, null, '','');
@@ -36,36 +38,17 @@ export class ReportViewComponent implements OnInit {
 
 
   /** returns */
-  objInputReport: InputReport;
+  objInputReport = new InputReport(this.listReportedInput, new InfoPaisMio(0,'','','','','',''), '','');
   objInputComparativeReport: InputComparativeReport;
   objOrderReport: OrderReport;
 
   ngOnInit(): void {
   }
 
-  getReport(){
-    if(this.auxN === 'insumos'){
-      this.inputReport.fechaInicio = this.R1D1;
-      this.inputReport.fechaFinal = this.R1D2;
-      this.getInputReport();
-    }
-    if(this.auxN === 'pedidos'){
-      this.orderReport.fechaInicio = this.R1D1;
-      this.orderReport.fechaFinal = this.R1D2;
-      this.getOrderReport();
-    }
-    if(this.auxN === 'entrada'){
-
-    }
-    if(this.auxN === 'comparativo'){
-      this.inputComparativeReport.inicioMes1 = this.R1D1;
-      this.inputComparativeReport.finalMes1 = this.R1D2;
-      this.inputComparativeReport.inicioMes2 = this.R2D1;
-      this.inputComparativeReport.finalMes2 = this.R2D2;
-      this.getInputComparativeReport();
-    }
-  }
   getInputReport(){
+    this.inputReport.fechaInicio = this.R1D1;
+    this.inputReport.fechaFinal = this.R1D2;
+
     this.apiService.getInputReport(this.inputReport).subscribe(
       data => {
         this.objInputReport = data;
@@ -74,6 +57,9 @@ export class ReportViewComponent implements OnInit {
   }
 
   getOrderReport(){
+    this.orderReport.fechaInicio = this.R1D1;
+    this.orderReport.fechaFinal = this.R1D2;
+
     this.apiService.getOrderReport(this.orderReport).subscribe(
       data => {
         this.objOrderReport = data;
@@ -82,7 +68,13 @@ export class ReportViewComponent implements OnInit {
   }
 
 
+
   getInputComparativeReport(){
+    this.inputComparativeReport.inicioMes1 = this.R1D1;
+    this.inputComparativeReport.finalMes1 = this.R1D2;
+    this.inputComparativeReport.inicioMes2 = this.R2D1;
+    this.inputComparativeReport.finalMes2 = this.R2D2;
+
     this.apiService.getInputComparativeReport(this.inputComparativeReport).subscribe(
       data => {
         this.objInputComparativeReport = data;
@@ -92,8 +84,22 @@ export class ReportViewComponent implements OnInit {
 
 
   downloadPDF() {
-    /* Report logic */
-  }
+      
+      let DATA = this.pdfReport.nativeElement;
+      let doc = new jsPDF('p','pt', 'a4');
+      let handleElement = {
+        '#editor':function(element,renderer){
+          return true;
+        }
+      };
+      doc.fromHTML(DATA.innerHTML,15,15,{
+        'width': 200,
+        'elementHandlers': handleElement
+      });
+  
+      doc.save('angular-demo.pdf');
+
+    }
 
   validateReportType(value){
     if (value === 'default'){

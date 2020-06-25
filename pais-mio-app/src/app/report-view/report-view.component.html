@@ -74,9 +74,24 @@
                 <button type="button" class="btn btn-success" (click)=" inputRequestForm.reset()"
                             data-toggle="modal" data-target="#requestModal">
                             -->
-                <button [disabled]="reportForm.form.invalid" type="button" class="btn btn-success" 
+                <button *ngIf="auxN === 'insumos'" [disabled]="reportForm.form.invalid" type="button" class="btn btn-success" 
+                data-toggle="modal" data-target="#inputReportModal"
+                (click)="getInputReport()">Generar
+                    reporte</button>
+                
+                <button *ngIf="auxN === 'pedidos'" [disabled]="reportForm.form.invalid" type="button" class="btn btn-success" 
+                data-toggle="modal" data-target="#orderReportModal"
+                (click)="getOrderReport()">Generar
+                    reporte</button>
+                <!--
+                <button *ngIf="auxN === 'entrada'" [disabled]="reportForm.form.invalid" type="button" class="btn btn-success" 
                 data-toggle="modal" data-target="#reportModal"
                 (click)="getReport()">Generar
+                    reporte</button>
+                -->
+                <button *ngIf="auxN === 'comparativo'" [disabled]="reportForm.form.invalid" type="button" class="btn btn-success" 
+                data-toggle="modal" data-target="#comparativeReportModal"
+                (click)="getInputComparativeReport()">Generar
                     reporte</button>
             </form>
 
@@ -87,16 +102,16 @@
 <!-- Report modal -->
 <!-- Modal start -->
 
-<div class="modal fade" id="reportModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="inputReportModal" tabindex="-1" role="dialog">
 
     <div class="modal-dialog" role="document">
 
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title" id="reportModallabel1">Detalles de report</h5>
+                <h5 class="modal-title" id="reportModallabel1">Detalles del reporte de insumos</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
+                    <span aria-hidden="true">x</span>
                 </button>
             </div>
 
@@ -108,102 +123,90 @@
                             </div>
                         </div>
                     </div>
-                    {{objInputReport | json}}
+                    <div >
+                        <img src="{{objInputReport.infoPaisMio.logo}}" class="rounded mx-auto d-block" width="40%" width="40%">
+                    </div>
                     <table class="table table-striped table-responsive">
                         <thead>
-                            <tr>
-                                <th></th>
-                                <th></th>
-                            </tr>
+                            <h5>
+                                {{objInputReport.infoPaisMio.nombre}}
+                            </h5>
                         </thead>
                         <tbody>
                             <tr>
                                 <th>
-                                    Nombre
+                                    Cedula
                                 </th>
-                                <!--
                                 <td>
-                                    <div class="form-field">
-                                        <input type="text" required #nombreI="ngModel" class="form-control"
-                                            [class.is-invalid]="nombreI.invalid && nombreI.touched" placeholder="Nombre"
-                                            name="nombreI" [(ngModel)]="inputModel.nombre">
-                                        <div *ngIf="nombreI.errors && (nombreI.invalid || nombreI.touched)">
-                                            <p><small class="text-danger"
-                                                    *ngIf="nombreI.errors.required && nombreI.touched">Nombre
-                                                    requerido</small></p>
-                                            <p><small class="text-danger" *ngIf="nombreI.errors.pattern">Nombre
-                                                    invalido</small></p>
-                                            <p><small class="text-danger" *ngIf="nombreI.errors.pattern">50
-                                                    dígitos</small></p>
-                                        </div>
-                                    </div>
-                                </td>-->
+                                   {{objInputReport.infoPaisMio.cedulaJuridica}}
+                                </td>
                             </tr>
-                            <tr>
-                                <th>
-                                    Código
-                                </th>
-                                <!--
-                                <td>
-                                    <div class="form-field">
-                                        <input type="text" required #codigoI="ngModel" class="form-control"
-                                            [class.is-invalid]="codigoI.invalid && codigoI.touched" placeholder="Codigo"
-                                            name="codigoI" [(ngModel)]="inputModel.id">
-                                        <div *ngIf="codigoI.errors && (codigoI.invalid || codigoI.touched)">
 
-                                            <p><small class="text-danger"
-                                                    *ngIf="codigoI.errors.required && codigoI.touched">Codigo
-                                                    requerido</small></p>
-                                            <p><small class="text-danger" *ngIf="codigoI.errors.pattern">Nombre
-                                                    invalido</small></p>
-                                            <p><small class="text-danger" *ngIf="codigoI.errors.pattern">50
-                                                    dígitos</small></p>
-                                        </div>
-                                    </div>
+                            <tr>
+                                <th>
+                                    Dirección
+                                </th>
+                                <td>
+                                    {{objInputReport.infoPaisMio.direccion}}
                                 </td>
-                                -->
                             </tr>
                             <tr>
                                 <th>
-                                    Mínimo en stock
+                                    Telefono
                                 </th>
-                                <!--
                                 <td>
-                                    <div class="form-field">
-                                        <input type="number" required #minI="ngModel" class="form-control"
-                                            [class.is-invalid]="minI.invalid && minI.touched" placeholder="Min"
-                                            name="minI" [(ngModel)]="inputModel.cantMinStock">
-                                        <div *ngIf="minI.errors && (minI.invalid || minI.touched)">
-                                            <p><small class="text-danger"
-                                                    *ngIf="minI.errors.required && minI.touched">Minimo
-                                                    requerido</small></p>
-                                        </div>
-                                    </div>
+                                    {{objInputReport.infoPaisMio.telefono}}
                                 </td>
-                                -->
                             </tr>
                             <tr>
                                 <th>
-                                    Unidad de medida
+                                    Correo
                                 </th>
-                                <!--
                                 <td>
-                                    <div class="form-field">
-                                        <select (blur)="validateUnit(unitI.value)" (change)="validateUnit(unitI.value)"
-                                            #unitI="ngModel" [class.is-invalid]="unitHasError && unitI.touched"
-                                            class="form-control" name="unitI" [(ngModel)]="inputModel.unidad">
-                                            <option value="default">Unidad de medida</option>
-                                            <option *ngFor="let com of unitList">{{com.unidad}}</option>
-                                        </select>
-                                        <p><small class="text-danger"
-                                                [class.d-none]="!unitHasError || unitI.untouched">Unidad
-                                                requerida</small></p>
-                                    </div>
+                                    {{objInputReport.infoPaisMio.correo}}
                                 </td>
-                                -->
                             </tr>
                         </tbody>
                     </table>
+                    <div *ngIf="objInputReport.listaInsumos.length === 0">
+                        <h5>
+                            Del {{objInputReport.fechaInicio | date: 'dd/MM/yyyy'}} Al {{objInputReport.fechaFinal | date: 'dd/MM/yyyy'}}
+                        </h5>
+                        <h6>
+                            No hay datos para mostrar
+                        </h6>
+                    </div>
+                    <div id="pdfReport" #pdfReport>
+                        <table class="table table-striped table-responsive" *ngIf="objInputReport.listaInsumos.length > 0">
+                            <thead>
+                                <h5>
+                                    Del {{objInputReport.fechaInicio | date: 'dd/MM/yyyy'}} Al {{objInputReport.fechaFinal | date: 'dd/MM/yyyy'}}
+                                </h5>
+                            </thead>
+                            <tbody>
+                                <th>Nombre de Insumo</th>
+                                <th>Cantidad Descartada</th>
+                                <th>Cantidad Consumida</th>
+                                <th>Total</th>
+                                <tr *ngFor="let item of objInputReport.listaInsumos">
+                                    
+                                    <td>
+                                        {{item.insumo.nombre}}
+                                    </td>
+                                    <td>
+                                        {{item.cantidadDescartada}}
+                                    </td>
+                                    <td>
+                                        {{item.cantidadConsumida}}
+                                    </td>
+                                    <td>
+                                        {{item.total}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>    
+                    </div>
+                    
                 </form>
             </div>
 
