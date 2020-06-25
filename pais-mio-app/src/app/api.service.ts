@@ -689,14 +689,14 @@ export class ApiService {
 
 
 /** TODO */
-/** const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
+/* const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
 const inputGetA = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
 const unitGet = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
 const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
-*/
+* /
 
 
-  /** updateClientStatus(nombre: string, client: Client): Observable<any> {
+  /* updateClientStatus(nombre: string, client: Client): Observable<any> {
      const url = `${apiURL}/${nombre}`;
      return this.http.put(url, client, HttpOptions).pipe(
        tap(_ => console.log(`updated client status id=${nombre}`)),
@@ -704,7 +704,7 @@ const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
      );
    } */
 
-  /**
+  /*
 
 
   getReportCByID(id: string): Observable<ReportC> {
@@ -739,7 +739,7 @@ const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
   }
    */
 
-    /** Monthly Reports CRUD
+    /* Monthly Reports CRUD
   getReportM(): Observable<ReportM[]> {
     return this.http.get<ReportM[]>(`${apiURL}`)
       .pipe(
@@ -777,4 +777,4 @@ const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
       tap(_ => console.log(`deleted report Monthly id=${id}`)),
       catchError(this.handleErrors<ReportM>(`deletedReportM`))
     );
-  }*/
+  } */
