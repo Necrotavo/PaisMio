@@ -15,105 +15,7 @@ namespace DAO
     public class DAO_Reporte
     {
         private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ConnectionString);
-
-        //public List<DO_InsumoEnBodega> obtenerListaInsumosConsumidos(String inicio, String final) {
-        //    try
-        //    {
-        //        //Formato del string para la fecha 2020-05-30
-        //        SqlDataAdapter adaptador = new SqlDataAdapter();
-        //        DataTable datatable = new DataTable();
-        //        List<DO_InsumoEnBodega> listaInsumosConsumidos = new List<DO_InsumoEnBodega>();
-
-        //        adaptador.SelectCommand = new SqlCommand("Select INS_CODIGO, SUM(ACS_CANTIDAD) AS TOTAL_POR_INSUMO from SOL_A_CONSUMIR_INS " +
-        //            "INNER JOIN (Select SOL_CODIGO from SOLICITUD_INSUMO " +
-        //            "where SOL_FECHA BETWEEN CONVERT(datetime, @fechaInicio) AND CONVERT(datetime, @fechaFinal)) as temporal " +
-        //            "ON SOL_A_CONSUMIR_INS.SOL_CODIGO = temporal.SOL_CODIGO GROUP BY INS_CODIGO; ", conexion);
-
-        //        adaptador.SelectCommand.Parameters.AddWithValue("@fechaInicio", inicio);
-        //        adaptador.SelectCommand.Parameters.AddWithValue("@fechaFinal", final);
-
-        //        if (conexion.State != ConnectionState.Open)
-        //        {
-        //            conexion.Open();
-        //        }
-
-        //        adaptador.Fill(datatable);
-
-        //        foreach (DataRow fila in datatable.Rows)
-        //        {
-        //            DO_InsumoEnBodega insumoConsumido = new DO_InsumoEnBodega();
-        //            insumoConsumido.insumo = new DO_Insumo();
-
-        //            insumoConsumido.insumo.codigo = Convert.ToInt32(fila["INS_CODIGO"]);
-        //            insumoConsumido.cantidadDisponible = Convert.ToInt32(fila["TOTAL_POR_INSUMO"]);
-
-        //            listaInsumosConsumidos.Add(insumoConsumido);
-
-        //        }
-        //        return listaInsumosConsumidos;
-        //    }
-        //    catch (SqlException)
-        //    {
-        //        return null;
-        //    }
-        //    finally {
-        //        if (conexion.State != ConnectionState.Closed)
-        //        {
-        //            conexion.Close();
-        //        }
-        //    }
-        //}
-
-        //public List<DO_InsumoEnBodega> obtenerListaInsumosDescartados(String inicio, String final)
-        //{
-        //    try
-        //    {
-        //        //Formato del string para la fecha 2020-05-30
-        //        SqlDataAdapter adaptador = new SqlDataAdapter();
-        //        DataTable datatable = new DataTable();
-        //        List<DO_InsumoEnBodega> listaInsumosDescartados = new List<DO_InsumoEnBodega>();
-
-        //        adaptador.SelectCommand = new SqlCommand("Select INS_CODIGO, SUM(PDS_CANTIDAD) AS TOTAL_POR_INSUMO from POR_DESCARTE " +
-        //            "INNER JOIN (Select SOL_CODIGO from SOLICITUD_INSUMO " +
-        //            "where SOL_FECHA BETWEEN CONVERT(datetime, @fechaInicio) AND CONVERT(datetime, @fechaFinal)) as temporal " +
-        //            "ON POR_DESCARTE.SOL_CODIGO = temporal.SOL_CODIGO GROUP BY INS_CODIGO; ", conexion);
-
-        //        adaptador.SelectCommand.Parameters.AddWithValue("@fechaInicio", inicio);
-        //        adaptador.SelectCommand.Parameters.AddWithValue("@fechaFinal", final);
-
-        //        if (conexion.State != ConnectionState.Open)
-        //        {
-        //            conexion.Open();
-        //        }
-
-        //        adaptador.Fill(datatable);
-
-        //        foreach (DataRow fila in datatable.Rows)
-        //        {
-        //            DO_InsumoEnBodega insumoConsumido = new DO_InsumoEnBodega();
-        //            insumoConsumido.insumo = new DO_Insumo();
-
-        //            insumoConsumido.insumo.codigo = Convert.ToInt32(fila["INS_CODIGO"]);
-        //            insumoConsumido.cantidadDisponible = Convert.ToInt32(fila["TOTAL_POR_INSUMO"]);
-
-        //            listaInsumosDescartados.Add(insumoConsumido);
-
-        //        }
-        //        return listaInsumosDescartados;
-        //    }
-        //    catch (SqlException)
-        //    {
-        //        return null;
-        //    }
-        //    finally
-        //    {
-        //        if (conexion.State != ConnectionState.Closed)
-        //        {
-        //            conexion.Close();
-        //        }
-        //    }
-        //}
-
+        
         public List<DO_InsumoReportable> reporteInsumos(String inicio, String final) {
             try
             {
@@ -190,16 +92,19 @@ namespace DAO
         /// <param name="mes">Mes de los pedidos a buscar (int)</param>
         /// <param name="anho">Año del pedido a buscar(int)</param>
         /// <returns>Lista de pedidos en el mes especificado</returns>
-        public DO_ReportePedido reportePedidos(Int32 mes, Int32 anho)
+        public DO_ReportePedido reportePedidos(String inicio, String final)
         {
 
             DO_ReportePedido reportePedido = new DO_ReportePedido();
             reportePedido.listaPedidos = new List<DO_Pedido>();
-            SqlCommand comandoBuscar = new SqlCommand("SELECT PEDIDO.PED_CODIGO, CLIENTE.CLI_NOMBRE, PEDIDO.ESTADO, PEDIDO.OPE_CORREO,PEDIDO.ADM_OPE_CORREO," +
-                                                    "PEDIDO.PED_FECHA_INGRESO,PEDIDO.PED_FECHA_DESPACHO FROM PEDIDO, CLIENTE WHERE PEDIDO.CLI_CEDULA = CLIENTE.CLI_CEDULA AND (MONTH(PEDIDO.PED_FECHA_DESPACHO) = @mes AND YEAR(PEDIDO.PED_FECHA_DESPACHO) = @anho)",conexion);
+            SqlCommand comandoBuscar = new SqlCommand("SELECT PEDIDO.PED_CODIGO, CLIENTE.CLI_NOMBRE, " +
+                "PEDIDO.ESTADO, PEDIDO.OPE_CORREO,PEDIDO.ADM_OPE_CORREO," +
+                "PEDIDO.PED_FECHA_INGRESO,PEDIDO.PED_FECHA_DESPACHO FROM PEDIDO, CLIENTE " +
+                "WHERE PEDIDO.CLI_CEDULA = CLIENTE.CLI_CEDULA " +
+                "AND PEDIDO.PED_FECHA_DESPACHO BETWEEN CONVERT(datetime, @fechaInicio) AND CONVERT(datetime, @fechaFinal)", conexion);
 
-            comandoBuscar.Parameters.AddWithValue("@mes", mes);
-            comandoBuscar.Parameters.AddWithValue("@anho", anho);
+            comandoBuscar.Parameters.AddWithValue("@fechaInicio", inicio);
+            comandoBuscar.Parameters.AddWithValue("@fechaFinal", final);
 
             try
             {
@@ -299,6 +204,95 @@ namespace DAO
                         conexion.Close();
                     }
                 }
+            }
+        }
+
+        public DO_ReporteEntradaInsumos reporteEntradas(String inicio, String final) {
+            try
+            {
+                SqlDataAdapter adaptador = new SqlDataAdapter();
+                DataTable datatable = new DataTable();
+                DO_ReporteEntradaInsumos reporteEntradas = new DO_ReporteEntradaInsumos();
+                reporteEntradas.listaEntradas = new List<DO_EntradaReportable>();
+
+                adaptador.SelectCommand = new SqlCommand("SELECT * FROM ENTRADA_INSUMO " +
+                    "WHERE ENI_FECHA BETWEEN CONVERT(datetime, @fechaInicio) AND CONVERT(datetime, @fechaFinal)", conexion);
+
+                adaptador.SelectCommand.Parameters.AddWithValue("@fechaInicio", inicio);
+                adaptador.SelectCommand.Parameters.AddWithValue("@fechaFinal", final);
+
+                //SELECT* FROM INSUMO_ENTRANTE WHERE ENI_CODIGO = 13;
+
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+
+                adaptador.Fill(datatable);
+
+                foreach (DataRow fila in datatable.Rows)
+                {
+                    DO_EntradaReportable entradaInsumo = new DO_EntradaReportable();
+                    entradaInsumo.listaInsumos = new List<DO_InsumoEntrante>();
+
+                    entradaInsumo.codigo = Convert.ToInt32(fila["ENI_CODIGO"]);
+                    entradaInsumo.fecha = (String)(fila["ENI_FECHA"]);
+                    entradaInsumo.correoAdministrador = (String)(fila["OPE_CORREO"]);
+
+                    entradaInsumo.listaInsumos = obtenerListaInsumosEntrante(entradaInsumo.codigo);
+
+                    reporteEntradas.listaEntradas.Add(entradaInsumo);
+                }
+                return reporteEntradas;
+            }
+            catch(SqlException)
+            {
+                return null;
+            }
+            finally {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
+        private List<DO_InsumoEntrante> obtenerListaInsumosEntrante(Int32 codigoEntrada) {
+            try
+            {
+                SqlDataAdapter adaptadorInsumos = new SqlDataAdapter();
+                DataTable datatableInsumos = new DataTable();
+                List<DO_InsumoEntrante> listaInsumos = new List<DO_InsumoEntrante>();
+
+                adaptadorInsumos.SelectCommand = new SqlCommand("SELECT * FROM INSUMO_ENTRANTE WHERE ENI_CODIGO = @codigoEntrada", conexion);
+                adaptadorInsumos.SelectCommand.Parameters.AddWithValue("@codigoEntrada", codigoEntrada);
+
+                adaptadorInsumos.Fill(datatableInsumos);
+
+                foreach (DataRow filaInsumos in datatableInsumos.Rows)
+                {
+                    DO_InsumoEntrante insumoEntrante = new DO_InsumoEntrante();
+                    insumoEntrante.doBodega = new DO_Bodega();
+                    insumoEntrante.insumo = new DO_InsumoEnBodega();
+                    insumoEntrante.insumo.insumo = new DO_Insumo();
+
+                    insumoEntrante.doBodega.codigo = Convert.ToInt32(filaInsumos["BOD_CODIGO"]);
+                    DAO_Bodega daoBodega = new DAO_Bodega();
+                    insumoEntrante.doBodega.nombre = daoBodega.obtenerNombreBodega(insumoEntrante.doBodega.codigo);
+
+                    insumoEntrante.insumo.insumo.codigo = Convert.ToInt32(filaInsumos["INS_CODIGO"]);
+                    DAO_Insumo daoInsumo = new DAO_Insumo();
+                    insumoEntrante.insumo.insumo.nombre = daoInsumo.obtenerNombreInsumo(insumoEntrante.insumo.insumo.codigo);
+
+                    insumoEntrante.insumo.cantidadDisponible = Convert.ToInt32(filaInsumos["IENT_CANTIDAD"]);
+
+                    listaInsumos.Add(insumoEntrante);
+                }
+                return listaInsumos;
+            }
+            catch (SqlException)
+            {
+                return null;
             }
         }
     }

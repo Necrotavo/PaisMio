@@ -48,9 +48,11 @@
     <Compile Include="DO_Cliente.cs" />
     <Compile Include="DO_DecisionSolicitudInsumos.cs" />
     <Compile Include="DO_EntradaInsumosBodega.cs" />
+    <Compile Include="DO_EntradaReportable.cs" />
     <Compile Include="DO_EstadoHabilitacion.cs" />
     <Compile Include="DO_Insumo.cs" />
     <Compile Include="DO_InsumoEnBodega.cs" />
+    <Compile Include="DO_InsumoEntrante.cs" />
     <Compile Include="DO_OpeRolUpgradeUsuario.cs" />
     <Compile Include="DO_PaisMio.cs" />
     <Compile Include="DO_InsumosComparados.cs" />
@@ -59,6 +61,7 @@
     <Compile Include="DO_Pedido.cs" />
     <Compile Include="DO_Producto.cs" />
     <Compile Include="DO_ProductoEnPedido.cs" />
+    <Compile Include="DO_ReporteEntradaInsumos.cs" />
     <Compile Include="DO_ReporteInsumos.cs" />
     <Compile Include="DO_ReporteInsumosComparativo.cs" />
     <Compile Include="DO_ReportePedido.cs" />
