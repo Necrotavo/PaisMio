@@ -37,5 +37,13 @@ namespace WebService
             Method = "POST",
             UriTemplate = "reporteInsumosComparativo")]
         DO_ReporteInsumosComparativo obtenerReporteInsumosComparativo(DO_ReporteInsumosComparativo reporteInsumosComparativo);
+
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+            Method = "POST",
+            UriTemplate = "reporteEntradaInsumos")]
+        DO_ReporteEntradaInsumos reporteEntradaInsumos(DO_ReporteEntradaInsumos reporteEntradaInsumos);
     }
 }

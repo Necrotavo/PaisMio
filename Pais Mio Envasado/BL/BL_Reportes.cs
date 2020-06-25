@@ -90,17 +90,18 @@ namespace BL
         /// <param name="mes">Mes a buscar los pedidos</param>
         /// <param name="anho">Año de los pedidos a buscar</param>
         /// <returns>Lista de reporte de pedidos de ese mes</returns>
-        public DO_ReportePedido reportePedidos(Int32 mes, Int32 anho)
+        public DO_ReportePedido reportePedidos(String inicio, String final)
         {
-            if (mes <= 0 || anho <= 0)
+            if (inicio is null || final is null
+                || inicio == "" || final == "")
             {
                 return null;
             }
             else {
                 DAO_Reporte daoReporte = new DAO_Reporte();
-                DO_ReportePedido reporte = daoReporte.reportePedidos(mes, anho);
-                reporte.mes = mes;
-                reporte.anho = anho;
+                DO_ReportePedido reporte = daoReporte.reportePedidos(inicio, final);
+                reporte.fechaInicio = inicio;
+                reporte.fechaFinal = final;
                 return reporte;
             }
         }
@@ -189,6 +190,23 @@ namespace BL
                 }
             }
             return null;
+        }
+
+        public DO_ReporteEntradaInsumos reporteEntradaInsumos(String inicio, String final)
+        {
+            if (inicio is null || final is null
+                || inicio == "" || final == "")
+            {
+                return null;
+            }
+            else
+            {
+                DAO_Reporte daoReporte = new DAO_Reporte();
+                DO_ReporteEntradaInsumos doReporteEntradas = daoReporte.reporteEntradas(inicio, final);
+                doReporteEntradas.fechaInicio = inicio;
+                doReporteEntradas.fechaFinal = final;
+                return doReporteEntradas;
+            }
         }
     }
 }

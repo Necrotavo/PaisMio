@@ -780,6 +780,44 @@ namespace DAO
             }
         }
 
+        public String obtenerNombreBodega(Int32 codigoBodega)
+        {
+            SqlCommand consulta = new SqlCommand("SELECT BOD_NOMBRE FROM BODEGA WHERE BOD_CODIGO = @codigoBodega", conexion);
+            consulta.Parameters.AddWithValue("@codigoBodega", codigoBodega);
+            try
+            {
+                if (conexion.State != ConnectionState.Open)
+                {
+                    conexion.Open();
+                }
+                SqlDataReader lector = consulta.ExecuteReader();
+                if (lector.HasRows)
+                {
+                    String nombre = "";
+                    while (lector.Read())
+                    {
+                        nombre = (String)lector["BOD_NOMBRE"];
+                    }
+                    return nombre;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
         /// <summary>
         /// Mueve todos los insumos de una bodega a otra
         /// </summary>

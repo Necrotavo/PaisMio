@@ -19,18 +19,18 @@ namespace DO
         [DataMember(Name = "infoPaisMio")]
         public DO_PaisMio infoPaisMio { get; set; }
 
-        [DataMember(Name = "mes")]
-        public Int32 mes { get; set; }
+        [DataMember(Name = "fechaInicio")]
+        public String fechaInicio { get; set; }
 
-        [DataMember(Name = "anho")]
-        public Int32 anho { get; set; }
+        [DataMember(Name = "fechaFinal")]
+        public String fechaFinal { get; set; }
 
-        public DO_ReportePedido(List<DO_Pedido> listaPedidos, DO_PaisMio infoPaisMio, int mes, int anho)
+        public DO_ReportePedido(List<DO_Pedido> listaPedidos, DO_PaisMio infoPaisMio, string fechaInicio, string fechaFinal)
         {
             this.listaPedidos = listaPedidos;
             this.infoPaisMio = infoPaisMio;
-            this.mes = mes;
-            this.anho = anho;
+            this.fechaInicio = fechaInicio;
+            this.fechaFinal = fechaFinal;
         }
 
         public DO_ReportePedido(){}
