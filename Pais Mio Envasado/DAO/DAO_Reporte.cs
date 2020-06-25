@@ -127,7 +127,7 @@ namespace DAO
                         doPedido.correoAdminDespacho = (string)lector["ADM_OPE_CORREO"];
                         doPedido.fechaIngreso = (DateTime)lector["PED_FECHA_INGRESO"];
                         doPedido.fechaDespacho = (DateTime)lector["PED_FECHA_DESPACHO"];
-
+                        doPedido.estado = (String)lector["ESTADO"];
 
                         reportePedido.listaPedidos.Add(doPedido);
                     }
