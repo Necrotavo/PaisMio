@@ -44,6 +44,6 @@ namespace WebService
             BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "reporteEntradaInsumos")]
-        DO_ReporteInsumos reporteEntradaInsumos(DO_ReporteEntradaInsumos reporteEntradaInsumos);
+        DO_ReporteEntradaInsumos reporteEntradaInsumos(DO_ReporteEntradaInsumos reporteEntradaInsumos);
     }
 }

@@ -221,8 +221,6 @@ namespace DAO
                 adaptador.SelectCommand.Parameters.AddWithValue("@fechaInicio", inicio);
                 adaptador.SelectCommand.Parameters.AddWithValue("@fechaFinal", final);
 
-                //SELECT* FROM INSUMO_ENTRANTE WHERE ENI_CODIGO = 13;
-
                 if (conexion.State != ConnectionState.Open)
                 {
                     conexion.Open();
@@ -230,13 +228,16 @@ namespace DAO
 
                 adaptador.Fill(datatable);
 
+                DAO_Pais_Mio daoPaisMio = new DAO_Pais_Mio();
+                reporteEntradas.infoPaisMio = daoPaisMio.obtenerDatos();
+
                 foreach (DataRow fila in datatable.Rows)
                 {
                     DO_EntradaReportable entradaInsumo = new DO_EntradaReportable();
                     entradaInsumo.listaInsumos = new List<DO_InsumoEntrante>();
 
                     entradaInsumo.codigo = Convert.ToInt32(fila["ENI_CODIGO"]);
-                    entradaInsumo.fecha = (String)(fila["ENI_FECHA"]);
+                    entradaInsumo.fecha = Convert.ToString(fila["ENI_FECHA"]);
                     entradaInsumo.correoAdministrador = (String)(fila["OPE_CORREO"]);
 
                     entradaInsumo.listaInsumos = obtenerListaInsumosEntrante(entradaInsumo.codigo);

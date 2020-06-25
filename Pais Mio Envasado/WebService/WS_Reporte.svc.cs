@@ -20,10 +20,10 @@ namespace WebService
                 reporteInsumosComparativo.inicioMes2, reporteInsumosComparativo.finalMes2);
         }
 
-        public DO_ReporteInsumos reporteEntradaInsumos(DO_ReporteEntradaInsumos reporteEntradaInsumos)
+        public DO_ReporteEntradaInsumos reporteEntradaInsumos(DO_ReporteEntradaInsumos reporteEntradaInsumos)
         {
             BL_Reportes blReporte = new BL_Reportes();
-            return blReporte.reporteInsumos(reporteEntradaInsumos.fechaInicio, reporteEntradaInsumos.fechaFinal);
+            return blReporte.reporteEntradaInsumos(reporteEntradaInsumos.fechaInicio, reporteEntradaInsumos.fechaFinal);
         }
 
         public DO_ReporteInsumos reporteInsumos(DO_ReporteInsumos reporteInsumos)

@@ -19,11 +19,15 @@ namespace DO
         [DataMember(Name = "fechaFinal")]
         public String fechaFinal { set; get; }
 
-        public DO_ReporteEntradaInsumos(List<DO_EntradaReportable> listaEntradas, string fechaInicio, string fechaFinal)
+        [DataMember(Name = "infoPaisMio")]
+        public DO_PaisMio infoPaisMio { get; set; }
+
+        public DO_ReporteEntradaInsumos(List<DO_EntradaReportable> listaEntradas, string fechaInicio, string fechaFinal, DO_PaisMio infoPaisMio)
         {
             this.listaEntradas = listaEntradas;
             this.fechaInicio = fechaInicio;
             this.fechaFinal = fechaFinal;
+            this.infoPaisMio = infoPaisMio;
         }
 
         public DO_ReporteEntradaInsumos(){}
