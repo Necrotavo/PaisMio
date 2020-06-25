@@ -22,10 +22,14 @@ export class ReportViewComponent implements OnInit {
   /** Models */
   inputReport = new InputReport(null, null, '','');
   inputComparativeReport = new InputComparativeReport(null, null,'','','','');
-  orderReport = new OrderReport(null,null,0,0);
+  orderReport = new OrderReport(null,null,'','');
 
   /** Auxiliars */
   auxN = 'insumos';
+  R1D1 = '';
+  R1D2 = '';
+  R2D1 = '';
+  R2D2 = '';
 
   /** For combo validation */
   reportHasError = true;
@@ -39,6 +43,28 @@ export class ReportViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getReport(){
+    if(this.auxN === 'insumos'){
+      this.inputReport.fechaInicio = this.R1D1;
+      this.inputReport.fechaFinal = this.R1D2;
+      this.getInputReport();
+    }
+    if(this.auxN === 'pedidos'){
+      this.orderReport.fechaInicio = this.R1D1;
+      this.orderReport.fechaFinal = this.R1D2;
+      this.getOrderReport();
+    }
+    if(this.auxN === 'entrada'){
+
+    }
+    if(this.auxN === 'comparativo'){
+      this.inputComparativeReport.inicioMes1 = this.R1D1;
+      this.inputComparativeReport.finalMes1 = this.R1D2;
+      this.inputComparativeReport.inicioMes2 = this.R2D1;
+      this.inputComparativeReport.finalMes2 = this.R2D2;
+      this.getInputComparativeReport();
+    }
+  }
   getInputReport(){
     this.apiService.getInputReport(this.inputReport).subscribe(
       data => {

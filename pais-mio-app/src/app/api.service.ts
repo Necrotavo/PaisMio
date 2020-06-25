@@ -671,7 +671,7 @@ export class ApiService {
 
     getOrderReport(orderReport: OrderReport): Observable<OrderReport> {
       return this.http.post<OrderReport>(orderReportPOST, orderReport, HttpOptions).pipe(
-        tap((i: OrderReport) => console.log(`id=${i.mes}`)),
+        tap((i: OrderReport) => console.log(`id=${i}`)),
         catchError(this.handleErrors<OrderReport>(`getOrderReport`))
       );
     }
