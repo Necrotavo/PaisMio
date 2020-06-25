@@ -67,12 +67,10 @@
                         </tr>
                     </table>
                 </div>
-
-                {{objInputReport | json}}
-
+                {{objOrderReport | json}}
                 <br>
                 {{auxN}}
-                {{objOrderReport | json}}
+
                 <!--
                 <button type="button" class="btn btn-success" (click)=" inputRequestForm.reset()"
                             data-toggle="modal" data-target="#requestModal">
@@ -322,13 +320,13 @@
                                         {{orderItem.codigo}}
                                     </td>
                                     <td>
-                                        {{orderItem.cliente}}
+                                        {{orderItem.cliente.nombre}}
                                     </td>
                                     <td>
-                                        {{orderItem.fechaIngreso | date: 'dd/MM/yyyy'}}
+                                        {{orderItem.fechaIngreso.substr(6,13) | date: 'dd/MM/yyyy'}}
                                     </td>
                                     <td>
-                                        {{orderItem.fechaDespacho | date: 'dd/MM/yyyy'}}
+                                        {{orderItem.fechaDespacho.substr(6,13) | date: 'dd/MM/yyyy'}}
                                     </td>
                                     <td>
                                         {{orderItem.correoAdminIngreso}}

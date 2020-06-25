@@ -106,7 +106,7 @@ const productUPDATE = 'https://www.spepaismio.tk/WS_Producto.svc/modificarProduc
 /** Reports API URLs */
 const inputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumos';
 const comparativeInputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumosComparativo';
-const orderReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reportePedido';
+const orderReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reportePedidos';
 
 
 
