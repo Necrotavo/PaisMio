@@ -6,6 +6,7 @@ import { OrderReport } from '../../models/orderReport';
 import * as jsPDF from 'jspdf';
 import { InfoPaisMio } from 'src/models/infoPaisMio';
 import { ReportedInput } from 'src/models/reportedInput';
+import { Order } from 'src/models/order';
 
 
 @Component({
@@ -15,11 +16,14 @@ import { ReportedInput } from 'src/models/reportedInput';
 })
 export class ReportViewComponent implements OnInit {
   @ViewChild('pdfInsumos') pdfInsumos:ElementRef;
+  @ViewChild('pdfOrderReport') pdfOrderReport:ElementRef;
+  
   
 
   constructor(private apiService: ApiService) { }
   /** Declarations */
   listReportedInput: Array<ReportedInput> = [];
+  orderList: Array<Order> = [];
 
   /** Models */
   inputReport = new InputReport(null, null, '', '');
@@ -40,7 +44,7 @@ export class ReportViewComponent implements OnInit {
   /** returns */
   objInputReport = new InputReport(this.listReportedInput, new InfoPaisMio(0,'','','','','',''), '','');
   objInputComparativeReport: InputComparativeReport;
-  objOrderReport: OrderReport;
+  objOrderReport = new OrderReport(this.orderList,new InfoPaisMio(0,'','','','','',''),'','');
 
   ngOnInit(): void {
   }
@@ -114,4 +118,11 @@ export class ReportViewComponent implements OnInit {
     doc.fromHTML(DATA.innerHTML,15,15);
     doc.output('dataurlnewwindow');
   }
+  openOrderPDF():void {
+    let DATA = this.pdfOrderReport.nativeElement;
+    let doc = new jsPDF('p','pt', 'a4');
+    doc.fromHTML(DATA.innerHTML,15,15);
+    doc.output('dataurlnewwindow');
+  }
+  
 }

@@ -68,8 +68,11 @@
                     </table>
                 </div>
 
+                {{objInputReport | json}}
 
                 <br>
+                {{auxN}}
+                {{objOrderReport | json}}
                 <!--
                 <button type="button" class="btn btn-success" (click)=" inputRequestForm.reset()"
                             data-toggle="modal" data-target="#requestModal">
@@ -222,6 +225,7 @@
 </div>
 <!-- Modal end -->
 
+<!--Modal start-->
 <!-- Modal Order Report -->
 <div class="modal fade" id="orderReportModal" tabindex="-1" role="dialog">
 
@@ -237,7 +241,7 @@
             </div>
 
             <div class="modal-body">
-                <form #reportForm="ngForm"  novalidate>
+                <form #orderReportForm="ngForm"  novalidate>
                     <div class="form-group">
                         <div class="tab-header clearfix">
                             <div class="float-left">
@@ -245,12 +249,12 @@
                         </div>
                     </div>
                     <div >
-                        <img src="{{objInputReport.infoPaisMio.logo}}" class="rounded mx-auto d-block" width="40%" width="40%">
+                        <img src="{{objOrderReport.infoPaisMio.logo}}" class="rounded mx-auto d-block" width="40%" width="40%">
                     </div>
                     <table class="table table-striped table-responsive">
                         <thead>
                             <h5>
-                                {{objInputReport.infoPaisMio.nombre}}
+                                {{objOrderReport.infoPaisMio.nombre}}
                             </h5>
                         </thead>
                         <tbody>
@@ -259,7 +263,7 @@
                                     Cedula
                                 </th>
                                 <td>
-                                   {{objInputReport.infoPaisMio.cedulaJuridica}}
+                                   {{objOrderReport.infoPaisMio.cedulaJuridica}}
                                 </td>
                             </tr>
 
@@ -268,7 +272,7 @@
                                     Dirección
                                 </th>
                                 <td>
-                                    {{objInputReport.infoPaisMio.direccion}}
+                                    {{objOrderReport.infoPaisMio.direccion}}
                                 </td>
                             </tr>
                             <tr>
@@ -276,7 +280,7 @@
                                     Telefono
                                 </th>
                                 <td>
-                                    {{objInputReport.infoPaisMio.telefono}}
+                                    {{objOrderReport.infoPaisMio.telefono}}
                                 </td>
                             </tr>
                             <tr>
@@ -284,44 +288,56 @@
                                     Correo
                                 </th>
                                 <td>
-                                    {{objInputReport.infoPaisMio.correo}}
+                                    {{objOrderReport.infoPaisMio.correo}}
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <div *ngIf="objInputReport.listaInsumos.length === 0">
+                    <div *ngIf="objOrderReport.listaPedidos.length === 0">
                         <h5>
-                            Del {{objInputReport.fechaInicio | date: 'dd/MM/yyyy'}} Al {{objInputReport.fechaFinal | date: 'dd/MM/yyyy'}}
+                            Del {{objOrderReport.fechaInicio | date: 'dd/MM/yyyy'}} Al {{objOrderReport.fechaFinal | date: 'dd/MM/yyyy'}}
                         </h5>
                         <h6>
                             No hay datos para mostrar
                         </h6>
                     </div>
-                    <div id="pdfReport" #pdfReport>
-                        <table class="table table-striped table-responsive" *ngIf="objInputReport.listaInsumos.length > 0">
+                    <div id="pdfOrderReport" #pdfOrderReport>
+                        <table class="table table-striped table-responsive" *ngIf="objOrderReport.listaPedidos.length > 0">
                             <thead>
                                 <h5>
-                                    Del {{objInputReport.fechaInicio | date: 'dd/MM/yyyy'}} Al {{objInputReport.fechaFinal | date: 'dd/MM/yyyy'}}
+                                    Del {{objOrderReport.fechaInicio | date: 'dd/MM/yyyy'}} Al {{objOrderReport.fechaFinal | date: 'dd/MM/yyyy'}}
                                 </h5>
                             </thead>
                             <tbody>
-                                <th>Nombre de Insumo</th>
-                                <th>Cantidad Descartada</th>
-                                <th>Cantidad Consumida</th>
-                                <th>Total</th>
-                                <tr *ngFor="let item of objInputReport.listaInsumos">
+                                <th>Codigo</th>
+                                <th>Cliente</th>
+                                <th>Fecha de ingreso</th>
+                                <th>Fecha de despacho</th>
+                                <th>Ingresado por</th>
+                                <th>Despachado por</th>
+                                <th>Estado</th>
+                                <tr *ngFor="let orderItem of objOrderReport.listaPedidos">
                                     
                                     <td>
-                                        {{item.insumo.nombre}}
+                                        {{orderItem.codigo}}
                                     </td>
                                     <td>
-                                        {{item.cantidadDescartada}}
+                                        {{orderItem.cliente}}
                                     </td>
                                     <td>
-                                        {{item.cantidadConsumida}}
+                                        {{orderItem.fechaIngreso | date: 'dd/MM/yyyy'}}
                                     </td>
                                     <td>
-                                        {{item.total}}
+                                        {{orderItem.fechaDespacho | date: 'dd/MM/yyyy'}}
+                                    </td>
+                                    <td>
+                                        {{orderItem.correoAdminIngreso}}
+                                    </td>
+                                    <td>
+                                        {{orderItem.correoAdminDespacho}}
+                                    </td>
+                                    <td>
+                                        {{orderItem.estado}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -332,12 +348,11 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="reportForm.reset()"
+                <button type="button" class="btn btn-secondary" (click)="orderReportForm.reset()"
                     data-dismiss="modal">Cerrar</button>
-                <button [disabled]="reportForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
-                    (click)="openPDF()">Ver en PDF</button>
+                <button [disabled]="orderReportForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
+                    (click)="openOrderPDF()">Ver en PDF</button>
             </div>
-
         </div>
     </div>
 </div>
