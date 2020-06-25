@@ -14,17 +14,16 @@ import { ReportedInput } from 'src/models/reportedInput';
   styleUrls: ['./report-view.component.scss']
 })
 export class ReportViewComponent implements OnInit {
-  @ViewChild('pdfReport') pdfReport:ElementRef;
-  
+  @ViewChild('pdfReport') pdfReport: ElementRef;
 
   constructor(private apiService: ApiService) { }
   /** Declarations */
   listReportedInput: Array<ReportedInput> = [];
 
   /** Models */
-  inputReport = new InputReport(null, null, '','');
-  inputComparativeReport = new InputComparativeReport(null, null,'','','','');
-  orderReport = new OrderReport(null,null,'','');
+  inputReport = new InputReport(null, null, '', '');
+  inputComparativeReport = new InputComparativeReport(null, null, '', '', '', '');
+  orderReport = new OrderReport(null, null, '', '');
 
   /** Auxiliars */
   auxN = 'insumos';
@@ -84,19 +83,19 @@ export class ReportViewComponent implements OnInit {
 
 
   downloadPDF() {
-      
-      let DATA = this.pdfReport.nativeElement;
-      let doc = new jsPDF('p','pt', 'a4');
-      let handleElement = {
-        '#editor':function(element,renderer){
+
+      const DATA = this.pdfReport.nativeElement;
+      const doc = new jsPDF('p', 'pt', 'a4');
+      const handleElement = {
+        '#editor': (element, renderer) => {
           return true;
         }
       };
-      doc.fromHTML(DATA.innerHTML,15,15,{
-        'width': 200,
-        'elementHandlers': handleElement
+      doc.fromHTML(DATA.innerHTML, 15, 15, {
+        width: 200,
+        elementHandlers: handleElement
       });
-  
+
       doc.save('angular-demo.pdf');
 
     }
