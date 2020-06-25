@@ -111,10 +111,12 @@ export class OrderViewComponent implements OnInit {
     );
 
     /** Get current order */
-    this.data.activeOrder.subscribe(order => this.order = order);
+    //this.data.activeOrder.subscribe(order => this.order = order);
     this.data.activeOrder.subscribe((order) => {
       this.order = order;
+      
       this.changeAnalysis();
+
       this.getInputRequestByOrder();
 
     });
@@ -218,10 +220,9 @@ export class OrderViewComponent implements OnInit {
     this.apiService.addInputRequest(this.inputPostRequestModel).subscribe(
       data => {
         this.objInputRequest = data;
+        this.getInputRequestByOrder();
       }
     );
-
-    this.getInputRequestByOrder();
   }
 
   getInputRequest() {
@@ -252,12 +253,13 @@ export class OrderViewComponent implements OnInit {
   }
 
   getInputRequestByOrder() {
-
+    if (this.order !== null) {
     this.apiService.getInputRequestByOrder(this.order).subscribe(
       data => {
         this.inputRequestListByOrder = data;
       }
     );
+    }
   }
 
   searchInputRequest() {
@@ -375,6 +377,7 @@ export class OrderViewComponent implements OnInit {
     this.apiService.setInputRequestDecision(this.inputRequestDesicionModel).subscribe(
       data => {
         this.inputRequestDesicionModel = data;
+        this.getInputRequestByOrder();
       }
     );
 
