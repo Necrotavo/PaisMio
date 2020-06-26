@@ -13,7 +13,7 @@ namespace DO
         [DataMember(Name = "doBodega")]
         public DO_Bodega doBodega { get; set; }
 
-        [DataMember(Name = "listaInsumos")]
+        [DataMember(Name = "insumo")]
         public DO_InsumoEnBodega insumo { get; set; }
     }
 }
