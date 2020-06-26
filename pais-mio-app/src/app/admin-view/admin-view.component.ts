@@ -549,8 +549,8 @@ export class AdminViewComponent implements OnInit {
           showConfirmButton: false,
           timer: 1000,
           onOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
           }
         });
         Toast.fire({
@@ -579,8 +579,8 @@ export class AdminViewComponent implements OnInit {
           showConfirmButton: false,
           timer: 1000,
           onOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
           }
         });
         Toast.fire({
@@ -609,8 +609,8 @@ export class AdminViewComponent implements OnInit {
           showConfirmButton: false,
           timer: 1000,
           onOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
           }
         });
         Toast.fire({
@@ -639,8 +639,8 @@ export class AdminViewComponent implements OnInit {
           showConfirmButton: false,
           timer: 1000,
           onOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
           }
         });
         Toast.fire({
@@ -669,8 +669,8 @@ export class AdminViewComponent implements OnInit {
           showConfirmButton: false,
           timer: 1000,
           onOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
           }
         });
         Toast.fire({
