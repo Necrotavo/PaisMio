@@ -87,12 +87,12 @@
                     class="btn btn-success" data-toggle="modal" data-target="#orderReportModal"
                     (click)="getOrderReport()">Generar
                     reporte</button>
-                    
-                <button *ngIf="auxN === 'entrada'" [disabled]="reportForm.form.invalid" type="button" class="btn btn-success" 
-                data-toggle="modal" data-target="#entryReportModal"
-                (click)="getEntryReport()">Generar
+
+                <button *ngIf="auxN === 'entrada'" [disabled]="reportForm.form.invalid" type="button"
+                    class="btn btn-success" data-toggle="modal" data-target="#entryReportModal"
+                    (click)="getEntryReport()">Generar
                     reporte</button>
-                    
+
                 <button *ngIf="auxN === 'comparativo'" [disabled]="reportForm.form.invalid" type="button"
                     class="btn btn-success" data-toggle="modal" data-target="#comparativeReportModal"
                     (click)="getInputComparativeReport()">Generar
@@ -466,10 +466,10 @@
                             <div style="overflow-x: auto; max-width: 100%;">
                                 <ul *ngIf="objEntryReport.listaEntradas.length > 0">
                                     <li *ngFor="let entryItem of objEntryReport.listaEntradas">
-                                        <h4> Administrador: {{entryItem.correoAdministrador}} 
-                                            Fecha {{entryItem.fecha.substr(6,13) | date: 'dd/MM/yyyy'}}</h4>
+                                        <h5>Administrador: {{entryItem.correoAdministrador}}</h5>
+                                        <h6>Fecha: {{entryItem.fecha}}</h6>
 
-                                            <table class="table table-striped table-responsive clearfix">
+                                        <table class="table table-striped table-responsive clearfix">
                                             <thead>
                                                 <tr>
                                                     <th scope="row">Insumo</th>
@@ -477,7 +477,7 @@
                                                     <th scope="row">Bodega</th>
                                                 </tr>
                                             </thead>
-        
+
                                             <tbody>
                                                 <tr *ngFor="let inputEntryItem of entryItem.listaInsumos">
                                                     <td>
@@ -492,7 +492,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="form-field">
-                                                            <p>{{inputEntryItem.bodega.nombre}}</p>
+                                                            <p>{{inputEntryItem.doBodega.nombre}}</p>
                                                         </div>
                                                     </td>
                                                 </tr>
