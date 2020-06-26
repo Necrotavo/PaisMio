@@ -466,7 +466,7 @@
                             <div style="overflow-x: auto; max-width: 100%;">
                                 <ul *ngIf="objEntryReport.listaEntradas.length > 0">
                                     <li *ngFor="let entryItem of objEntryReport.listaEntradas">
-                                        <h4> Administrador: {{objEntryReport.correoAdministrador}} 
+                                        <h4> Administrador: {{entryItem.correoAdministrador}} 
                                             Fecha {{entryItem.fecha.substr(6,13) | date: 'dd/MM/yyyy'}}</h4>
 
                                             <table class="table table-striped table-responsive clearfix">
