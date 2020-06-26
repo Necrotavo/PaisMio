@@ -124,6 +124,7 @@ export class AdminViewComponent implements OnInit {
   productUpdateModel = new Product(0, '', '', '', '');
   clientEntryModel = new Client('', '', '', '', '', '');
   orderModel = new Order(0, this.clientEntryModel, '', this.productEntryList);
+  orderDetailModel = new Order(0, this.clientEntryModel, '', this.productEntryList);
   cellarModel = new Cellar(0, '', '', '', '', this.inputQList);
   cellarUpdateModel = new Cellar(0, '', '', '', '', this.inputQList);
   cellarAdminModel = new CellarAdmin(this.cellar, '');
@@ -233,6 +234,7 @@ export class AdminViewComponent implements OnInit {
         data => {
           this.analysisModel = data;
           this.analysisModel.pedCodigo = currentOrder.codigo;
+          this.orderDetailModel = currentOrder;
           this.validateAnalysisExistance();
         }
       );
