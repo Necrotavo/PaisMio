@@ -26,7 +26,7 @@ export class AuthService {
 
   userIn = new User('', '', '', '', '', '');
 
-  /**
+  /*
   private userName = new BehaviorSubject<string>(localStorage.getItem('logged username'));
   private userRole = new BehaviorSubject<string>(localStorage.getItem('logged role'));
   */

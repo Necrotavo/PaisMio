@@ -13,6 +13,8 @@ import { Analysis } from 'src/models/analysis';
 import { AnalysisPC } from 'src/models/analysisPC';
 
 import { Cellar } from 'src/models/cellar';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-view',
@@ -23,7 +25,7 @@ export class OrderViewComponent implements OnInit {
 
   analysisExist = false;
 
-  constructor(private data: DataService, private apiService: ApiService) { }
+  constructor(private data: DataService, private apiService: ApiService, router: Router) { }
 
   /** Object Declarations */
   order: Order;
@@ -77,12 +79,26 @@ export class OrderViewComponent implements OnInit {
   localUser = new User('', '', '', '', '', '');
   cellarEntryModel = new Cellar(0, '', '', '', '', this.inputEntryList);
   cellarDetailModel = new Cellar(0, '', '', '', '', null);
-
+  orderModel = new Order(0, this.client, '', this.productEntryList);
+  objOrder: Order;
 
   /** Aux variables */
   auxQ: number;
   auxN: string;
   aviableQuantity: number;
+
+  dispatchSwal = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger',
+      closeButton: 'btn btn-secondary'
+    },
+    buttonsStyling: false
+  });
+
+  router: Router;
+
+  Swal = ('sweetalert2');
 
   /*
   clientModel = new Client('', '', '', '', '', '');
@@ -111,10 +127,10 @@ export class OrderViewComponent implements OnInit {
     );
 
     /** Get current order */
-    //this.data.activeOrder.subscribe(order => this.order = order);
+    // this.data.activeOrder.subscribe(order => this.order = order);
     this.data.activeOrder.subscribe((order) => {
       this.order = order;
-      
+
       this.changeAnalysis();
 
       this.getInputRequestByOrder();
@@ -129,7 +145,7 @@ export class OrderViewComponent implements OnInit {
 
 
     /** Gets Analysis Aguardiente */
-    /**
+    /*
     this.apiService.getAnalysisByID(this.order.codigo).subscribe(
       data => {
         this.order.doAnalisisAA = data;
@@ -403,6 +419,51 @@ export class OrderViewComponent implements OnInit {
     if (this.auxQ < 0) {
       this.auxQ = 0;
     }
+  }
+
+  dispatchOrder() {
+
+    this.orderModel = this.order;
+    this.orderModel.correoAdminDespacho = this.localUser.correo;
+
+    this.dispatchSwal.fire({
+      title: '¿Desea despachar este pedido?',
+      text: 'Esta decision no es reversible',
+      icon: 'warning',
+      showCancelButton: true,
+      showCloseButton: true,
+      confirmButtonText: 'Conforme',
+      cancelButtonText: 'No conforme',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        this.orderModel.estado = 'CONFORME';
+        this.apiService.packOff(this.orderModel).subscribe(
+          data => {
+            this.objOrder = data;
+            this.dispatchSwal.fire(
+              'Despachado',
+              'El pedido ha sido despachado como conforme',
+              'success'
+            );
+          }
+        );
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        this.orderModel.estado = 'NO CONFORME';
+        this.apiService.packOff(this.orderModel).subscribe(
+          data => {
+            this.objOrder = data;
+            this.dispatchSwal.fire(
+              'Despachado',
+              'El pedido ha sido despachado como no conforme',
+              'success'
+            );
+          }
+        );
+      }
+    });
   }
 
 
