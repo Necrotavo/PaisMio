@@ -23,6 +23,7 @@ import { LoginUser } from 'src/models/loginUser';
 import { AnalysisPC } from 'src/models/analysisPC';
 import { OrderReport } from 'src/models/orderReport';
 import { InputComparativeReport } from 'src/models/inputComparativeReport';
+import { InputEntryReport } from 'src/models/inputEntryReport';
 
 const HttpOptions = {
   headers: new HttpHeaders({ 'Content-type': 'application/json' })
@@ -105,8 +106,10 @@ const productUPDATE = 'https://www.spepaismio.tk/WS_Producto.svc/modificarProduc
 
 /** Reports API URLs */
 const inputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumos';
-const comparativeInputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumosComparativo';
 const orderReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reportePedidos';
+const entryReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteEntradaInsumos';
+const comparativeInputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumosComparativo';
+
 
 
 
@@ -675,9 +678,16 @@ export class ApiService {
         catchError(this.handleErrors<OrderReport>(`getOrderReport`))
       );
     }
+    
+    getEntryReport(entryReport: InputEntryReport): Observable<InputEntryReport> {
+      return this.http.post<InputEntryReport>(entryReportPOST, entryReport, HttpOptions).pipe(
+        tap((i: InputEntryReport) => console.log(`id=${i}`)),
+        catchError(this.handleErrors<InputEntryReport>(`getOrderReport`))
+      );
+    }
 
     getInputComparativeReport(getInputComparativeReport: InputComparativeReport): Observable<InputComparativeReport> {
-      return this.http.post<InputComparativeReport>(orderReportPOST, getInputComparativeReport, HttpOptions).pipe(
+      return this.http.post<InputComparativeReport>(comparativeInputReportPOST, getInputComparativeReport, HttpOptions).pipe(
         tap((i: InputComparativeReport) => console.log(`reporte=${i}`)),
         catchError(this.handleErrors<InputComparativeReport>(`getOrderReport`))
       );

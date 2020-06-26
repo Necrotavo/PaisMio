@@ -7,7 +7,8 @@ import * as jsPDF from 'jspdf';
 import { InfoPaisMio } from 'src/models/infoPaisMio';
 import { ReportedInput } from 'src/models/reportedInput';
 import { Order } from 'src/models/order';
-
+import { InputEntryReport } from 'src/models/inputEntryReport';
+import { InputEntryReported } from 'src/models/inputEntryReported';
 
 @Component({
   selector: 'app-report-view',
@@ -17,6 +18,7 @@ import { Order } from 'src/models/order';
 export class ReportViewComponent implements OnInit {
   @ViewChild('pdfInsumos') pdfInsumos:ElementRef;
   @ViewChild('pdfOrderReport') pdfOrderReport:ElementRef;
+  @ViewChild('pdfEntryReport') pdfEntryReport:ElementRef;
   
   
 
@@ -24,10 +26,12 @@ export class ReportViewComponent implements OnInit {
   /** Declarations */
   listReportedInput: Array<ReportedInput> = [];
   orderList: Array<Order> = [];
+  entryList: Array<InputEntryReported> = [];
 
   /** Models */
   inputReport = new InputReport(null, null, '', '');
   inputComparativeReport = new InputComparativeReport(null, null, '', '', '', '');
+  entryReport = new InputEntryReport(this.entryList, new InfoPaisMio(0,'','','','','',''), '', '');
   orderReport = new OrderReport(null, null, '', '');
 
   /** Auxiliars */
@@ -45,6 +49,7 @@ export class ReportViewComponent implements OnInit {
   objInputReport = new InputReport(this.listReportedInput, new InfoPaisMio(0,'','','','','',''), '','');
   objInputComparativeReport: InputComparativeReport;
   objOrderReport = new OrderReport(this.orderList,new InfoPaisMio(0,'','','','','',''),'','');
+  objEntryReport = new InputEntryReport(this.entryList, new InfoPaisMio(0,'','','','','',''), '', '');
 
   ngOnInit(): void {
   }
@@ -71,7 +76,16 @@ export class ReportViewComponent implements OnInit {
     );
   }
 
+  getEntryReport(){
+    this.entryReport.fechaInicio = this.R1D1;
+    this.entryReport.fechaFinal = this.R1D2;
 
+    this.apiService.getEntryReport(this.entryReport).subscribe(
+      data => {
+        this.objEntryReport = data;
+      }
+    );
+  }
 
   getInputComparativeReport(){
     this.inputComparativeReport.inicioMes1 = this.R1D1;
@@ -118,6 +132,7 @@ export class ReportViewComponent implements OnInit {
     doc.fromHTML(DATA.innerHTML,15,15);
     doc.output('dataurlnewwindow');
   }
+
   openOrderPDF():void {
     let DATA = this.pdfOrderReport.nativeElement;
     let doc = new jsPDF('p','pt', 'a4');
@@ -125,4 +140,10 @@ export class ReportViewComponent implements OnInit {
     doc.output('dataurlnewwindow');
   }
   
+  openEntryPDF():void {
+    let DATA = this.pdfEntryReport.nativeElement;
+    let doc = new jsPDF('p','pt', 'a4');
+    doc.fromHTML(DATA.innerHTML,15,15);
+    doc.output('dataurlnewwindow');
+  }
 }
