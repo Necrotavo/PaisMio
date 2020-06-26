@@ -32,7 +32,6 @@ import Swal from 'sweetalert2';
   ],
 })
 
-
 export class AdminViewComponent implements OnInit {
 
   constructor(private apiService: ApiService) { }
