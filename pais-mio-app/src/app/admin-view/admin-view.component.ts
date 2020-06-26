@@ -15,6 +15,8 @@ import { CellarAdmin } from 'src/models/cellarAdmin';
 import { MoveInput } from 'src/models/moveInput';
 import { InputRequest } from 'src/models/inputRequest';
 import { InputRequestDesicion } from 'src/models/inputRequestDecision';
+import { AnalysisPC } from 'src/models/analysisPC';
+import { Analysis } from 'src/models/analysis';
 import { UserRolUpgrade } from 'src/models/userRolUpgrade';
 import Swal from 'sweetalert2';
 
@@ -49,6 +51,8 @@ export class AdminViewComponent implements OnInit {
   inputRequest: InputRequest;
   inputRequestDesicion: InputRequestDesicion;
   clientOrder: Client;
+  analysisExist = false;
+
 
   /** Object Lists */
   orderList: Order[];
@@ -66,6 +70,8 @@ export class AdminViewComponent implements OnInit {
   cellarList2: Cellar[];
   inputRequestList: InputRequest[];
   productEntryList: Array<ProductInOrder> = [];
+  pqsAnalysisList: Array<AnalysisPC> = [];
+
 
   /** Data return objects */
   objOrder: Order;
@@ -79,6 +85,8 @@ export class AdminViewComponent implements OnInit {
   objInputRequest: InputRequest;
   objInputRequestDesicion: InputRequestDesicion;
   objUnit: Unit;
+  objAnalysis: Analysis;
+
 
   /** Filter terms */
   termO: string; // for Orders
@@ -124,6 +132,8 @@ export class AdminViewComponent implements OnInit {
   inputRequestDesicionModel = new InputRequestDesicion(this.inputRequest, this.user, '');
   unitModel = new Unit('');
   localUser = new User('', '', '', '', '', '');
+  analysisModel = new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array<AnalysisPC>());
+
 
 
   productEntryModel = new ProductInOrder(this.product, 0);
@@ -216,6 +226,30 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  changeAnalysis(currentOrder: Order) {
+
+    if (currentOrder !== null) {
+      this.apiService.getAnalysisByID(currentOrder.codigo).subscribe(
+        data => {
+          this.analysisModel = data;
+          this.analysisModel.pedCodigo = currentOrder.codigo;
+          this.validateAnalysisExistance();
+        }
+      );
+    }
+  }
+
+  validateAnalysisExistance() {
+
+    if (this.analysisModel.fechaEmision !== null) {
+      this.analysisExist = true;
+    } else {
+      this.analysisExist = false;
+    }
+    console.log(`${this.analysisExist}`);
+    return this.analysisExist;
+  }
+
   getTorder() {
     this.apiService.getTOrder().subscribe(
       data => {
@@ -223,6 +257,8 @@ export class AdminViewComponent implements OnInit {
       }
     );
   }
+
+
 
   postInput() {
 

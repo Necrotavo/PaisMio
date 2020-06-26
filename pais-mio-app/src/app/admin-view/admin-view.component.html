@@ -70,12 +70,12 @@
                                 <h5 class="mb-0">
                                     <button class="btn btn-link" data-toggle="collapse"
                                         attr.data-target="#collapseO{{i}}" aria-expanded="true"
-                                        attr.aria-controls="collapseO{{i}}">
+                                        attr.aria-controls="collapseO{{i}}" (click)="changeAnalysis(com)">
                                         {{com.codigo}} | {{com.cliente.nombre}} | {{com.estado}}
                                     </button>
                                 </h5>
                             </div>
-                            <div attr.id="collapseO{{i}}" class="collapse" aria-labelledby="headingOne"
+                            <div attr.id="collapseO{{i}}" class="collapse" aria-labelledby="headingOne" 
                                 data-parent="#accordionO">
                                 <div class="card-body">
 
@@ -144,6 +144,18 @@
                                                 <td>
                                                     {{com.correoAdminDespacho}}
                                                 </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Análisis</th>
+                                                
+                                                    <!--Aquí-->
+                                                    <td *ngIf="!analysisExist">
+                                                        <span class="badge badge-warning">No realizado</span>
+                                                    </td>
+                                                    <td class="btn btn-link" *ngIf="analysisExist" data-toggle="modal" data-target="#analysisDetailsModal">
+                                                        Ver detalles
+                                                    </td>
+                                                
                                             </tr>
                                         </tbody>
                                         <br>
@@ -671,6 +683,305 @@
 
 <!-- Modal end -->
 
+<!-- Modal analysis -->
+
+<!-- Modal start -->
+<div class="modal fade" id="analysisDetailsModal" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="analysisDetailsModallabel1">Análisis químico</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="description">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#add-product-data" role="tab" data-toggle="tab">Datos
+                                <small class="form-text text-muted">Producto</small></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#add-sen-org-evaluation" role="tab" data-toggle="tab">Evaluación
+                                #1 <small class="form-text text-muted">Sensorial y
+                                    Organoléptica</small></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#add-physicochemical-evaluation" role="tab"
+                                data-toggle="tab">Evaluación #2 <small
+                                    class="form-text text-muted">Fisioquímica</small></a>
+                        </li>
+                    </ul>
+
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+
+
+                        <div role="tabpanel" class="tab-pane active" id="add-product-data">
+
+                            <div class="tab-header clearfix">
+                                <div class="float-left">
+                                    <h4>Datos del producto</h4>
+                                </div>
+                            </div>
+                            <form>
+                                <table class="table table-striped table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">
+                                                <!--<select>
+                                                    <option selected>Seleccionar
+                                                    </option>
+                                                    <option value="1">Cliente Físico:
+                                                    </option>
+                                                    <option value="2">Razón Social:
+                                                    </option>
+                                                </select>-->
+                                                <p>Cliente: </p>
+                                            <td>
+                                                <div class="form-field">
+                                                    <p>{{order.cliente.nombre}}</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <!--<select>
+                                                    <option selected>Seleccionar
+                                                    </option>
+                                                    <option value="1">Cedula Física:
+                                                    </option>
+                                                    <option value="2">Cedula Jurídica:
+                                                    </option>
+                                                </select>-->
+                                                <p>Cédula: </p>
+                                            </th>
+                                            <td>
+                                                <div class="form-field">
+                                                    <p>{{order.cliente.cedula}}</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                Nombre del Producto:
+                                            </th>
+                                            <td>
+                                                <div class="form-field">
+                                                    <input type="text" required #nombrePA="ngModel" class="form-control"
+                                                        [class.is-invalid]="nombrePA.invalid && nombrePA.touched"
+                                                        placeholder="Nombre del producto" name="nombrePA"
+                                                        [(ngModel)]="analysisModel.nombreProducto">
+                                                    <div
+                                                        *ngIf="nombrePA.errors && (nombrePA.invalid || nombrePA.touched)">
+                                                        <p><small class="text-danger"
+                                                                *ngIf="nombrePA.errors.required && nombrePA.touched">Nombre
+                                                                requerido</small></p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                Lote:
+                                            </th>
+                                            <td>
+                                                <div class="form-field">
+                                                    <p>{{order.codigo}}</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+
+                        </div>
+
+                        <div role="tabpane1" class="tab-pane" id="add-sen-org-evaluation">
+                            <div class="tab-header clearfix">
+                                <div class="float-left">
+                                    <h4>Evaluación Sensorial y Organoléptica</h4>
+                                </div>
+                            </div>
+
+                            <table class="table table-striped table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Prueba</th>
+                                        <th>Resultado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <th>
+                                            Examen visual:
+                                        </th>
+                                        <td>
+                                            <select (blur)="analysisExV.value" (change)="analysisExV.value"
+                                                #analysisExV="ngModel" [class.is-invalid]="analysisExV.touched"
+                                                class="form-control" name="analysisExV"
+                                                [(ngModel)]="analysisModel.exVisual">
+                                                <option selected>Seleccionar</option>
+                                                <option value="1" class="badge badge-success">Cumple
+                                                </option>
+                                                <option value="0" class="badge badge-danger">No cumple
+                                                </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>
+                                            Examen olfativo:
+                                        </th>
+                                        <td>
+                                            <select (blur)="analysisExO.value" (change)="analysisExO.value"
+                                                #analysisExO="ngModel" [class.is-invalid]="analysisExO.touched"
+                                                class="form-control" name="analysisExO"
+                                                [(ngModel)]="analysisModel.exOlfativo">
+                                                <option selected>Seleccionar</option>
+                                                <option value="1" class="badge badge-success">Cumple
+                                                </option>
+                                                <option value="0" class="badge badge-danger">No cumple
+                                                </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>
+                                            Examen gustativo:
+                                        </th>
+                                        <td>
+                                            <select (blur)="analysisExG.value" (change)="analysisExG.value"
+                                                #analysisExG="ngModel" [class.is-invalid]="analysisExG.touched"
+                                                class="form-control" name="analysisExG"
+                                                [(ngModel)]="analysisModel.exGustativo">
+                                                <option selected>Seleccionar</option>
+                                                <option value="1" class="badge badge-success">Cumple
+                                                </option>
+                                                <option value="0" class="badge badge-danger">No cumple
+                                                </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>
+                                            Armonía sensorial:
+                                        </th>
+                                        <td>
+                                            <select (blur)="analysisAsen.value" (change)="analysisAsen.value"
+                                                #analysisAsen="ngModel" [class.is-invalid]="analysisAsen.touched"
+                                                class="form-control" name="analysisAsen"
+                                                [(ngModel)]="analysisModel.aSensorial">
+                                                <option selected>Seleccionar</option>
+                                                <option value="1" class="badge badge-success">Cumple
+                                                </option>
+                                                <option value="0" class="badge badge-danger">No cumple
+                                                </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+
+                        <div role="tabpanel" class="tab-pane" id="add-physicochemical-evaluation">
+
+                            <div class="tab-header clearfix">
+                                <div class="float-left">
+                                    <h4>Evaluación Fisioquímico</h4>
+                                </div>
+                            </div>
+
+                            <table class="table table-striped table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Análisis</th>
+                                        <th>Medición/Resultado</th>
+                                        <th>Unidades/Condición</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let pq of pqsAnalysisList">
+                                        <th>
+                                            {{pq.tipoAnalisisFQ | titlecase}}
+                                        </th>
+                                        <td>
+                                            <input type="text" required #mrPQ="ngModel" class="form-control"
+                                                [class.is-invalid]="mrPQ.invalid && mrPQ.touched"
+                                                placeholder="Medición / resultado" name="mrPQ"
+                                                [(ngModel)]="pq.medicionResultado">
+                                            <div *ngIf="mrPQ.errors && (mrPQ.invalid || mrPQ.touched)">
+                                                <p><small class="text-danger"
+                                                        *ngIf="mrPQ.errors.required && mrPQ.touched">Campo
+                                                        requerido</small></p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" required #ucPQ="ngModel" class="form-control"
+                                                [class.is-invalid]="ucPQ.invalid && ucPQ.touched"
+                                                placeholder="Unidad / Condición" name="ucPQ"
+                                                [(ngModel)]="pq.unidadCondicion">
+                                            <div *ngIf="ucPQ.errors && (ucPQ.invalid || ucPQ.touched)">
+                                                <p><small class="text-danger"
+                                                        *ngIf="ucPQ.errors.required && ucPQ.touched">Campo
+                                                        requerido</small></p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Notas:
+                                        </th>
+                                        <td>
+                                            <input type="text" required #notasAA="ngModel" class="form-control"
+                                                [class.is-invalid]="notasAA.invalid && notasAA.touched"
+                                                placeholder="Unidad / Condición" name="notasAA"
+                                                [(ngModel)]="analysisModel.notas">
+                                            <div *ngIf="notasAA.errors && (notasAA.invalid || notasAA.touched)">
+                                                <p><small class="text-danger"
+                                                        *ngIf="notasAA.errors.required && notasAA.touched">Campo
+                                                        requerido</small></p>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Modal inputs -->
 
