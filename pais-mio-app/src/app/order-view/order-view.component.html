@@ -71,6 +71,15 @@
                                 <span class="badge badge-primary">{{order.estado}}</span>
                             </td>
                         </tr>
+                        <tr>
+                            <th>Análisis</th>
+                            <td *ngIf="!analysisExist">
+                                <span class="badge badge-danger">No completado</span>
+                            </td>
+                            <td *ngIf="analysisExist">
+                                <span class="badge badge-success">Completado</span>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 <table class="table table-striped table-responsive">

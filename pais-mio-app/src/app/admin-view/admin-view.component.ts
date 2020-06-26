@@ -123,6 +123,8 @@ export class AdminViewComponent implements OnInit {
   inputRequestModel = new InputRequest(0, 0, 0, this.inputQList, this.inputQListDiscard, '', '', '', '', '');
   inputRequestDesicionModel = new InputRequestDesicion(this.inputRequest, this.user, '');
   unitModel = new Unit('');
+  localUser = new User('', '', '', '', '', '');
+
 
   productEntryModel = new ProductInOrder(this.product, 0);
   searchProductModel = new Product(0, '', '', '', '');
@@ -131,6 +133,8 @@ export class AdminViewComponent implements OnInit {
   Swal = ('sweetalert2');
 
   ngOnInit(): void {
+
+    this.localUser = JSON.parse(localStorage.getItem('user logged'));
 
     /** Gets all Orders on Init */
     this.apiService.getOrder().subscribe(
@@ -477,7 +481,7 @@ export class AdminViewComponent implements OnInit {
       }
     }
 
-    this.orderModel.correoAdminIngreso = 'pal@lomo.com';
+    this.orderModel.correoAdminIngreso = this.localUser.correo;
     this.apiService.addOrder(this.orderModel).subscribe(
       data => {
         this.objOrder = data;
