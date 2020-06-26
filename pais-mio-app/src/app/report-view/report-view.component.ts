@@ -6,6 +6,7 @@ import { OrderReport } from '../../models/orderReport';
 import * as jsPDF from 'jspdf';
 import { InfoPaisMio } from 'src/models/infoPaisMio';
 import { ReportedInput } from 'src/models/reportedInput';
+import { Order } from 'src/models/order';
 
 
 @Component({
@@ -14,11 +15,15 @@ import { ReportedInput } from 'src/models/reportedInput';
   styleUrls: ['./report-view.component.scss']
 })
 export class ReportViewComponent implements OnInit {
-  @ViewChild('pdfReport') pdfReport: ElementRef;
+  @ViewChild('pdfInsumos') pdfInsumos:ElementRef;
+  @ViewChild('pdfOrderReport') pdfOrderReport:ElementRef;
+  
+  
 
   constructor(private apiService: ApiService) { }
   /** Declarations */
   listReportedInput: Array<ReportedInput> = [];
+  orderList: Array<Order> = [];
 
   /** Models */
   inputReport = new InputReport(null, null, '', '');
@@ -39,7 +44,7 @@ export class ReportViewComponent implements OnInit {
   /** returns */
   objInputReport = new InputReport(this.listReportedInput, new InfoPaisMio(0,'','','','','',''), '','');
   objInputComparativeReport: InputComparativeReport;
-  objOrderReport: OrderReport;
+  objOrderReport = new OrderReport(this.orderList,new InfoPaisMio(0,'','','','','',''),'','');
 
   ngOnInit(): void {
   }
@@ -81,25 +86,6 @@ export class ReportViewComponent implements OnInit {
     );
   }
 
-
-  downloadPDF() {
-
-      const DATA = this.pdfReport.nativeElement;
-      const doc = new jsPDF('p', 'pt', 'a4');
-      const handleElement = {
-        '#editor': (element, renderer) => {
-          return true;
-        }
-      };
-      doc.fromHTML(DATA.innerHTML, 15, 15, {
-        width: 200,
-        elementHandlers: handleElement
-      });
-
-      doc.save('angular-demo.pdf');
-
-    }
-
   validateReportType(value){
     if (value === 'default'){
       this.reportHasError = true;
@@ -107,5 +93,36 @@ export class ReportViewComponent implements OnInit {
       this.reportHasError = false;
     }
   }
+  
+  downloadPDF() {
 
+    const DATA = this.pdfInsumos.nativeElement;
+    const doc = new jsPDF('p', 'pt', 'a4');
+    const handleElement = {
+      '#editor': (element, renderer) => {
+        return true;
+      }
+    };
+    doc.fromHTML(DATA.innerHTML, 15, 15, {
+      width: 200,
+      elementHandlers: handleElement
+    });
+
+    doc.save('angular-demo.pdf');
+
+  }
+
+  openPDF():void {
+    let DATA = this.pdfInsumos.nativeElement;
+    let doc = new jsPDF('p','pt', 'a4');
+    doc.fromHTML(DATA.innerHTML,15,15);
+    doc.output('dataurlnewwindow');
+  }
+  openOrderPDF():void {
+    let DATA = this.pdfOrderReport.nativeElement;
+    let doc = new jsPDF('p','pt', 'a4');
+    doc.fromHTML(DATA.innerHTML,15,15);
+    doc.output('dataurlnewwindow');
+  }
+  
 }
