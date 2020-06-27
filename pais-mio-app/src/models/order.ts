@@ -13,7 +13,8 @@ export class Order {
     listaProductos: ProductInOrder[];
     doAnalisisAA: Analysis;
 
-    constructor(codigo: number, cliente: Client, correoAdminIngreso: string, listaProductos: ProductInOrder[]){
+    constructor(codigo: number, cliente: Client, correoAdminIngreso: string, 
+                listaProductos: ProductInOrder[]){
 
         this.codigo = codigo;
         this.cliente = cliente;

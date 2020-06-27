@@ -6,7 +6,8 @@ export class InputCompared {
     diferenciaDescarte: number;
     diferenciaTotal: number;
 
-    constructor(insumoPrimerMes: ReportedInput, insumoSegundoMes: ReportedInput, diferenciaConsumir: number, diferenciaDescarte: number, diferenciaTotal: number){
+    constructor(insumoPrimerMes: ReportedInput, insumoSegundoMes: ReportedInput,
+                diferenciaConsumir: number, diferenciaDescarte: number, diferenciaTotal: number){
         this.insumoPrimerMes = insumoPrimerMes;
         this.insumoSegundoMes = insumoSegundoMes;
         this.diferenciaConsumir = diferenciaConsumir;
