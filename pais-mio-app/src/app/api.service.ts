@@ -678,7 +678,7 @@ export class ApiService {
         catchError(this.handleErrors<OrderReport>(`getOrderReport`))
       );
     }
-    
+
     getEntryReport(entryReport: InputEntryReport): Observable<InputEntryReport> {
       return this.http.post<InputEntryReport>(entryReportPOST, entryReport, HttpOptions).pipe(
         tap((i: InputEntryReport) => console.log(`id=${i}`)),
