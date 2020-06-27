@@ -6,7 +6,7 @@ export class InputEntryReport {
     fechaInicio: string;
     fechaFinal: string;
 
-    constructor(listaEntradas: InputEntryReported[], infoPaisMio: InfoPaisMio, 
+    constructor(listaEntradas: InputEntryReported[], infoPaisMio: InfoPaisMio,
                 fechaInicio: string, fechaFinal: string){
 
         this.listaEntradas = listaEntradas;
