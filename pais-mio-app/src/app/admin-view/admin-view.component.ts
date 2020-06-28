@@ -51,8 +51,6 @@ export class AdminViewComponent implements OnInit {
   inputRequest: InputRequest;
   inputRequestDesicion: InputRequestDesicion;
   clientOrder: Client;
-  analysisExist = false;
-
 
   /** Object Lists */
   orderList: Order[];
@@ -108,6 +106,7 @@ export class AdminViewComponent implements OnInit {
 
   /** Input list validations */
   productExist = false;
+  analysisExist = false;
   listIsNotEmpty = false;
 
   /** Aux variables */
@@ -134,9 +133,6 @@ export class AdminViewComponent implements OnInit {
   unitModel = new Unit('');
   localUser = new User('', '', '', '', '', '');
   analysisModel = new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array<AnalysisPC>());
-
-
-
   productEntryModel = new ProductInOrder(this.product, 0);
   searchProductModel = new Product(0, '', '', '', '');
   searchProductModel2 = new Product(0, '', '', '', '');

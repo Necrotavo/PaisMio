@@ -100,21 +100,6 @@ export class OrderViewComponent implements OnInit {
 
   Swal = ('sweetalert2');
 
-  /*
-  clientModel = new Client('', '', '', '', '', '');
-  inputModel = new Input(0, '', 0, '', '', '');
-  productModel = new Product(0, '', '', '', '');
-  clientEntryModel = new Client('', '', '', '', '', '');
-  orderModel = new Order(0, this.clientEntryModel, '', this.productEntryList);
-  cellarModel = new Cellar(0, '', '', '', '', this.inputQList);
-  cellarAdminModel = new CellarAdmin(this.cellar, '');
-  moveInputModel = new MoveInput(0, 0, 0, 0);
-  inputRequestModel = new InputRequest(0, 0, 0, this.inputQList, this.inputQListDiscard, '', '', '', '');
-
-  unitModel = new Unit('');
-*/
-
-
   ngOnInit(): void {
 
     this.localUser = JSON.parse(localStorage.getItem('user logged'));
@@ -127,7 +112,6 @@ export class OrderViewComponent implements OnInit {
     );
 
     /** Get current order */
-    // this.data.activeOrder.subscribe(order => this.order = order);
     this.data.activeOrder.subscribe((order) => {
       this.order = order;
 
@@ -145,14 +129,6 @@ export class OrderViewComponent implements OnInit {
 
 
     /** Gets Analysis Aguardiente */
-    /*
-    this.apiService.getAnalysisByID(this.order.codigo).subscribe(
-      data => {
-        this.order.doAnalisisAA = data;
-        this.validateAnalysisExistance();
-      }
-    );
-    */
     this.getInputRequestByOrder();
 
     /** get Analysis type */
