@@ -57,9 +57,6 @@ export class OrderViewComponent implements OnInit {
   objInputRequestDesicion: InputRequestDesicion;
   objAnalysis: Analysis;
 
-
-  /** Filter Terms */
-
   /** Validations */
   inputExist = false;
   listIsNotEmpty = false;
@@ -104,14 +101,14 @@ export class OrderViewComponent implements OnInit {
 
     this.localUser = JSON.parse(localStorage.getItem('user logged'));
 
-    /** Gets all Orders on Init */
+    /** Gets all Orders from API service on Init */
     this.apiService.getOrder().subscribe(
       data => {
         this.orderList = data;
       }
     );
 
-    /** Get current order */
+    /** Get current order from the API service on init */
     this.data.activeOrder.subscribe((order) => {
       this.order = order;
 
@@ -121,25 +118,26 @@ export class OrderViewComponent implements OnInit {
 
     });
 
+    /** Validates the existance of an order and gets the active order from local storage */
     if (this.order === null) {
       this.order = JSON.parse(localStorage.getItem('active order'));
       console.log('Imprimo: ' + this.order.cliente);
     }
 
-
-
-    /** Gets Analysis Aguardiente */
+    /** Used to get the analysis of aguardiente from the API service on init */
     this.getInputRequestByOrder();
 
     /** get Analysis type */
     this.getPQsAnalysis();
 
+    /** Used to get the active inputs from the API service on init */
     this.apiService.getInputA().subscribe(
       data => {
         this.inputList = data;
       }
     );
 
+    /** Used to get all cellar from the API service on init */
     this.apiService.getCellar().subscribe(
       data => {
         this.cellarList = data;
@@ -152,7 +150,7 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
-  /** Analysis */
+  /** Change the analysis or an order by ID using the API service */
   changeAnalysis() {
 
     if (this.order !== null) {
@@ -166,6 +164,7 @@ export class OrderViewComponent implements OnInit {
     }
   }
 
+  /** Used to get a psyco chemical analysis of an order from the API service */
   getPQsAnalysis() {
     this.apiService.getPQAnalsis().subscribe(
       data => {
@@ -174,6 +173,7 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
+  /** Build and post the analysis of an order */
   postAnalysis() {
     this.analysisModel.analisisFQs = this.pqsAnalysisList;
     console.log(`ORDERCODE TO ADD${this.order.codigo}`);
@@ -188,6 +188,7 @@ export class OrderViewComponent implements OnInit {
     this.changeAnalysis();
   }
 
+  /** Used to validate the existance of an analysis in a specific order */
   validateAnalysisExistance() {
 
     if (this.analysisModel.fechaEmision !== null) {
@@ -200,7 +201,7 @@ export class OrderViewComponent implements OnInit {
   }
 
   /** InputRequest CRUD */
-
+  /** Build and post a input request */
   postInputRequest() {
     this.inputPostRequestModel.operario = this.localUser.correo;
     this.inputPostRequestModel.insumosConsumo = this.inputConsumeList;
@@ -217,6 +218,7 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
+  /** Get the input requests from the API service */
   getInputRequest() {
 
     this.apiService.getInputRequest().subscribe(
@@ -226,6 +228,7 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
+  /** Set a desicion of an input request from the API service */
   setInputRequestDesicion() {
 
     this.apiService.setInputRequestDecision(this.inputRequestDesicionModel).subscribe(
@@ -235,6 +238,7 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
+  /** Get the input requests from a user from the API service */
   getInputRequestByUser() {
 
     this.apiService.getInputRequestByUser(this.userModel).subscribe(
@@ -244,6 +248,7 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
+  /** Get the input requests of an order from the API service */
   getInputRequestByOrder() {
     if (this.order !== null) {
     this.apiService.getInputRequestByOrder(this.order).subscribe(
@@ -254,6 +259,7 @@ export class OrderViewComponent implements OnInit {
     }
   }
 
+  /** Get an input request by ID from the API service */
   searchInputRequest() {
 
     this.apiService.getInputRequestByID(this.inputRequestModel).subscribe(
@@ -263,6 +269,7 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
+  /** Get a cellar by ID from the API service */
   getCellarById(code: number) {
 
     this.apiService.getOneCellar(code).subscribe(
@@ -272,11 +279,13 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
+  /** Used to asign a request into an specific order */
   asignRequest(request: InputRequest) {
     this.inputRequestModel = request;
     this.getCellarById(this.inputRequestModel.bodega);
   }
 
+  /** used to search for an input from an specific cellar */
   searchInput() {
     for (const i of this.cellarEntryModel.listaInsumosEnBodega) {
       if (this.searchInputModel.nombre.toUpperCase() === i.insumo.nombre.toUpperCase()) {
@@ -290,6 +299,7 @@ export class OrderViewComponent implements OnInit {
     }
   }
 
+  /** Used to push an input into the entry list */
   pushIntoEntryList() {
     this.inputExist = false;
     this.inputEntryModel.cantidadDisponible = this.auxQ;
@@ -303,6 +313,7 @@ export class OrderViewComponent implements OnInit {
     this.inputExist = false;
   }
 
+  /** Used to validate the status of the input list */
   validateList() {
     if (this.inputConsumeList.length > 0) {
       this.listIsNotEmpty = true;
@@ -311,11 +322,13 @@ export class OrderViewComponent implements OnInit {
     }
   }
 
+  /** Used to remove an input from the consume list  */
   removeFromList(i: number) {
     this.inputConsumeList.splice(i, 1);
     this.validateList();
   }
 
+  /** Used to push an input into the discard list */
   pushIntoDiscardList() {
     this.inputEntryModel.cantidadDisponible = this.auxQ;
     this.inputEntryModel.insumo = this.searchInputModel2;
@@ -328,6 +341,7 @@ export class OrderViewComponent implements OnInit {
     this.inputExist = false;
   }
 
+  /** Used to validate the discard list */
   validateDiscarList() {
     if (this.inputDiscardList.length > 0) {
       this.discardListIsNotEmpty = true;
@@ -336,12 +350,13 @@ export class OrderViewComponent implements OnInit {
     }
   }
 
+  /** Used to remove an input from the discard list */
   removeFromDiscardList(i: number) {
     this.inputDiscardList.splice(i, 1);
     this.validateDiscarList();
   }
 
-  /** Metodos de bodega */
+  /** Cellar methods */
   /** Used to validate combo on cellar */
   validateCellar(value) {
     if (value === 'default') {
@@ -352,6 +367,7 @@ export class OrderViewComponent implements OnInit {
     }
   }
 
+  /** Used to search a cellar */
   searchCellar() {
     for (const i of this.cellarList) {
       if (this.auxN.toUpperCase() === i.nombre.toUpperCase()) {
@@ -362,6 +378,7 @@ export class OrderViewComponent implements OnInit {
     }
   }
 
+  /** Used to request for a status on an input request */
   requestDecision(value: string) {
     this.inputRequestDesicionModel.admin = this.localUser;
     this.inputRequestDesicionModel.solicitud = this.inputRequestModel;
@@ -376,6 +393,7 @@ export class OrderViewComponent implements OnInit {
     this.getInputRequestByOrder();
   }
 
+  /** Used to reset the input model */
   resetInputRequestModal() {
     this.inputExist = false;
     this.searchInputModel.nombre = '';
@@ -397,6 +415,9 @@ export class OrderViewComponent implements OnInit {
     }
   }
 
+  /** Used to dispatch order with the status "Conforme" or "No conforme"
+   * and shows the message to the user.
+   */
   dispatchOrder() {
 
     this.orderModel = this.order;

@@ -146,8 +146,6 @@
                                             </tr>
                                             <tr>
                                                 <th>Análisis</th>
-
-                                                <!--Aquí-->
                                                 <td *ngIf="!analysisExist">
                                                     <span class="badge badge-warning">No realizado</span>
                                                 </td>
@@ -268,25 +266,6 @@
                                 <td>
                                     {{user.rol}}
 
-                                    <!--
-                                        if user === 'ADMINISTRADOR' (NO SE PUEDE EDITAR)
-                                        else if user === 'SUPERVISOR' (SOLO PUEDE SUBIR A ADMINISTRADOR)
-                                        else if user === 'OPERARIO' (PUEDE SER ADMINISTRADOR U OPERARIO)
-                                    -->
-
-                                    <!--
-                                        <div class="form-field">
-                                        <select (blur)="validateRol(rolU.value)" (change)="validateRol(rolU.value)" #rolU="ngModel" 
-                                        [class.is-invalid]="rolHasError && rolU.touched"
-                                         class="form-control" name="rolU" [(ngModel)]="userModel.rol">
-                                            <option value="default">Rol de usuario</option>
-                                            <option value="OPERARIO">Operario</option>
-                                            <option value="SUPERVISOR">Supervisor</option>
-                                            <option value="ADMINISTRADOR">Administrador</option>
-                                        </select>
-                                        <p><small class="text-danger" [class.d-none]="!rolHasError || rolU.untouched">Rol requerido</small></p>
-                                        </div>
-                                     -->
                                 </td>
                                 <td *ngIf="user.estado === 'HABILITADO'">
                                     <span class="badge badge-success">{{user.estado}}</span>
@@ -729,7 +708,7 @@
                                 <div class="float-left">
                                     <h4>Datos del producto</h4>
                                 </div>
-                                
+
                             </div>
                             <form>
                                 <table class="table table-striped table-responsive">
@@ -919,7 +898,8 @@
                             </table>
                             <div class="form-group">
                                 <strong for="texareaNotasAA">Notas:</strong>
-                                <textarea id="texareaNotasAA" class="form-control" readonly>{{analysisModel.notas}}</textarea>
+                                <textarea id="texareaNotasAA" class="form-control"
+                                    readonly>{{analysisModel.notas}}</textarea>
                             </div>
                         </div>
 
