@@ -164,6 +164,8 @@ export class OrderViewComponent implements OnInit {
     }
   }
 
+
+
   /** Used to get a psyco chemical analysis of an order from the API service */
   getPQsAnalysis() {
     this.apiService.getPQAnalsis().subscribe(
@@ -182,10 +184,11 @@ export class OrderViewComponent implements OnInit {
     this.apiService.addAnalysis(this.analysisModel).subscribe(
       data => {
         this.objAnalysis = data;
+        this.changeAnalysis();
       }
     );
     this.analysisModel =  new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array<AnalysisPC>());
-    this.changeAnalysis();
+
   }
 
   /** Used to validate the existance of an analysis in a specific order */
