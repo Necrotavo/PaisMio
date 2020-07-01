@@ -66,7 +66,7 @@ namespace DAO
                     }
 
                     DAO_Insumo daoInsumo = new DAO_Insumo();
-                    insumoConsumido.insumo.nombre = daoInsumo.obtenerNombreInsumo(insumoConsumido.insumo.codigo);
+                    insumoConsumido.insumo = daoInsumo.buscarInsumoPorCódigo(insumoConsumido.insumo.codigo);
                     insumoConsumido.total = insumoConsumido.cantidadConsumida + insumoConsumido.cantidadDescartada;
 
                     listaReportados.Add(insumoConsumido);
@@ -283,7 +283,7 @@ namespace DAO
 
                     insumoEntrante.insumo.insumo.codigo = Convert.ToInt32(filaInsumos["INS_CODIGO"]);
                     DAO_Insumo daoInsumo = new DAO_Insumo();
-                    insumoEntrante.insumo.insumo.nombre = daoInsumo.obtenerNombreInsumo(insumoEntrante.insumo.insumo.codigo);
+                    insumoEntrante.insumo.insumo = daoInsumo.buscarInsumoPorCódigo(insumoEntrante.insumo.insumo.codigo);
 
                     insumoEntrante.insumo.cantidadDisponible = Convert.ToInt32(filaInsumos["IENT_CANTIDAD"]);
 
