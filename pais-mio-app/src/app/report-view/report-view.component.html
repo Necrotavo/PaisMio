@@ -600,7 +600,7 @@
                                 No hay datos para mostrar
                             </h6>
                         </div>
-                        <div id="pdfComparativeReport" #pdfComparativeReport>
+                        <div *ngIf="objInputComparativeReport.listaInsumos.length > 0" id="pdfComparativeReport" #pdfComparativeReport>
                             <h5>
                                 Primer periodo: Del {{objInputComparativeReport.inicioMes1 | date: 'dd/MM/yyyy'}} al
                                 {{objInputComparativeReport.finalMes1 | date: 'dd/MM/yyyy'}}
@@ -641,24 +641,60 @@
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <div class="form-field">
+                                                        <div class="form-field" *ngIf="comparedItem.insumoPrimerMes !== null">
                                                             <p>{{comparedItem.insumoPrimerMes.cantidadConsumida}}</p>
+                                                        </div>
+                                                        <div class="form-field" *ngIf="comparedItem.insumoPrimerMes === null">
+                                                            <p>N/A</p>
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <div class="form-field">
+                                                        <div class="form-field" *ngIf="comparedItem.insumoPrimerMes !== null">
                                                             <p>{{comparedItem.insumoPrimerMes.cantidadDescartada}}</p>
+                                                        </div>
+                                                        <div class="form-field" *ngIf="comparedItem.insumoPrimerMes === null">
+                                                            <p>N/A</p>
                                                         </div>
                                                     </td>
 
                                                     <td>
-                                                        <div class="form-field">
+                                                        <div class="form-field" *ngIf="comparedItem.insumoSegundoMes !== null">
                                                             <p>{{comparedItem.insumoSegundoMes.cantidadConsumida}}</p>
+                                                        </div>
+                                                        <div class="form-field" *ngIf="comparedItem.insumoSegundoMes === null">
+                                                            <p>N/A</p>
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <div class="form-field">
+                                                        <div class="form-field" *ngIf="comparedItem.insumoSegundoMes !== null">
                                                             <p>{{comparedItem.insumoSegundoMes.cantidadDescartada}}</p>
+                                                        </div>
+                                                        <div class="form-field" *ngIf="comparedItem.insumoSegundoMes === null">
+                                                            <p>N/A</p>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                        Total: 
+                                                    </th>
+                                                    <td>
+                                                        <div class="form-field" *ngIf="comparedItem.insumoPrimerMes !== null">
+                                                            <p>{{comparedItem.insumoPrimerMes.total}}</p>
+                                                        </div>
+                                                        <div class="form-field" *ngIf="comparedItem.insumoPrimerMes === null">
+                                                            <p>N/A</p>
+                                                        </div>
+                                                    </td>
+                                                    <th>
+                                                        Total: 
+                                                    </th>
+                                                    <td>
+                                                        <div class="form-field" *ngIf="comparedItem.insumoSegundoMes !== null">
+                                                            <p>{{comparedItem.insumoSegundoMes.total}}</p>
+                                                        </div>
+                                                        <div class="form-field" *ngIf="comparedItem.insumoSegundoMes === null">
+                                                            <p>N/A</p>
                                                         </div>
                                                     </td>
                                                 </tr>
