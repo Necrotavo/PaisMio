@@ -128,29 +128,29 @@ export class ReportViewComponent implements OnInit {
   }
 
   openPDF():void {
-    let DATA = this.pdfInsumos.nativeElement;
-    let doc = new jsPDF('p','pt', 'a4');
+    const DATA = this.pdfInsumos.nativeElement;
+    const doc = new jsPDF('p','pt', 'a4');
     doc.fromHTML(DATA.innerHTML,15,15);
     doc.output('dataurlnewwindow');
   }
 
   openOrderPDF():void {
-    let DATA = this.pdfOrderReport.nativeElement;
-    let doc = new jsPDF('p','pt', 'a4');
+    const DATA = this.pdfOrderReport.nativeElement;
+    const doc = new jsPDF('p','pt', 'a4');
     doc.fromHTML(DATA.innerHTML,15,15);
     doc.output('dataurlnewwindow');
   }
   
   openEntryPDF():void {
-    let DATA = this.pdfEntryReport.nativeElement;
-    let doc = new jsPDF('p','pt', 'a4');
+    const DATA = this.pdfEntryReport.nativeElement;
+    const doc = new jsPDF('p','pt', 'a4');
     doc.fromHTML(DATA.innerHTML,15,15);
     doc.output('dataurlnewwindow');
   }
 
   openComparativePDF():void {
-    let DATA = this.pdfComparativeReport.nativeElement;
-    let doc = new jsPDF('p','pt', 'a4');
+    const DATA = this.pdfComparativeReport.nativeElement;
+    const doc = new jsPDF('p','pt', 'a4');
     doc.fromHTML(DATA.innerHTML,15,15);
     doc.output('dataurlnewwindow');
   }
