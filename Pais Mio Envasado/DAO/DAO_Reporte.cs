@@ -283,7 +283,7 @@ namespace DAO
 
                     insumoEntrante.insumo.insumo.codigo = Convert.ToInt32(filaInsumos["INS_CODIGO"]);
                     DAO_Insumo daoInsumo = new DAO_Insumo();
-                    insumoEntrante.insumo.insumo.nombre = daoInsumo.obtenerNombreInsumo(insumoEntrante.insumo.insumo.codigo);
+                    insumoEntrante.insumo.insumo = daoInsumo.buscarInsumoPorCódigo(insumoEntrante.insumo.insumo.codigo);
 
                     insumoEntrante.insumo.cantidadDisponible = Convert.ToInt32(filaInsumos["IENT_CANTIDAD"]);
 
