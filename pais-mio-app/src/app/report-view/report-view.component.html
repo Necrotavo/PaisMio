@@ -637,7 +637,7 @@
                                                     <th scope="row">Descartado</th>
                                                 </tr>
                                             </thead>
-
+                                            <br>
                                             <tbody>
                                                 <tr>
                                                     <td>
@@ -697,6 +697,23 @@
                                                             <p>N/A</p>
                                                         </div>
                                                     </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div>
+                                            <h6>Diferencias porcentuales</h6>
+                                        </div>
+                                        <table class="table table-striped table-responsive clearfix">
+                                            <thead>
+                                                <th>Consumido</th>
+                                                <th>Descarte</th>
+                                                <th>Total</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{comparedItem.diferenciaConsumir}}%</td>
+                                                    <td>{{comparedItem.diferenciaDescarte}}%</td>
+                                                    <td>{{comparedItem.diferenciaTotal}}%</td>
                                                 </tr>
                                             </tbody>
                                         </table>

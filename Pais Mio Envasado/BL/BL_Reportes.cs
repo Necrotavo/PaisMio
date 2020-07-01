@@ -190,7 +190,7 @@ namespace BL
                 double resta = (mes2 - mes1);
                 double division = resta / mes1;
                 double total = division * 100;
-                return total;
+                return Math.Round(Convert.ToDouble(total), 0, MidpointRounding.ToEven);
             }
         }
 
