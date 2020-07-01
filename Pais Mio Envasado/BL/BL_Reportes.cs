@@ -143,8 +143,22 @@ namespace BL
                         listaSegundoMes.Remove(insumoComparado.insumoSegundoMes);
                     }
                     else {
-                        insumoComparado.diferenciaConsumir = -100;
-                        insumoComparado.diferenciaDescarte = -100;
+                        if (insumoComparado.insumoPrimerMes.cantidadConsumida == 0) {
+                            insumoComparado.diferenciaConsumir = 0;
+                        }
+                        else {
+                            insumoComparado.diferenciaConsumir = -100;
+                        }
+
+                        if (insumoComparado.insumoPrimerMes.cantidadDescartada == 0)
+                        {
+                            insumoComparado.diferenciaDescarte = 0;
+                        }
+                        else
+                        {
+                            insumoComparado.diferenciaDescarte = -100;
+                        }
+                        
                         insumoComparado.diferenciaTotal = -100;
                     }
                     reporteInsComparativo.listaInsumos.Add(insumoComparado);
@@ -155,8 +169,22 @@ namespace BL
                     DO_InsumosComparados insumoComparado = new DO_InsumosComparados();
 
                     insumoComparado.insumoSegundoMes = insumoSegundoMes;
-                    insumoComparado.diferenciaConsumir = 100;
-                    insumoComparado.diferenciaDescarte = 100;
+                    if (insumoComparado.insumoSegundoMes.cantidadConsumida == 0)
+                    {
+                        insumoComparado.diferenciaConsumir = 0;
+                    }
+                    else {
+                        insumoComparado.diferenciaConsumir = 100;
+                    }
+
+                    if (insumoComparado.insumoSegundoMes.cantidadDescartada == 0) {
+                        insumoComparado.diferenciaDescarte = 0;
+                    }
+                    else
+                    {
+                        insumoComparado.diferenciaDescarte = 100;
+                    }
+                    
                     insumoComparado.diferenciaTotal = 100;
 
                     reporteInsComparativo.listaInsumos.Add(insumoComparado);
