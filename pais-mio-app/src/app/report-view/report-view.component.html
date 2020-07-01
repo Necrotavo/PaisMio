@@ -472,7 +472,8 @@
                                         <table class="table table-striped table-responsive clearfix">
                                             <thead>
                                                 <tr>
-                                                    <th scope="row">Insumo</th>
+                                                    <th scope="row">Codigo insumo</th>
+                                                    <th scope="row">Nombre insumo</th>
                                                     <th scope="row">Cantidad</th>
                                                     <th scope="row">Bodega</th>
                                                 </tr>
@@ -480,6 +481,11 @@
 
                                             <tbody>
                                                 <tr *ngFor="let inputEntryItem of entryItem.listaInsumos">
+                                                    <td>
+                                                        <div class="form-field">
+                                                            <p>{{inputEntryItem.insumo.insumo.id}}</p>
+                                                        </div>
+                                                    </td>
                                                     <td>
                                                         <div class="form-field">
                                                             <p>{{inputEntryItem.insumo.insumo.nombre}}</p>
@@ -508,7 +514,167 @@
                     <button type="button" class="btn btn-secondary" (click)="entryReportForm.reset()"
                         data-dismiss="modal">Cerrar</button>
                     <button [disabled]="entryReportForm.form.invalid" type="submit" class="btn btn-primary"
-                        data-dismiss="modal" (click)="openOrderPDF()">Ver en PDF</button>
+                        data-dismiss="modal" (click)="openEntryPDF()">Ver en PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal end -->
+
+<!--Modal start-->
+<!-- Modal Comparative Report -->
+<div class="modal fade" id="comparativeReportModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="comparativeReportModal">Detalles del reporte comparativo de insumos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="description">
+                    <form #comparativeReportForm="ngForm" novalidate>
+                        <div class="form-group">
+                            <div class="tab-header clearfix">
+                                <div class="float-left">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <img src="{{objInputComparativeReport.infoPaisMio.logo}}" class="rounded mx-auto d-block" width="40%"
+                                width="40%">
+                        </div>
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <h5>
+                                    {{objInputComparativeReport.infoPaisMio.nombre}}
+                                </h5>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        Cedula
+                                    </th>
+                                    <td>
+                                        {{objInputComparativeReport.infoPaisMio.cedulaJuridica}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>
+                                        Dirección
+                                    </th>
+                                    <td>
+                                        {{objInputComparativeReport.infoPaisMio.direccion}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Telefono
+                                    </th>
+                                    <td>
+                                        {{objInputComparativeReport.infoPaisMio.telefono}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Correo
+                                    </th>
+                                    <td>
+                                        {{objInputComparativeReport.infoPaisMio.correo}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div *ngIf="objInputComparativeReport.listaInsumos.length === 0">
+                            <h5>
+                                Primer periodo: Del {{objInputComparativeReport.inicioMes1 | date: 'dd/MM/yyyy'}} al
+                                {{objInputComparativeReport.finalMes1 | date: 'dd/MM/yyyy'}}
+                                <br>
+                                Segundo periodo: Del {{objInputComparativeReport.inicioMes2 | date: 'dd/MM/yyyy'}} al
+                                {{objInputComparativeReport.finalMes2 | date: 'dd/MM/yyyy'}}
+                            </h5>
+                            <h6>
+                                No hay datos para mostrar
+                            </h6>
+                        </div>
+                        <div id="pdfComparativeReport" #pdfComparativeReport>
+                            <h5>
+                                Primer periodo: Del {{objInputComparativeReport.inicioMes1 | date: 'dd/MM/yyyy'}} al
+                                {{objInputComparativeReport.finalMes1 | date: 'dd/MM/yyyy'}}
+                                <br>
+                                Segundo periodo: Del {{objInputComparativeReport.inicioMes2 | date: 'dd/MM/yyyy'}} al
+                                {{objInputComparativeReport.finalMes2 | date: 'dd/MM/yyyy'}}
+                            </h5>
+                            <div style="overflow-x: auto; max-width: 100%;">
+                                <ul *ngIf="objInputComparativeReport.listaInsumos.length > 0">
+                                    <li *ngFor="let comparedItem of objInputComparativeReport.listaInsumos">
+                                        <div *ngIf="comparedItem.insumoPrimerMes !== null">
+                                            <h5>Insumo: {{comparedItem.insumoPrimerMes.insumo.id}}</h5>
+                                            <h6>Nombre: {{comparedItem.insumoPrimerMes.insumo.nombre}}</h6>
+                                        </div>
+                                        <div *ngIf="comparedItem.insumoPrimerMes === null">
+                                            <h5>Insumo: {{comparedItem.insumoSegundoMes.insumo.id}}</h5>
+                                            <h6>Nombre: {{comparedItem.insumoSegundoMes.insumo.nombre}}</h6>
+                                        </div>
+
+                                        <table class="table table-striped table-responsive clearfix">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2">
+                                                        Primer periodo
+                                                    </th>
+                                                    <th colspan="2">
+                                                        Segundo periodo
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Consumido</th>
+                                                    <th scope="row">Descartado</th>
+                                                    <th scope="row">Consumido</th>
+                                                    <th scope="row">Descartado</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-field">
+                                                            <p>{{comparedItem.insumoPrimerMes.cantidadConsumida}}</p>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-field">
+                                                            <p>{{comparedItem.insumoPrimerMes.cantidadDescartada}}</p>
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        <div class="form-field">
+                                                            <p>{{comparedItem.insumoSegundoMes.cantidadConsumida}}</p>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-field">
+                                                            <p>{{comparedItem.insumoSegundoMes.cantidadDescartada}}</p>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="comparativeReportForm.reset()"
+                        data-dismiss="modal">Cerrar</button>
+                    <button [disabled]="comparativeReportForm.form.invalid" type="submit" class="btn btn-primary"
+                        data-dismiss="modal" (click)="openComparativePDF()">Ver en PDF</button>
                 </div>
             </div>
         </div>

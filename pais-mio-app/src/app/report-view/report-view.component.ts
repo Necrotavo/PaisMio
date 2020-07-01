@@ -9,6 +9,7 @@ import { ReportedInput } from 'src/models/reportedInput';
 import { Order } from 'src/models/order';
 import { InputEntryReport } from 'src/models/inputEntryReport';
 import { InputEntryReported } from 'src/models/inputEntryReported';
+import { InputCompared } from 'src/models/inputCompared';
 
 @Component({
   selector: 'app-report-view',
@@ -19,14 +20,14 @@ export class ReportViewComponent implements OnInit {
   @ViewChild('pdfInsumos') pdfInsumos:ElementRef;
   @ViewChild('pdfOrderReport') pdfOrderReport:ElementRef;
   @ViewChild('pdfEntryReport') pdfEntryReport:ElementRef;
-  
-  
+  @ViewChild('pdfComparativeReport') pdfComparativeReport:ElementRef;
 
   constructor(private apiService: ApiService) { }
   /** Declarations */
   listReportedInput: Array<ReportedInput> = [];
   orderList: Array<Order> = [];
   entryList: Array<InputEntryReported> = [];
+  comparedInputList: Array<InputCompared> = [];
 
   /** Models */
   inputReport = new InputReport(null, null, '', '');
@@ -47,7 +48,7 @@ export class ReportViewComponent implements OnInit {
 
   /** returns */
   objInputReport = new InputReport(this.listReportedInput, new InfoPaisMio(0,'','','','','',''), '','');
-  objInputComparativeReport: InputComparativeReport;
+  objInputComparativeReport = new InputComparativeReport(this.comparedInputList, new InfoPaisMio(0,'','','','','',''), '', '', '', '');
   objOrderReport = new OrderReport(this.orderList,new InfoPaisMio(0,'','','','','',''),'','');
   objEntryReport = new InputEntryReport(this.entryList, new InfoPaisMio(0,'','','','','',''), '', '');
 
@@ -142,6 +143,13 @@ export class ReportViewComponent implements OnInit {
   
   openEntryPDF():void {
     let DATA = this.pdfEntryReport.nativeElement;
+    let doc = new jsPDF('p','pt', 'a4');
+    doc.fromHTML(DATA.innerHTML,15,15);
+    doc.output('dataurlnewwindow');
+  }
+
+  openComparativePDF():void {
+    let DATA = this.pdfComparativeReport.nativeElement;
     let doc = new jsPDF('p','pt', 'a4');
     doc.fromHTML(DATA.innerHTML,15,15);
     doc.output('dataurlnewwindow');
