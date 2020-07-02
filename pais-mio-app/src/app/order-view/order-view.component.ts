@@ -180,6 +180,7 @@ export class OrderViewComponent implements OnInit {
     this.analysisModel.analisisFQs = this.pqsAnalysisList;
     console.log(`ORDERCODE TO ADD${this.order.codigo}`);
     this.analysisModel.pedCodigo = this.order.codigo;
+    document.getElementById('botonCerrar').click();
     console.log(`${this.analysisModel}`);
     this.apiService.addAnalysis(this.analysisModel).subscribe(
       data => {
