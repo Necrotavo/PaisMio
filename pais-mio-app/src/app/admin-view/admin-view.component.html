@@ -2133,13 +2133,19 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="text" required #telC="ngModel" class="form-control"
+                                        <input type="tel" required #telC="ngModel" 
+                                            pattern="\([0-9]{3}\) [0-9]{4}[ -][0-9]{4}" class="form-control"
                                             [class.is-invalid]="telC.invalid && telC.touched"
-                                            placeholder="+506 1234-5678" name="telC" [(ngModel)]="cellarModel.telefono">
+                                            placeholder="(506) 5555-5555" name="telC" 
+                                            [(ngModel)]="cellarModel.telefono">
 
-                                        <div *ngIf="telC.invalid || telC.touched">
-                                            <p><small class="text-danger" *ngIf="telC.invalid && telC.touched">Telefono
-                                                    requerido</small></p>
+                                        <div *ngIf="telC.errors && (telC.invalid || telC.touched)">
+                                            <p><small class="text-danger" *ngIf="telC.errors.required && telC.touched">Telefono
+                                                requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="telC.errors.pattern">Teléfono
+                                                invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="telC.errors.pattern">Ejemplo: (506)
+                                                5555-5555</small></p>
                                         </div>
                                     </div>
                                 </td>
