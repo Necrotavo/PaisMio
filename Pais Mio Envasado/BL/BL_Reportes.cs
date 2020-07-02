@@ -143,8 +143,22 @@ namespace BL
                         listaSegundoMes.Remove(insumoComparado.insumoSegundoMes);
                     }
                     else {
-                        insumoComparado.diferenciaConsumir = -100;
-                        insumoComparado.diferenciaDescarte = -100;
+                        if (insumoComparado.insumoPrimerMes.cantidadConsumida == 0) {
+                            insumoComparado.diferenciaConsumir = 0;
+                        }
+                        else {
+                            insumoComparado.diferenciaConsumir = -100;
+                        }
+
+                        if (insumoComparado.insumoPrimerMes.cantidadDescartada == 0)
+                        {
+                            insumoComparado.diferenciaDescarte = 0;
+                        }
+                        else
+                        {
+                            insumoComparado.diferenciaDescarte = -100;
+                        }
+                        
                         insumoComparado.diferenciaTotal = -100;
                     }
                     reporteInsComparativo.listaInsumos.Add(insumoComparado);
@@ -155,8 +169,22 @@ namespace BL
                     DO_InsumosComparados insumoComparado = new DO_InsumosComparados();
 
                     insumoComparado.insumoSegundoMes = insumoSegundoMes;
-                    insumoComparado.diferenciaConsumir = 100;
-                    insumoComparado.diferenciaDescarte = 100;
+                    if (insumoComparado.insumoSegundoMes.cantidadConsumida == 0)
+                    {
+                        insumoComparado.diferenciaConsumir = 0;
+                    }
+                    else {
+                        insumoComparado.diferenciaConsumir = 100;
+                    }
+
+                    if (insumoComparado.insumoSegundoMes.cantidadDescartada == 0) {
+                        insumoComparado.diferenciaDescarte = 0;
+                    }
+                    else
+                    {
+                        insumoComparado.diferenciaDescarte = 100;
+                    }
+                    
                     insumoComparado.diferenciaTotal = 100;
 
                     reporteInsComparativo.listaInsumos.Add(insumoComparado);
@@ -174,10 +202,24 @@ namespace BL
         }
 
         private double sacarDiferenciaPorcentual(double mes1, double mes2) {
-            double resta = (mes2 - mes1);
-            double division = resta / mes1;
-            double total = division * 100;
-            return total;
+            if (mes1 == 0 && mes2 > 0)
+            {
+                return 100;
+            }
+            else if (mes2 == 0 && mes1 > 0)
+            {
+                return -100;
+            }
+            else if (mes2 == 0 && mes1 == 0)
+            {
+                return 0;
+            }
+            else {
+                double resta = (mes2 - mes1);
+                double division = resta / mes1;
+                double total = division * 100;
+                return Math.Round(Convert.ToDouble(total), 0, MidpointRounding.ToEven);
+            }
         }
 
         private DO_InsumoReportable seRepite(Int32 insumoPrimerMes, List<DO_InsumoReportable> listaSegundoMes)

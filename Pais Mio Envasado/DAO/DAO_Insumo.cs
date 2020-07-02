@@ -313,7 +313,7 @@ namespace DAO
                 }
             }
         }
-
+        /*
         public String obtenerNombreInsumo(Int32 codigoInsumo) {
             SqlCommand consulta = new SqlCommand("SELECT INS_NOMBRE FROM INSUMO WHERE INS_CODIGO = @codigo ", conexion);
             consulta.Parameters.AddWithValue("@codigo", codigoInsumo);
@@ -350,5 +350,6 @@ namespace DAO
                 }
             }
         }
+    */
     }
 }
