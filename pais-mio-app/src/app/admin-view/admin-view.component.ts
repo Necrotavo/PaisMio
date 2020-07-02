@@ -116,7 +116,7 @@ export class AdminViewComponent implements OnInit {
   /** Models */
   clientModel = new Client('', '', '', '', '', '');
   clientUpdateModel = new Client('', '', '', '', '', '');
-  userModel = new User('', '', '', '', '', 'default');
+  userModel = new User('', '', '', '', '', 'OPERARIO');
   userUpdateModel = new User('', '', '', '', '', 'default');
   inputModel = new Input(0, '', 0, '', '', '');
   inputUpdateModel = new Input(0, '', 0, '', '', '');
@@ -306,7 +306,7 @@ export class AdminViewComponent implements OnInit {
       data => {
         this.objUser = data;
         this.getUser();
-        this.objUser = new User('', '', '', '', '', 'default');
+        this.objUser = new User('', '', '', '', '', 'OPERARIO');
         Swal.fire({
           icon: 'success',
           title: '!Listo!',
