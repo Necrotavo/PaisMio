@@ -180,7 +180,6 @@ export class OrderViewComponent implements OnInit {
     this.analysisModel.analisisFQs = this.pqsAnalysisList;
     console.log(`ORDERCODE TO ADD${this.order.codigo}`);
     this.analysisModel.pedCodigo = this.order.codigo;
-    document.getElementById('botonCerrar').click();
     console.log(`${this.analysisModel}`);
     this.apiService.addAnalysis(this.analysisModel).subscribe(
       data => {
@@ -188,8 +187,8 @@ export class OrderViewComponent implements OnInit {
         this.changeAnalysis();
       }
     );
+    document.getElementById('botonCerrar').click();
     this.analysisModel =  new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array<AnalysisPC>());
-
   }
 
   /** Used to validate the existance of an analysis in a specific order */

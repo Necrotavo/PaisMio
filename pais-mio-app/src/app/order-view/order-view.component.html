@@ -348,7 +348,8 @@
                                 </tr>
 
                             </tbody>
-                        </table>
+                        </table>                       
+
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="physicochemical-evaluation">
@@ -385,6 +386,12 @@
 
                             </tbody>
                         </table>
+
+                        <div class="form-group">
+                            <strong for="texareaNotasAA">Notas:</strong>
+                            <textarea id="texareaNotasAA" class="form-control"
+                                readonly>{{analysisModel.notas}}</textarea>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -870,7 +877,7 @@
                                                 <select (blur)="analysisExV.value" (change)="analysisExV.value"
                                                     #analysisExV="ngModel" class="form-control" name="analysisExV"
                                                     [(ngModel)]="analysisModel.exVisual">
-                                                    <option selected>Seleccionar</option>
+                                                    
                                                     <option value="1" class="badge badge-success">Cumple
                                                     </option>
                                                     <option value="0" class="badge badge-danger">No cumple
@@ -889,7 +896,7 @@
                                                 <select (blur)="analysisExO.value" (change)="analysisExO.value"
                                                     #analysisExO="ngModel" class="form-control" name="analysisExO"
                                                     [(ngModel)]="analysisModel.exOlfativo">
-                                                    <option selected>Seleccionar</option>
+                                                    
                                                     <option value="1" class="badge badge-success">Cumple
                                                     </option>
                                                     <option value="0" class="badge badge-danger">No cumple
@@ -906,7 +913,7 @@
                                                 <select (blur)="analysisExG.value" (change)="analysisExG.value"
                                                     #analysisExG="ngModel" class="form-control" name="analysisExG"
                                                     [(ngModel)]="analysisModel.exGustativo">
-                                                    <option selected>Seleccionar</option>
+                                                    
                                                     <option value="1" class="badge badge-success">Cumple
                                                     </option>
                                                     <option value="0" class="badge badge-danger">No cumple
@@ -923,7 +930,7 @@
                                                 <select (blur)="analysisAsen.value" (change)="analysisAsen.value"
                                                     #analysisAsen="ngModel" class="form-control" name="analysisAsen"
                                                     [(ngModel)]="analysisModel.aSensorial">
-                                                    <option selected>Seleccionar</option>
+                                                    
                                                     <option value="1" class="badge badge-success">Cumple
                                                     </option>
                                                     <option value="0" class="badge badge-danger">No cumple
@@ -1011,10 +1018,11 @@
             </div>
 
             <div class="modal-footer">
-                <button id="botonCerrar" type="button" class="btn btn-secondary" data-dismiss="modal"(click)="postAnalysis()">Cerrar</button>
+                <button id="botonCerrar" type="button" class="btn btn-secondary" data-dismiss="modal"(click)="analysisDForm.reset()">Cerrar</button>
                 <button [disabled]="analysisDForm.form.invalid" type="submit" class="btn btn-primary"
                     data-dismiss="modal" (click)="postAnalysis()">Agregar
-                    análisis</button>
+                    análisis
+                </button>
             </div>
 
         </div>
