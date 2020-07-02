@@ -115,57 +115,102 @@ export class ReportViewComponent implements OnInit {
     const element = document.getElementById('canvasInputReport');
     html2canvas(element).then((canvas) => {
 
-      console.log(canvas)
+      var imgData = canvas.toDataURL('image/png');
+      var imgWidth = 150;
+      var pageHeight = 285;
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight;
+      var doc = new jsPDF('p', 'mm');
+      var position = 0;
 
-      const imgData = canvas.toDataURL('image/png')
-      const doc = new jsPDF()
-      doc.addImage(imgData, 5, 5, 200, 285)
-      doc.save("imagen.pdf")
-    })
+      doc.addImage(imgData, 'PNG', 25, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
 
-    /*
-    const DATA = this.pdfInsumos.nativeElement;
-    const doc = new jsPDF('p', 'pt', 'a4');
-    const handleElement = {
-      '#editor': (element, renderer) => {
-        return true;
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        doc.addPage();
+        doc.addImage(imgData, 'PNG', 25, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
       }
-    };
-    doc.fromHTML(DATA.innerHTML, 15, 15, {
-      width: 200,
-      elementHandlers: handleElement
-    });
+      doc.save('Reporte de Insumos.pdf');
 
-    doc.save('angular-demo.pdf');
-*/
+    })
   }
-
+/*
   openPDF(): void {
     const DATA = this.pdfInsumos.nativeElement;
     const doc = new jsPDF('p', 'pt', 'a4');
     doc.fromHTML(DATA.innerHTML, 15, 15);
     doc.output('dataurlnewwindow');
   }
-
+*/
   openOrderPDF(): void {
+    const element = document.getElementById('pdfOrderReport');
+    html2canvas(element).then((canvas) => {
+
+      var imgData = canvas.toDataURL('image/png');
+      var imgWidth = 150;
+      var pageHeight = 300;
+      var imgHeight = (canvas.height * imgWidth / canvas.width);
+      var heightLeft = imgHeight;
+      var doc = new jsPDF('p', 'mm');
+      var position = 0;
+
+      doc.addImage(imgData, 'PNG', 25, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        doc.addPage();
+        doc.addImage(imgData, 'PNG', 25, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      doc.save('Reporte de Ordenes.pdf');
+
+    })
+    /*
     const DATA = this.pdfOrderReport.nativeElement;
     const doc = new jsPDF('p', 'pt', 'a4');
     doc.fromHTML(DATA.innerHTML, 15, 15);
     doc.output('dataurlnewwindow');
+    */
   }
 
   openEntryPDF(): void {
+    const element = document.getElementById('pdfEntryReport');
+    html2canvas(element).then((canvas) => {
+
+      var imgData = canvas.toDataURL('image/png');
+      var imgWidth = 150;
+      var pageHeight = 300;
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight;
+      var doc = new jsPDF('p', 'mm');
+      var position = 0;
+
+      doc.addImage(imgData, 'PNG', 25, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        doc.addPage();
+        doc.addImage(imgData, 'PNG', 25, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      doc.save('Reporte de Entradas.pdf');
+
+    })
+    /*
     const DATA = this.pdfEntryReport.nativeElement;
     const doc = new jsPDF('p', 'pt', 'a4');
     doc.fromHTML(DATA.innerHTML, 15, 15);
     doc.output('dataurlnewwindow');
+    */
   }
 
   openComparativePDF(): void {
     const element = document.getElementById('pdfComparativeReport');
     html2canvas(element).then((canvas) => {
-
-      console.log(canvas)
 
       var imgData = canvas.toDataURL('image/png');
       var imgWidth = 150;
