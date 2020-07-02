@@ -131,6 +131,7 @@
                         <img src="{{objInputReport.infoPaisMio.logo}}" class="rounded mx-auto d-block" width="40%"
                             width="40%">
                     </div>
+                    <div id="canvasInputReport" #canvasInputReport>
                     <table class="table table-striped table-responsive">
                         <thead>
                             <h5>
@@ -214,7 +215,7 @@
                             </tbody>
                         </table>
                     </div>
-
+                </div>
                 </form>
             </div>
 
@@ -222,7 +223,7 @@
                 <button type="button" class="btn btn-secondary" (click)="reportForm.reset()"
                     data-dismiss="modal">Cerrar</button>
                 <button [disabled]="reportForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
-                    (click)="openPDF()">Ver en PDF</button>
+                    (click)="downloadPDF()">Ver en PDF</button>
             </div>
 
         </div>
@@ -527,7 +528,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="comparativeReportModalLabel1">Detalles del reporte comparativo de insumos</h5>
+                <h5 class="modal-title" id="comparativeReportModalLabel1">Detalles del reporte comparativo de insumos
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">x</span>
                 </button>
@@ -542,9 +544,10 @@
                             </div>
                         </div>
                         <div>
-                            <img src="{{objInputComparativeReport.infoPaisMio.logo}}" class="rounded mx-auto d-block" width="40%"
-                                width="40%">
+                            <img src="{{objInputComparativeReport.infoPaisMio.logo}}" class="rounded mx-auto d-block"
+                                width="40%" width="40%">
                         </div>
+                        <div id="pdfComparativeReport" #pdfComparativeReport>
                         <table class="table table-striped table-responsive">
                             <thead>
                                 <h5>
@@ -599,7 +602,7 @@
                                 No hay datos para mostrar
                             </h6>
                         </div>
-                        <div id="pdfComparativeReport" #pdfComparativeReport *ngIf="objInputComparativeReport.listaInsumos.length > 0">
+                        <div *ngIf="objInputComparativeReport.listaInsumos.length > 0">
                             <h5>
                                 Primer periodo: Del {{objInputComparativeReport.inicioMes1 | date: 'dd/MM/yyyy'}} al
                                 {{objInputComparativeReport.finalMes1 | date: 'dd/MM/yyyy'}}
@@ -622,12 +625,14 @@
                                         <table class="table table-striped table-responsive clearfix">
                                             <thead>
                                                 <tr>
-                                                    <th colspan="2">
+                                                    <th>
                                                         Primer periodo
                                                     </th>
-                                                    <th colspan="2">
+                                                    <th></th>
+                                                    <th>
                                                         Segundo periodo
                                                     </th>
+                                                    <th></th>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Consumido</th>
@@ -640,59 +645,71 @@
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <div class="form-field" *ngIf="comparedItem.insumoPrimerMes !== null">
+                                                        <div class="form-field"
+                                                            *ngIf="comparedItem.insumoPrimerMes !== null">
                                                             <p>{{comparedItem.insumoPrimerMes.cantidadConsumida}}</p>
                                                         </div>
-                                                        <div class="form-field" *ngIf="comparedItem.insumoPrimerMes === null">
+                                                        <div class="form-field"
+                                                            *ngIf="comparedItem.insumoPrimerMes === null">
                                                             <p>N/A</p>
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <div class="form-field" *ngIf="comparedItem.insumoPrimerMes !== null">
+                                                        <div class="form-field"
+                                                            *ngIf="comparedItem.insumoPrimerMes !== null">
                                                             <p>{{comparedItem.insumoPrimerMes.cantidadDescartada}}</p>
                                                         </div>
-                                                        <div class="form-field" *ngIf="comparedItem.insumoPrimerMes === null">
+                                                        <div class="form-field"
+                                                            *ngIf="comparedItem.insumoPrimerMes === null">
                                                             <p>N/A</p>
                                                         </div>
                                                     </td>
 
                                                     <td>
-                                                        <div class="form-field" *ngIf="comparedItem.insumoSegundoMes !== null">
+                                                        <div class="form-field"
+                                                            *ngIf="comparedItem.insumoSegundoMes !== null">
                                                             <p>{{comparedItem.insumoSegundoMes.cantidadConsumida}}</p>
                                                         </div>
-                                                        <div class="form-field" *ngIf="comparedItem.insumoSegundoMes === null">
+                                                        <div class="form-field"
+                                                            *ngIf="comparedItem.insumoSegundoMes === null">
                                                             <p>N/A</p>
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <div class="form-field" *ngIf="comparedItem.insumoSegundoMes !== null">
+                                                        <div class="form-field"
+                                                            *ngIf="comparedItem.insumoSegundoMes !== null">
                                                             <p>{{comparedItem.insumoSegundoMes.cantidadDescartada}}</p>
                                                         </div>
-                                                        <div class="form-field" *ngIf="comparedItem.insumoSegundoMes === null">
+                                                        <div class="form-field"
+                                                            *ngIf="comparedItem.insumoSegundoMes === null">
                                                             <p>N/A</p>
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th>
-                                                        Total: 
+                                                        Total:
                                                     </th>
                                                     <td>
-                                                        <div class="form-field" *ngIf="comparedItem.insumoPrimerMes !== null">
+                                                        <div class="form-field"
+                                                            *ngIf="comparedItem.insumoPrimerMes !== null">
                                                             <p>{{comparedItem.insumoPrimerMes.total}}</p>
                                                         </div>
-                                                        <div class="form-field" *ngIf="comparedItem.insumoPrimerMes === null">
+                                                        <div class="form-field"
+                                                            *ngIf="comparedItem.insumoPrimerMes === null">
                                                             <p>N/A</p>
                                                         </div>
                                                     </td>
                                                     <th>
-                                                        Total: 
+                                                        Total:
                                                     </th>
                                                     <td>
-                                                        <div class="form-field" *ngIf="comparedItem.insumoSegundoMes !== null">
+                                                        <div class="form-field"
+                                                            *ngIf="comparedItem.insumoSegundoMes !== null">
                                                             <p>{{comparedItem.insumoSegundoMes.total}}</p>
                                                         </div>
-                                                        <div class="form-field" *ngIf="comparedItem.insumoSegundoMes === null">
+                                                        <div class="form-field"
+                                                            *ngIf="comparedItem.insumoSegundoMes === null">
                                                             <p>N/A</p>
                                                         </div>
                                                     </td>
@@ -720,6 +737,7 @@
                                 </ul>
                             </div>
                         </div>
+                    </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -738,34 +756,22 @@
 
 <div class="modal fade" id="pdfInsumos" tabindex="-1" role="dialog" #pdfInsumos>
     <h1>{{objInputReport.infoPaisMio.nombre}}</h1> <br>
-    <h4>Cedula Jurídica: {{objInputReport.infoPaisMio.cedulaJuridica}}</h4> <br> <br>
-    <h4>Reporte de insumos del {{objInputReport.fechaInicio | date: 'dd/MM/yyyy'}} al
-        {{objInputReport.fechaFinal | date: 'dd/MM/yyyy'}}</h4> <br> <br>
-    <table>
-        <thead>
-            <th>Nombre</th>
-            <th>Descarte</th>
-            <th>Consumo</th>
-            <th>Total</th>
-        </thead>
-        <tbody>
-            <tr *ngFor="let reportedInput of objInputReport.listaInsumos">
+    <h3>Cedula Jurídica: {{objInputReport.infoPaisMio.cedulaJuridica}}</h3> <br> <br>
+    <h3>Reporte de insumos del {{objInputReport.fechaInicio | date: 'dd/MM/yyyy'}} al
+        {{objInputReport.fechaFinal | date: 'dd/MM/yyyy'}}</h3> <br> <br>
 
-                <td>
-                    {{reportedInput.insumo.nombre}}
-                </td>
-                <td>
-                    {{reportedInput.cantidadDescartada}}
-                </td>
-                <td>
-                    {{reportedInput.cantidadConsumida}}
-                </td>
-                <td>
-                    {{reportedInput.total}}
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div *ngFor="let reportedInput of objInputReport.listaInsumos">
+
+        <ul>
+            <h4>{{reportedInput.insumo.nombre}}</h4>
+            <li><p>Descarte: {{reportedInput.cantidadDescartada}}</p></li>
+            <li><p>Consumo: {{reportedInput.cantidadConsumida}}</p></li>
+            <li><h4>Total: {{reportedInput.total}}</h4></li>
+        </ul>
+
+            
+
+    </div>
 </div>
 
 <!-- Not visible Input report Modal ends -->
