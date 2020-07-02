@@ -2338,14 +2338,17 @@
                                         <input type="text" required #nombreUn="ngModel" class="form-control"
                                             [class.is-invalid]="nombreUn.invalid && nombreUn.touched"
                                             placeholder="Nombre de la unidad" name="nombreUn"
-                                            [(ngModel)]="unitModel.unidad">
-
-                                        <div *ngIf="nombreUn.invalid || nombreUn.touched">
-                                            <p><small class="text-danger"
-                                                    *ngIf="nombreUn.invalid && nombreUn.touched">Nombre
-                                                    requerido</small></p>
+                                            [(ngModel)]="unitModel.unidad" (keyup)="searchUnit()">
+                                        <div *ngIf="nombreUn.invalid || nombreUn.touched || unitExist">
+                                            <p>
+                                                <small class="text-danger"
+                                                    *ngIf="nombreUn.invalid && nombreUn.touched">Nombre requerido</small>
+                                            </p>
+                                            <p>
+                                                <small class="text-danger" 
+                                                *ngIf="nombreUn.touched && unitExist">Ya existe una unidad con ese nombre</small>
+                                            </p>
                                         </div>
-
                                     </div>
                                 </td>
                             </tr>
@@ -2358,8 +2361,14 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="unitForm.reset()"
                     data-dismiss="modal">Cerrar</button>
-                <button [disabled]="unitForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
+                <div *ngIf="nombreUn.invalid || unitExist">
+                    <button disabled type="submit" class="btn btn-primary" data-dismiss="modal"
                     (click)="postUnit()" class="btn btn-primary">Crear</button>
+                </div>
+                <div *ngIf="!(nombreUn.invalid || unitExist)">
+                    <button [disabled]="unitForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
+                    (click)="postUnit()" class="btn btn-primary">Crear</button>
+                </div>
             </div>
 
         </div>

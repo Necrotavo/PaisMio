@@ -106,6 +106,7 @@ export class AdminViewComponent implements OnInit {
 
   /** Input list validations */
   productExist = false;
+  unitExist = false;
   analysisExist = false;
   listIsNotEmpty = false;
 
@@ -178,6 +179,8 @@ export class AdminViewComponent implements OnInit {
 
   }
 
+  /** Units */
+
   postUnit() {
     this.apiService.addUnit(this.unitModel).subscribe(
       data => {
@@ -202,6 +205,17 @@ export class AdminViewComponent implements OnInit {
       }
     );
 
+  }
+
+  searchUnit(){
+    for (const i of this.unitList) {
+      if (this.unitModel.unidad.toUpperCase() === i.unidad.toUpperCase()) {
+        this.unitExist = true;
+        return;
+      } else {
+        this.unitExist = false;
+      }
+    }
   }
 
   getAllClient() {
