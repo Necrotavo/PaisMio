@@ -39,16 +39,15 @@
                     <div class="tab-header clearfix">
                         <div class="float-left">
                             <div class="search-field">
-
-                                <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="termO">
+                                <h6>Filtrar :</h6>
+                                <input type="text" class="form-control" placeholder="Filtrar por campo" [(ngModel)]="termO">
                                 <br>
+                                <h6>Filtrar por estado:</h6>
                                 <select class="custom-select" [(ngModel)]="termO2">
-                                    <option></option>
                                     <option value="En proceso">En proceso</option>
                                     <option value="Conforme">Conforme</option>
                                     <option value="No conforme">No conforme</option>
                                 </select>
-
                             </div>
                             <br>
                             <button type="button" class="btn btn-success" (click)="orderForm.reset()"
