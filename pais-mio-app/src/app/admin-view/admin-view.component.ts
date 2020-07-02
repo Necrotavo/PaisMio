@@ -477,7 +477,7 @@ export class AdminViewComponent implements OnInit {
 
   /** Used to validate combo on input unit */
   validateUnit(value) {
-    if (value === 'default') {
+    if (value === '') {
       this.unitHasError = true;
     } else {
       this.unitHasError = false;

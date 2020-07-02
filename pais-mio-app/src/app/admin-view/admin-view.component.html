@@ -1017,14 +1017,13 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <select (blur)="validateUnit(unitI.value)" (change)="validateUnit(unitI.value)"
+                                        <select (blur)="validateUnit(unitI.value)" (change)="validateUnit(unitI.value)" required
                                             #unitI="ngModel" [class.is-invalid]="unitHasError && unitI.touched"
                                             class="form-control" name="unitI" [(ngModel)]="inputModel.unidad">
-                                            <option value="default">Unidad de medida</option>
                                             <option *ngFor="let com of unitList">{{com.unidad}}</option>
                                         </select>
                                         <p><small class="text-danger"
-                                                [class.d-none]="!unitHasError || unitI.untouched">Unidad
+                                            *ngIf="unitHasError && unitI.touched">Unidad
                                                 requerida</small></p>
                                     </div>
                                 </td>
@@ -1191,7 +1190,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button [disabled]="inputUpdateForm.form.invalid" type="submit" class="btn btn-primary"
-                    (click)="updateInput();" data-dismiss="modal">Crear</button>
+                    (click)="updateInput();" data-dismiss="modal">Modificar</button>
             </div>
 
         </div>
