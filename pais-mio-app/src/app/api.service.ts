@@ -38,7 +38,6 @@ const clientPOST = 'https://www.spepaismio.tk/WS_Cliente.svc/Agregar';
 const clientGET = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientes';
 const clientAGET = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientesHabilitados';
 const clientUPDATE = 'https://www.spepaismio.tk/WS_Cliente.svc/Modificar';
-/** Falta Client */
 const clientSTATUS = 'https://www.spepaismio.tk/WS_Cliente.svc/ModificarEstado';
 const clientSEARCH = 'https://www.spepaismio.tk/WS_Cliente.svc/Buscar';
 
@@ -47,7 +46,6 @@ const userPOST = 'https://spepaismio.tk/WS_Usuario.svc/CrearOperario';
 const userGET = 'https://www.spepaismio.tk/WS_Usuario.svc/Lista';
 const userLoginPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/Login';
 const userUpdatePOST = 'https://www.spepaismio.tk/WS_Usuario.svc/modificarUsuario';
-/** Falta User */
 const passwordRecoveryPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/RecuperarContrasena';
 const generatePasswordPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/GenerarPass';
 const searchUserPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/Consultar';
@@ -85,7 +83,6 @@ const inputRequestSEARCH = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/sol
 const orderPOST = 'https://www.spepaismio.tk/WS_Pedido.svc/agregarPedido';
 const orderGET = 'https://www.spepaismio.tk/WS_Pedido.svc/listarPedidos';
 const orderGETtotalList = 'https://www.spepaismio.tk/WS_Pedido.svc/listarPedidosTotales';
-/** Falta Order */
 const orderUPDATE = 'https://www.spepaismio.tk/WS_Pedido.svc/Modificar';
 const orderDELETE = 'https://www.spepaismio.tk/WS_Pedido.svc/Eliminar';
 const orderSEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/Consultar';
@@ -99,7 +96,6 @@ const analysisPQSEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/AnalisisFQs';
 /** Product API URLs */
 const productPost = 'https://www.spepaismio.tk/WS_Producto.svc/ingresarProducto';
 const productGET = 'https://www.spepaismio.tk/WS_Producto.svc/listaProductos';
-/** Falta producto */
 const productGetA = 'https://www.spepaismio.tk/WS_Producto.svc/listaProductosHabilitados';
 const productSEARCH = 'https://www.spepaismio.tk/WS_Producto.svc/buscarProducto';
 const productUPDATE = 'https://www.spepaismio.tk/WS_Producto.svc/modificarProducto';
@@ -109,9 +105,6 @@ const inputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumos
 const orderReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reportePedidos';
 const entryReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteEntradaInsumos';
 const comparativeInputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumosComparativo';
-
-
-
 
 /** Cellar API URLs */
 const cellarGET = 'https://www.spepaismio.tk/WS_Bodega.svc/obtenerListaBodegas';
@@ -692,99 +685,4 @@ export class ApiService {
         catchError(this.handleErrors<InputComparativeReport>(`getOrderReport`))
       );
     }
-
 }
-
-
-
-
-/** TODO */
-/* const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
-const inputGetA = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
-const unitGet = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
-const unitAdd = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidades';
-* /
-
-
-  /* updateClientStatus(nombre: string, client: Client): Observable<any> {
-     const url = `${apiURL}/${nombre}`;
-     return this.http.put(url, client, HttpOptions).pipe(
-       tap(_ => console.log(`updated client status id=${nombre}`)),
-       catchError(this.handleErrors<any>(`updateClientStatus`))
-     );
-   } */
-
-  /*
-
-
-  getReportCByID(id: string): Observable<ReportC> {
-    const url = `${apiURL}/${id}`;
-    return this.http.get<ReportC>(url).pipe(
-      tap(_ => console.log(`fetch report comparative id=${id}`)),
-      catchError(this.handleErrors<ReportC>(`getReportCByID id=${id}`))
-    );
-  }
-
-  addReportC(reportC: ReportC): Observable<ReportM> {
-    return this.http.post<ReportC>(apiURL, reportC, HttpOptions).pipe(
-      tap((i: ReportC) => console.log(`added reporth comparative w/ id=${i.id}`)),
-      catchError(this.handleErrors<ReportC>(`addReportC`))
-    );
-  }
-
-  updateReportC(id: string, reportC: ReportC): Observable<any> {
-    const url = `${apiURL}/${id}`;
-    return this.http.put(url, reportC, HttpOptions).pipe(
-      tap(_ => console.log(`updated report comparative id=${id}`)),
-      catchError(this.handleErrors<any>(`updateReportC`))
-    );
-  }
-
-  deleteReportC(id: string): Observable<ReportC> {
-    const url = `${apiURL}/${id}`;
-    return this.http.delete<ReportC>(url, HttpOptions).pipe(
-      tap(_ => console.log(`deleted report comparative id=${id}`)),
-      catchError(this.handleErrors<ReportC>(`deletedReportC`))
-    );
-  }
-   */
-
-    /* Monthly Reports CRUD
-  getReportM(): Observable<ReportM[]> {
-    return this.http.get<ReportM[]>(`${apiURL}`)
-      .pipe(
-        tap(reportM => console.log(`fetch report monthly`)),
-        catchError(this.handleErrors(`getReportM`, []))
-      );
-  }
-
-  getReportMByID(id: string): Observable<ReportM> {
-    const url = `${apiURL}/${id}`;
-    return this.http.get<ReportM>(url).pipe(
-      tap(_ => console.log(`fetch report monthly id=${id}`)),
-      catchError(this.handleErrors<ReportM>(`getReportMByID id=${id}`))
-    );
-  }
-
-  addReportM(reportM: ReportM): Observable<ReportM> {
-    return this.http.post<ReportM>(apiURL, reportM, HttpOptions).pipe(
-      tap((i: ReportM) => console.log(`added reporth monthly w/ id=${i.id}`)),
-      catchError(this.handleErrors<ReportM>(`addReportM`))
-    );
-  }
-
-  updateReportM(id: string, reportM: ReportM): Observable<any> {
-    const url = `${apiURL}/${id}`;
-    return this.http.put(url, reportM, HttpOptions).pipe(
-      tap(_ => console.log(`updated report Monthly id=${id}`)),
-      catchError(this.handleErrors<any>(`updateReportM`))
-    );
-  }
-
-  deleteReportM(id: string): Observable<ReportM> {
-    const url = `${apiURL}/${id}`;
-    return this.http.delete<ReportM>(url, HttpOptions).pipe(
-      tap(_ => console.log(`deleted report Monthly id=${id}`)),
-      catchError(this.handleErrors<ReportM>(`deletedReportM`))
-    );
-  } */
