@@ -231,7 +231,7 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" (click)="userForm.reset()" data-toggle="modal"
+                            <button type="button" class="btn btn-success" data-toggle="modal"
                                 data-target="#usersModal">
                                 <i class="icon ion-plus">
                                 </i>
@@ -1304,17 +1304,12 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <select (blur)="validateRol(rolU.value)" (change)="validateRol(rolU.value)"
-                                            #rolU="ngModel" [class.is-invalid]="rolHasError && rolU.touched"
-                                            class="form-control" name="rolU" [(ngModel)]="userModel.rol">
-                                            <option value="default">Rol de usuario</option>
-                                            <option value="OPERARIO">Operario</option>
+                                        <select #rolU="ngModel" class="custom-select" name="rolU" 
+                                        [(ngModel)]="userModel.rol">
+                                            <option value="OPERARIO" selected>Operario</option>
                                             <option value="SUPERVISOR">Supervisor</option>
                                             <option value="ADMINISTRADOR">Administrador</option>
                                         </select>
-                                        <p><small class="text-danger"
-                                                [class.d-none]="!rolHasError || rolU.untouched">Rol requerido</small>
-                                        </p>
                                     </div>
                                 </td>
                             </tr>
@@ -1324,10 +1319,10 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="userForm.reset()"
+                <button type="button" class="btn btn-secondary" (click)="nombreU.reset();apellidosU.reset();correoU.reset()"
                     data-dismiss="modal">Cerrar</button>
                 <button button [disabled]="userForm.form.invalid" type="submit" class="btn btn-primary"
-                    data-dismiss="modal" (click)="postUser()">Crear</button>
+                    data-dismiss="modal" (click)="postUser();nombreU.reset();apellidosU.reset();correoU.reset()">Crear</button>
             </div>
 
         </div>
