@@ -16,7 +16,7 @@
                         [(ngModel)]="termIQ2">
                 </div>
                 <br>
-                <button type="button" class="btn btn-success" (click)="inputQForm.reset()"
+                <button type="button" class="btn btn-success" (click)="inputQForm.reset();resetInputEntryList()"
                 data-toggle="modal" data-target="#inputsQModal">
                     <i class="icon ion-plus">
                     </i>
@@ -100,7 +100,7 @@
             </div>
 
             <div class="modal-body">
-                <form #inputQForm="ngForm" (ngSubmit)="postInputQ()" novalidate>
+                <form #inputQForm="ngForm" (ngSubmit)="postInputQ();" novalidate>
                     <div class="form-group">
                         <div class="tab-header clearfix">
                             <div class="float-left">
@@ -122,10 +122,10 @@
                                 <td>
                                     <div class="form-field">
                                         <select (blur)="validateCellar(cellarC.value)"
-                                            (change)="validateCellar(cellarC.value)" #cellarC="ngModel"
+                                            (change)="validateCellar(cellarC.value)" required #cellarC="ngModel"
                                             [class.is-invalid]="cellarHasError && cellarC.touched" class="form-control"
                                             name="cellarC" [(ngModel)]="cellarEntryModel.codigo">
-                                            <option value="default">Bodega</option>
+                                            
                                             <option *ngFor="let com of cellarList" value="{{com.codigo}}">{{com.nombre}}
                                             </option>
                                         </select>
@@ -141,7 +141,7 @@
                                 </th>
                                 <td>
                                     <div class="form-field" *ngIf="!inputExist">
-                                        <input type="text" (keyup)="searchInput()" required #nombreIQ="ngModel"
+                                        <input type="text" (keyup)="searchInput()" #nombreIQ="ngModel" 
                                             class="form-control" [class.is-invalid]="!inputExist && nombreIQ.touched "
                                             placeholder="Codigo" name="nombreIQ" [(ngModel)]="searchInputModel.nombre">
                                         <div *ngIf="nombreIQ.errors && (nombreIQ.invalid || nombreIQ.touched)">
@@ -165,7 +165,7 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="number" required #inputIQ="ngModel" class="form-control"
+                                        <input type="number" min="1" (keyup)="validateEntryQuantity()" required #inputIQ="ngModel" class="form-control"
                                             [class.is-invalid]="inputIQ.invalid && inputIQ.touched"
                                             placeholder="Cantidad" name="inputIQ" [(ngModel)]="auxQ">
                                         <div *ngIf="inputIQ.errors && (inputIQ.invalid || inputIQ.touched)">
@@ -176,7 +176,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="inputExist">
+                            <tr *ngIf="inputExist && auxQ > 0">
                                 <th>
                                 </th>
                                 <td>
@@ -214,8 +214,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="inputQForm.reset()" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="inputEntry()">Crear</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button [disabled]="inputQForm.form.invalid || !listIsNotEmpty" type="button" class="btn btn-primary" data-dismiss="modal" (click)="inputEntry()">Crear</button>
             </div>
 
         </div>

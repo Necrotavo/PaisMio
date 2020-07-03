@@ -161,5 +161,18 @@ export class InventoryControlComponent implements OnInit {
     this.validateList();
   }
 
+  resetInputEntryList(){
+    this.inputEntryList.length = 0;
+    this.listIsNotEmpty = false;
+    this.inputExist = false;
+    this.searchInputModel = new Input(0, '', 0, '', '', '');
+  }
+
+  validateEntryQuantity() {
+    if (this.auxQ < 0) {
+      this.auxQ = 0;
+    }
+  }
+
 
 }

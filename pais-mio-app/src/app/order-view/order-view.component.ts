@@ -217,8 +217,33 @@ export class OrderViewComponent implements OnInit {
       data => {
         this.objInputRequest = data;
         this.getInputRequestByOrder();
+        if(this.objInputRequest){
+          Swal.fire({
+            icon: 'success',
+            title: '!Listo!',
+            text: 'Solicitud enviada con éxito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else{
+          Swal.fire({
+            icon: 'warning',
+            title: '!Ups!',
+            text: 'Ocurrió algún error, vuelve a intentarlo',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
       }
     );
+    document.getElementById('closeRequestBtn').click();
+  }
+
+  resetInputEntryLists(){
+    this.inputConsumeList.length = 0;
+    this.inputDiscardList.length = 0;
+    this.validateList();
+    this.validateDiscarList();
   }
 
   /** Get the input requests from the API service */
@@ -315,6 +340,8 @@ export class OrderViewComponent implements OnInit {
     this.validateList();
     this.inputExist = false;
   }
+
+  
 
   /** Used to validate the status of the input list */
   validateList() {
