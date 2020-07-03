@@ -219,6 +219,14 @@ export class OrderViewComponent implements OnInit {
         this.getInputRequestByOrder();
       }
     );
+    document.getElementById('closeRequestBtn').click();
+  }
+
+  resetInputEntryLists(){
+    this.inputConsumeList.length = 0;
+    this.inputDiscardList.length = 0;
+    this.validateList();
+    this.validateDiscarList();
   }
 
   /** Get the input requests from the API service */
@@ -315,6 +323,8 @@ export class OrderViewComponent implements OnInit {
     this.validateList();
     this.inputExist = false;
   }
+
+  
 
   /** Used to validate the status of the input list */
   validateList() {
