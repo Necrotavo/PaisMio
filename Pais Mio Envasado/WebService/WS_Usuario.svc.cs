@@ -123,5 +123,11 @@ namespace WebService
 
             return BLoperario.modificarUsuario(doUsuario);
         }
+
+        public bool cambiarContrasena(string correo, string newPass, string oldPass)
+        {
+            BL_Operario BLoperario = new BL_Operario();
+            return BLoperario.cambiarContraseña(correo, newPass, oldPass);
+        }
     }
 }

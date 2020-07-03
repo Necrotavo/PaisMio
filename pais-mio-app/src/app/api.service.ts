@@ -24,6 +24,7 @@ import { AnalysisPC } from 'src/models/analysisPC';
 import { OrderReport } from 'src/models/orderReport';
 import { InputComparativeReport } from 'src/models/inputComparativeReport';
 import { InputEntryReport } from 'src/models/inputEntryReport';
+import {UserChangePass} from 'src/models/userChangePass';
 
 const HttpOptions = {
   headers: new HttpHeaders({ 'Content-type': 'application/json' })
@@ -48,6 +49,7 @@ const userLoginPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/Login';
 const userUpdatePOST = 'https://www.spepaismio.tk/WS_Usuario.svc/modificarUsuario';
 const passwordRecoveryPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/RecuperarContrasena';
 const generatePasswordPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/GenerarPass';
+const changePasswordPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/cambiarContrasena';
 const searchUserPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/Consultar';
 const modifyStatePOST = 'https://www.spepaismio.tk/WS_Usuario.svc/modificarEstado';
 const upgradeSupervisorRolPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/supervisorRolUpgrade';
@@ -157,10 +159,10 @@ export class ApiService {
     );
   }
 
-  addOrder(order: Order): Observable<Order> {
-    return this.http.post<Order>(orderPOST, order, HttpOptions).pipe(
-      tap((i: Order) => console.log(`added order w/ id=${i.codigo}`)),
-      catchError(this.handleErrors<Order>(`addOrder`))
+  addOrder(order: Order): Observable<Boolean> {
+    return this.http.post<Boolean>(orderPOST, order, HttpOptions).pipe(
+      tap((i: Boolean) => console.log(`${i}`)),
+      catchError(this.handleErrors<Boolean>(`addOrder`))
     );
   }
 
@@ -227,6 +229,13 @@ export class ApiService {
     return this.http.post<User>(generatePasswordPOST, user, HttpOptions).pipe(
       tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
       catchError(this.handleErrors<User>(`addUser`))
+    );
+  }
+  //intentando retornar un boolean
+  changePassword(user: UserChangePass): Observable<Boolean> {
+    return this.http.post<Boolean>(changePasswordPOST, user, HttpOptions).pipe(
+      tap((i: Boolean) => console.log(`added user w/ id=${i}`)),
+      catchError(this.handleErrors<Boolean>(`addUser`))
     );
   }
 
