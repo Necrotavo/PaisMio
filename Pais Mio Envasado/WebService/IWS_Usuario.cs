@@ -99,5 +99,13 @@ namespace WebService
             Method = "POST",
             UriTemplate = "modificarUsuario")]
         bool modificarUsuario(DO_Operario doUsuario);
+
+        [OperationContract]
+        [WebInvoke(RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            Method = "POST",
+            UriTemplate = "cambiarContrasena")]
+        bool cambiarContrasena(string correo, string newPass, string oldPass);
     }
 }
