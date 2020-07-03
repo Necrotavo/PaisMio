@@ -159,10 +159,10 @@ export class ApiService {
     );
   }
 
-  addOrder(order: Order): Observable<Order> {
-    return this.http.post<Order>(orderPOST, order, HttpOptions).pipe(
-      tap((i: Order) => console.log(`added order w/ id=${i.codigo}`)),
-      catchError(this.handleErrors<Order>(`addOrder`))
+  addOrder(order: Order): Observable<Boolean> {
+    return this.http.post<Boolean>(orderPOST, order, HttpOptions).pipe(
+      tap((i: Boolean) => console.log(`${i}`)),
+      catchError(this.handleErrors<Boolean>(`addOrder`))
     );
   }
 
