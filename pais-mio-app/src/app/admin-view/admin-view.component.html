@@ -553,7 +553,7 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <select (blur)="validateClient(clientOr.value)"
+                                        <select (blur)="validateClient(clientOr.value)" required
                                             (change)="validateClient(clientOr.value)" #clientOr="ngModel"
                                             [class.is-invalid]="clientHasError && clientOr.touched" class="form-control"
                                             name="clientOr" [(ngModel)]="clientEntryModel.cedula">
@@ -575,7 +575,7 @@
                                     <div class="form-field" *ngIf="!productExist">
                                         <input type="text" (keyup)="searchProduct()" required #nombrePQ="ngModel"
                                             class="form-control" [class.is-invalid]="!productExist && nombrePQ.touched "
-                                            placeholder="Codigo" name="nombrePQ"
+                                            placeholder="Nombre de producto" name="nombrePQ"
                                             [(ngModel)]="searchProductModel.nombre">
                                         <div *ngIf="nombrePQ.errors && (nombrePQ.invalid || nombrePQ.touched)">
                                             <p><small class="text-danger"
@@ -650,7 +650,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="orderForm.reset()"
                     data-dismiss="modal">Cerrar</button>
-                <button class="orderForm.invalid" type="button" class="btn btn-primary" data-dismiss="modal"
+                <button [disabled]="orderForm.form.invalid" class="orderForm.invalid" type="button" class="btn btn-primary" data-dismiss="modal"
                     (click)="orderEntry()">Crear</button>
             </div>
 
