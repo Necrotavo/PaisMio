@@ -609,12 +609,12 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="productExist && auxQ > 0">
+                            <tr *ngIf="productExist">
                                 <th>
                                 </th>
                                 <td>
 
-                                    <button type="button" class="btn btn-success center" (click)="pushIntoEntryList()">
+                                    <button [disabled]="!(auxQ > 0)" type="button" class="btn btn-success center" (click)="pushIntoEntryList()">
                                         <i class="icon ion-plus">
                                         </i>
                                         Agregar producto</button>
