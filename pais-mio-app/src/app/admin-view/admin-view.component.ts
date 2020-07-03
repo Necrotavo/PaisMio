@@ -199,8 +199,8 @@ export class AdminViewComponent implements OnInit {
   }
 
   validateEntryQuantity() {
-    if (this.auxQ < 1) {
-      this.auxQ = 1;
+    if (this.auxQ < 0) {
+      this.auxQ = 0;
     }
   }
 
