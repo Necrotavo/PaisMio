@@ -175,5 +175,17 @@ namespace BL
             return daoOperario.modificarUsuario(operario);
         }
 
+        /// <summary>
+        /// Método para cambiar contraseña
+        /// </summary>
+        /// <param name="correo"></param>
+        /// <param name="newPass"></param>
+        /// <param name="oldPass"></param>
+        /// <returns></returns>
+        public bool cambiarContraseña(string correo, string newPass, string oldPass) {
+            DAO_Operario daoOperario = new DAO_Operario();
+            return daoOperario.cambiarContrasena(correo, newPass, oldPass);
+        }
+
     }
 }
