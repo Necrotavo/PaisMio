@@ -6,6 +6,8 @@ import { Input } from 'src/models/input';
 import { Cellar } from 'src/models/cellar';
 import { CellarAdmin } from 'src/models/cellarAdmin';
 import { User } from 'src/models/user';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-inventory-control',
@@ -119,6 +121,23 @@ export class InventoryControlComponent implements OnInit {
     this.apiService.inputEntry(this.cellarAdminModel).subscribe(
       data => {
         this.objCellarAdmin = data;
+        if (this.objCellarAdmin) {
+          Swal.fire({
+            icon: 'success',
+            title: '!Listo!',
+            text: '¡Se agregó el insumo con éxito!',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else {
+          Swal.fire({
+            icon: 'warning',
+            title: '!Ups!',
+            text: 'Ocurrió algún error, vuelve a intentarlo',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
       }
     );
   }
