@@ -111,7 +111,7 @@ export class AdminViewComponent implements OnInit {
   listIsNotEmpty = false;
 
   /** Aux variables */
-  auxQ: number;
+  auxQ = 1;
 
   /** Models */
   clientModel = new Client('', '', '', '', '', '');
@@ -198,6 +198,19 @@ export class AdminViewComponent implements OnInit {
 
   }
 
+  validateEntryQuantity() {
+    if (this.auxQ < 1) {
+      this.auxQ = 1;
+    }
+  }
+
+  orderCustomReset() {
+    this.productEntryList.length = 0;
+    this.productExist = false;
+    this.searchProductModel = new Product(0, '', '', '', '');
+    this.listIsNotEmpty = false;
+  }
+
   getUnits() {
     this.apiService.getUnits().subscribe(
       data => {
@@ -207,7 +220,7 @@ export class AdminViewComponent implements OnInit {
 
   }
 
-  searchUnit(){
+  searchUnit() {
     for (const i of this.unitList) {
       if (this.unitModel.unidad.toUpperCase() === i.unidad.toUpperCase()) {
         this.unitExist = true;
@@ -533,7 +546,7 @@ export class AdminViewComponent implements OnInit {
     this.apiService.addOrder(this.orderModel).subscribe(
       data => {
         this.objOrder = data;
-        if(this.objOrder){
+        if (this.objOrder) {
           Swal.fire({
             icon: 'success',
             title: '!Listo!',
@@ -541,7 +554,7 @@ export class AdminViewComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           });
-        }else{
+        } else {
           Swal.fire({
             icon: 'warning',
             title: '!Ups!',
@@ -560,7 +573,7 @@ export class AdminViewComponent implements OnInit {
     this.productEntryModel.producto = this.searchProductModel2;
     this.productEntryList.push(this.productEntryModel);
     this.productEntryModel = new ProductInOrder(this.product, 0);
-    this.auxQ = 0;
+    this.auxQ = 1;
     this.searchProductModel2 = new Product(0, '', '', '', '');
     this.searchProductModel = new Product(0, '', '', '', '');
     this.validateList();
