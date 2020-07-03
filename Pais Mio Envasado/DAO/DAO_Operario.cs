@@ -268,9 +268,14 @@ namespace DAO
                 {
                     conexion.Open();
                 }
-                comando.ExecuteNonQuery();
+                if (comando.ExecuteNonQuery() < 1)
+                {
+                    return false;
+                }
+                else {
+                    return true;
+                }
 
-                return true;
             }
             catch (Exception)
             {
@@ -286,7 +291,7 @@ namespace DAO
                 }
             }
         }
-
+        //usarlo para cambiar contraseña
         public bool cambiarContrasenaAutogenerada(string correo, string contrasena)
         {
             SqlCommand comando = new SqlCommand("UPDATE OPERARIO SET OPE_CONTRASENA = @contrasena WHERE OPE_CORREO = @correo", conexion);

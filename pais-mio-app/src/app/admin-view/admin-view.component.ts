@@ -72,7 +72,7 @@ export class AdminViewComponent implements OnInit {
 
 
   /** Data return objects */
-  objOrder: Order;
+  objOrder: Boolean;
   objInput: Input;
   objUser: User;
   objClient: Client;
@@ -111,12 +111,12 @@ export class AdminViewComponent implements OnInit {
   listIsNotEmpty = false;
 
   /** Aux variables */
-  auxQ: number;
+  auxQ = 1;
 
   /** Models */
   clientModel = new Client('', '', '', '', '', '');
   clientUpdateModel = new Client('', '', '', '', '', '');
-  userModel = new User('', '', '', '', '', 'default');
+  userModel = new User('', '', '', '', '', 'OPERARIO');
   userUpdateModel = new User('', '', '', '', '', 'default');
   inputModel = new Input(0, '', 0, '', '', '');
   inputUpdateModel = new Input(0, '', 0, '', '', '');
@@ -198,6 +198,19 @@ export class AdminViewComponent implements OnInit {
 
   }
 
+  validateEntryQuantity() {
+    if (this.auxQ < 0) {
+      this.auxQ = 0;
+    }
+  }
+
+  orderCustomReset() {
+    this.productEntryList.length = 0;
+    this.productExist = false;
+    this.searchProductModel = new Product(0, '', '', '', '');
+    this.listIsNotEmpty = false;
+  }
+
   getUnits() {
     this.apiService.getUnits().subscribe(
       data => {
@@ -207,7 +220,7 @@ export class AdminViewComponent implements OnInit {
 
   }
 
-  searchUnit(){
+  searchUnit() {
     for (const i of this.unitList) {
       if (this.unitModel.unidad.toUpperCase() === i.unidad.toUpperCase()) {
         this.unitExist = true;
@@ -306,7 +319,7 @@ export class AdminViewComponent implements OnInit {
       data => {
         this.objUser = data;
         this.getUser();
-        this.objUser = new User('', '', '', '', '', 'default');
+        this.objUser = new User('', '', '', '', '', 'OPERARIO');
         Swal.fire({
           icon: 'success',
           title: '!Listo!',
@@ -477,7 +490,7 @@ export class AdminViewComponent implements OnInit {
 
   /** Used to validate combo on input unit */
   validateUnit(value) {
-    if (value === 'default') {
+    if (value === '') {
       this.unitHasError = true;
     } else {
       this.unitHasError = false;
@@ -533,13 +546,23 @@ export class AdminViewComponent implements OnInit {
     this.apiService.addOrder(this.orderModel).subscribe(
       data => {
         this.objOrder = data;
-        Swal.fire({
-          icon: 'success',
-          title: '!Listo!',
-          text: 'Pedido agregado con éxito',
-          showConfirmButton: false,
-          timer: 1500
-        });
+        if (this.objOrder) {
+          Swal.fire({
+            icon: 'success',
+            title: '!Listo!',
+            text: 'Se ingresó el pedido con éxito!',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else {
+          Swal.fire({
+            icon: 'warning',
+            title: '!Ups!',
+            text: 'Ocurrió algún error, vuelve a intentarlo',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
       }
     );
   }
@@ -550,7 +573,7 @@ export class AdminViewComponent implements OnInit {
     this.productEntryModel.producto = this.searchProductModel2;
     this.productEntryList.push(this.productEntryModel);
     this.productEntryModel = new ProductInOrder(this.product, 0);
-    this.auxQ = 0;
+    this.auxQ = 1;
     this.searchProductModel2 = new Product(0, '', '', '', '');
     this.searchProductModel = new Product(0, '', '', '', '');
     this.validateList();
