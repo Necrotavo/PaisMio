@@ -176,12 +176,12 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="inputExist && auxQ > 0">
+                            <tr *ngIf="inputExist">
                                 <th>
                                 </th>
                                 <td>
 
-                                    <button type="button" class="btn btn-success center" (click)="pushIntoEntryList()">
+                                    <button [disabled]="!(auxQ > 0)"type="button" class="btn btn-success center" (click)="pushIntoEntryList()">
                                         <i class="icon ion-plus">
                                         </i>
                                         Agregar insumo</button>
