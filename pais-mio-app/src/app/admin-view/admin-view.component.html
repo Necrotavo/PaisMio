@@ -231,7 +231,7 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" (click)="userForm.reset()" data-toggle="modal"
+                            <button type="button" class="btn btn-success" data-toggle="modal"
                                 data-target="#usersModal">
                                 <i class="icon ion-plus">
                                 </i>
@@ -1017,14 +1017,13 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <select (blur)="validateUnit(unitI.value)" (change)="validateUnit(unitI.value)"
+                                        <select (blur)="validateUnit(unitI.value)" (change)="validateUnit(unitI.value)" required
                                             #unitI="ngModel" [class.is-invalid]="unitHasError && unitI.touched"
                                             class="form-control" name="unitI" [(ngModel)]="inputModel.unidad">
-                                            <option value="default">Unidad de medida</option>
                                             <option *ngFor="let com of unitList">{{com.unidad}}</option>
                                         </select>
                                         <p><small class="text-danger"
-                                                [class.d-none]="!unitHasError || unitI.untouched">Unidad
+                                            *ngIf="unitHasError && unitI.touched">Unidad
                                                 requerida</small></p>
                                     </div>
                                 </td>
@@ -1191,7 +1190,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button [disabled]="inputUpdateForm.form.invalid" type="submit" class="btn btn-primary"
-                    (click)="updateInput();" data-dismiss="modal">Crear</button>
+                    (click)="updateInput();" data-dismiss="modal">Modificar</button>
             </div>
 
         </div>
@@ -1305,17 +1304,12 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <select (blur)="validateRol(rolU.value)" (change)="validateRol(rolU.value)"
-                                            #rolU="ngModel" [class.is-invalid]="rolHasError && rolU.touched"
-                                            class="form-control" name="rolU" [(ngModel)]="userModel.rol">
-                                            <option value="default">Rol de usuario</option>
-                                            <option value="OPERARIO">Operario</option>
+                                        <select #rolU="ngModel" class="custom-select" name="rolU" 
+                                        [(ngModel)]="userModel.rol">
+                                            <option value="OPERARIO" selected>Operario</option>
                                             <option value="SUPERVISOR">Supervisor</option>
                                             <option value="ADMINISTRADOR">Administrador</option>
                                         </select>
-                                        <p><small class="text-danger"
-                                                [class.d-none]="!rolHasError || rolU.untouched">Rol requerido</small>
-                                        </p>
                                     </div>
                                 </td>
                             </tr>
@@ -1325,10 +1319,10 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="userForm.reset()"
+                <button type="button" class="btn btn-secondary" (click)="nombreU.reset();apellidosU.reset();correoU.reset()"
                     data-dismiss="modal">Cerrar</button>
                 <button button [disabled]="userForm.form.invalid" type="submit" class="btn btn-primary"
-                    data-dismiss="modal" (click)="postUser()">Crear</button>
+                    data-dismiss="modal" (click)="postUser();nombreU.reset();apellidosU.reset();correoU.reset()">Crear</button>
             </div>
 
         </div>
@@ -2133,13 +2127,19 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="text" required #telC="ngModel" class="form-control"
+                                        <input type="tel" required #telC="ngModel" 
+                                            pattern="\([0-9]{3}\) [0-9]{4}[ -][0-9]{4}" class="form-control"
                                             [class.is-invalid]="telC.invalid && telC.touched"
-                                            placeholder="+506 1234-5678" name="telC" [(ngModel)]="cellarModel.telefono">
+                                            placeholder="(506) 5555-5555" name="telC" 
+                                            [(ngModel)]="cellarModel.telefono">
 
-                                        <div *ngIf="telC.invalid || telC.touched">
-                                            <p><small class="text-danger" *ngIf="telC.invalid && telC.touched">Telefono
-                                                    requerido</small></p>
+                                        <div *ngIf="telC.errors && (telC.invalid || telC.touched)">
+                                            <p><small class="text-danger" *ngIf="telC.errors.required && telC.touched">Telefono
+                                                requerido</small></p>
+                                            <p><small class="text-danger" *ngIf="telC.errors.pattern">Teléfono
+                                                invalido</small></p>
+                                            <p><small class="text-danger" *ngIf="telC.errors.pattern">Ejemplo: (506)
+                                                5555-5555</small></p>
                                         </div>
                                     </div>
                                 </td>
@@ -2338,14 +2338,17 @@
                                         <input type="text" required #nombreUn="ngModel" class="form-control"
                                             [class.is-invalid]="nombreUn.invalid && nombreUn.touched"
                                             placeholder="Nombre de la unidad" name="nombreUn"
-                                            [(ngModel)]="unitModel.unidad">
-
-                                        <div *ngIf="nombreUn.invalid || nombreUn.touched">
-                                            <p><small class="text-danger"
-                                                    *ngIf="nombreUn.invalid && nombreUn.touched">Nombre
-                                                    requerido</small></p>
+                                            [(ngModel)]="unitModel.unidad" (keyup)="searchUnit()">
+                                        <div *ngIf="nombreUn.invalid || nombreUn.touched || unitExist">
+                                            <p>
+                                                <small class="text-danger"
+                                                    *ngIf="nombreUn.invalid && nombreUn.touched">Nombre requerido</small>
+                                            </p>
+                                            <p>
+                                                <small class="text-danger" 
+                                                *ngIf="nombreUn.touched && unitExist">Ya existe una unidad con ese nombre</small>
+                                            </p>
                                         </div>
-
                                     </div>
                                 </td>
                             </tr>
@@ -2358,8 +2361,14 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="unitForm.reset()"
                     data-dismiss="modal">Cerrar</button>
-                <button [disabled]="unitForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
+                <div *ngIf="nombreUn.invalid || unitExist">
+                    <button disabled type="submit" class="btn btn-primary" data-dismiss="modal"
                     (click)="postUnit()" class="btn btn-primary">Crear</button>
+                </div>
+                <div *ngIf="!(nombreUn.invalid || unitExist)">
+                    <button [disabled]="unitForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
+                    (click)="postUnit()" class="btn btn-primary">Crear</button>
+                </div>
             </div>
 
         </div>
