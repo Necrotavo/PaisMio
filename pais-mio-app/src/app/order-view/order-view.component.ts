@@ -217,6 +217,23 @@ export class OrderViewComponent implements OnInit {
       data => {
         this.objInputRequest = data;
         this.getInputRequestByOrder();
+        if(this.objInputRequest){
+          Swal.fire({
+            icon: 'success',
+            title: '!Listo!',
+            text: 'Solicitud enviada con éxito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else{
+          Swal.fire({
+            icon: 'warning',
+            title: '!Ups!',
+            text: 'Ocurrió algún error, vuelve a intentarlo',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
       }
     );
     document.getElementById('closeRequestBtn').click();
