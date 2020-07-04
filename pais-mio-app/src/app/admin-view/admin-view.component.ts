@@ -610,7 +610,12 @@ export class AdminViewComponent implements OnInit {
 
   /** Input */
   chargeInputToUpdate(inputToUpdate: Input) {
-    this.inputUpdateModel = inputToUpdate;
+    this.inputUpdateModel.id = inputToUpdate.id;
+    this.inputUpdateModel.codigo = inputToUpdate.codigo;
+    this.inputUpdateModel.estado = inputToUpdate.estado;
+    this.inputUpdateModel.nombre = inputToUpdate.nombre;
+    this.inputUpdateModel.unidad = inputToUpdate.unidad;
+    this.inputUpdateModel.cantMinStock = inputToUpdate.cantMinStock;
   }
 
   updateInput() {
