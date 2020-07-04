@@ -26,7 +26,7 @@ const routes: Routes = [
   {path: 'change-password', component: ChangePasswordComponent, canActivate: [TierThreeGuard]},
   {path: 'inventory-control', component: InventoryControlComponent, canActivate: [TierTwoGuard]},
   {path: 'order-view', component: OrderViewComponent, canActivate: [TierThreeGuard]},
-  {path: 'recover-password', component: RecoverPasswordComponent, canActivate: [TierThreeGuard]},
+  {path: 'recover-password', component: RecoverPasswordComponent},
   {path: 'report-view', component: ReportViewComponent, canActivate: [TierOneGuard]},
   {path: 'report-comparative', component: ReportComparativeComponent, canActivate: [TierOneGuard]},
   {path: 'report-monthly', component: ReportMonthlyComponent, canActivate: [TierOneGuard]},
