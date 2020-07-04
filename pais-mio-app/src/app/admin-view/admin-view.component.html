@@ -39,20 +39,20 @@
                     <div class="tab-header clearfix">
                         <div class="float-left">
                             <div class="search-field">
-
-                                <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="termO">
+                                <h6>Filtrar :</h6>
+                                <input type="text" class="form-control" placeholder="Filtrar por campo" [(ngModel)]="termO">
                                 <br>
+                                <h6>Filtrar por estado:</h6>
                                 <select class="custom-select" [(ngModel)]="termO2">
-                                    <option></option>
                                     <option value="En proceso">En proceso</option>
                                     <option value="Conforme">Conforme</option>
                                     <option value="No conforme">No conforme</option>
                                 </select>
-
                             </div>
                             <br>
-                            <button type="button" class="btn btn-success" (click)="orderForm.reset()"
-                                data-toggle="modal" data-target="#ordersModal">
+                            <button type="button" class="btn btn-success"
+                                (click)="orderForm.reset();orderCustomReset();" data-toggle="modal"
+                                data-target="#ordersModal">
                                 <i class="icon ion-plus">
                                 </i>
                                 Crear pedido
@@ -231,8 +231,7 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" data-toggle="modal"
-                                data-target="#usersModal">
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#usersModal">
                                 <i class="icon ion-plus">
                                 </i>
                                 Crear usuario
@@ -557,7 +556,6 @@
                                             (change)="validateClient(clientOr.value)" #clientOr="ngModel"
                                             [class.is-invalid]="clientHasError && clientOr.touched" class="form-control"
                                             name="clientOr" [(ngModel)]="clientEntryModel.cedula">
-                                            <option value="default">Cliente</option>
                                             <option *ngFor="let com of clientAList" value="{{com.cedula}}">
                                                 {{com.nombre}}</option>
                                         </select>
@@ -573,7 +571,7 @@
                                 </th>
                                 <td>
                                     <div class="form-field" *ngIf="!productExist">
-                                        <input type="text" (keyup)="searchProduct()" required #nombrePQ="ngModel"
+                                        <input type="text" (keyup)="searchProduct()" #nombrePQ="ngModel"
                                             class="form-control" [class.is-invalid]="!productExist && nombrePQ.touched "
                                             placeholder="Nombre de producto" name="nombrePQ"
                                             [(ngModel)]="searchProductModel.nombre">
@@ -598,9 +596,10 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="number" required #productIQ="ngModel" class="form-control"
+                                        <input type="number" #productIQ="ngModel" class="form-control"
                                             [class.is-invalid]="productIQ.invalid && productIQ.touched"
-                                            placeholder="Cantidad" name="productIQ" [(ngModel)]="auxQ">
+                                            placeholder="Cantidad" name="productIQ" [(ngModel)]="auxQ" min="1"
+                                            (keyup)="validateEntryQuantity()">
                                         <div *ngIf="productIQ.errors && (productIQ.invalid || productIQ.touched)">
                                             <p><small class="text-danger"
                                                     *ngIf="productIQ.errors.required && productIQ.touched">Minimo
@@ -614,7 +613,7 @@
                                 </th>
                                 <td>
 
-                                    <button type="button" class="btn btn-success center" (click)="pushIntoEntryList()">
+                                    <button [disabled]="!(auxQ > 0)" type="button" class="btn btn-success center" (click)="pushIntoEntryList()">
                                         <i class="icon ion-plus">
                                         </i>
                                         Agregar producto</button>
@@ -650,8 +649,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="orderForm.reset()"
                     data-dismiss="modal">Cerrar</button>
-                <button [disabled]="orderForm.form.invalid" class="orderForm.invalid" type="button" class="btn btn-primary" data-dismiss="modal"
-                    (click)="orderEntry()">Crear</button>
+                <button [disabled]="orderForm.form.invalid || (productEntryList.length === 0)" class="orderForm.invalid"
+                    type="button" class="btn btn-primary" data-dismiss="modal" (click)="orderEntry()">Crear</button>
             </div>
 
         </div>
@@ -1017,13 +1016,12 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <select (blur)="validateUnit(unitI.value)" (change)="validateUnit(unitI.value)" required
-                                            #unitI="ngModel" [class.is-invalid]="unitHasError && unitI.touched"
+                                        <select (blur)="validateUnit(unitI.value)" (change)="validateUnit(unitI.value)"
+                                            required #unitI="ngModel" [class.is-invalid]="unitHasError && unitI.touched"
                                             class="form-control" name="unitI" [(ngModel)]="inputModel.unidad">
                                             <option *ngFor="let com of unitList">{{com.unidad}}</option>
                                         </select>
-                                        <p><small class="text-danger"
-                                            *ngIf="unitHasError && unitI.touched">Unidad
+                                        <p><small class="text-danger" *ngIf="unitHasError && unitI.touched">Unidad
                                                 requerida</small></p>
                                     </div>
                                 </td>
@@ -1283,7 +1281,7 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #correoU="ngModel"
-                                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control"
+                                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control"
                                             [class.is-invalid]="correoU.invalid && correoU.touched"
                                             placeholder="correo@mail.com" name="correoU" [(ngModel)]="userModel.correo">
                                         <div *ngIf="correoU.errors && (correoU.invalid || correoU.touched)">
@@ -1304,8 +1302,8 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <select #rolU="ngModel" class="custom-select" name="rolU" 
-                                        [(ngModel)]="userModel.rol">
+                                        <select #rolU="ngModel" class="custom-select" name="rolU"
+                                            [(ngModel)]="userModel.rol">
                                             <option value="OPERARIO" selected>Operario</option>
                                             <option value="SUPERVISOR">Supervisor</option>
                                             <option value="ADMINISTRADOR">Administrador</option>
@@ -1319,10 +1317,11 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="nombreU.reset();apellidosU.reset();correoU.reset()"
-                    data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary"
+                    (click)="nombreU.reset();apellidosU.reset();correoU.reset()" data-dismiss="modal">Cerrar</button>
                 <button button [disabled]="userForm.form.invalid" type="submit" class="btn btn-primary"
-                    data-dismiss="modal" (click)="postUser();nombreU.reset();apellidosU.reset();correoU.reset()">Crear</button>
+                    data-dismiss="modal"
+                    (click)="postUser();nombreU.reset();apellidosU.reset();correoU.reset()">Crear</button>
             </div>
 
         </div>
@@ -1419,7 +1418,7 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #correoUUP="ngModel"
-                                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control"
+                                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control"
                                             [class.is-invalid]="correoUUP.invalid && correoUUP.touched"
                                             placeholder="correo@mail.com" name="correoUUP"
                                             [(ngModel)]="userUpdateModel.correo" disabled>
@@ -1596,7 +1595,7 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" #correo="ngModel"
-                                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required
+                                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required
                                             class="form-control" [class.is-invalid]="correo.invalid && correo.touched"
                                             placeholder="correo@mail.com" name="correo"
                                             [(ngModel)]="clientModel.correo">
@@ -1753,7 +1752,7 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" #correoCUP="ngModel"
-                                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required
+                                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required
                                             class="form-control"
                                             [class.is-invalid]="correoCUP.invalid && correoCUP.touched"
                                             placeholder="correo@mail.com" name="correoCUP"
@@ -2127,19 +2126,20 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="tel" required #telC="ngModel" 
+                                        <input type="tel" required #telC="ngModel"
                                             pattern="\([0-9]{3}\) [0-9]{4}[ -][0-9]{4}" class="form-control"
                                             [class.is-invalid]="telC.invalid && telC.touched"
-                                            placeholder="(506) 5555-5555" name="telC" 
+                                            placeholder="(506) 5555-5555" name="telC"
                                             [(ngModel)]="cellarModel.telefono">
 
                                         <div *ngIf="telC.errors && (telC.invalid || telC.touched)">
-                                            <p><small class="text-danger" *ngIf="telC.errors.required && telC.touched">Telefono
-                                                requerido</small></p>
+                                            <p><small class="text-danger"
+                                                    *ngIf="telC.errors.required && telC.touched">Telefono
+                                                    requerido</small></p>
                                             <p><small class="text-danger" *ngIf="telC.errors.pattern">Teléfono
-                                                invalido</small></p>
+                                                    invalido</small></p>
                                             <p><small class="text-danger" *ngIf="telC.errors.pattern">Ejemplo: (506)
-                                                5555-5555</small></p>
+                                                    5555-5555</small></p>
                                         </div>
                                     </div>
                                 </td>
@@ -2342,11 +2342,12 @@
                                         <div *ngIf="nombreUn.invalid || nombreUn.touched || unitExist">
                                             <p>
                                                 <small class="text-danger"
-                                                    *ngIf="nombreUn.invalid && nombreUn.touched">Nombre requerido</small>
+                                                    *ngIf="nombreUn.invalid && nombreUn.touched">Nombre
+                                                    requerido</small>
                                             </p>
                                             <p>
-                                                <small class="text-danger" 
-                                                *ngIf="nombreUn.touched && unitExist">Ya existe una unidad con ese nombre</small>
+                                                <small class="text-danger" *ngIf="nombreUn.touched && unitExist">Ya
+                                                    existe una unidad con ese nombre</small>
                                             </p>
                                         </div>
                                     </div>
@@ -2362,12 +2363,12 @@
                 <button type="button" class="btn btn-secondary" (click)="unitForm.reset()"
                     data-dismiss="modal">Cerrar</button>
                 <div *ngIf="nombreUn.invalid || unitExist">
-                    <button disabled type="submit" class="btn btn-primary" data-dismiss="modal"
-                    (click)="postUnit()" class="btn btn-primary">Crear</button>
+                    <button disabled type="submit" class="btn btn-primary" data-dismiss="modal" (click)="postUnit()"
+                        class="btn btn-primary">Crear</button>
                 </div>
                 <div *ngIf="!(nombreUn.invalid || unitExist)">
-                    <button [disabled]="unitForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
-                    (click)="postUnit()" class="btn btn-primary">Crear</button>
+                    <button [disabled]="unitForm.form.invalid" type="submit" class="btn btn-primary"
+                        data-dismiss="modal" (click)="postUnit()" class="btn btn-primary">Crear</button>
                 </div>
             </div>
 
