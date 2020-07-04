@@ -14,7 +14,7 @@ import { AnalysisPC } from 'src/models/analysisPC';
 
 import { Cellar } from 'src/models/cellar';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-order-view',
@@ -448,6 +448,7 @@ export class OrderViewComponent implements OnInit {
             );
           }
         );
+       // this.newOrder();
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
@@ -462,9 +463,20 @@ export class OrderViewComponent implements OnInit {
             );
           }
         );
+       // this.newOrder();
       }
     });
+   
+    
   }
+
+  /**
+   * newOrder() {
+    window.location.reload();
+    
+  }
+   */
+  
 
 
 }
