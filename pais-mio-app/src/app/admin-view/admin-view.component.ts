@@ -72,7 +72,7 @@ export class AdminViewComponent implements OnInit {
 
 
   /** Data return objects */
-  objOrder: Boolean;
+  objOrder: boolean;
   objInput: Input;
   objUser: User;
   objClient: Client;

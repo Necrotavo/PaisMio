@@ -14,7 +14,7 @@ import { AnalysisPC } from 'src/models/analysisPC';
 
 import { Cellar } from 'src/models/cellar';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { NavbarComponent } from 'src/app/navbar/navbar.component';
 
@@ -221,7 +221,7 @@ export class OrderViewComponent implements OnInit {
       data => {
         this.objInputRequest = data;
         this.getInputRequestByOrder();
-        if(this.objInputRequest){
+        if (this.objInputRequest){
           Swal.fire({
             icon: 'success',
             title: '!Listo!',
@@ -344,8 +344,6 @@ export class OrderViewComponent implements OnInit {
     this.validateList();
     this.inputExist = false;
   }
-
-  
 
   /** Used to validate the status of the input list */
   validateList() {
@@ -479,6 +477,7 @@ export class OrderViewComponent implements OnInit {
             );
           }
         );
+       // this.newOrder();
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
@@ -493,10 +492,20 @@ export class OrderViewComponent implements OnInit {
             );
           }
         );
+       // this.newOrder();
       }
     });
+   
+    
   }
 
+  /**
+   * newOrder() {
+    window.location.reload();
+    
+  }
+   */
+  
   navreload() {
     this.navbar.navbarReloadOrder();
   }

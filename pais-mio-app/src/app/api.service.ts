@@ -159,10 +159,10 @@ export class ApiService {
     );
   }
 
-  addOrder(order: Order): Observable<Boolean> {
-    return this.http.post<Boolean>(orderPOST, order, HttpOptions).pipe(
-      tap((i: Boolean) => console.log(`${i}`)),
-      catchError(this.handleErrors<Boolean>(`addOrder`))
+  addOrder(order: Order): Observable<boolean> {
+    return this.http.post<boolean>(orderPOST, order, HttpOptions).pipe(
+      tap((i: boolean) => console.log(`${i}`)),
+      catchError(this.handleErrors<boolean>(`addOrder`))
     );
   }
 
@@ -231,11 +231,11 @@ export class ApiService {
       catchError(this.handleErrors<User>(`addUser`))
     );
   }
-  //intentando retornar un boolean
-  changePassword(user: UserChangePass): Observable<Boolean> {
-    return this.http.post<Boolean>(changePasswordPOST, user, HttpOptions).pipe(
-      tap((i: Boolean) => console.log(`added user w/ id=${i}`)),
-      catchError(this.handleErrors<Boolean>(`addUser`))
+  // intentando retornar un boolean
+  changePassword(user: UserChangePass): Observable<boolean> {
+    return this.http.post<boolean>(changePasswordPOST, user, HttpOptions).pipe(
+      tap((i: boolean) => console.log(`added user w/ id=${i}`)),
+      catchError(this.handleErrors<boolean>(`addUser`))
     );
   }
 

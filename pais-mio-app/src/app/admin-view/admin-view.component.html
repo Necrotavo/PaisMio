@@ -38,12 +38,11 @@
                 <div role="tabpanel" class="tab-pane active" id="orders">
                     <div class="tab-header clearfix">
                         <div class="float-left">
-                            <div class="search-field">
-                                <h6>Filtrar :</h6>
-                                <input type="text" class="form-control" placeholder="Filtrar por campo" [(ngModel)]="termO">
+                            <div class="form-field">
+                                <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="termO">
                                 <br>
-                                <h6>Filtrar por estado:</h6>
                                 <select class="custom-select" [(ngModel)]="termO2">
+                                    <option [ngValue]="undefined">Estado</option>
                                     <option value="En proceso">En proceso</option>
                                     <option value="Conforme">Conforme</option>
                                     <option value="No conforme">No conforme</option>
@@ -636,7 +635,7 @@
                                 <td>{{item.cantidad}}</td>
                                 <td><button type="button" attr.value="{{i}}" class="btn btn-danger center"
                                         (click)="removeFromList(i)">
-                                        <i class="icon ion-minus">
+                                        <i class="icon ion-trash-a">
                                         </i>
                                     </button>
                                 </td>

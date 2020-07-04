@@ -78,7 +78,14 @@ namespace DAO
             comandoInsertar.Parameters.AddWithValue("@fechaEmision", System.DateTime.Now);
             comandoInsertar.Parameters.AddWithValue("@fechaVigencia", System.DateTime.Now.AddDays(100));
             comandoInsertar.Parameters.AddWithValue("@nombreProducto", analisisAA.nombreProducto);
-            comandoInsertar.Parameters.AddWithValue("@notas", analisisAA.notas);
+            if (analisisAA.notas == null || analisisAA.notas.Equals("")) {
+                comandoInsertar.Parameters.AddWithValue("@notas", DBNull.Value);
+            }
+            else
+            {
+                comandoInsertar.Parameters.AddWithValue("@notas", analisisAA.notas);
+            }
+            
             comandoInsertar.Parameters.AddWithValue("@pedCodigo", analisisAA.pedCodigo);
 
             try
@@ -146,7 +153,14 @@ namespace DAO
                         analisisAA.fechaEmision = Convert.ToDateTime(lector["ANA_FECHA_EMISION"]).ToString();
                         analisisAA.fechaVigencia = Convert.ToDateTime(lector["ANA_FECHA_VIGENCIA"]).ToString();
                         analisisAA.nombreProducto = (String)lector["ANA_NOMBRE_PRODUCTO"];
-                        analisisAA.notas = (String)lector["ANA_NOTAS"];
+                        if (lector["ANA_NOTAS"] is DBNull)
+                        {
+                            analisisAA.notas = "";
+                        }
+                        else {
+                            analisisAA.notas = (String)lector["ANA_NOTAS"];
+                        }
+                        
                         analisisAA.ipmCodigo = Convert.ToInt32(lector["IPM_CODIGO"]);
                         analisisAA.pedCodigo = pedCodigo;
                        
