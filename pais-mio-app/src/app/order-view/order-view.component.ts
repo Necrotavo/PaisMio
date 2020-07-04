@@ -41,7 +41,7 @@ export class OrderViewComponent implements OnInit {
   orderList: Order[];
   consumeList: InputQ[];
   discardList: InputQ[];
-  inputRequestListByOrder: InputRequest[];
+  inputRequestListByOrder: Array<InputRequest> = [];
   inputRequestListByUser: InputRequest[];
   inputRequestList: InputRequest[];
   productEntryList: Array<ProductInOrder> = [];
@@ -256,16 +256,6 @@ export class OrderViewComponent implements OnInit {
     );
   }
 
-  /** Set a desicion of an input request from the API service */
-  setInputRequestDesicion() {
-
-    this.apiService.setInputRequestDecision(this.inputRequestDesicionModel).subscribe(
-      data => {
-        this.objInputRequestDesicion = data;
-      }
-    );
-  }
-
   /** Get the input requests from a user from the API service */
   getInputRequestByUser() {
 
@@ -409,18 +399,30 @@ export class OrderViewComponent implements OnInit {
   }
 
   /** Used to request for a status on an input request */
-  requestDecision(value: string) {
-    this.inputRequestDesicionModel.admin = this.localUser;
-    this.inputRequestDesicionModel.solicitud = this.inputRequestModel;
-    this.inputRequestDesicionModel.estado = value;
-    this.apiService.setInputRequestDecision(this.inputRequestDesicionModel).subscribe(
-      data => {
-        this.inputRequestDesicionModel = data;
-        this.getInputRequestByOrder();
-      }
-    );
+  requestDecision(valueD: string) {
 
-    this.getInputRequestByOrder();
+    this.dispatchSwal.fire({
+      title: '¿Desea realizar esta acción?',
+      text: 'Esta decision no es reversible',
+      icon: 'warning',
+      showCancelButton: true,
+      showCloseButton: true,
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+      reverseButtons: false
+    }).then((result) => {
+      if (result.value) {
+        this.inputRequestDesicionModel.admin = this.localUser;
+        this.inputRequestDesicionModel.solicitud = this.inputRequestModel;
+        this.inputRequestDesicionModel.estado = valueD;
+        this.apiService.setInputRequestDecision(this.inputRequestDesicionModel).subscribe(
+          data => {
+            this.objInputRequestDesicion = data;
+            this.getInputRequestByOrder();
+          }
+        );
+      }
+    });
   }
 
   /** Used to reset the input model */
