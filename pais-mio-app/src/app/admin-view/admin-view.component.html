@@ -1281,7 +1281,7 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #correoU="ngModel"
-                                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control"
+                                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control"
                                             [class.is-invalid]="correoU.invalid && correoU.touched"
                                             placeholder="correo@mail.com" name="correoU" [(ngModel)]="userModel.correo">
                                         <div *ngIf="correoU.errors && (correoU.invalid || correoU.touched)">
@@ -1418,7 +1418,7 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #correoUUP="ngModel"
-                                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control"
+                                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control"
                                             [class.is-invalid]="correoUUP.invalid && correoUUP.touched"
                                             placeholder="correo@mail.com" name="correoUUP"
                                             [(ngModel)]="userUpdateModel.correo" disabled>
@@ -1595,7 +1595,7 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" #correo="ngModel"
-                                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required
+                                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required
                                             class="form-control" [class.is-invalid]="correo.invalid && correo.touched"
                                             placeholder="correo@mail.com" name="correo"
                                             [(ngModel)]="clientModel.correo">
@@ -1752,7 +1752,7 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" #correoCUP="ngModel"
-                                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required
+                                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required
                                             class="form-control"
                                             [class.is-invalid]="correoCUP.invalid && correoCUP.touched"
                                             placeholder="correo@mail.com" name="correoCUP"
