@@ -221,7 +221,7 @@ export class OrderViewComponent implements OnInit {
       data => {
         this.objInputRequest = data;
         this.getInputRequestByOrder();
-        if(this.objInputRequest){
+        if (this.objInputRequest){
           Swal.fire({
             icon: 'success',
             title: '!Listo!',
@@ -344,8 +344,6 @@ export class OrderViewComponent implements OnInit {
     this.validateList();
     this.inputExist = false;
   }
-
-  
 
   /** Used to validate the status of the input list */
   validateList() {
