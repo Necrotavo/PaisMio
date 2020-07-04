@@ -977,7 +977,7 @@
                                     <div class="form-field">
                                         <input type="text" required #codigoI="ngModel" class="form-control"
                                             [class.is-invalid]="codigoI.invalid && codigoI.touched" placeholder="Codigo"
-                                            name="codigoI" [(ngModel)]="inputModel.id">
+                                            name="codigoI" [(ngModel)]="inputModel.id" (keyup)="validateCodeUniqueness(true)">
                                         <div *ngIf="codigoI.errors && (codigoI.invalid || codigoI.touched)">
 
                                             <p><small class="text-danger"
@@ -987,6 +987,9 @@
                                                     invalido</small></p>
                                             <p><small class="text-danger" *ngIf="codigoI.errors.pattern">50
                                                     dígitos</small></p>
+                                        </div>
+                                        <div *ngIf="inputCodeExist">
+                                            <p><small class="text-danger">El código ya existe</small></p>
                                         </div>
                                     </div>
                                 </td>
@@ -1030,9 +1033,9 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="inputForm.reset()"
+                <button type="button" class="btn btn-secondary" (click)="inputForm.reset();resetinputCodeExist()"
                     data-dismiss="modal">Cerrar</button>
-                <button [disabled]="inputForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
+                <button [disabled]="inputForm.form.invalid || inputCodeExist" type="submit" class="btn btn-primary" data-dismiss="modal"
                     (click)="postInput()">Crear</button>
             </div>
 
@@ -1068,7 +1071,6 @@
                             </div>
                         </div>
                     </div>
-
                     <table class="table table-striped table-responsive">
                         <thead>
                             <tr>
@@ -1106,7 +1108,8 @@
                                     <div class="form-field">
                                         <input type="text" required #codigoIUP="ngModel" class="form-control"
                                             [class.is-invalid]="codigoIUP.invalid && codigoIUP.touched"
-                                            placeholder="Codigo" name="codigoIUP" [(ngModel)]="inputUpdateModel.id">
+                                            placeholder="Codigo" name="codigoIUP" [(ngModel)]="inputUpdateModel.id"
+                                            (keyup)="validateCodeUniqueness(false)">
                                         <div *ngIf="codigoIUP.errors && (codigoIUP.invalid || codigoIUP.touched)">
 
                                             <p><small class="text-danger"
@@ -1116,6 +1119,9 @@
                                                     invalido</small></p>
                                             <p><small class="text-danger" *ngIf="codigoIUP.errors.pattern">50
                                                     dígitos</small></p>
+                                        </div>
+                                        <div *ngIf="inputCodeExist">
+                                            <p><small class="text-danger">El codigo ya existe</small></p>
                                         </div>
                                     </div>
                                 </td>
@@ -1184,11 +1190,10 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button [disabled]="inputUpdateForm.form.invalid" type="submit" class="btn btn-primary"
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="resetinputCodeExist()">Cerrar</button>
+                <button [disabled]="inputUpdateForm.form.invalid || inputCodeExist" type="submit" class="btn btn-primary"
                     (click)="updateInput()" data-dismiss="modal">Modificar</button>
             </div>
-            {{inputUpdateModel | json}}
         </div>
     </div>
 </div>
