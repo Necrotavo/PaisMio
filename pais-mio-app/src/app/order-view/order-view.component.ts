@@ -16,6 +16,8 @@ import { Cellar } from 'src/models/cellar';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
+import { NavbarComponent } from 'src/app/navbar/navbar.component';
+
 @Component({
   selector: 'app-order-view',
   templateUrl: './order-view.component.html',
@@ -26,6 +28,8 @@ export class OrderViewComponent implements OnInit {
   analysisExist = false;
 
   constructor(private data: DataService, private apiService: ApiService, router: Router) { }
+
+  navbar: NavbarComponent;
 
   /** Object Declarations */
   order: Order;
@@ -464,6 +468,10 @@ export class OrderViewComponent implements OnInit {
         );
       }
     });
+  }
+
+  navreload() {
+    this.navbar.navbarReloadOrder();
   }
 
 
