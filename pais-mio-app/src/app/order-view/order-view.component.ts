@@ -16,6 +16,8 @@ import { Cellar } from 'src/models/cellar';
 import Swal from 'sweetalert2';
 import { Router, RouterLink } from '@angular/router';
 
+import { NavbarComponent } from 'src/app/navbar/navbar.component';
+
 @Component({
   selector: 'app-order-view',
   templateUrl: './order-view.component.html',
@@ -26,6 +28,8 @@ export class OrderViewComponent implements OnInit {
   analysisExist = false;
 
   constructor(private data: DataService, private apiService: ApiService, router: Router) { }
+
+  navbar: NavbarComponent;
 
   /** Object Declarations */
   order: Order;
@@ -217,8 +221,33 @@ export class OrderViewComponent implements OnInit {
       data => {
         this.objInputRequest = data;
         this.getInputRequestByOrder();
+        if (this.objInputRequest){
+          Swal.fire({
+            icon: 'success',
+            title: '!Listo!',
+            text: 'Solicitud enviada con éxito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else{
+          Swal.fire({
+            icon: 'warning',
+            title: '!Ups!',
+            text: 'Ocurrió algún error, vuelve a intentarlo',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
       }
     );
+    document.getElementById('closeRequestBtn').click();
+  }
+
+  resetInputEntryLists(){
+    this.inputConsumeList.length = 0;
+    this.inputDiscardList.length = 0;
+    this.validateList();
+    this.validateDiscarList();
   }
 
   /** Get the input requests from the API service */
@@ -477,6 +506,9 @@ export class OrderViewComponent implements OnInit {
   }
    */
   
+  navreload() {
+    this.navbar.navbarReloadOrder();
+  }
 
 
 }

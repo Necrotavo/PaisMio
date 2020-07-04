@@ -57,6 +57,22 @@ export class NavbarComponent implements OnInit {
     );
   }
 
+  navbarReloadOrder(){
+    this.apiService.getOrder().subscribe(
+      data => {
+        this.orderList = data;
+        this.count = this.orderList.length;
+        if (this.count === 1) {
+          this.activeMessage = this.count + ' Pedido activo';
+        } else if (this.count === 0) {
+          this.activeMessage = 'No hay pedidos activos';
+        } else {
+          this.activeMessage = this.count + ' Pedidos activos';
+        }
+      }
+    );
+  }
+
   newOrder(i: number) {
     this.data.changeOrder(this.orderList[i]);
     localStorage.setItem('active order', JSON.stringify(this.orderList[i]));

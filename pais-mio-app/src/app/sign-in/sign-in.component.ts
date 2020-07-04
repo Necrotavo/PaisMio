@@ -18,6 +18,11 @@ export class SignInComponent implements OnInit {
   isCorrect = false;
 
   ngOnInit(): void {
+
+    if (localStorage.getItem('user logged') !== null){
+      this.router.navigateByUrl('/');
+    }
+
   }
 
   login(){

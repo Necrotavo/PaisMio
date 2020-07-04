@@ -442,16 +442,15 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <select (blur)="validateCellar(cellarC.value)"
+                                        <select required (blur)="validateCellar(cellarC.value)"
                                             (change)="validateCellar(cellarC.value)" #cellarC="ngModel"
                                             [class.is-invalid]="cellarHasError && cellarC.touched" class="form-control"
                                             name="cellarC" [(ngModel)]="auxN">
-                                            <option value="default">Bodega</option>
                                             <option *ngFor="let com of cellarList" value="{{com.nombre}}">{{com.nombre}}
                                             </option>
                                         </select>
                                         <p><small class="text-danger"
-                                                [class.d-none]="!cellarHasError || cellarC.untouched">Bodega
+                                                [class.d-none]="!cellarHasError || cellarC.untouched || cellarC.errors.required">Bodega
                                                 Requerida</small></p>
                                     </div>
                                 </td>
@@ -489,7 +488,7 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="number" min="1" max="{{aviableQuantity}}" required
+                                        <input type="number" pattern="\W" min="1" max="{{aviableQuantity}}" required
                                             #inputIQ="ngModel" class="form-control" placeholder="Cantidad"
                                             name="inputIQ" [(ngModel)]="auxQ" (keyup)="validateEntryQuantity()">
                                         <div *ngIf="inputIQ.errors && (inputIQ.invalid || inputIQ.touched)">
@@ -502,13 +501,13 @@
                             </tr>
                             <tr *ngIf="inputExist">
                                 <td>
-                                    <button type="button" class="btn btn-success center" (click)="pushIntoEntryList()">
+                                    <button [disabled]="!(auxQ > 0)" type="button" class="btn btn-success center" (click)="pushIntoEntryList()">
                                         <i class="icon ion-plus">
                                         </i>
                                         Consumir</button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-danger center" (click)="pushIntoDiscardList()">
+                                    <button [disabled]="!(auxQ > 0)" type="button" class="btn btn-danger center" (click)="pushIntoDiscardList()">
                                         <i class="icon ion-plus">
                                         </i>
                                         Descartar</button>
@@ -533,7 +532,7 @@
                                 <td>{{item.cantidadDisponible}}</td>
                                 <td><button type="button" attr.value="{{i}}" class="btn btn-danger center"
                                         (click)="removeFromList(i)">
-                                        <i class="icon ion-minus">
+                                        <i class="icon ion-trash-a">
                                         </i>
                                     </button>
                                 </td>
@@ -557,7 +556,7 @@
                                 <td>{{item.cantidadDisponible}}</td>
                                 <td><button type="button" attr.value="{{i}}" class="btn btn-danger center"
                                         (click)="removeFromDiscardList(i)">
-                                        <i class="icon ion-minus">
+                                        <i class="icon ion-trash-a">
                                         </i>
                                     </button>
                                 </td>
@@ -579,12 +578,12 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="inputRequestForm.reset()"
+                <button type="button" id="closeRequestBtn" class="btn btn-secondary" (click)="inputRequestForm.reset();resetInputEntryLists()"
                     data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" (click)="postInputRequest()" data-dismiss="modal">Enviar
+                <button [disabled]="!(discardListIsNotEmpty || listIsNotEmpty)" 
+                type="button" class="btn btn-primary" (click)="postInputRequest()" data-dismiss="modal">Enviar
                     solicitud</button>
             </div>
-
         </div>
     </div>
 </div>
