@@ -277,13 +277,15 @@ namespace DAO
             SqlCommand comandoModificar = new SqlCommand("UPDATE INSUMO SET INS_NOMBRE = @nombreInsumo, " +
                 "INS_CANT_MIN_STOCK = @cantMin, " +
                 "EST_HAB_ESTADO = @estado ," +
-                "UDM_UNIDAD = @unidad " +
+                "UDM_UNIDAD = @unidad ," +
+                "ID = @id " +
                 "where INS_CODIGO = @codigoInsumo", conexion);
 
             comandoModificar.Parameters.AddWithValue("@nombreInsumo", doInsumo.nombre);
             comandoModificar.Parameters.AddWithValue("@cantMin", doInsumo.cantMinStock);
             comandoModificar.Parameters.AddWithValue("@estado", doInsumo.estado);
             comandoModificar.Parameters.AddWithValue("@unidad", doInsumo.unidad);
+            comandoModificar.Parameters.AddWithValue("@id", doInsumo.id);
             comandoModificar.Parameters.AddWithValue("@codigoInsumo", doInsumo.codigo);
 
             try

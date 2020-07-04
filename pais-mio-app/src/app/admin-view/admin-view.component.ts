@@ -109,6 +109,7 @@ export class AdminViewComponent implements OnInit {
   unitExist = false;
   analysisExist = false;
   listIsNotEmpty = false;
+  inputCodeExist = false;
 
   /** Aux variables */
   auxQ = 1;
@@ -600,7 +601,7 @@ export class AdminViewComponent implements OnInit {
       this.listIsNotEmpty = false;
     }
   }
-
+  
   removeFromList(i: number) {
     this.productEntryList.splice(i, 1);
     this.validateList();
@@ -610,7 +611,12 @@ export class AdminViewComponent implements OnInit {
 
   /** Input */
   chargeInputToUpdate(inputToUpdate: Input) {
-    this.inputUpdateModel = inputToUpdate;
+    this.inputUpdateModel.id = inputToUpdate.id;
+    this.inputUpdateModel.codigo = inputToUpdate.codigo;
+    this.inputUpdateModel.estado = inputToUpdate.estado;
+    this.inputUpdateModel.nombre = inputToUpdate.nombre;
+    this.inputUpdateModel.unidad = inputToUpdate.unidad;
+    this.inputUpdateModel.cantMinStock = inputToUpdate.cantMinStock;
   }
 
   updateInput() {
@@ -756,4 +762,28 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  /** Input validations */
+  validateCodeUniqueness(forCreation: boolean) {
+    for (const i of this.inputList) {
+      if(forCreation){
+        if (this.inputModel.id.toUpperCase() === i.id.toUpperCase()) {
+          this.inputCodeExist = true;
+          return;
+        } else {
+          this.inputCodeExist = false;
+        }
+      } else {
+        if (this.inputUpdateModel.id.toUpperCase() === i.id.toUpperCase()) {
+          this.inputCodeExist = true;
+          return;
+        } else {
+          this.inputCodeExist = false;
+        }
+      }
+    }
+  }
+
+  resetinputCodeExist(){
+    this.inputCodeExist = false;
+  }
 }
