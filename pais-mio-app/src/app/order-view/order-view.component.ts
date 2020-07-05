@@ -14,7 +14,9 @@ import { AnalysisPC } from 'src/models/analysisPC';
 
 import { Cellar } from 'src/models/cellar';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+
+import { NavbarComponent } from 'src/app/navbar/navbar.component';
 
 @Component({
   selector: 'app-order-view',
@@ -26,6 +28,8 @@ export class OrderViewComponent implements OnInit {
   analysisExist = false;
 
   constructor(private data: DataService, private apiService: ApiService, router: Router) { }
+
+  navbar: NavbarComponent;
 
   /** Object Declarations */
   order: Order;
@@ -41,7 +45,7 @@ export class OrderViewComponent implements OnInit {
   orderList: Order[];
   consumeList: InputQ[];
   discardList: InputQ[];
-  inputRequestListByOrder: InputRequest[];
+  inputRequestListByOrder: Array<InputRequest> = [];
   inputRequestListByUser: InputRequest[];
   inputRequestList: InputRequest[];
   productEntryList: Array<ProductInOrder> = [];
@@ -218,7 +222,7 @@ export class OrderViewComponent implements OnInit {
       data => {
         this.objInputRequest = data;
         this.getInputRequestByOrder();
-        if(this.objInputRequest){
+        if (this.objInputRequest){
           Swal.fire({
             icon: 'success',
             title: '!Listo!',
@@ -253,16 +257,6 @@ export class OrderViewComponent implements OnInit {
     this.apiService.getInputRequest().subscribe(
       data => {
         this.inputRequestList = data;
-      }
-    );
-  }
-
-  /** Set a desicion of an input request from the API service */
-  setInputRequestDesicion() {
-
-    this.apiService.setInputRequestDecision(this.inputRequestDesicionModel).subscribe(
-      data => {
-        this.objInputRequestDesicion = data;
       }
     );
   }
@@ -342,8 +336,6 @@ export class OrderViewComponent implements OnInit {
     this.inputExist = false;
   }
 
-  
-
   /** Used to validate the status of the input list */
   validateList() {
     if (this.inputConsumeList.length > 0) {
@@ -410,18 +402,30 @@ export class OrderViewComponent implements OnInit {
   }
 
   /** Used to request for a status on an input request */
-  requestDecision(value: string) {
-    this.inputRequestDesicionModel.admin = this.localUser;
-    this.inputRequestDesicionModel.solicitud = this.inputRequestModel;
-    this.inputRequestDesicionModel.estado = value;
-    this.apiService.setInputRequestDecision(this.inputRequestDesicionModel).subscribe(
-      data => {
-        this.inputRequestDesicionModel = data;
-        this.getInputRequestByOrder();
-      }
-    );
+  requestDecision(valueD: string) {
 
-    this.getInputRequestByOrder();
+    this.dispatchSwal.fire({
+      title: '¿Desea realizar esta acción?',
+      text: 'Esta decision no es reversible',
+      icon: 'warning',
+      showCancelButton: true,
+      showCloseButton: true,
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+      reverseButtons: false
+    }).then((result) => {
+      if (result.value) {
+        this.inputRequestDesicionModel.admin = this.localUser;
+        this.inputRequestDesicionModel.solicitud = this.inputRequestModel;
+        this.inputRequestDesicionModel.estado = valueD;
+        this.apiService.setInputRequestDecision(this.inputRequestDesicionModel).subscribe(
+          data => {
+            this.objInputRequestDesicion = data;
+            this.getInputRequestByOrder();
+          }
+        );
+      }
+    });
   }
 
   /** Used to reset the input model */
@@ -476,6 +480,7 @@ export class OrderViewComponent implements OnInit {
             );
           }
         );
+       // this.newOrder();
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
@@ -490,8 +495,22 @@ export class OrderViewComponent implements OnInit {
             );
           }
         );
+       // this.newOrder();
       }
     });
+   
+    
+  }
+
+  /**
+   * newOrder() {
+    window.location.reload();
+    
+  }
+   */
+  
+  navreload() {
+    this.navbar.navbarReloadOrder();
   }
 
 

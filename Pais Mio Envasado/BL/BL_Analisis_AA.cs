@@ -32,8 +32,8 @@ namespace BL
 
             DAO_Analisis_AA DAOanalisisAA = new DAO_Analisis_AA();
            
-            analisisAA.fechaEmision = System.DateTime.Now.ToString();
-            analisisAA.fechaVigencia = System.DateTime.Now.AddDays(100).ToString();
+           // analisisAA.fechaEmision = System.DateTime.Now.ToString();
+           // analisisAA.fechaVigencia = System.DateTime.Now.AddDays(100).ToString();
             return DAOanalisisAA.agregarAnalisisAA(analisisAA);
         }
 

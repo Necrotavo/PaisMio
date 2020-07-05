@@ -159,10 +159,10 @@ export class ApiService {
     );
   }
 
-  addOrder(order: Order): Observable<Boolean> {
-    return this.http.post<Boolean>(orderPOST, order, HttpOptions).pipe(
-      tap((i: Boolean) => console.log(`${i}`)),
-      catchError(this.handleErrors<Boolean>(`addOrder`))
+  addOrder(order: Order): Observable<boolean> {
+    return this.http.post<boolean>(orderPOST, order, HttpOptions).pipe(
+      tap((i: boolean) => console.log(`${i}`)),
+      catchError(this.handleErrors<boolean>(`addOrder`))
     );
   }
 
@@ -211,17 +211,17 @@ export class ApiService {
     );
   }
 
-  addUser(user: User): Observable<User> {
-    return this.http.post<User>(userPOST, user, HttpOptions).pipe(
-      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
-      catchError(this.handleErrors<User>(`addUser`))
+  addUser(user: User): Observable<boolean> {
+    return this.http.post<boolean>(userPOST, user, HttpOptions).pipe(
+      tap((i: boolean) => console.log(`added user w/ id=${i}`)),
+      catchError(this.handleErrors<boolean>(`addUser`))
     );
   }
 
-  passwordRecovery(user: User): Observable<User> {
-    return this.http.post<User>(passwordRecoveryPOST, user, HttpOptions).pipe(
-      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
-      catchError(this.handleErrors<User>(`addUser`))
+  passwordRecovery(user: User): Observable<string> {
+    return this.http.post<string>(passwordRecoveryPOST, user, HttpOptions).pipe(
+      tap((i: string) => console.log(`added user w/ id=${i}`)),
+      catchError(this.handleErrors<string>(`addUser`))
     );
   }
 
@@ -231,11 +231,11 @@ export class ApiService {
       catchError(this.handleErrors<User>(`addUser`))
     );
   }
-  //intentando retornar un boolean
-  changePassword(user: UserChangePass): Observable<Boolean> {
-    return this.http.post<Boolean>(changePasswordPOST, user, HttpOptions).pipe(
-      tap((i: Boolean) => console.log(`added user w/ id=${i}`)),
-      catchError(this.handleErrors<Boolean>(`addUser`))
+
+  changePassword(user: UserChangePass): Observable<boolean> {
+    return this.http.post<boolean>(changePasswordPOST, user, HttpOptions).pipe(
+      tap((i: boolean) => console.log(`added user w/ id=${i}`)),
+      catchError(this.handleErrors<boolean>(`addUser`))
     );
   }
 
@@ -267,10 +267,10 @@ export class ApiService {
     );
   }
 
-  updateUser(user: User): Observable<User> {
+  updateUser(user: User): Observable<boolean> {
     return this.http.post(userUpdatePOST, user, HttpOptions).pipe(
-      tap((i: User) => console.log(`update user w/ id=${i.nombre}`)),
-      catchError(this.handleErrors<User>(`updateUser`))
+      tap((i: boolean) => console.log(`update user w/ id=${i}`)),
+      catchError(this.handleErrors<boolean>(`updateUser`))
     );
   }
 
@@ -468,17 +468,17 @@ export class ApiService {
     );
   }
 
-  addProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(productPost, product, HttpOptions).pipe(
-      tap((i: Product) => console.log(`added product w/ id=${i.nombre}`)),
-      catchError(this.handleErrors<Product>(`addProduct`))
+  addProduct(product: Product): Observable<boolean> {
+    return this.http.post<boolean>(productPost, product, HttpOptions).pipe(
+      tap((i: boolean) => console.log(`added=${i}`)),
+      catchError(this.handleErrors<boolean>(`addProduct`))
     );
   }
 
-  updateProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(productUPDATE, product, HttpOptions).pipe(
-      tap((i: Product) => console.log(`added product w/ id=${i.nombre}`)),
-      catchError(this.handleErrors<Product>(`addProduct`))
+  updateProduct(product: Product): Observable<boolean> {
+    return this.http.post<boolean>(productUPDATE, product, HttpOptions).pipe(
+      tap((i: boolean) => console.log(`added=${i}`)),
+      catchError(this.handleErrors<boolean>(`addProduct`))
     );
   }
 

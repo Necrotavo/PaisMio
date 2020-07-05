@@ -13,15 +13,15 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(private apiService: ApiService) { }
 
-  /**Object Declaration */
+  /** Object Declaration */
   user: UserChangePass;
 
-  /** Models*/
+  /** Models */
   localUser = new User('', '', '', '', '', '');
-  userChangePass = new UserChangePass('','','','');
-  
+  userChangePass = new UserChangePass('', '', '', '');
+
   /** Data return objects */
-  objUser: Boolean;
+  objUser: boolean;
 
   ngOnInit(): void {
     this.localUser = JSON.parse(localStorage.getItem('user logged'));
@@ -33,13 +33,13 @@ export class ChangePasswordComponent implements OnInit {
       data => {
         this.objUser = data;
         console.log(this.objUser);
-        this.showMessage(this.objUser);   
+        this.showMessage(this.objUser);
       }
     );
   }
 
-  showMessage(isValid: Boolean){
-    if(isValid){
+  showMessage(isValid: boolean){
+    if (isValid){
       Swal.fire({
         icon: 'success',
         title: '!Listo!',
@@ -47,7 +47,7 @@ export class ChangePasswordComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       });
-    }else{
+    } else {
       Swal.fire({
         icon: 'warning',
         title: '!Ups!',
@@ -59,7 +59,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   comparePass(){
-    if(this.userChangePass.newPass === this.userChangePass.newPassR){
+    if (this.userChangePass.newPass === this.userChangePass.newPassR){
       return true;
     }else{
       return false;

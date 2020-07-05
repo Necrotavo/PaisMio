@@ -56,7 +56,7 @@ export class AdminViewComponent implements OnInit {
   orderList: Order[];
   orderTlist: Order[];
   inputList: Input[];
-  userList: User[];
+  userList: Array<User> = [];
   clientList: Client[];
   clientAList: Client[];
   productList: Product[];
@@ -72,11 +72,11 @@ export class AdminViewComponent implements OnInit {
 
 
   /** Data return objects */
-  objOrder: Boolean;
+  objOrder: boolean;
   objInput: Input;
-  objUser: User;
+  objUser: boolean;
   objClient: Client;
-  objProduct: Product;
+  objProduct: boolean;
   objCellar: Cellar;
   objMoveInput: MoveInput;
   objCellarAdmin: CellarAdmin;
@@ -105,11 +105,16 @@ export class AdminViewComponent implements OnInit {
   statusUHasError = true;
 
   /** Input list validations */
+
   productExist = false;
   unitExist = false;
   analysisExist = false;
   listIsNotEmpty = false;
+  inputCodeExist = false;
+  userEmailExist = false;
+  cellarNameExist = false;
 
+  productIdExist = false;
   /** Aux variables */
   auxQ = 1;
 
@@ -177,6 +182,7 @@ export class AdminViewComponent implements OnInit {
     this.getUnits();
     this.getCellar();
 
+
   }
 
   /** Units */
@@ -225,10 +231,13 @@ export class AdminViewComponent implements OnInit {
       if (this.unitModel.unidad.toUpperCase() === i.unidad.toUpperCase()) {
         this.unitExist = true;
         return;
-      } else {
-        this.unitExist = false;
       }
     }
+    this.unitExist = false;
+  }
+
+  closeUnitExist(){
+    this.unitExist = false;
   }
 
   getAllClient() {
@@ -319,16 +328,49 @@ export class AdminViewComponent implements OnInit {
       data => {
         this.objUser = data;
         this.getUser();
-        this.objUser = new User('', '', '', '', '', 'OPERARIO');
-        Swal.fire({
-          icon: 'success',
-          title: '!Listo!',
-          text: 'Usuario agregado con éxito',
-          showConfirmButton: false,
-          timer: 1500
-        });
+        document.getElementById('btnClose').click();
+        // this.objUser = new User('', '', '', '', '', 'OPERARIO');
+        if (this.objUser) {
+          Swal.fire({
+            icon: 'success',
+            title: '!Listo!',
+            text: 'Usuario agregado con éxito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else {
+          Swal.fire({
+            icon: 'warning',
+            title: '!Ups!',
+            text: 'Ocurrió algún error, vuelve a intentarlo',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
       }
     );
+  }
+
+  dropdownReset() {
+    (document.getElementById('rolU') as HTMLSelectElement).value = 'OPERARIO';
+  }
+
+  checkEmailExist(){
+   if (this.userList.length > 0){
+    for (const entry of this.userList) {
+
+      if (entry.correo.toUpperCase() === this.userModel.correo.toUpperCase()){
+        this.userEmailExist = true;
+        return;
+      }
+    }
+   }
+   this.userEmailExist = false;
+
+  }
+
+  closeUserEmailExist(){
+    this.userEmailExist = false;
   }
 
   getUser() {
@@ -348,16 +390,27 @@ export class AdminViewComponent implements OnInit {
       data => {
         this.objClient = data;
         this.getClient();
-        this.objClient = new Client('', '', '', '', '', '');
-        Swal.fire({
-          icon: 'success',
-          title: '!Listo!',
-          text: 'Cliente agregado con éxito',
-          showConfirmButton: false,
-          timer: 1500
-        });
+        if (this.objClient) {
+          Swal.fire({
+            icon: 'success',
+            title: '!Listo!',
+            text: 'Cliente agregado con éxito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else {
+          Swal.fire({
+            icon: 'warning',
+            title: '!Ups!',
+            text: 'Ocurrió algún error, vuelve a intentarlo',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
       }
     );
+    this.objClient = new Client('', '', '', '', '', '');
+    this.getClient();
   }
 
   getClient() {
@@ -373,14 +426,24 @@ export class AdminViewComponent implements OnInit {
       data => {
         this.objProduct = data;
         this.getProduct();
-        this.objProduct = new Product(0, '', '', '', '');
-        Swal.fire({
-          icon: 'success',
-          title: '!Listo!',
-          text: 'Producto agregado con éxito',
-          showConfirmButton: false,
-          timer: 1500
-        });
+
+        if (this.objProduct) {
+          Swal.fire({
+            icon: 'success',
+            title: '!Listo!',
+            text: 'Producto agregado con éxito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else {
+          Swal.fire({
+            icon: 'warning',
+            title: '!Ups!',
+            text: 'Ocurrió algún error, vuelve a intentarlo',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
       }
     );
   }
@@ -402,15 +465,26 @@ export class AdminViewComponent implements OnInit {
 
     this.apiService.addCellar(this.cellarModel).subscribe(
       data => {
-        this.objCellar = data;
+        let auxBool: Cellar;
+        auxBool = data;
         this.getCellar();
-        Swal.fire({
-          icon: 'success',
-          title: '!Listo!',
-          text: 'Bodega agregada con éxito',
-          showConfirmButton: false,
-          timer: 1500
-        });
+        if (auxBool){
+          Swal.fire({
+            icon: 'success',
+            title: '!Listo!',
+            text: 'Bodega agregada con éxito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }else{
+          Swal.fire({
+            icon: 'warning',
+            title: '!Ups!',
+            text: 'Ocurrió algún error, vuelve a intentarlo',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
       }
     );
   }
@@ -610,7 +684,12 @@ export class AdminViewComponent implements OnInit {
 
   /** Input */
   chargeInputToUpdate(inputToUpdate: Input) {
-    this.inputUpdateModel = inputToUpdate;
+    this.inputUpdateModel.id = inputToUpdate.id;
+    this.inputUpdateModel.codigo = inputToUpdate.codigo;
+    this.inputUpdateModel.estado = inputToUpdate.estado;
+    this.inputUpdateModel.nombre = inputToUpdate.nombre;
+    this.inputUpdateModel.unidad = inputToUpdate.unidad;
+    this.inputUpdateModel.cantMinStock = inputToUpdate.cantMinStock;
   }
 
   updateInput() {
@@ -639,7 +718,12 @@ export class AdminViewComponent implements OnInit {
   /** User */
 
   chargeUserToUpdate(userToUpdate: User) {
-    this.userUpdateModel = userToUpdate;
+    this.userUpdateModel.rol = userToUpdate.rol;
+    this.userUpdateModel.nombre = userToUpdate.nombre;
+    this.userUpdateModel.estado = userToUpdate.estado;
+    this.userUpdateModel.correo = userToUpdate.correo;
+    this.userUpdateModel.contrasena = userToUpdate.contrasena;
+    this.userUpdateModel.apellidos = userToUpdate.apellidos;
   }
 
   updateUser() {
@@ -669,7 +753,12 @@ export class AdminViewComponent implements OnInit {
   /** Client */
 
   chargeClientToUpdate(clientToUpdate: Client) {
-    this.clientUpdateModel = clientToUpdate;
+    this.clientUpdateModel.cedula = clientToUpdate.cedula;
+    this.clientUpdateModel.correo = clientToUpdate.correo;
+    this.clientUpdateModel.direccion = clientToUpdate.direccion;
+    this.clientUpdateModel.estado = clientToUpdate.estado;
+    this.clientUpdateModel.nombre = clientToUpdate.nombre;
+    this.clientUpdateModel.telefono = clientToUpdate.telefono;
   }
 
   updateClient() {
@@ -699,7 +788,31 @@ export class AdminViewComponent implements OnInit {
   /** Product */
 
   chargeProductToUpdate(productToUpdate: Product) {
-    this.productUpdateModel = productToUpdate;
+    this.productUpdateModel.codigo = productToUpdate.codigo;
+    this.productUpdateModel.descripcion = productToUpdate.descripcion;
+    this.productUpdateModel.estado = productToUpdate.estado;
+    this.productUpdateModel.id = productToUpdate.id;
+    this.productUpdateModel.nombre = productToUpdate.nombre;
+  }
+
+  productCodeExist(forCreation: boolean){
+    for (const i of this.productList) {
+      if (forCreation) {
+        if (this.productModel.id.toUpperCase() === i.id.toUpperCase()) {
+          this.productIdExist = true;
+          return;
+        } else {
+          this.productIdExist = false;
+        }
+      } else {
+        if (this.productUpdateModel.id.toUpperCase() === i.id.toUpperCase()) {
+          this.productIdExist = true;
+          return;
+        } else {
+          this.productIdExist = false;
+        }
+      }
+    }
   }
 
   updateProduct() {
@@ -707,29 +820,36 @@ export class AdminViewComponent implements OnInit {
     this.apiService.updateProduct(this.productUpdateModel).subscribe(
       data => {
         this.objProduct = data;
+        if (this.objProduct) {
+          Swal.fire({
+            icon: 'success',
+            title: '!Listo!',
+            text: 'Producto actualizado con éxito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else {
+          Swal.fire({
+            icon: 'warning',
+            title: '!Ups!',
+            text: 'Ocurrió algún error, vuelve a intentarlo',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
         this.getProduct();
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'center',
-          showConfirmButton: false,
-          timer: 1000,
-          onOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer);
-            toast.addEventListener('mouseleave', Swal.resumeTimer);
-          }
-        });
-        Toast.fire({
-          icon: 'success',
-          title: 'Producto actualizado'
-        });
-      }
-    );
+      });
   }
 
   /** Cellar */
 
   chargeCellarToUpdate(cellarToUpdate: Cellar) {
-    this.cellarUpdateModel = cellarToUpdate;
+    this.cellarUpdateModel.codigo = cellarToUpdate.codigo;
+    this.cellarUpdateModel.direccion = cellarToUpdate.direccion;
+    this.cellarUpdateModel.estado = cellarToUpdate.estado;
+    this.cellarUpdateModel.listaInsumosEnBodega = cellarToUpdate.listaInsumosEnBodega;
+    this.cellarUpdateModel.nombre = cellarToUpdate.nombre;
+    this.cellarUpdateModel.telefono = cellarToUpdate.telefono;
   }
 
   updateCellars() {
@@ -756,4 +876,52 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  validateCeNameUniqueness(forCreation: boolean) {
+    for (const i of this.cellarList) {
+      if (forCreation){
+        if (this.cellarModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
+          this.cellarNameExist = true;
+          return;
+        } else {
+          this.cellarNameExist = false;
+        }
+      } else {
+        if (this.cellarUpdateModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
+          this.cellarNameExist = true;
+          return;
+        } else {
+          this.cellarNameExist = false;
+        }
+      }
+    }
+  }
+
+  resetCellarNameExist(){
+    this.cellarNameExist = false;
+  }
+
+  /** Input validations */
+  validateCodeUniqueness(forCreation: boolean) {
+    for (const i of this.inputList) {
+      if (forCreation) {
+        if (this.inputModel.id.toUpperCase() === i.id.toUpperCase()) {
+          this.inputCodeExist = true;
+          return;
+        } else {
+          this.inputCodeExist = false;
+        }
+      } else {
+        if (this.inputUpdateModel.id.toUpperCase() === i.id.toUpperCase()) {
+          this.inputCodeExist = true;
+          return;
+        } else {
+          this.inputCodeExist = false;
+        }
+      }
+    }
+  }
+
+  resetinputCodeExist() {
+    this.inputCodeExist = false;
+  }
 }

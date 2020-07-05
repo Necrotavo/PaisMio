@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row justify-content-center">
 
-            <form reportForm="ngForm" novalidate>
+            <form #reportForm="ngForm" novalidate>
 
                 <div class="float-center">
                     <h5>Tipo de reporte</h5>
@@ -36,13 +36,16 @@
                         <tr>
                             <td>
                                 <input type="date" class="form-control" #R1PF="ngModel" [(ngModel)]="R1D1"
-                                    name="firstRangeFirstDate">
+                                    name="firstRangeFirstDate" (change)="validateFirstDates();validateComparativeDates()" 
+                                    required [class.is-invalid]="date1HasError && R1PF.touched">
                             </td>
                             <td>
-                                <input type="date" class="form-control" #R1SF="ngModel" [(ngModel)]="R1D2"
-                                    name="firstRangeSecondDate">
+                                <input #datePick2 type="date" class="form-control" #R1SF="ngModel" [(ngModel)]="R1D2"
+                                    name="firstRangeSecondDate" (change)="validateFirstDates();validateComparativeDates()"
+                                    required [class.is-invalid]="(date1HasError && R1SF.touched) || (date3HasError && R1SF.touched && auxN === 'comparativo')">
                             </td>
                         </tr>
+                        <p><small class="text-danger" *ngIf="date1HasError && (R1PF.touched && R1SF.touched)">Fechas incorrectas</small></p>
                     </table>
                 </div>
 
@@ -64,13 +67,16 @@
                         <tr>
                             <td>
                                 <input type="date" class="form-control" #R2PF="ngModel" [(ngModel)]="R2D1"
-                                    name="secondRangeFirstDate">
+                                    name="secondRangeFirstDate" (change)="validateSecondDates();validateComparativeDates()" 
+                                    required [class.is-invalid]="(date2HasError && R2PF.touched) || (date3HasError && R2PF.touched)">
                             </td>
                             <td>
                                 <input type="date" class="form-control" #R2SF="ngModel" [(ngModel)]="R2D2"
-                                    name="secondRangeSecondDate">
+                                    name="secondRangeSecondDate"(change)="validateSecondDates();validateComparativeDates()" 
+                                    required [class.is-invalid]="date2HasError && R2SF.touched">
                             </td>
                         </tr>
+                        <p><small class="text-danger" *ngIf="(date2HasError && (R2PF.touched && R2SF.touched)) || (date3HasError && (R2PF.touched && R2SF.touched))">Fechas incorrectas</small></p>
                     </table>
                 </div>
 
@@ -78,22 +84,22 @@
                 <button type="button" class="btn btn-success" (click)=" inputRequestForm.reset()"
                             data-toggle="modal" data-target="#requestModal">
                             -->
-                <button *ngIf="auxN === 'insumos'" [disabled]="reportForm.form.invalid" type="button"
+                <button *ngIf="auxN === 'insumos'" [disabled]="date1HasError" type="button"
                     class="btn btn-success" data-toggle="modal" data-target="#inputReportModal"
                     (click)="getInputReport()">Generar
                     reporte</button>
 
-                <button *ngIf="auxN === 'pedidos'" [disabled]="reportForm.form.invalid" type="button"
+                <button *ngIf="auxN === 'pedidos'" [disabled]="date1HasError" type="button"
                     class="btn btn-success" data-toggle="modal" data-target="#orderReportModal"
                     (click)="getOrderReport()">Generar
                     reporte</button>
 
-                <button *ngIf="auxN === 'entrada'" [disabled]="reportForm.form.invalid" type="button"
+                <button *ngIf="auxN === 'entrada'" [disabled]="date1HasError" type="button"
                     class="btn btn-success" data-toggle="modal" data-target="#entryReportModal"
                     (click)="getEntryReport()">Generar
                     reporte</button>
 
-                <button *ngIf="auxN === 'comparativo'" [disabled]="reportForm.form.invalid" type="button"
+                <button *ngIf="auxN === 'comparativo'" [disabled]="date3HasError" type="button"
                     class="btn btn-success" data-toggle="modal" data-target="#comparativeReportModal"
                     (click)="getInputComparativeReport()">Generar
                     reporte</button>
@@ -220,7 +226,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="reportForm.reset()"
+                <button type="button" class="btn btn-secondary"
                     data-dismiss="modal">Cerrar</button>
                 <button [disabled]="reportForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
                     (click)="downloadPDF()">Descargar PDF</button>
@@ -312,7 +318,7 @@
                                 </h6>
                             </div>
 
-                            <h5>
+                            <h5 *ngIf="objOrderReport.listaPedidos.length > 0">
                                 Del {{objOrderReport.fechaInicio | date: 'dd/MM/yyyy'}} al
                                 {{objOrderReport.fechaFinal | date: 'dd/MM/yyyy'}}
                             </h5>
@@ -379,7 +385,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" (click)="orderReportForm.reset()"
+                    <button type="button" class="btn btn-secondary"
                         data-dismiss="modal">Cerrar</button>
                     <button [disabled]="orderReportForm.form.invalid" type="submit" class="btn btn-primary"
                         data-dismiss="modal" (click)="openOrderPDF()">Descargar PDF</button>
@@ -468,7 +474,7 @@
                                 </h6>
                             </div>
 
-                            <h5>
+                            <h5 *ngIf="objEntryReport.listaEntradas.length > 0">
                                 Del {{objEntryReport.fechaInicio | date: 'dd/MM/yyyy'}} al
                                 {{objEntryReport.fechaFinal | date: 'dd/MM/yyyy'}}
                             </h5>
@@ -519,7 +525,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" (click)="entryReportForm.reset()"
+                    <button type="button" class="btn btn-secondary"
                         data-dismiss="modal">Cerrar</button>
                     <button [disabled]="entryReportForm.form.invalid" type="submit" class="btn btn-primary"
                         data-dismiss="modal" (click)="openEntryPDF()">Descargar PDF</button>
@@ -755,7 +761,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" (click)="comparativeReportForm.reset()"
+                    <button type="button" class="btn btn-secondary"
                         data-dismiss="modal">Cerrar</button>
                     <button [disabled]="comparativeReportForm.form.invalid" type="submit" class="btn btn-primary"
                         data-dismiss="modal" (click)="openComparativePDF()">Descargar PDF</button>

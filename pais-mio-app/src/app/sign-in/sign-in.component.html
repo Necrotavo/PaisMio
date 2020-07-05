@@ -1,13 +1,13 @@
 <div class="signin-page">
     <div class="wrapper">
         <div class="header">
-            <a routerLink="/index/" class="logo">
+            <a routerLink="/" class="logo">
                 <img src="assets/images/logo-alt-b.png" />
             </a>
         </div>
         <form #loginForm="ngForm" (ngSubmit)="login()" novalidate>
             <div class="form-field">
-                <input type="text" required #correoU="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                <input type="text" required #correoU="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                  class="form-control" [class.is-invalid]="correoU.invalid && correoU.touched"
                  placeholder="correo@mail.com" name="correoU" [(ngModel)]="loginUser.correo">
                  <div *ngIf="correoU.errors && (correoU.invalid || correoU.touched)">
@@ -33,15 +33,11 @@
             </div>
             -->
             <div class="form-action">
-                <input button [disabled]="loginForm.form.invalid" type="submit" class="btn-shadow btn-shadow-primary" value="Ingresar"
+                <input button [disabled]="loginForm.form.invalid" type="submit" class="btn btn-shadow btn-shadow-primary" value="Ingresar"
                 >
             </div>
             <div class="form-bottom">
                 <a routerLink="/recover-password/">¿Olvidó su contraseña?</a>
-            </div>
-            <div class="form-bottom">
-                ¿No posee una cuenta?
-                <a routerLink="#">Contactar un administrador</a>
             </div>
         </form>
     </div>

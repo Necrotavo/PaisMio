@@ -45,7 +45,9 @@ export class ReportViewComponent implements OnInit {
 
   /** For combo validation */
   reportHasError = true;
-
+  date1HasError = true;
+  date2HasError = true;
+  date3HasError = true;
 
   /** returns */
   objInputReport = new InputReport(this.listReportedInput, new InfoPaisMio(0, '', '', '', '', '', ''), '', '');
@@ -107,6 +109,39 @@ export class ReportViewComponent implements OnInit {
       this.reportHasError = true;
     } else {
       this.reportHasError = false;
+    }
+  }
+
+  validateFirstDates(){
+    if(this.R1D1>this.R1D2){
+      this.date1HasError = true;
+    }else{
+      this.date1HasError = false;
+    }
+  }
+
+  validateSecondDates(){
+    if(this.R2D1>this.R2D2){
+      this.date2HasError = true;
+    }else{
+      this.date2HasError = false;
+    }
+  }
+
+    
+  validateComparativeDates(){
+    if(this.R1D2 === '' || this.R2D1 === ''){
+      this.date3HasError = true;
+    } else{
+      if(this.date1HasError === false && this.date2HasError === false){
+        if(this.R1D2<this.R2D1){
+          this.date3HasError = false;
+        }else{
+          this.date3HasError = true;
+        }
+      } else {
+        this.date3HasError = true;
+      }
     }
   }
 

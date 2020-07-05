@@ -88,10 +88,11 @@ namespace WebService
             return true;
         }
 
-        public void recuperarContrasena(string correo)
+        public string recuperarContrasena(DO_Operario usuario)
         {
             BL_Operario BLoperario = new BL_Operario();
-            BLoperario.recuperacionContrasena(correo);
+            BLoperario.recuperacionContrasena(usuario.correo);
+            return usuario.correo;
         }
 
         public bool opeRolUpgrade(DO_OpeRolUpgradeUsuario rolUpgrade)
