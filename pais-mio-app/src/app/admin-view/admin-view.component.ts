@@ -76,7 +76,7 @@ export class AdminViewComponent implements OnInit {
   objInput: Input;
   objUser: boolean;
   objClient: Client;
-  objProduct: boolean;
+  objProduct: Boolean;
   objCellar: Cellar;
   objMoveInput: MoveInput;
   objCellarAdmin: CellarAdmin;
@@ -323,7 +323,7 @@ export class AdminViewComponent implements OnInit {
         this.objUser = data;
         this.getUser();
         document.getElementById('btnClose').click();
-        // this.objUser = new User('', '', '', '', '', 'OPERARIO');
+        //this.objUser = new User('', '', '', '', '', 'OPERARIO');
         if (this.objUser) {
           Swal.fire({
             icon: 'success',
@@ -346,12 +346,12 @@ export class AdminViewComponent implements OnInit {
   }
 
   dropdownReset() {
-    (document.getElementById('rolU') as HTMLSelectElement).value = 'OPERARIO';
+    (<HTMLSelectElement>document.getElementById('rolU')).value = "OPERARIO";
   }
 
   checkEmailExist() {
     if (this.userList.length > 0) {
-      for (const entry of this.userList) {
+      for (let entry of this.userList) {
         if (entry.correo === this.userModel.correo) {
           return true;
         }
@@ -413,7 +413,7 @@ export class AdminViewComponent implements OnInit {
       data => {
         this.objProduct = data;
         this.getProduct();
-
+        
         if (this.objProduct) {
           Swal.fire({
             icon: 'success',
@@ -771,7 +771,7 @@ export class AdminViewComponent implements OnInit {
     this.productUpdateModel.nombre = productToUpdate.nombre;
   }
 
-  productCodeExist(forCreation: boolean){
+  productCodeExist(forCreation: Boolean){
     for (const i of this.productList) {
       if (forCreation) {
         if (this.productModel.id.toUpperCase() === i.id.toUpperCase()) {
