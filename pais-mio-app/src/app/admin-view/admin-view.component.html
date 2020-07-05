@@ -173,7 +173,7 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" (click)="inputForm.reset()"
+                            <button type="button" class="btn btn-success" (click)="inputForm.reset();resetinputCodeExist()"
                                 data-toggle="modal" data-target="#inputsModal">
                                 <i class="icon ion-plus">
                                 </i>
@@ -193,7 +193,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let com of inputList | filter:termI" (click)="chargeInputToUpdate(com)"
+                            <tr *ngFor="let com of inputList | filter:termI" (click)="chargeInputToUpdate(com);resetinputCodeExist()"
                                 data-toggle="modal" data-target="#inputUpdateModal">
                                 <td>
                                     {{com.id}}
@@ -249,13 +249,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of userList | filter:termU" (click)="chargeUserToUpdate(user)"
+                            <tr *ngFor="let user of userList | filter:termU" (click)="chargeUserToUpdate(user);resetinputCodeExist()"
                                 data-toggle="modal" data-target="#usersUpdateModal">
                                 <td>
-                                    {{user.nombre}}
+                                    {{user.nombre | titlecase}}
                                 </td>
                                 <td>
-                                    {{user.apellidos}}
+                                    {{user.apellidos | titlecase}}
                                 </td>
                                 <td class="btn btn-link">
                                     {{user.correo}}
@@ -285,7 +285,7 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" (click)="cellarForm.reset()"
+                            <button type="button" class="btn btn-success" (click)="cellarForm.reset();resetCellarNameExist()"
                                 data-toggle="modal" data-target="#cellarModal">
                                 <i class="icon ion-plus">
                                 </i>
@@ -300,18 +300,18 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Dirección</th>
-                                <th>Telefono</th>
+                                <th>Teléfono</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let bodega of cellarList | filter:termB" (click)="chargeCellarToUpdate(bodega)"
+                            <tr *ngFor="let bodega of cellarList | filter:termB" (click)="chargeCellarToUpdate(bodega);resetCellarNameExist()"
                                 data-toggle="modal" data-target="#cellarUpdateModal">
                                 <td class="btn btn-link">
-                                    {{bodega.nombre}}
+                                    {{bodega.nombre | titlecase}}
                                 </td>
                                 <td>
-                                    {{bodega.direccion}}
+                                    {{bodega.direccion | lowercase}}
                                 </td>
                                 <td>
                                     {{bodega.telefono}}
@@ -1213,7 +1213,7 @@
 
             <div class="modal-header">
                 <h5 class="modal-title" id="usersModallabel1">Crear usuario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="userForm.form.reset();dropdownReset()">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="userForm.form.reset();dropdownReset();resetinputCodeExist()">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
@@ -1622,7 +1622,6 @@
                     </table>
                 </form>
             </div>
-            {{clientModel | json}}
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="clientForm.reset()"
                     data-dismiss="modal">Cerrar</button>
@@ -2061,7 +2060,6 @@
 <div class="modal fade" id="cellarModal" tabindex="-1" role="dialog">
 
     <div class="modal-dialog" role="document">
-
         <div class="modal-content">
 
             <div class="modal-header">
@@ -2097,14 +2095,16 @@
                                         <input type="text" required #nombreC="ngModel" class="form-control"
                                             [class.is-invalid]="nombreC.invalid && nombreC.touched"
                                             placeholder="Nombre de la bodega" name="nombreC"
-                                            [(ngModel)]="cellarModel.nombre">
+                                            [(ngModel)]="cellarModel.nombre" (keyup)="validateCeNameUniqueness(true)">
 
                                         <div *ngIf="nombreC.invalid || nombreC.touched">
                                             <p><small class="text-danger"
                                                     *ngIf="nombreC.invalid && nombreC.touched">Nombre requerido</small>
                                             </p>
                                         </div>
-
+                                        <div *ngIf="cellarNameExist">
+                                            <p><small class="text-danger">El nombre de la bodega ya ha sido ingresado</small></p>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -2133,7 +2133,7 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="tel" required #telC="ngModel"
-                                            pattern="\([0-9]{3}\) [0-9]{4}[ -][0-9]{4}" class="form-control"
+                                            pattern="[0-9()-]{9,}" class="form-control"
                                             [class.is-invalid]="telC.invalid && telC.touched"
                                             placeholder="(506) 5555-5555" name="telC"
                                             [(ngModel)]="cellarModel.telefono">
@@ -2156,10 +2156,10 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="cellarForm.reset()"
+                <button type="button" class="btn btn-secondary" (click)="cellarForm.reset();resetCellarNameExist()"
                     data-dismiss="modal">Cerrar</button>
-                <button [disabled]="cellarForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
-                    (click)="postGetCellar()" class="btn btn-primary">Crear</button>
+                <button [disabled]="cellarForm.form.invalid || cellarNameExist" type="submit" class="btn btn-primary" data-dismiss="modal"
+                    (click)="postGetCellar();resetCellarNameExist()" class="btn btn-primary">Crear</button>
             </div>
 
         </div>
@@ -2212,7 +2212,7 @@
                                         <input type="text" required #nombreCEUP="ngModel" class="form-control"
                                             [class.is-invalid]="nombreCEUP.invalid && nombreCEUP.touched"
                                             placeholder="Nombre de la bodega" name="nombreC"
-                                            [(ngModel)]="cellarUpdateModel.nombre">
+                                            [(ngModel)]="cellarUpdateModel.nombre" (keyup)="validateCeNameUniqueness(false)">
 
                                         <div *ngIf="nombreCEUP.invalid || nombreCEUP.touched">
                                             <p><small class="text-danger"
@@ -2220,7 +2220,9 @@
                                                     requerido</small>
                                             </p>
                                         </div>
-
+                                        <div *ngIf="cellarNameExist">
+                                            <p><small class="text-danger">El nombre de la bodega ya ha sido ingresado</small></p>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -2251,7 +2253,7 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #telCEUP="ngModel" class="form-control"
-                                            [class.is-invalid]="telCEUP.invalid && telCEUP.touched"
+                                            pattern="[0-9()-]{9,}" [class.is-invalid]="telCEUP.invalid && telCEUP.touched"
                                             placeholder="+506 1234-5678" name="telCEUP"
                                             [(ngModel)]="cellarUpdateModel.telefono">
 
@@ -2289,9 +2291,9 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button [disabled]="cellarUpdateForm.form.invalid" type="submit" class="btn btn-primary"
-                    data-dismiss="modal" (click)="updateCellars()" class="btn btn-primary">Actualizar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="resetCellarNameExist()">Cerrar</button>
+                <button [disabled]="cellarUpdateForm.form.invalid || cellarNameExist" type="submit" class="btn btn-primary"
+                    data-dismiss="modal" (click)="updateCellars();resetCellarNameExist()" class="btn btn-primary">Actualizar</button>
             </div>
 
         </div>
