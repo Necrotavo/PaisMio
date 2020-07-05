@@ -1873,12 +1873,14 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #idP="ngModel" class="form-control"
-                                            [class.is-invalid]="idP.invalid && idP.touched"
-                                            placeholder="Código del producto" name="idP" [(ngModel)]="productModel.id">
+                                            [class.is-invalid]="(idP.invalid && idP.touched) || productIdExist"
+                                            placeholder="Código del producto" name="idP" [(ngModel)]="productModel.id"
+                                            (keyup)="productCodeExist(true)">
 
                                         <div *ngIf="idP.invalid || idP.touched">
                                             <p><small class="text-danger" *ngIf="idP.invalid && idP.touched">Código
                                                     requerido</small></p>
+                                                    <p><small class="text-danger" *ngIf="productIdExist">Ya existe ese código de producto</small></p>
                                         </div>
 
                                     </div>
@@ -1911,7 +1913,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="productForm.reset()"
                     data-dismiss="modal">Cerrar</button>
-                <button [disabled]="productForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
+                <button [disabled]="productForm.form.invalid || productIdExist" type="submit" class="btn btn-primary" data-dismiss="modal"
                     (click)="postProduct()" class="btn btn-primary">Crear</button>
             </div>
 
@@ -1983,14 +1985,18 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
+                                        
                                         <input type="text" required #idPUP="ngModel" class="form-control"
-                                            [class.is-invalid]="idPUP.invalid && idPUP.touched"
-                                            placeholder="Código del producto" name="idPUP"
-                                            [(ngModel)]="productUpdateModel.id">
+                                            [class.is-invalid]="(idPUP.invalid && idPUP.touched) || productIdExist"
+                                            placeholder="Código del producto" name="idPUP" 
+                                            [(ngModel)]="productUpdateModel.id"
+                                            (keyup)="productCodeExist(false)">
 
                                         <div *ngIf="idPUP.invalid || idPUP.touched">
                                             <p><small class="text-danger" *ngIf="idPUP.invalid && idPUP.touched">Código
                                                     requerido</small></p>
+                                                    <p><small class="text-danger" *ngIf="productIdExist">Ya existe ese código de producto</small></p>
+
                                         </div>
 
                                     </div>
@@ -2042,7 +2048,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button [disabled]="productUpdateForm.form.invalid" type="submit" class="btn btn-primary"
+                <button [disabled]="productUpdateForm.form.invalid || productIdExist" type="submit" class="btn btn-primary"
                     data-dismiss="modal" (click)="updateProduct()" class="btn btn-primary">Actualizar</button>
             </div>
 

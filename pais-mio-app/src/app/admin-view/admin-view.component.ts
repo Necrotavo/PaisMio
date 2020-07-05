@@ -76,7 +76,7 @@ export class AdminViewComponent implements OnInit {
   objInput: Input;
   objUser: boolean;
   objClient: Client;
-  objProduct: Product;
+  objProduct: Boolean;
   objCellar: Cellar;
   objMoveInput: MoveInput;
   objCellarAdmin: CellarAdmin;
@@ -105,6 +105,7 @@ export class AdminViewComponent implements OnInit {
   statusUHasError = true;
 
   /** Input list validations */
+
   productExist = false;
   unitExist = false;
   analysisExist = false;
@@ -112,6 +113,7 @@ export class AdminViewComponent implements OnInit {
   inputCodeExist = false;
   cellarNameExist = false;
 
+  productIdExist = false;
   /** Aux variables */
   auxQ = 1;
 
@@ -178,7 +180,7 @@ export class AdminViewComponent implements OnInit {
     /** Gets all unit types on Init */
     this.getUnits();
     this.getCellar();
-    
+
 
   }
 
@@ -324,7 +326,7 @@ export class AdminViewComponent implements OnInit {
         this.getUser();
         document.getElementById('btnClose').click();
         //this.objUser = new User('', '', '', '', '', 'OPERARIO');
-        if(this.objUser){
+        if (this.objUser) {
           Swal.fire({
             icon: 'success',
             title: '!Listo!',
@@ -332,7 +334,7 @@ export class AdminViewComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           });
-        }else{
+        } else {
           Swal.fire({
             icon: 'warning',
             title: '!Ups!',
@@ -345,18 +347,18 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-  dropdownReset(){ 
+  dropdownReset() {
     (<HTMLSelectElement>document.getElementById('rolU')).value = "OPERARIO";
   }
 
-  checkEmailExist(){
-   if(this.userList.length > 0){
-    for (let entry of this.userList) {
-      if(entry.correo === this.userModel.correo){
-        return true;
+  checkEmailExist() {
+    if (this.userList.length > 0) {
+      for (let entry of this.userList) {
+        if (entry.correo === this.userModel.correo) {
+          return true;
+        }
       }
     }
-   }
     return false;
   }
 
@@ -377,7 +379,7 @@ export class AdminViewComponent implements OnInit {
       data => {
         this.objClient = data;
         this.getClient();
-        if(this.objClient){
+        if (this.objClient) {
           Swal.fire({
             icon: 'success',
             title: '!Listo!',
@@ -413,14 +415,24 @@ export class AdminViewComponent implements OnInit {
       data => {
         this.objProduct = data;
         this.getProduct();
-        this.objProduct = new Product(0, '', '', '', '');
-        Swal.fire({
-          icon: 'success',
-          title: '!Listo!',
-          text: 'Producto agregado con éxito',
-          showConfirmButton: false,
-          timer: 1500
-        });
+        
+        if (this.objProduct) {
+          Swal.fire({
+            icon: 'success',
+            title: '!Listo!',
+            text: 'Producto agregado con éxito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else {
+          Swal.fire({
+            icon: 'warning',
+            title: '!Ups!',
+            text: 'Ocurrió algún error, vuelve a intentarlo',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
       }
     );
   }
@@ -651,7 +663,7 @@ export class AdminViewComponent implements OnInit {
       this.listIsNotEmpty = false;
     }
   }
-  
+
   removeFromList(i: number) {
     this.productEntryList.splice(i, 1);
     this.validateList();
@@ -765,7 +777,31 @@ export class AdminViewComponent implements OnInit {
   /** Product */
 
   chargeProductToUpdate(productToUpdate: Product) {
-    this.productUpdateModel = productToUpdate;
+    this.productUpdateModel.codigo = productToUpdate.codigo;
+    this.productUpdateModel.descripcion = productToUpdate.descripcion;
+    this.productUpdateModel.estado = productToUpdate.estado;
+    this.productUpdateModel.id = productToUpdate.id;
+    this.productUpdateModel.nombre = productToUpdate.nombre;
+  }
+
+  productCodeExist(forCreation: Boolean){
+    for (const i of this.productList) {
+      if (forCreation) {
+        if (this.productModel.id.toUpperCase() === i.id.toUpperCase()) {
+          this.productIdExist = true;
+          return;
+        } else {
+          this.productIdExist = false;
+        }
+      } else {
+        if (this.productUpdateModel.id.toUpperCase() === i.id.toUpperCase()) {
+          this.productIdExist = true;
+          return;
+        } else {
+          this.productIdExist = false;
+        }
+      }
+    }
   }
 
   updateProduct() {
@@ -773,23 +809,25 @@ export class AdminViewComponent implements OnInit {
     this.apiService.updateProduct(this.productUpdateModel).subscribe(
       data => {
         this.objProduct = data;
+        if (this.objProduct) {
+          Swal.fire({
+            icon: 'success',
+            title: '!Listo!',
+            text: 'Producto actualizado con éxito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else {
+          Swal.fire({
+            icon: 'warning',
+            title: '!Ups!',
+            text: 'Ocurrió algún error, vuelve a intentarlo',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
         this.getProduct();
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'center',
-          showConfirmButton: false,
-          timer: 1000,
-          onOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer);
-            toast.addEventListener('mouseleave', Swal.resumeTimer);
-          }
-        });
-        Toast.fire({
-          icon: 'success',
-          title: 'Producto actualizado'
-        });
-      }
-    );
+      });
   }
 
   /** Cellar */
@@ -854,7 +892,7 @@ export class AdminViewComponent implements OnInit {
   /** Input validations */
   validateCodeUniqueness(forCreation: boolean) {
     for (const i of this.inputList) {
-      if(forCreation){
+      if (forCreation) {
         if (this.inputModel.id.toUpperCase() === i.id.toUpperCase()) {
           this.inputCodeExist = true;
           return;
@@ -872,7 +910,7 @@ export class AdminViewComponent implements OnInit {
     }
   }
 
-  resetinputCodeExist(){
+  resetinputCodeExist() {
     this.inputCodeExist = false;
   }
 }
