@@ -111,6 +111,9 @@ export class AdminViewComponent implements OnInit {
   analysisExist = false;
   listIsNotEmpty = false;
   inputCodeExist = false;
+  userEmailExist = false;
+  cellarNameExist = false;
+
   productIdExist = false;
   /** Aux variables */
   auxQ = 1;
@@ -228,10 +231,13 @@ export class AdminViewComponent implements OnInit {
       if (this.unitModel.unidad.toUpperCase() === i.unidad.toUpperCase()) {
         this.unitExist = true;
         return;
-      } else {
-        this.unitExist = false;
       }
     }
+    this.unitExist = false;
+  }
+
+  closeUnitExist(){
+    this.unitExist = false;
   }
 
   getAllClient() {
@@ -349,15 +355,22 @@ export class AdminViewComponent implements OnInit {
     (<HTMLSelectElement>document.getElementById('rolU')).value = "OPERARIO";
   }
 
-  checkEmailExist() {
-    if (this.userList.length > 0) {
-      for (let entry of this.userList) {
-        if (entry.correo === this.userModel.correo) {
-          return true;
-        }
+  checkEmailExist(){
+   if(this.userList.length > 0){
+    for (let entry of this.userList) {
+      
+      if(entry.correo.toUpperCase() === this.userModel.correo.toUpperCase()){
+        this.userEmailExist = true;
+        return;
       }
     }
-    return false;
+   }
+   this.userEmailExist = false;
+   
+  }
+
+  closeUserEmailExist(){
+    this.userEmailExist = false;
   }
 
   getUser() {
@@ -452,15 +465,26 @@ export class AdminViewComponent implements OnInit {
 
     this.apiService.addCellar(this.cellarModel).subscribe(
       data => {
-        this.objCellar = data;
+        let auxBool : Cellar;
+        auxBool = data;
         this.getCellar();
-        Swal.fire({
-          icon: 'success',
-          title: '!Listo!',
-          text: 'Bodega agregada con éxito',
-          showConfirmButton: false,
-          timer: 1500
-        });
+        if(auxBool){
+          Swal.fire({
+            icon: 'success',
+            title: '!Listo!',
+            text: 'Bodega agregada con éxito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }else{
+          Swal.fire({
+            icon: 'warning',
+            title: '!Ups!',
+            text: 'Ocurrió algún error, vuelve a intentarlo',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
       }
     );
   }
@@ -820,7 +844,12 @@ export class AdminViewComponent implements OnInit {
   /** Cellar */
 
   chargeCellarToUpdate(cellarToUpdate: Cellar) {
-    this.cellarUpdateModel = cellarToUpdate;
+    this.cellarUpdateModel.codigo = cellarToUpdate.codigo;
+    this.cellarUpdateModel.direccion = cellarToUpdate.direccion;
+    this.cellarUpdateModel.estado = cellarToUpdate.estado;
+    this.cellarUpdateModel.listaInsumosEnBodega = cellarToUpdate.listaInsumosEnBodega;
+    this.cellarUpdateModel.nombre = cellarToUpdate.nombre;
+    this.cellarUpdateModel.telefono = cellarToUpdate.telefono;
   }
 
   updateCellars() {
@@ -845,6 +874,30 @@ export class AdminViewComponent implements OnInit {
         });
       }
     );
+  }
+
+  validateCeNameUniqueness(forCreation: boolean) {
+    for (const i of this.cellarList) {
+      if(forCreation){
+        if (this.cellarModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
+          this.cellarNameExist = true;
+          return;
+        } else {
+          this.cellarNameExist = false;
+        }
+      } else {
+        if (this.cellarUpdateModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
+          this.cellarNameExist = true;
+          return;
+        } else {
+          this.cellarNameExist = false;
+        }
+      }
+    }
+  }
+
+  resetCellarNameExist(){
+    this.cellarNameExist = false;
   }
 
   /** Input validations */

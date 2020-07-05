@@ -173,8 +173,9 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" (click)="inputForm.reset()"
-                                data-toggle="modal" data-target="#inputsModal">
+                            <button type="button" class="btn btn-success"
+                                (click)="inputForm.reset();resetinputCodeExist()" data-toggle="modal"
+                                data-target="#inputsModal">
                                 <i class="icon ion-plus">
                                 </i>
                                 Crear insumo
@@ -193,8 +194,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let com of inputList | filter:termI" (click)="chargeInputToUpdate(com)"
-                                data-toggle="modal" data-target="#inputUpdateModal">
+                            <tr *ngFor="let com of inputList | filter:termI"
+                                (click)="chargeInputToUpdate(com);resetinputCodeExist()" data-toggle="modal"
+                                data-target="#inputUpdateModal">
                                 <td>
                                     {{com.id}}
                                 </td>
@@ -229,7 +231,8 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#usersModal">
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#usersModal"
+                                (click)="userForm.form.reset();dropdownReset();closeUserEmailExist()">
                                 <i class="icon ion-plus">
                                 </i>
                                 Crear usuario
@@ -249,13 +252,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of userList | filter:termU" (click)="chargeUserToUpdate(user)"
-                                data-toggle="modal" data-target="#usersUpdateModal">
+                            <tr *ngFor="let user of userList | filter:termU"
+                                (click)="chargeUserToUpdate(user);resetinputCodeExist()" data-toggle="modal"
+                                data-target="#usersUpdateModal">
                                 <td>
-                                    {{user.nombre}}
+                                    {{user.nombre | titlecase}}
                                 </td>
                                 <td>
-                                    {{user.apellidos}}
+                                    {{user.apellidos | titlecase}}
                                 </td>
                                 <td class="btn btn-link">
                                     {{user.correo}}
@@ -285,8 +289,9 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" (click)="cellarForm.reset()"
-                                data-toggle="modal" data-target="#cellarModal">
+                            <button type="button" class="btn btn-success"
+                                (click)="cellarForm.reset();resetCellarNameExist()" data-toggle="modal"
+                                data-target="#cellarModal">
                                 <i class="icon ion-plus">
                                 </i>
                                 Crear Bodega
@@ -300,18 +305,19 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Dirección</th>
-                                <th>Telefono</th>
+                                <th>Teléfono</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let bodega of cellarList | filter:termB" (click)="chargeCellarToUpdate(bodega)"
-                                data-toggle="modal" data-target="#cellarUpdateModal">
+                            <tr *ngFor="let bodega of cellarList | filter:termB"
+                                (click)="chargeCellarToUpdate(bodega);resetCellarNameExist()" data-toggle="modal"
+                                data-target="#cellarUpdateModal">
                                 <td class="btn btn-link">
-                                    {{bodega.nombre}}
+                                    {{bodega.nombre | titlecase}}
                                 </td>
                                 <td>
-                                    {{bodega.direccion}}
+                                    {{bodega.direccion | lowercase}}
                                 </td>
                                 <td>
                                     {{bodega.telefono}}
@@ -337,7 +343,8 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" (click)="unitForm.reset()" data-toggle="modal"
+                            <button type="button" class="btn btn-success"
+                                (click)="unitForm.form.reset();closeUnitExist()" data-toggle="modal"
                                 data-target="#unitModal">
                                 <i class="icon ion-plus">
                                 </i>
@@ -611,7 +618,8 @@
                                 </th>
                                 <td>
 
-                                    <button [disabled]="!(auxQ > 0)" type="button" class="btn btn-success center" (click)="pushIntoEntryList()">
+                                    <button [disabled]="!(auxQ > 0)" type="button" class="btn btn-success center"
+                                        (click)="pushIntoEntryList()">
                                         <i class="icon ion-plus">
                                         </i>
                                         Agregar producto</button>
@@ -977,7 +985,8 @@
                                     <div class="form-field">
                                         <input type="text" required #codigoI="ngModel" class="form-control"
                                             [class.is-invalid]="codigoI.invalid && codigoI.touched" placeholder="Codigo"
-                                            name="codigoI" [(ngModel)]="inputModel.id" (keyup)="validateCodeUniqueness(true)">
+                                            name="codigoI" [(ngModel)]="inputModel.id"
+                                            (keyup)="validateCodeUniqueness(true)">
                                         <div *ngIf="codigoI.errors && (codigoI.invalid || codigoI.touched)">
 
                                             <p><small class="text-danger"
@@ -1035,8 +1044,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="inputForm.reset();resetinputCodeExist()"
                     data-dismiss="modal">Cerrar</button>
-                <button [disabled]="inputForm.form.invalid || inputCodeExist" type="submit" class="btn btn-primary" data-dismiss="modal"
-                    (click)="postInput()">Crear</button>
+                <button [disabled]="inputForm.form.invalid || inputCodeExist" type="submit" class="btn btn-primary"
+                    data-dismiss="modal" (click)="postInput()">Crear</button>
             </div>
 
         </div>
@@ -1190,9 +1199,10 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="resetinputCodeExist()">Cerrar</button>
-                <button [disabled]="inputUpdateForm.form.invalid || inputCodeExist" type="submit" class="btn btn-primary"
-                    (click)="updateInput()" data-dismiss="modal">Modificar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    (click)="resetinputCodeExist()">Cerrar</button>
+                <button [disabled]="inputUpdateForm.form.invalid || inputCodeExist" type="submit"
+                    class="btn btn-primary" (click)="updateInput()" data-dismiss="modal">Modificar</button>
             </div>
         </div>
     </div>
@@ -1213,9 +1223,12 @@
 
             <div class="modal-header">
                 <h5 class="modal-title" id="usersModallabel1">Crear usuario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="userForm.form.reset();dropdownReset()">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="userForm.form.reset();dropdownReset();closeUserEmailExist();resetinputCodeExist()">
                     <span aria-hidden="true">×</span>
                 </button>
+
             </div>
 
             <div class="modal-body">
@@ -1286,7 +1299,8 @@
                                         <input type="text" required #correoU="ngModel"
                                             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control"
                                             [class.is-invalid]="correoU.invalid && correoU.touched"
-                                            placeholder="correo@mail.com" name="correoU" [(ngModel)]="userModel.correo">
+                                            placeholder="correo@mail.com" name="correoU" [(ngModel)]="userModel.correo"
+                                            (keyup)="checkEmailExist()">
                                         <div *ngIf="correoU.errors && (correoU.invalid || correoU.touched)">
                                             <p><small class="text-danger"
                                                     *ngIf="correoU.errors.required && correoU.touched">Correo
@@ -1295,12 +1309,16 @@
                                                     inválido</small></p>
                                             <p><small class="text-danger" *ngIf="correoU.errors.pattern">Ejemplo:
                                                     xxxx@mail.com</small></p>
+
+
                                         </div>
-                                        
-                                        <div *ngIf="checkEmailExist()">
-                                            <p><small class="text-danger">Este correo ya existe</small></p>
+                                        <div>
+                                            <p><small class="text-danger" *ngIf="userEmailExist">Este correo ya
+                                                    existe</small></p>
                                         </div>
-                                        
+
+
+
                                     </div>
                                 </td>
                             </tr>
@@ -1326,10 +1344,11 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary"
-                    (click)="userForm.form.reset();dropdownReset()" data-dismiss="modal" id="btnClose">Cerrar</button>
-                <button button [disabled]="userForm.form.invalid || (checkEmailExist() === true)" type="submit" class="btn btn-primary"
-                    data-dismiss="modal"
-                    (click)="postUser();userForm.form.reset();dropdownReset()">Crear</button>
+                    (click)="userForm.form.reset();dropdownReset();closeUserEmailExist()" data-dismiss="modal"
+                    id="btnClose">Cerrar</button>
+                <button button [disabled]="userForm.form.invalid || userEmailExist" type="submit"
+                    class="btn btn-primary" data-dismiss="modal"
+                    (click)="postUser();userForm.form.reset();dropdownReset();closeUserEmailExist()">Crear</button>
             </div>
 
         </div>
@@ -1537,7 +1556,8 @@
                                                     requerida</small></p>
                                             <p><small class="text-danger" *ngIf="cedula.errors.pattern">Cédula
                                                     invalida</small></p>
-                                            <p><small class="text-danger" *ngIf="cedula.errors.pattern">Al menos 9 dígitos, sin
+                                            <p><small class="text-danger" *ngIf="cedula.errors.pattern">Al menos 9
+                                                    dígitos, sin
                                                     cero al inicio ni guiones</small></p>
                                         </div>
                                     </div>
@@ -1579,18 +1599,18 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="tel" required #telefono="ngModel"
-                                            pattern="[0-9()-]{9,}" class="form-control"
+                                        <input type="tel" required #telefono="ngModel" pattern="[0-9()-]{9,}"
+                                            class="form-control"
                                             [class.is-invalid]="telefono.invalid && telefono.touched"
-                                            placeholder="55555555" name="telefono"
-                                            [(ngModel)]="clientModel.telefono">
+                                            placeholder="55555555" name="telefono" [(ngModel)]="clientModel.telefono">
                                         <div *ngIf="telefono.errors && (telefono.invalid || telefono.touched)">
                                             <p><small class="text-danger"
                                                     *ngIf="telefono.errors.required && telefono.touched">Correo
                                                     requerido</small></p>
                                             <p><small class="text-danger" *ngIf="telefono.errors.pattern">Teléfono
                                                     invalido</small></p>
-                                            <p><small class="text-danger" *ngIf="telefono.errors.pattern">Ejemplo: 55555555</small></p>
+                                            <p><small class="text-danger" *ngIf="telefono.errors.pattern">Ejemplo:
+                                                    55555555</small></p>
                                         </div>
                                     </div>
                                 </td>
@@ -1622,7 +1642,6 @@
                     </table>
                 </form>
             </div>
-            {{clientModel | json}}
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="clientForm.reset()"
                     data-dismiss="modal">Cerrar</button>
@@ -1881,7 +1900,8 @@
                                         <div *ngIf="idP.invalid || idP.touched">
                                             <p><small class="text-danger" *ngIf="idP.invalid && idP.touched">Código
                                                     requerido</small></p>
-                                                    <p><small class="text-danger" *ngIf="productIdExist">Ya existe ese código de producto</small></p>
+                                            <p><small class="text-danger" *ngIf="productIdExist">Ya existe ese código de
+                                                    producto</small></p>
                                         </div>
 
                                     </div>
@@ -1914,8 +1934,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="productForm.reset()"
                     data-dismiss="modal">Cerrar</button>
-                <button [disabled]="productForm.form.invalid || productIdExist" type="submit" class="btn btn-primary" data-dismiss="modal"
-                    (click)="postProduct()" class="btn btn-primary">Crear</button>
+                <button [disabled]="productForm.form.invalid || productIdExist" type="submit" class="btn btn-primary"
+                    data-dismiss="modal" (click)="postProduct()" class="btn btn-primary">Crear</button>
             </div>
 
         </div>
@@ -1986,17 +2006,17 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        
+
                                         <input type="text" required #idPUP="ngModel" class="form-control"
                                             [class.is-invalid]="(idPUP.invalid && idPUP.touched) || productIdExist"
-                                            placeholder="Código del producto" name="idPUP" 
-                                            [(ngModel)]="productUpdateModel.id"
-                                            (keyup)="productCodeExist(false)">
+                                            placeholder="Código del producto" name="idPUP"
+                                            [(ngModel)]="productUpdateModel.id" (keyup)="productCodeExist(false)">
 
                                         <div *ngIf="idPUP.invalid || idPUP.touched">
                                             <p><small class="text-danger" *ngIf="idPUP.invalid && idPUP.touched">Código
                                                     requerido</small></p>
-                                                    <p><small class="text-danger" *ngIf="productIdExist">Ya existe ese código de producto</small></p>
+                                            <p><small class="text-danger" *ngIf="productIdExist">Ya existe ese código de
+                                                    producto</small></p>
 
                                         </div>
 
@@ -2049,8 +2069,9 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button [disabled]="productUpdateForm.form.invalid || productIdExist" type="submit" class="btn btn-primary"
-                    data-dismiss="modal" (click)="updateProduct()" class="btn btn-primary">Actualizar</button>
+                <button [disabled]="productUpdateForm.form.invalid || productIdExist" type="submit"
+                    class="btn btn-primary" data-dismiss="modal" (click)="updateProduct()"
+                    class="btn btn-primary">Actualizar</button>
             </div>
 
         </div>
@@ -2067,7 +2088,6 @@
 <div class="modal fade" id="cellarModal" tabindex="-1" role="dialog">
 
     <div class="modal-dialog" role="document">
-
         <div class="modal-content">
 
             <div class="modal-header">
@@ -2103,14 +2123,17 @@
                                         <input type="text" required #nombreC="ngModel" class="form-control"
                                             [class.is-invalid]="nombreC.invalid && nombreC.touched"
                                             placeholder="Nombre de la bodega" name="nombreC"
-                                            [(ngModel)]="cellarModel.nombre">
+                                            [(ngModel)]="cellarModel.nombre" (keyup)="validateCeNameUniqueness(true)">
 
                                         <div *ngIf="nombreC.invalid || nombreC.touched">
                                             <p><small class="text-danger"
                                                     *ngIf="nombreC.invalid && nombreC.touched">Nombre requerido</small>
                                             </p>
                                         </div>
-
+                                        <div *ngIf="cellarNameExist">
+                                            <p><small class="text-danger">El nombre de la bodega ya ha sido
+                                                    ingresado</small></p>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -2138,9 +2161,8 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="tel" required #telC="ngModel"
-                                            pattern="\([0-9]{3}\) [0-9]{4}[ -][0-9]{4}" class="form-control"
-                                            [class.is-invalid]="telC.invalid && telC.touched"
+                                        <input type="tel" required #telC="ngModel" pattern="[0-9()-]{9,}"
+                                            class="form-control" [class.is-invalid]="telC.invalid && telC.touched"
                                             placeholder="(506) 5555-5555" name="telC"
                                             [(ngModel)]="cellarModel.telefono">
 
@@ -2162,10 +2184,11 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="cellarForm.reset()"
+                <button type="button" class="btn btn-secondary" (click)="cellarForm.reset();resetCellarNameExist()"
                     data-dismiss="modal">Cerrar</button>
-                <button [disabled]="cellarForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
-                    (click)="postGetCellar()" class="btn btn-primary">Crear</button>
+                <button [disabled]="cellarForm.form.invalid || cellarNameExist" type="submit" class="btn btn-primary"
+                    data-dismiss="modal" (click)="postGetCellar();resetCellarNameExist()"
+                    class="btn btn-primary">Crear</button>
             </div>
 
         </div>
@@ -2218,7 +2241,8 @@
                                         <input type="text" required #nombreCEUP="ngModel" class="form-control"
                                             [class.is-invalid]="nombreCEUP.invalid && nombreCEUP.touched"
                                             placeholder="Nombre de la bodega" name="nombreC"
-                                            [(ngModel)]="cellarUpdateModel.nombre">
+                                            [(ngModel)]="cellarUpdateModel.nombre"
+                                            (keyup)="validateCeNameUniqueness(false)">
 
                                         <div *ngIf="nombreCEUP.invalid || nombreCEUP.touched">
                                             <p><small class="text-danger"
@@ -2226,7 +2250,10 @@
                                                     requerido</small>
                                             </p>
                                         </div>
-
+                                        <div *ngIf="cellarNameExist">
+                                            <p><small class="text-danger">El nombre de la bodega ya ha sido
+                                                    ingresado</small></p>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -2257,6 +2284,7 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #telCEUP="ngModel" class="form-control"
+                                            pattern="[0-9()-]{9,}"
                                             [class.is-invalid]="telCEUP.invalid && telCEUP.touched"
                                             placeholder="+506 1234-5678" name="telCEUP"
                                             [(ngModel)]="cellarUpdateModel.telefono">
@@ -2295,9 +2323,11 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button [disabled]="cellarUpdateForm.form.invalid" type="submit" class="btn btn-primary"
-                    data-dismiss="modal" (click)="updateCellars()" class="btn btn-primary">Actualizar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    (click)="resetCellarNameExist()">Cerrar</button>
+                <button [disabled]="cellarUpdateForm.form.invalid || cellarNameExist" type="submit"
+                    class="btn btn-primary" data-dismiss="modal" (click)="updateCellars();resetCellarNameExist()"
+                    class="btn btn-primary">Actualizar</button>
             </div>
 
         </div>
@@ -2319,7 +2349,8 @@
 
             <div class="modal-header">
                 <h5 class="modal-title" id="unitsModallabel1">Crear Unidad</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="unitForm.reset();closeUnitExist()">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
@@ -2358,7 +2389,7 @@
                                                     requerido</small>
                                             </p>
                                             <p>
-                                                <small class="text-danger" *ngIf="nombreUn.touched && unitExist">Ya
+                                                <small class="text-danger" *ngIf="unitExist">Ya
                                                     existe una unidad con ese nombre</small>
                                             </p>
                                         </div>
@@ -2372,16 +2403,11 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="unitForm.reset()"
+                <button type="button" class="btn btn-secondary" (click)="unitForm.reset();closeUnitExist()"
                     data-dismiss="modal">Cerrar</button>
-                <div *ngIf="nombreUn.invalid || unitExist">
-                    <button disabled type="submit" class="btn btn-primary" data-dismiss="modal" (click)="postUnit()"
-                        class="btn btn-primary">Crear</button>
-                </div>
-                <div *ngIf="!(nombreUn.invalid || unitExist)">
-                    <button [disabled]="unitForm.form.invalid" type="submit" class="btn btn-primary"
-                        data-dismiss="modal" (click)="postUnit()" class="btn btn-primary">Crear</button>
-                </div>
+                <button [disabled]="unitForm.form.invalid || nombreUn.invalid || unitExist" type="submit"
+                    class="btn btn-primary" data-dismiss="modal" (click)="postUnit();closeUnitExist()"
+                    class="btn btn-primary">Crear</button>
             </div>
 
         </div>
