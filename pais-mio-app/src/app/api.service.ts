@@ -468,17 +468,17 @@ export class ApiService {
     );
   }
 
-  addProduct(product: Product): Observable<Boolean> {
-    return this.http.post<Boolean>(productPost, product, HttpOptions).pipe(
-      tap((i: Boolean) => console.log(`added=${i}`)),
-      catchError(this.handleErrors<Boolean>(`addProduct`))
+  addProduct(product: Product): Observable<boolean> {
+    return this.http.post<boolean>(productPost, product, HttpOptions).pipe(
+      tap((i: boolean) => console.log(`added=${i}`)),
+      catchError(this.handleErrors<boolean>(`addProduct`))
     );
   }
 
-  updateProduct(product: Product): Observable<Boolean> {
-    return this.http.post<Boolean>(productUPDATE, product, HttpOptions).pipe(
-      tap((i: Boolean) => console.log(`added=${i}`)),
-      catchError(this.handleErrors<Boolean>(`addProduct`))
+  updateProduct(product: Product): Observable<boolean> {
+    return this.http.post<boolean>(productUPDATE, product, HttpOptions).pipe(
+      tap((i: boolean) => console.log(`added=${i}`)),
+      catchError(this.handleErrors<boolean>(`addProduct`))
     );
   }
 
