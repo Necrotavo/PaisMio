@@ -110,6 +110,7 @@ export class AdminViewComponent implements OnInit {
   analysisExist = false;
   listIsNotEmpty = false;
   inputCodeExist = false;
+  userEmailExist = false;
 
   /** Aux variables */
   auxQ = 1;
@@ -227,10 +228,13 @@ export class AdminViewComponent implements OnInit {
       if (this.unitModel.unidad.toUpperCase() === i.unidad.toUpperCase()) {
         this.unitExist = true;
         return;
-      } else {
-        this.unitExist = false;
       }
     }
+    this.unitExist = false;
+  }
+
+  closeUnitExist(){
+    this.unitExist = false;
   }
 
   getAllClient() {
@@ -351,12 +355,19 @@ export class AdminViewComponent implements OnInit {
   checkEmailExist(){
    if(this.userList.length > 0){
     for (let entry of this.userList) {
-      if(entry.correo === this.userModel.correo){
-        return true;
+      
+      if(entry.correo.toUpperCase() === this.userModel.correo.toUpperCase()){
+        this.userEmailExist = true;
+        return;
       }
     }
    }
-    return false;
+   this.userEmailExist = false;
+   
+  }
+
+  closeUserEmailExist(){
+    this.userEmailExist = false;
   }
 
   getUser() {

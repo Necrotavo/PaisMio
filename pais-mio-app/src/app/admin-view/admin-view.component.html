@@ -229,7 +229,8 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#usersModal">
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#usersModal"
+                            (click)="userForm.form.reset();dropdownReset();closeUserEmailExist()">
                                 <i class="icon ion-plus">
                                 </i>
                                 Crear usuario
@@ -337,7 +338,7 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" (click)="unitForm.reset()" data-toggle="modal"
+                            <button type="button" class="btn btn-success" (click)="unitForm.form.reset();closeUnitExist()" data-toggle="modal"
                                 data-target="#unitModal">
                                 <i class="icon ion-plus">
                                 </i>
@@ -1213,7 +1214,8 @@
 
             <div class="modal-header">
                 <h5 class="modal-title" id="usersModallabel1">Crear usuario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="userForm.form.reset();dropdownReset()">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" 
+                (click)="userForm.form.reset();dropdownReset();closeUserEmailExist()">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
@@ -1286,7 +1288,8 @@
                                         <input type="text" required #correoU="ngModel"
                                             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control"
                                             [class.is-invalid]="correoU.invalid && correoU.touched"
-                                            placeholder="correo@mail.com" name="correoU" [(ngModel)]="userModel.correo">
+                                            placeholder="correo@mail.com" name="correoU" [(ngModel)]="userModel.correo" 
+                                            (keyup)="checkEmailExist()">
                                         <div *ngIf="correoU.errors && (correoU.invalid || correoU.touched)">
                                             <p><small class="text-danger"
                                                     *ngIf="correoU.errors.required && correoU.touched">Correo
@@ -1294,12 +1297,15 @@
                                             <p><small class="text-danger" *ngIf="correoU.errors.pattern">Correo
                                                     inválido</small></p>
                                             <p><small class="text-danger" *ngIf="correoU.errors.pattern">Ejemplo:
-                                                    xxxx@mail.com</small></p>
+                                                    xxxx@mail.com</small></p>        
+                                            
+                                                    
+                                        </div>
+                                        <div>
+                                            <p><small class="text-danger" *ngIf="userEmailExist">Este correo ya existe</small></p>
                                         </div>
                                         
-                                        <div *ngIf="checkEmailExist()">
-                                            <p><small class="text-danger">Este correo ya existe</small></p>
-                                        </div>
+                                       
                                         
                                     </div>
                                 </td>
@@ -1326,10 +1332,10 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary"
-                    (click)="userForm.form.reset();dropdownReset()" data-dismiss="modal" id="btnClose">Cerrar</button>
-                <button button [disabled]="userForm.form.invalid || (checkEmailExist() === true)" type="submit" class="btn btn-primary"
+                    (click)="userForm.form.reset();dropdownReset();closeUserEmailExist()" data-dismiss="modal" id="btnClose">Cerrar</button>
+                <button button [disabled]="userForm.form.invalid || userEmailExist" type="submit" class="btn btn-primary"
                     data-dismiss="modal"
-                    (click)="postUser();userForm.form.reset();dropdownReset()">Crear</button>
+                    (click)="postUser();userForm.form.reset();dropdownReset();closeUserEmailExist()">Crear</button>
             </div>
 
         </div>
@@ -2313,7 +2319,8 @@
 
             <div class="modal-header">
                 <h5 class="modal-title" id="unitsModallabel1">Crear Unidad</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                (click)="unitForm.reset();closeUnitExist()">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
@@ -2352,7 +2359,7 @@
                                                     requerido</small>
                                             </p>
                                             <p>
-                                                <small class="text-danger" *ngIf="nombreUn.touched && unitExist">Ya
+                                                <small class="text-danger" *ngIf="unitExist">Ya
                                                     existe una unidad con ese nombre</small>
                                             </p>
                                         </div>
@@ -2366,16 +2373,10 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="unitForm.reset()"
+                <button type="button" class="btn btn-secondary" (click)="unitForm.reset();closeUnitExist()"
                     data-dismiss="modal">Cerrar</button>
-                <div *ngIf="nombreUn.invalid || unitExist">
-                    <button disabled type="submit" class="btn btn-primary" data-dismiss="modal" (click)="postUnit()"
-                        class="btn btn-primary">Crear</button>
-                </div>
-                <div *ngIf="!(nombreUn.invalid || unitExist)">
-                    <button [disabled]="unitForm.form.invalid" type="submit" class="btn btn-primary"
-                        data-dismiss="modal" (click)="postUnit()" class="btn btn-primary">Crear</button>
-                </div>
+                <button [disabled]="unitForm.form.invalid || nombreUn.invalid || unitExist" type="submit" class="btn btn-primary"
+                        data-dismiss="modal" (click)="postUnit();closeUnitExist()" class="btn btn-primary">Crear</button>
             </div>
 
         </div>
