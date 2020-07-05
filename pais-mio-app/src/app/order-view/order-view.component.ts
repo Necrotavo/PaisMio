@@ -200,6 +200,23 @@ export class OrderViewComponent implements OnInit {
         this.apiService.addAnalysis(this.analysisModel).subscribe(
       data => {
         this.objAnalysis = data;
+        if (this.objAnalysis) {
+          Swal.fire({
+            icon: 'success',
+            title: '!Listo!',
+            text: '¡Se agregó el análisis con éxito!',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else {
+          Swal.fire({
+            icon: 'warning',
+            title: '!Ups!',
+            text: 'Ocurrió algún error, vuelve a intentarlo',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
         this.changeAnalysis();
       }
     );

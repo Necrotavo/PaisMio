@@ -352,7 +352,8 @@ export class AdminViewComponent implements OnInit {
   }
 
   dropdownReset() {
-    (document.getElementById('rolU') as HTMLSelectElement).value = 'OPERARIO';
+    (<HTMLSelectElement>document.getElementById('rolU')).value = "OPERARIO";
+    this.userModel.rol= "OPERARIO";
   }
 
   checkEmailExist(){
@@ -920,7 +921,9 @@ export class AdminViewComponent implements OnInit {
       }
     }
   }
-
+  resetExistProductId(){
+    this.productIdExist = false;
+  }
   resetinputCodeExist() {
     this.inputCodeExist = false;
   }

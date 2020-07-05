@@ -499,15 +499,15 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="inputExist">
+                            <tr *ngIf="inputExist && auxQ > 0">
                                 <td>
-                                    <button [disabled]="!(auxQ > 0)" type="button" class="btn btn-success center" (click)="pushIntoEntryList()">
+                                    <button type="button" class="btn btn-success center" (click)="pushIntoEntryList()">
                                         <i class="icon ion-plus">
                                         </i>
                                         Consumir</button>
                                 </td>
                                 <td>
-                                    <button [disabled]="!(auxQ > 0)" type="button" class="btn btn-danger center" (click)="pushIntoDiscardList()">
+                                    <button type="button" class="btn btn-danger center" (click)="pushIntoDiscardList()">
                                         <i class="icon ion-plus">
                                         </i>
                                         Descartar</button>
