@@ -49,17 +49,30 @@ export class InventoryControlComponent implements OnInit {
   termIQ: string;
   termIQ2: string;
 
-  /** Combo validations */
+  /** Validations */
   cellarHasError = true;
+  inputAlreadyAdded = false;
 
   /** Aux variables */
   auxQ: number;
-
 
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
 
+    this.getACellarList();
+
+    /** Gets all Inputs on Init */
+    this.apiService.getInput().subscribe(
+      data => {
+        this.inputList = data;
+      }
+    );
+
+    this.localUser = JSON.parse(localStorage.getItem('user logged'));
+  }
+
+  getCellarList(){
     this.apiService.getCellar().subscribe(
       data => {
         this.cellarList = data;
@@ -70,21 +83,19 @@ export class InventoryControlComponent implements OnInit {
         });
       }
     );
+  }
 
+  getACellarList(){
     this.apiService.getACellar().subscribe(
       data => {
         this.cellarList = data;
+        this.cellarList.forEach(element => {
+          for (const i of element.listaInsumosEnBodega) {
+            this.inputQListInCellar.push(i);
+          }
+        });
       }
     );
-
-    /** Gets all Inputs on Init */
-    this.apiService.getInput().subscribe(
-      data => {
-        this.inputList = data;
-      }
-    );
-
-    this.localUser = JSON.parse(localStorage.getItem('user logged'));
   }
 
   getInputQOnClick(){
@@ -140,6 +151,7 @@ export class InventoryControlComponent implements OnInit {
         }
       }
     );
+    this.getACellarList();
   }
 
   pushIntoEntryList() {
@@ -192,6 +204,15 @@ export class InventoryControlComponent implements OnInit {
       this.auxQ = 0;
     }
   }
-
-
+  
+  validateInputName(){
+    for (const i of this.inputEntryList) {
+      if (this.searchInputModel.nombre.toUpperCase() === i.insumo.nombre.toUpperCase()) {
+        this.inputAlreadyAdded = true;
+        return;
+      } else {
+        this.inputAlreadyAdded = false;
+      }
+    }
+  }
 }
