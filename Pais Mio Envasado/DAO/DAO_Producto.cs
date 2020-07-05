@@ -185,13 +185,14 @@ namespace DAO
         public bool modificarProducto(DO_Producto doProducto) {
             SqlCommand comandoModificar = new SqlCommand("UPDATE PRODUCTO SET PRO_NOMBRE = @nombreProducto, " +
                 "PRO_DESCRIPCION = @descripcionProducto, " +
-                "EST_HAB_ESTADO = @estado " +
+                "EST_HAB_ESTADO = @estado, ID = @id " +
                 "where PRO_CODIGO = @codigoProducto", conexion);
 
             comandoModificar.Parameters.AddWithValue("@nombreProducto", doProducto.nombre);
             comandoModificar.Parameters.AddWithValue("@descripcionProducto", doProducto.descripcion);
             comandoModificar.Parameters.AddWithValue("@estado", doProducto.estado);
             comandoModificar.Parameters.AddWithValue("@codigoProducto", doProducto.codigo);
+            comandoModificar.Parameters.AddWithValue("@id", doProducto.id);
 
             try
             {
