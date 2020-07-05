@@ -15,28 +15,35 @@ export class SignInComponent implements OnInit {
 
   loginUser = new LoginUser('', '');
   objLogin: User = new User('', '', '', '', '', 'default');
-  isCorrect = false;
+
+  /** Validations */
+  isWrong = false;
 
   ngOnInit(): void {
-
     if (localStorage.getItem('user logged') !== null){
       this.router.navigateByUrl('/');
     }
-
   }
 
   login(){
     return this.auth.userLogin(this.loginUser).subscribe(
       data => {
         this.objLogin = data;
-        this.isCorrect = true;
-        localStorage.setItem('user logged', JSON.stringify(this.objLogin));
-        localStorage.setItem('logged username', JSON.stringify(this.objLogin.nombre));
-        localStorage.setItem('logged role', JSON.stringify(this.objLogin.rol));
-        this.router.navigateByUrl('/');
-        this.auth.overloadUser();
+        if(!this.objLogin){
+          this.isWrong = true;
+        } else {
+          this.isWrong = false;
+          localStorage.setItem('user logged', JSON.stringify(this.objLogin));
+          localStorage.setItem('logged username', JSON.stringify(this.objLogin.nombre));
+          localStorage.setItem('logged role', JSON.stringify(this.objLogin.rol));
+          this.router.navigateByUrl('/');
+          this.auth.overloadUser();
+        }
       }
     );
   }
 
+  resetIsWrong(){
+    this.isWrong = false;
+  }
 }
