@@ -920,7 +920,9 @@ export class AdminViewComponent implements OnInit {
       }
     }
   }
-
+  resetExistProductId(){
+    this.productIdExist = false;
+  }
   resetinputCodeExist() {
     this.inputCodeExist = false;
   }

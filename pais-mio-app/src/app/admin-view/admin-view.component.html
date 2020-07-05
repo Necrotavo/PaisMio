@@ -472,7 +472,7 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" (click)="productForm.reset()"
+                            <button type="button" class="btn btn-success" (click)="productForm.reset();resetExistProductId()"
                                 data-toggle="modal" data-target="#productsModal">
                                 <i class="icon ion-plus">
                                 </i>
@@ -492,7 +492,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let com of productList | filter:termP" (click)="chargeProductToUpdate(com)"
+                            <tr *ngFor="let com of productList | filter:termP" (click)="chargeProductToUpdate(com);resetExistProductId()"
                                 data-toggle="modal" data-target="#productsUpdateModal">
                                 <td>
                                     {{com.id}}
