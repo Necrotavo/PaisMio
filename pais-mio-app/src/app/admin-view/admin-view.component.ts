@@ -76,7 +76,7 @@ export class AdminViewComponent implements OnInit {
   objInput: Input;
   objUser: boolean;
   objClient: Client;
-  objProduct: Boolean;
+  objProduct: boolean;
   objCellar: Cellar;
   objMoveInput: MoveInput;
   objCellarAdmin: CellarAdmin;
@@ -329,7 +329,7 @@ export class AdminViewComponent implements OnInit {
         this.objUser = data;
         this.getUser();
         document.getElementById('btnClose').click();
-        //this.objUser = new User('', '', '', '', '', 'OPERARIO');
+        // this.objUser = new User('', '', '', '', '', 'OPERARIO');
         if (this.objUser) {
           Swal.fire({
             icon: 'success',
@@ -357,17 +357,17 @@ export class AdminViewComponent implements OnInit {
   }
 
   checkEmailExist(){
-   if(this.userList.length > 0){
-    for (let entry of this.userList) {
-      
-      if(entry.correo.toUpperCase() === this.userModel.correo.toUpperCase()){
+   if (this.userList.length > 0){
+    for (const entry of this.userList) {
+
+      if (entry.correo.toUpperCase() === this.userModel.correo.toUpperCase()){
         this.userEmailExist = true;
         return;
       }
     }
    }
    this.userEmailExist = false;
-   
+
   }
 
   closeUserEmailExist(){
@@ -427,7 +427,7 @@ export class AdminViewComponent implements OnInit {
       data => {
         this.objProduct = data;
         this.getProduct();
-        
+
         if (this.objProduct) {
           Swal.fire({
             icon: 'success',
@@ -466,10 +466,10 @@ export class AdminViewComponent implements OnInit {
 
     this.apiService.addCellar(this.cellarModel).subscribe(
       data => {
-        let auxBool : Cellar;
+        let auxBool: Cellar;
         auxBool = data;
         this.getCellar();
-        if(auxBool){
+        if (auxBool){
           Swal.fire({
             icon: 'success',
             title: '!Listo!',
@@ -796,7 +796,7 @@ export class AdminViewComponent implements OnInit {
     this.productUpdateModel.nombre = productToUpdate.nombre;
   }
 
-  productCodeExist(forCreation: Boolean){
+  productCodeExist(forCreation: boolean){
     for (const i of this.productList) {
       if (forCreation) {
         if (this.productModel.id.toUpperCase() === i.id.toUpperCase()) {
@@ -879,7 +879,7 @@ export class AdminViewComponent implements OnInit {
 
   validateCeNameUniqueness(forCreation: boolean) {
     for (const i of this.cellarList) {
-      if(forCreation){
+      if (forCreation){
         if (this.cellarModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
           this.cellarNameExist = true;
           return;
