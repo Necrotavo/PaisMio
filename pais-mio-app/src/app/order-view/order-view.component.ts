@@ -182,18 +182,31 @@ export class OrderViewComponent implements OnInit {
 
   /** Build and post the analysis of an order */
   postAnalysis() {
-    this.analysisModel.analisisFQs = this.pqsAnalysisList;
-    console.log(`ORDERCODE TO ADD${this.order.codigo}`);
-    this.analysisModel.pedCodigo = this.order.codigo;
-    console.log(`${this.analysisModel}`);
-    this.apiService.addAnalysis(this.analysisModel).subscribe(
+    this.dispatchSwal.fire({
+      title: '¿Desea realizar esta acción?',
+      text: 'Esta decisión no es reversible',
+      icon: 'warning',
+      showCancelButton: true,
+      showCloseButton: true,
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+      reverseButtons: false
+    }).then((result) => {
+      if (result.value) {
+        this.analysisModel.analisisFQs = this.pqsAnalysisList;
+        console.log(`ORDERCODE TO ADD${this.order.codigo}`);
+        this.analysisModel.pedCodigo = this.order.codigo;
+        console.log(`${this.analysisModel}`);
+        this.apiService.addAnalysis(this.analysisModel).subscribe(
       data => {
         this.objAnalysis = data;
         this.changeAnalysis();
       }
     );
-    document.getElementById('botonCerrar').click();
-    this.analysisModel =  new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array<AnalysisPC>());
+        document.getElementById('botonCerrar').click();
+        this.analysisModel =  new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array<AnalysisPC>());
+      }
+    });
   }
 
   /** Used to validate the existance of an analysis in a specific order */
@@ -206,6 +219,17 @@ export class OrderViewComponent implements OnInit {
     }
     console.log(`${this.analysisExist}`);
     return this.analysisExist;
+  }
+
+  dropdownReset() {
+    (document.getElementById('exaVisualSelect') as HTMLSelectElement).value = '0';
+    this.analysisModel.exVisual = 0;
+    (document.getElementById('exaOlfaSelect') as HTMLSelectElement).value = '0';
+    this.analysisModel.exOlfativo = 0;
+    (document.getElementById('exaGustSelect') as HTMLSelectElement).value = '0';
+    this.analysisModel.exGustativo = 0;
+    (document.getElementById('exaArmoSelect') as HTMLSelectElement).value = '0';
+    this.analysisModel.aSensorial = 0;
   }
 
   /** InputRequest CRUD */
