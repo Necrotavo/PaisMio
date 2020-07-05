@@ -218,10 +218,10 @@ export class ApiService {
     );
   }
 
-  passwordRecovery(user: User): Observable<User> {
-    return this.http.post<User>(passwordRecoveryPOST, user, HttpOptions).pipe(
-      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
-      catchError(this.handleErrors<User>(`addUser`))
+  passwordRecovery(user: User): Observable<string> {
+    return this.http.post<string>(passwordRecoveryPOST, user, HttpOptions).pipe(
+      tap((i: string) => console.log(`added user w/ id=${i}`)),
+      catchError(this.handleErrors<string>(`addUser`))
     );
   }
 

@@ -30,7 +30,7 @@ namespace WebService
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST", UriTemplate = "RecuperarContrasena")]
-        void recuperarContrasena(string correo);
+        string recuperarContrasena(DO_Operario usuario);
 
         [OperationContract]
         [WebInvoke(RequestFormat = WebMessageFormat.Json,
