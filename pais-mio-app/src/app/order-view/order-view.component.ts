@@ -488,18 +488,18 @@ export class OrderViewComponent implements OnInit {
       icon: 'warning',
       showCancelButton: true,
       showCloseButton: true,
-      confirmButtonText: 'Conforme',
-      cancelButtonText: 'No conforme',
+      confirmButtonText: 'Completo',
+      cancelButtonText: 'Deficiente',
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
-        this.orderModel.estado = 'CONFORME';
+        this.orderModel.estado = 'COMPLETO';
         this.apiService.packOff(this.orderModel).subscribe(
           data => {
             this.objOrder = data;
             this.dispatchSwal.fire(
               'Despachado',
-              'El pedido ha sido despachado como conforme',
+              'El pedido ha sido despachado como completo',
               'success'
             );
           }
@@ -508,13 +508,13 @@ export class OrderViewComponent implements OnInit {
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
-        this.orderModel.estado = 'NO CONFORME';
+        this.orderModel.estado = 'DEFICIENTE';
         this.apiService.packOff(this.orderModel).subscribe(
           data => {
             this.objOrder = data;
             this.dispatchSwal.fire(
               'Despachado',
-              'El pedido ha sido despachado como no conforme',
+              'El pedido ha sido despachado como deficiente',
               'success'
             );
           }
@@ -522,8 +522,6 @@ export class OrderViewComponent implements OnInit {
        // this.newOrder();
       }
     });
-   
-    
   }
 
   /**

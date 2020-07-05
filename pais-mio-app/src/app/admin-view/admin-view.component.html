@@ -44,8 +44,8 @@
                                 <select class="custom-select" [(ngModel)]="termO2">
                                     <option [ngValue]="undefined">Estado</option>
                                     <option value="En proceso">En proceso</option>
-                                    <option value="Conforme">Conforme</option>
-                                    <option value="No conforme">No conforme</option>
+                                    <option value="Completo">Completo</option>
+                                    <option value="Deficiente">Deficiente</option>
                                 </select>
                             </div>
                             <br>
@@ -106,10 +106,10 @@
                                             </tr>
                                             <tr>
                                                 <th>Estado</th>
-                                                <td *ngIf="com.estado === 'CONFORME'">
+                                                <td *ngIf="com.estado === 'COMPLETO'">
                                                     <span class="badge badge-success">{{com.estado}}</span>
                                                 </td>
-                                                <td *ngIf="com.estado === 'NO CONFORME'">
+                                                <td *ngIf="com.estado === 'DEFICIENTE'">
                                                     <span class="badge badge-danger">{{com.estado}}</span>
                                                 </td>
                                                 <td *ngIf="com.estado === 'EN PROCESO'">
