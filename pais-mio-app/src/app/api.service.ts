@@ -211,10 +211,10 @@ export class ApiService {
     );
   }
 
-  addUser(user: User): Observable<User> {
-    return this.http.post<User>(userPOST, user, HttpOptions).pipe(
-      tap((i: User) => console.log(`added user w/ id=${i.nombre}`)),
-      catchError(this.handleErrors<User>(`addUser`))
+  addUser(user: User): Observable<boolean> {
+    return this.http.post<boolean>(userPOST, user, HttpOptions).pipe(
+      tap((i: boolean) => console.log(`added user w/ id=${i}`)),
+      catchError(this.handleErrors<boolean>(`addUser`))
     );
   }
 
@@ -231,7 +231,7 @@ export class ApiService {
       catchError(this.handleErrors<User>(`addUser`))
     );
   }
-  // intentando retornar un boolean
+
   changePassword(user: UserChangePass): Observable<boolean> {
     return this.http.post<boolean>(changePasswordPOST, user, HttpOptions).pipe(
       tap((i: boolean) => console.log(`added user w/ id=${i}`)),
@@ -267,10 +267,10 @@ export class ApiService {
     );
   }
 
-  updateUser(user: User): Observable<User> {
+  updateUser(user: User): Observable<boolean> {
     return this.http.post(userUpdatePOST, user, HttpOptions).pipe(
-      tap((i: User) => console.log(`update user w/ id=${i.nombre}`)),
-      catchError(this.handleErrors<User>(`updateUser`))
+      tap((i: boolean) => console.log(`update user w/ id=${i}`)),
+      catchError(this.handleErrors<boolean>(`updateUser`))
     );
   }
 

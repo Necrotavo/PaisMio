@@ -56,7 +56,7 @@ export class AdminViewComponent implements OnInit {
   orderList: Order[];
   orderTlist: Order[];
   inputList: Input[];
-  userList: User[];
+  userList: Array<User> = [];
   clientList: Client[];
   clientAList: Client[];
   productList: Product[];
@@ -74,7 +74,7 @@ export class AdminViewComponent implements OnInit {
   /** Data return objects */
   objOrder: boolean;
   objInput: Input;
-  objUser: User;
+  objUser: boolean;
   objClient: Client;
   objProduct: Product;
   objCellar: Cellar;
@@ -177,6 +177,7 @@ export class AdminViewComponent implements OnInit {
     /** Gets all unit types on Init */
     this.getUnits();
     this.getCellar();
+    
 
   }
 
@@ -320,16 +321,42 @@ export class AdminViewComponent implements OnInit {
       data => {
         this.objUser = data;
         this.getUser();
-        this.objUser = new User('', '', '', '', '', 'OPERARIO');
-        Swal.fire({
-          icon: 'success',
-          title: '!Listo!',
-          text: 'Usuario agregado con éxito',
-          showConfirmButton: false,
-          timer: 1500
-        });
+        document.getElementById('btnClose').click();
+        //this.objUser = new User('', '', '', '', '', 'OPERARIO');
+        if(this.objUser){
+          Swal.fire({
+            icon: 'success',
+            title: '!Listo!',
+            text: 'Usuario agregado con éxito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }else{
+          Swal.fire({
+            icon: 'warning',
+            title: '!Ups!',
+            text: 'Ocurrió algún error, vuelve a intentarlo',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
       }
     );
+  }
+
+  dropdownReset(){ 
+    (<HTMLSelectElement>document.getElementById('rolU')).value = "OPERARIO";
+  }
+
+  checkEmailExist(){
+   if(this.userList.length > 0){
+    for (let entry of this.userList) {
+      if(entry.correo === this.userModel.correo){
+        return true;
+      }
+    }
+   }
+    return false;
   }
 
   getUser() {
@@ -656,7 +683,12 @@ export class AdminViewComponent implements OnInit {
   /** User */
 
   chargeUserToUpdate(userToUpdate: User) {
-    this.userUpdateModel = userToUpdate;
+    this.userUpdateModel.rol = userToUpdate.rol;
+    this.userUpdateModel.nombre = userToUpdate.nombre;
+    this.userUpdateModel.estado = userToUpdate.estado;
+    this.userUpdateModel.correo = userToUpdate.correo;
+    this.userUpdateModel.contrasena = userToUpdate.contrasena;
+    this.userUpdateModel.apellidos = userToUpdate.apellidos;
   }
 
   updateUser() {
