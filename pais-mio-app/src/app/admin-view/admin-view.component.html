@@ -1209,7 +1209,7 @@
 
             <div class="modal-header">
                 <h5 class="modal-title" id="usersModallabel1">Crear usuario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="userForm.form.reset();dropdownReset()">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
@@ -1292,6 +1292,11 @@
                                             <p><small class="text-danger" *ngIf="correoU.errors.pattern">Ejemplo:
                                                     xxxx@mail.com</small></p>
                                         </div>
+                                        
+                                        <div *ngIf="checkEmailExist()">
+                                            <p><small class="text-danger">Este correo ya existe</small></p>
+                                        </div>
+                                        
                                     </div>
                                 </td>
                             </tr>
@@ -1302,7 +1307,7 @@
                                 <td>
                                     <div class="form-field">
                                         <select #rolU="ngModel" class="custom-select" name="rolU"
-                                            [(ngModel)]="userModel.rol">
+                                            [(ngModel)]="userModel.rol" id="rolU">
                                             <option value="OPERARIO" selected>Operario</option>
                                             <option value="SUPERVISOR">Supervisor</option>
                                             <option value="ADMINISTRADOR">Administrador</option>
@@ -1317,10 +1322,10 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary"
-                    (click)="nombreU.reset();apellidosU.reset();correoU.reset()" data-dismiss="modal">Cerrar</button>
-                <button button [disabled]="userForm.form.invalid" type="submit" class="btn btn-primary"
+                    (click)="userForm.form.reset();dropdownReset()" data-dismiss="modal" id="btnClose">Cerrar</button>
+                <button button [disabled]="userForm.form.invalid || (checkEmailExist() === true)" type="submit" class="btn btn-primary"
                     data-dismiss="modal"
-                    (click)="postUser();nombreU.reset();apellidosU.reset();correoU.reset()">Crear</button>
+                    (click)="postUser();userForm.form.reset();dropdownReset()">Crear</button>
             </div>
 
         </div>
