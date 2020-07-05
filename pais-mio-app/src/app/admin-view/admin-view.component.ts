@@ -349,16 +349,27 @@ export class AdminViewComponent implements OnInit {
       data => {
         this.objClient = data;
         this.getClient();
-        this.objClient = new Client('', '', '', '', '', '');
-        Swal.fire({
-          icon: 'success',
-          title: '!Listo!',
-          text: 'Cliente agregado con éxito',
-          showConfirmButton: false,
-          timer: 1500
-        });
+        if(this.objClient){
+          Swal.fire({
+            icon: 'success',
+            title: '!Listo!',
+            text: 'Cliente agregado con éxito',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else {
+          Swal.fire({
+            icon: 'warning',
+            title: '!Ups!',
+            text: 'Ocurrió algún error, vuelve a intentarlo',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
       }
     );
+    this.objClient = new Client('', '', '', '', '', '');
+    this.getClient();
   }
 
   getClient() {
@@ -675,7 +686,12 @@ export class AdminViewComponent implements OnInit {
   /** Client */
 
   chargeClientToUpdate(clientToUpdate: Client) {
-    this.clientUpdateModel = clientToUpdate;
+    this.clientUpdateModel.cedula = clientToUpdate.cedula;
+    this.clientUpdateModel.correo = clientToUpdate.correo;
+    this.clientUpdateModel.direccion = clientToUpdate.direccion;
+    this.clientUpdateModel.estado = clientToUpdate.estado;
+    this.clientUpdateModel.nombre = clientToUpdate.nombre;
+    this.clientUpdateModel.telefono = clientToUpdate.telefono;
   }
 
   updateClient() {

@@ -1523,16 +1523,16 @@
                                 <td>
 
                                     <div class="form-field">
-                                        <input type="text" required #cedula="ngModel" pattern="^\d{10}$"
+                                        <input type="text" required #cedula="ngModel" pattern="[0-9-]{9,}"
                                             class="form-control" [class.is-invalid]="cedula.invalid && cedula.touched"
-                                            placeholder="1234567890" name="cedula" [(ngModel)]="clientModel.cedula">
+                                            placeholder="123456789" name="cedula" [(ngModel)]="clientModel.cedula">
                                         <div *ngIf="cedula.errors && (cedula.invalid || cedula.touched)">
                                             <p><small class="text-danger"
                                                     *ngIf="cedula.errors.required && cedula.touched">Cédula
                                                     requerida</small></p>
                                             <p><small class="text-danger" *ngIf="cedula.errors.pattern">Cédula
                                                     invalida</small></p>
-                                            <p><small class="text-danger" *ngIf="cedula.errors.pattern">10 dígitos, sin
+                                            <p><small class="text-danger" *ngIf="cedula.errors.pattern">Al menos 9 dígitos, sin
                                                     cero al inicio ni guiones</small></p>
                                         </div>
                                     </div>
@@ -1575,9 +1575,9 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="tel" required #telefono="ngModel"
-                                            pattern="\([0-9]{3}\) [0-9]{4}[ -][0-9]{4}" class="form-control"
+                                            pattern="[0-9()-]{9,}" class="form-control"
                                             [class.is-invalid]="telefono.invalid && telefono.touched"
-                                            placeholder="(506) 5555-5555" name="telefono"
+                                            placeholder="55555555" name="telefono"
                                             [(ngModel)]="clientModel.telefono">
                                         <div *ngIf="telefono.errors && (telefono.invalid || telefono.touched)">
                                             <p><small class="text-danger"
@@ -1585,8 +1585,7 @@
                                                     requerido</small></p>
                                             <p><small class="text-danger" *ngIf="telefono.errors.pattern">Teléfono
                                                     invalido</small></p>
-                                            <p><small class="text-danger" *ngIf="telefono.errors.pattern">Ejemplo: (506)
-                                                    5555-5555</small></p>
+                                            <p><small class="text-danger" *ngIf="telefono.errors.pattern">Ejemplo: 55555555</small></p>
                                         </div>
                                     </div>
                                 </td>
@@ -1618,14 +1617,13 @@
                     </table>
                 </form>
             </div>
-
+            {{clientModel | json}}
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="clientForm.reset()"
                     data-dismiss="modal">Cerrar</button>
                 <button [disabled]="clientForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
                     (click)="postClient()">Crear</button>
             </div>
-
         </div>
     </div>
 </div>
