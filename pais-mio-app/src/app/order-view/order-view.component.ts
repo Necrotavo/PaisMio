@@ -130,6 +130,9 @@ export class OrderViewComponent implements OnInit {
     /** get Analysis type */
     this.getPQsAnalysis();
 
+    /** get Analysis */
+    this.changeAnalysis();
+
     /** Used to get the active inputs from the API service on init */
     this.apiService.getInputA().subscribe(
       data => {
@@ -163,8 +166,6 @@ export class OrderViewComponent implements OnInit {
       );
     }
   }
-
-
 
   /** Used to get a psyco chemical analysis of an order from the API service */
   getPQsAnalysis() {
