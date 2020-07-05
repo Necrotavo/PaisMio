@@ -165,7 +165,7 @@
 
                         <!-- Modal + button start -->
                         <!--Only when there is no analysis made-->
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#analysisModal">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#analysisModal"(click)="analysisDForm.reset();dropdownReset()">
                             <i class="icon ion-ios-flask">
                             </i>
 
@@ -749,7 +749,7 @@
                 <form #analysisDForm="ngForm" (ngSubmit)="postAnalysis();" novalidate>
 
                     <div class="description form-group">
-                        <ul class="nav nav-tabs" role="tablist">
+                        <ul class="nav nav-tabs" role="tablist" id="navAnalaysis">
                             <li class="nav-item">
                                 <a class="nav-link active" href="#add-product-data" role="tab" data-toggle="tab">Datos
                                     <small class="form-text text-muted">Producto</small></a>
@@ -818,7 +818,7 @@
                                         </tr>
                                         <tr>
                                             <th scope="row">
-                                                Nombre del Producto:
+                                                Nombre del producto:
                                             </th>
                                             <td>
                                                 <div class="form-field">
@@ -873,14 +873,15 @@
                                                 Examen visual:
                                             </th>
                                             <td>
-                                                <select (blur)="analysisExV.value" (change)="analysisExV.value"
+                                                <select 
                                                     #analysisExV="ngModel" class="form-control" name="analysisExV"
-                                                    [(ngModel)]="analysisModel.exVisual">
+                                                    [(ngModel)]="analysisModel.exVisual" id="exaVisualSelect">
+
+                                                    <option value="0" selected>No cumple
+                                                    </option>
+                                                    <option value="1">Cumple
+                                                    </option>
                                                     
-                                                    <option value="1" class="badge badge-success">Cumple
-                                                    </option>
-                                                    <option value="0" class="badge badge-danger">No cumple
-                                                    </option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -894,12 +895,13 @@
                                             <td>
                                                 <select (blur)="analysisExO.value" (change)="analysisExO.value"
                                                     #analysisExO="ngModel" class="form-control" name="analysisExO"
-                                                    [(ngModel)]="analysisModel.exOlfativo">
-                                                    
-                                                    <option value="1" class="badge badge-success">Cumple
+                                                    [(ngModel)]="analysisModel.exOlfativo" id="exaOlfaSelect">
+
+                                                    <option value="0" selected>No cumple
                                                     </option>
-                                                    <option value="0" class="badge badge-danger">No cumple
+                                                    <option value="1">Cumple
                                                     </option>
+            
                                                 </select>
                                             </td>
                                         </tr>
@@ -911,12 +913,13 @@
                                             <td>
                                                 <select (blur)="analysisExG.value" (change)="analysisExG.value"
                                                     #analysisExG="ngModel" class="form-control" name="analysisExG"
-                                                    [(ngModel)]="analysisModel.exGustativo">
+                                                    [(ngModel)]="analysisModel.exGustativo" id="exaGustSelect">                            
                                                     
-                                                    <option value="1" class="badge badge-success">Cumple
+                                                    <option value="0" selected>No cumple
                                                     </option>
-                                                    <option value="0" class="badge badge-danger">No cumple
+                                                    <option value="1">Cumple
                                                     </option>
+                                                
                                                 </select>
                                             </td>
                                         </tr>
@@ -928,12 +931,13 @@
                                             <td>
                                                 <select (blur)="analysisAsen.value" (change)="analysisAsen.value"
                                                     #analysisAsen="ngModel" class="form-control" name="analysisAsen"
-                                                    [(ngModel)]="analysisModel.aSensorial">
+                                                    [(ngModel)]="analysisModel.aSensorial" id="exaArmoSelect">
                                                     
-                                                    <option value="1" class="badge badge-success">Cumple
+                                                    <option value="0" selected>No cumple
                                                     </option>
-                                                    <option value="0" class="badge badge-danger">No cumple
+                                                    <option value="1">Cumple
                                                     </option>
+                                            
                                                 </select>
                                             </td>
                                         </tr>
@@ -1022,7 +1026,9 @@
                     data-dismiss="modal" (click)="postAnalysis()">Agregar
                     análisis
                 </button>
+                
             </div>
         </div>
+       
     </div>
 </div>
