@@ -353,6 +353,7 @@ export class AdminViewComponent implements OnInit {
 
   dropdownReset() {
     (<HTMLSelectElement>document.getElementById('rolU')).value = "OPERARIO";
+    this.userModel.rol= "OPERARIO";
   }
 
   checkEmailExist(){
