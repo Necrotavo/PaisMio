@@ -458,14 +458,12 @@
                                     </div>
                                 </td>
                             </tr>
-
-
                             <tr>
                                 <th>
                                     Nombre de insumo
                                 </th>
                                 <td>
-                                    <div class="form-field">
+                                    <div class="form-field" disabled>
                                         <ng-autocomplete [data]="autoCompleteInput" [searchKeyword]="keyword"
                                             [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
                                             placeHolder="Nombre de insumo"
@@ -518,20 +516,25 @@
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
+                                <p><small class="text-danger" *ngIf="inputInConsumeList && inputInDiscardList && auxQ > 0">Ya ingresó ese insumo</small></p>
+                            </tr>
                             <tr *ngIf="inputExist && auxQ > 0">
                                 <td>
-                                    <button type="button" class="btn btn-success center" (click)="pushIntoEntryList()">
+                                    <button *ngIf="!inputInConsumeList" type="button" class="btn btn-success center" (click)="pushIntoEntryList()">
                                         <i class="icon ion-plus">
                                         </i>
                                         Consumir</button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-danger center" (click)="pushIntoDiscardList()">
+                                    <button *ngIf="!inputInDiscardList" type="button" class="btn btn-danger center" (click)="pushIntoDiscardList()">
                                         <i class="icon ion-plus">
                                         </i>
                                         Descartar</button>
                                 </td>
                             </tr>
+                            
+                            
                         </tbody>
                     </table>
                     <div *ngIf="listIsNotEmpty">

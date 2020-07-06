@@ -43,8 +43,8 @@ export class OrderViewComponent implements OnInit {
   /** Object Lists */
   cellarList: Cellar[];
   orderList: Order[];
-  consumeList: InputQ[];
-  discardList: InputQ[];
+  consumeList: Array<InputQ> = [];
+  discardList: Array<InputQ> = [];
   inputRequestListByOrder: Array<InputRequest> = [];
   inputRequestListByUser: InputRequest[];
   inputRequestList: InputRequest[];
@@ -66,6 +66,8 @@ export class OrderViewComponent implements OnInit {
   listIsNotEmpty = false;
   discardListIsNotEmpty = false;
   cellarHasError = false;
+  inputInConsumeList = false;
+  inputInDiscardList = false;
 
   /** Models */
   inputRequestModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, '', '', '', '', '');
@@ -290,6 +292,8 @@ export class OrderViewComponent implements OnInit {
   }
 
   resetInputEntryLists(){
+    this.inputInDiscardList = false;
+    this.inputInConsumeList = false;
     this.inputConsumeList.length = 0;
     this.inputDiscardList.length = 0;
     this.validateList();
@@ -368,15 +372,28 @@ export class OrderViewComponent implements OnInit {
   }
 
   selectedInput(item){
-    console.log(item);
     this.inputExist = true;
+    this.inputInConsumeList = false;
+    this.inputInDiscardList = false;
     this.searchInputModel2 = item;
     for (const i of this.cellarEntryModel.listaInsumosEnBodega) {
       if (item.nombre === i.insumo.nombre) {
         this.aviableQuantity = i.cantidadDisponible;
-        console.log(this.aviableQuantity);
       }
     }
+    
+    for(const j of this.inputDiscardList){
+      if(j.insumo.codigo === item.codigo){
+        this.inputInDiscardList = true;
+      }
+    }
+
+    for(const k of this.inputConsumeList){
+      if(k.insumo.codigo === item.codigo){
+        this.inputInConsumeList = true;
+      }
+    }
+
     return;
   }
 
@@ -450,13 +467,19 @@ export class OrderViewComponent implements OnInit {
 
   /** Used to search a cellar */
   searchCellar() {
+    this.autoCompleteInput.length = 0;
     for (const i of this.cellarList) {
       if (this.auxN.toUpperCase() === i.nombre.toUpperCase()) {
         this.cellarEntryModel = i;
+       for(const j of this.cellarEntryModel.listaInsumosEnBodega){
+          this.autoCompleteInput.push(j.insumo);
+        }
         this.resetInputRequestModal();
         return;
       }
     }
+    
+    //this.resetInputRequestModal();
   }
 
   /** Used to request for a status on an input request */
@@ -567,5 +590,7 @@ export class OrderViewComponent implements OnInit {
   navreload() {
     this.navbar.navbarReloadOrder();
   }
+
+  
 
 }
