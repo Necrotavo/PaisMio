@@ -1166,7 +1166,6 @@
                                             (change)="validateUnit(unitIUP.value)" #unitIUP="ngModel"
                                             [class.is-invalid]="unitHasError && unitIUP.touched" class="form-control"
                                             name="unitIUP" [(ngModel)]="inputUpdateModel.unidad">
-                                            <option value="inputUpdateModel.unidad">{{inputUpdateModel.unidad}}</option>
                                             <option *ngFor="let com of unitList">{{com.unidad}}</option>
                                         </select>
                                         <p><small class="text-danger"
@@ -1610,10 +1609,10 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="tel" required #telefono="ngModel" pattern="[0-9()-]{9,}"
+                                        <input type="tel" required #telefono="ngModel" pattern="[0-9()-]{8,}"
                                             class="form-control"
                                             [class.is-invalid]="telefono.invalid && telefono.touched"
-                                            placeholder="55555555" name="telefono" [(ngModel)]="clientModel.telefono">
+                                            placeholder="(506)5555-5555" name="telefono" [(ngModel)]="clientModel.telefono">
                                         <div *ngIf="telefono.errors && (telefono.invalid || telefono.touched)">
                                             <p><small class="text-danger"
                                                     *ngIf="telefono.errors.required && telefono.touched">Correo
@@ -1708,7 +1707,7 @@
                                 <td>
 
                                     <div class="form-field">
-                                        <input type="text" required #cedulaCUP="ngModel" pattern="^\d{10}$"
+                                        <input type="text" required #cedulaCUP="ngModel" pattern="[0-9-]{9,}"
                                             class="form-control"
                                             [class.is-invalid]="cedulaCUP.invalid && cedulaCUP.touched"
                                             placeholder="1234567890" name="cedulaCUP"
@@ -1765,9 +1764,9 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="tel" required #telefonoCUP="ngModel"
-                                            pattern="\([0-9]{3}\) [0-9]{4}[ -][0-9]{4}" class="form-control"
+                                            pattern="[0-9()-]{8,}" class="form-control"
                                             [class.is-invalid]="telefonoCUP.invalid && telefonoCUP.touched"
-                                            placeholder="(506) 5555-5555" name="telefonoCUP"
+                                            placeholder="(506)5555-5555" name="telefonoCUP"
                                             [(ngModel)]="clientUpdateModel.telefono">
                                         <div *ngIf="telefonoCUP.errors && (telefonoCUP.invalid || telefonoCUP.touched)">
                                             <p><small class="text-danger"
@@ -2180,7 +2179,7 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <input type="tel" required #telC="ngModel" pattern="[0-9()-]{9,}"
+                                        <input type="tel" required #telC="ngModel" pattern="[0-9()-]{8,}"
                                             class="form-control" [class.is-invalid]="telC.invalid && telC.touched"
                                             placeholder="(506) 5555-5555" name="telC"
                                             [(ngModel)]="cellarModel.telefono">
@@ -2306,9 +2305,9 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="text" required #telCEUP="ngModel" class="form-control"
-                                            pattern="[0-9()-]{9,}"
+                                            pattern="[0-9()-]{8,}"
                                             [class.is-invalid]="telCEUP.invalid && telCEUP.touched"
-                                            placeholder="+506 1234-5678" name="telCEUP"
+                                            placeholder="(506)5555-5555" name="telCEUP"
                                             [(ngModel)]="cellarUpdateModel.telefono">
 
                                         <div *ngIf="telCEUP.invalid || telCEUP.touched">
