@@ -30,7 +30,17 @@ namespace DAO
             insert.Parameters.AddWithValue("@estado", solicitudInsumos.estado);
             insert.Parameters.AddWithValue("@fecha", solicitudInsumos.fechaSolicitud);
             insert.Parameters.AddWithValue("@bodega", solicitudInsumos.codigoBodega);
-            insert.Parameters.AddWithValue("@notas", solicitudInsumos.notas);
+
+            if (solicitudInsumos.notas is null || solicitudInsumos.notas.Equals(""))
+            {
+                insert.Parameters.AddWithValue("@notas", DBNull.Value);
+            }
+            else
+            {
+                insert.Parameters.AddWithValue("@notas", solicitudInsumos.notas);
+
+            }
+
             try
             {
                 if (conexion.State != ConnectionState.Open)
@@ -96,8 +106,21 @@ namespace DAO
         /// <returns>True si se ingresan los insumos, False si sucede un error</returns>
         private bool agregarInsumosSolicitud(DO_SolicitudInsumos solicitud)
         {
-            string query = consumidosConstructor(solicitud) + " ";
-            query += descartadosConstructor(solicitud);
+           
+            string query = consumidosConstructor(solicitud);
+            if (query is null)
+            {
+                return false;
+            }
+            query += " ";
+
+            string aux = descartadosConstructor(solicitud);
+            if (aux is null)
+            {
+                return false;
+            }
+            query += aux;
+
             SqlCommand comando = new SqlCommand(query, conexion);
             try
             {
@@ -129,6 +152,7 @@ namespace DAO
         /// <returns>El comando creado o una cadena de texto vacía si sucede un error</returns>
         private string consumidosConstructor(DO_SolicitudInsumos solicitud)
         {
+            DAO_Bodega daoBodega = new DAO_Bodega();
             string query;
             if (solicitud.listaConsumo.Count == 0)
             {
@@ -141,6 +165,11 @@ namespace DAO
             
             foreach (DO_InsumoEnBodega insumo in solicitud.listaConsumo)
             {
+
+                if (daoBodega.cantidadInsumoBodega(solicitud.codigoBodega,insumo.insumo.codigo) < insumo.cantidadDisponible)
+                {
+                    return null;
+                }
                 query += "("+insumo.insumo.codigo+","+solicitud.codigoSolicitud+","+insumo.cantidadDisponible+"),";
             }
 
@@ -154,6 +183,8 @@ namespace DAO
         /// <returns>El comando creado o una cadena de texto vacía si sucede un error</returns>
         private string descartadosConstructor(DO_SolicitudInsumos solicitud)
         {
+            DAO_Bodega daoBodega = new DAO_Bodega();
+
             string query;
             if (solicitud.listaDescarte.Count == 0)
             {
@@ -161,11 +192,16 @@ namespace DAO
             }
             else
             {
+
                 query = "INSERT INTO POR_DESCARTE (INS_CODIGO, SOL_CODIGO, PDS_CANTIDAD) VALUES ";
             }
 
             foreach (DO_InsumoEnBodega insumo in solicitud.listaDescarte)
             {
+                if (daoBodega.cantidadInsumoBodega(solicitud.codigoBodega, insumo.insumo.codigo) < insumo.cantidadDisponible)
+                {
+                    return null;
+                }
                 query += "(" + insumo.insumo.codigo +","+ solicitud.codigoSolicitud +","+ insumo.cantidadDisponible + "),";
             }
 
@@ -361,10 +397,17 @@ namespace DAO
                         {
                             insumo.correoAdministrador = (string)lector["SUP_OPE_CORREO"];
                         }
+                        if (lector["SOL_NOTAS"] is System.DBNull)
+                        {
+                            insumo.notas = "";
+                        }
+                        else
+                        {
+                            insumo.notas = (string)lector["SOL_NOTAS"];
+                        }
                         insumo.estado = (string)lector["EST_SOL_ESTADO"];
                         insumo.fechaSolicitud = Convert.ToDateTime(lector["SOL_FECHA"]);
                         insumo.codigoBodega = Convert.ToInt32(lector["BODEGA"]); 
-                        insumo.notas = (string)lector["SOL_NOTAS"];
                         listaSolicitud.Add(insumo);
                     }
                 }
@@ -426,10 +469,17 @@ namespace DAO
                         {
                             insumo.correoAdministrador = (string)lector["SUP_OPE_CORREO"];
                         }
+                        if (lector["SOL_NOTAS"] is System.DBNull)
+                        {
+                            insumo.notas = "";
+                        }
+                        else
+                        {
+                            insumo.notas = (string)lector["SOL_NOTAS"];
+                        }
                         insumo.estado = (string)lector["EST_SOL_ESTADO"];
                         insumo.fechaSolicitud = Convert.ToDateTime(lector["SOL_FECHA"]);
                         insumo.codigoBodega = Convert.ToInt32(lector["BODEGA"]);
-                        insumo.notas = (string)lector["SOL_NOTAS"];
                         listaSolicitud.Add(insumo);
                     }
                 }
@@ -579,10 +629,17 @@ namespace DAO
                         {
                             insumo.correoAdministrador = (string)lector["SUP_OPE_CORREO"];
                         }
+                        if (lector["SOL_NOTAS"] is System.DBNull)
+                        {
+                            insumo.notas = "";
+                        }
+                        else
+                        {
+                            insumo.notas = (string)lector["SOL_NOTAS"];
+                        }
                         insumo.estado = (string)lector["EST_SOL_ESTADO"];
                         insumo.fechaSolicitud = (DateTime)lector["SOL_FECHA"];
                         insumo.codigoBodega = Convert.ToInt32(lector["BODEGA"]);
-                        insumo.notas = (string)lector["SOL_NOTAS"];
                     }
                 }
                 conexion.Close();

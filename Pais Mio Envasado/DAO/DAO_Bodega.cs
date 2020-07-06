@@ -743,7 +743,7 @@ namespace DAO
         /// <param name="codigoBodega">Código de la bodega en la que se busca</param>
         /// <param name="codigoInsumo">Có digo del insumo que se busca</param>
         /// <returns></returns>
-        private Int32 cantidadInsumoBodega(Int32 codigoBodega, Int32 codigoInsumo)
+        public Int32 cantidadInsumoBodega(Int32 codigoBodega, Int32 codigoInsumo)
         {
             try
             {
