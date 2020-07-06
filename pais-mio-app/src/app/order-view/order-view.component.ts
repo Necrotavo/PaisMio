@@ -68,6 +68,7 @@ export class OrderViewComponent implements OnInit {
   cellarHasError = false;
   inputInConsumeList = false;
   inputInDiscardList = false;
+  invalidRequest = false;
 
   /** Models */
   inputRequestModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, '', '', '', '', '');
@@ -89,6 +90,7 @@ export class OrderViewComponent implements OnInit {
   auxQ: number;
   auxN: string;
   aviableQuantity: number;
+  insumoInsuficiente = 'Hacen falta estos insumos:'
 
   dispatchSwal = Swal.mixin({
     customClass: {
@@ -196,7 +198,7 @@ export class OrderViewComponent implements OnInit {
       showCloseButton: true,
       confirmButtonText: 'Si',
       cancelButtonText: 'No',
-      reverseButtons: false
+      reverseButtons: true
     }).then((result) => {
       if (result.value) {
         this.analysisModel.analisisFQs = this.pqsAnalysisList;
@@ -353,10 +355,87 @@ export class OrderViewComponent implements OnInit {
 
   /** Used to asign a request into an specific order */
   asignRequest(request: InputRequest) {
+    this.invalidRequest = false;
     this.inputRequestModel = request;
     this.getCellarById(this.inputRequestModel.bodega);
+    this.searchAvalability(this.inputRequestModel.bodega);
   }
 
+  searchAvalability(cellarId: number){
+    this.apiService.getCellar().subscribe(
+      data => {
+        this.cellarList = data;
+        this.cellarList.forEach(element => {
+          for (const i of element.listaInsumosEnBodega) {
+            this.inputQListInCellar.push(i);
+          }
+        });
+      }
+    );
+
+    let  bodega: Cellar;
+    for(const bodegaEnLista of this.cellarList){
+      if(cellarId === bodegaEnLista.codigo){
+        bodega = bodegaEnLista;
+      }
+    }
+
+    for(const insumoConsumidoEnLista of this.inputRequestModel.insumosConsumo){
+      for(const insumoEnBodega of bodega.listaInsumosEnBodega){
+        if(insumoConsumidoEnLista.insumo.codigo === insumoEnBodega.insumo.codigo){
+          if(insumoConsumidoEnLista.cantidadDisponible > insumoEnBodega.cantidadDisponible){
+            this.invalidRequest = true;
+            this.insumoInsuficiente += ' ' + insumoConsumidoEnLista.insumo.nombre;
+          }
+        }
+      }
+    }
+
+    for(const insumoDescartadoEnLista of this.inputRequestModel.insumosDescarte){
+      for(const insumoEnBodega of bodega.listaInsumosEnBodega){
+        if(insumoDescartadoEnLista.insumo.codigo === insumoEnBodega.insumo.codigo){
+          if(insumoDescartadoEnLista.cantidadDisponible > insumoEnBodega.cantidadDisponible){
+            this.invalidRequest = true;
+            this.insumoInsuficiente += ' ' + insumoDescartadoEnLista.insumo.nombre;
+          }
+        }
+      }
+    }
+
+
+
+/*
+    for(const j of this.cellarList ){
+      if(j.codigo === this.inputRequestModel.bodega){
+        for(const i of this.inputRequestModel.insumosConsumo){
+          for(const k of j.listaInsumosEnBodega){
+            if(k.cantidadDisponible === 0){
+              this.invalidRequest = true;
+              return;
+            }
+            if(i.cantidadDisponible > k.cantidadDisponible){
+              this.invalidRequest = true;
+              return;
+            }
+          }
+        }
+
+        for(const i of this.inputRequestModel.insumosDescarte){
+          for(const k of j.listaInsumosEnBodega){
+            if(k.cantidadDisponible === 0){
+              this.invalidRequest = true;
+              return;
+            }
+            if(i.cantidadDisponible > k.cantidadDisponible){
+              this.invalidRequest = true;
+              return;
+            }
+          }
+        }
+      }
+    }
+    */
+  }
   /** used to search for an input from an specific cellar */
   searchInput() {
     for (const i of this.cellarEntryModel.listaInsumosEnBodega) {
@@ -493,7 +572,7 @@ export class OrderViewComponent implements OnInit {
       showCloseButton: true,
       confirmButtonText: 'Si',
       cancelButtonText: 'No',
-      reverseButtons: false
+      reverseButtons: true
     }).then((result) => {
       if (result.value) {
         this.inputRequestDesicionModel.admin = this.localUser;

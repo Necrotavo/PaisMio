@@ -135,8 +135,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let request of inputRequestListByOrder" data-target="#detailsModal"
-                            data-toggle="modal" (click)="asignRequest(request)">
+                        <tr *ngFor="let request of inputRequestListByOrder" (click)="asignRequest(request)" data-target="#detailsModal"
+                            data-toggle="modal" >
                             <td>
                                 {{request.codigo}}
                             </td>
@@ -733,12 +733,14 @@
                     </div>
                 </form>
             </div>
+            <p><small class="text-danger"
+                *ngIf="invalidRequest"> {{insumoInsuficiente}} </small></p>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button *ngIf="inputRequestModel.estado === 'PENDIENTE' && localUser.rol === 'ADMINISTRADOR'"
                     type="button" class="btn btn-danger" data-dismiss="modal"
                     (click)="requestDecision('RECHAZADA')">Rechazar</button>
-                <button *ngIf="inputRequestModel.estado === 'PENDIENTE' && localUser.rol === 'ADMINISTRADOR'"
+                <button *ngIf="inputRequestModel.estado === 'PENDIENTE' && localUser.rol === 'ADMINISTRADOR' && !invalidRequest"
                     type="button" class="btn btn-success" data-dismiss="modal"
                     (click)="requestDecision('APROBADA')">Aceptar</button>
             </div>
