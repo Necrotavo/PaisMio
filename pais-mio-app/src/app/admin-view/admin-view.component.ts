@@ -125,7 +125,7 @@ export class AdminViewComponent implements OnInit {
   userUpdateModel = new User('', '', '', '', '', 'default');
   inputModel = new Input(0, '', 0, '', '', '');
   inputUpdateModel = new Input(0, '', 0, '', '', '');
-  productModel = new Product(0, '', '', '', '');
+  productModel = new Product(0, ' ', ' ', ' ', ' ');
   productUpdateModel = new Product(0, '', '', '', '');
   clientEntryModel = new Client('', '', '', '', '', '');
   orderModel = new Order(0, this.clientEntryModel, '', this.productEntryList);
@@ -140,10 +140,16 @@ export class AdminViewComponent implements OnInit {
   localUser = new User('', '', '', '', '', '');
   analysisModel = new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array<AnalysisPC>());
   productEntryModel = new ProductInOrder(this.product, 0);
-  searchProductModel = new Product(0, '', '', '', '');
+  searchProductModel = new Product(0, ' ', ' ', ' ', ' ');
   searchProductModel2 = new Product(0, '', '', '', '');
 
   Swal = ('sweetalert2');
+
+  public keyword = 'nombre';
+  autoCompleteInput;
+  autoCompleteProduct;
+
+  productAlreadyAdded = false;
 
   ngOnInit(): void {
 
@@ -317,6 +323,7 @@ export class AdminViewComponent implements OnInit {
     this.apiService.getInput().subscribe(
       data => {
         this.inputList = data;
+        this.autoCompleteInput = this.inputList;
       }
     );
   }
@@ -452,6 +459,7 @@ export class AdminViewComponent implements OnInit {
     this.apiService.getProduct().subscribe(
       data => {
         this.productList = data;
+        this.autoCompleteProduct = this.productList;
       }
     );
   }
@@ -664,6 +672,21 @@ export class AdminViewComponent implements OnInit {
         this.productExist = false;
       }
     }
+  }
+
+  selectedProduct(item){
+      console.log(item);
+      for (const i of this.productEntryList){
+        console.log(i.producto.nombre);
+        if (item.nombre === i.producto.nombre) {
+          this.productAlreadyAdded = true;
+        } else {
+          this.productAlreadyAdded = false;
+        }
+      }
+      this.productExist = true;
+      this.searchProductModel2 = item;
+      return;
   }
 
   /** Validations for inputs in order */

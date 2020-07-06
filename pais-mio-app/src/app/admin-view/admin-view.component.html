@@ -32,6 +32,21 @@
                 </li>
             </ul>
 
+            <!--
+            <div>
+                <ng-autocomplete [data]="autoCompleteInput" [searchKeyword]="keywordInput" [itemTemplate]="itemTemplate"
+                    [notFoundTemplate]="notFoundTemplate">
+                </ng-autocomplete>
+
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.nombre"></a>
+                </ng-template>
+
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template>
+            </div> 
+            -->
 
             <!-- Tab panes -->
             <div class="tab-content">
@@ -168,7 +183,7 @@
                 <div role="tabpane1" class="tab-pane" id="inputs">
                     <div class="tab-header clearfix">
                         <div class="float-left">
-                            <div class="search-field">
+                            <div>
                                 <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="termI">
                             </div>
                             <br>
@@ -575,12 +590,30 @@
                                     Nombre
                                 </th>
                                 <td>
-                                    <div class="form-field" *ngIf="!productExist">
+                                    <div class="form-field">
+                                        <ng-autocomplete [data]="autoCompleteProduct" [searchKeyword]="keyword"
+                                            [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                                            placeHolder="Nombre de producto"
+                                            (selected)='selectedProduct($event)'
+                                            name="nombrePQ"
+                                            [(ngModel)]="searchProductModel.nombre"
+                                            #nombrePQ="ngModel"
+                                            >
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.nombre"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                        <!--
                                         <input type="text" (keyup)="searchProduct()" #nombrePQ="ngModel"
                                             class="form-control" [class.is-invalid]="!productExist && nombrePQ.touched "
                                             placeholder="Nombre de producto" name="nombrePQ"
                                             [(ngModel)]="searchProductModel.nombre">
-                                        <div *ngIf="nombrePQ.errors && (nombrePQ.invalid || nombrePQ.touched)">
+                                            <div *ngIf="nombrePQ.errors && (nombrePQ.invalid || nombrePQ.touched)">
                                             <p><small class="text-danger"
                                                     *ngIf="nombrePQ.errors.required && nombrePQ.touched">Nombre de
                                                     producto
@@ -588,14 +621,17 @@
                                             <p><small class="text-danger" *ngIf="nombrePQ.touched && !productExist">El
                                                     producto no
                                                     existe </small></p>
-                                        </div>
+                                            </div>
+                                        -->
                                     </div>
-                                    <div *ngIf="productExist">
-                                        {{searchProductModel2.nombre}}
+                                    <div *ngIf="productAlreadyAdded">
+                                        <p><small class="text-danger">El
+                                                producto ya ha sido 
+                                                agregado</small></p>
                                     </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="productExist">
+                            <tr *ngIf="productExist && !(productAlreadyAdded)">
                                 <th>
                                     Cantidad
                                 </th>
@@ -613,7 +649,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="productExist">
+                            <tr *ngIf="productExist && !(productAlreadyAdded)">
                                 <th>
                                 </th>
                                 <td>

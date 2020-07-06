@@ -37,7 +37,7 @@ export class InventoryControlComponent implements OnInit {
   cellarEntryModel = new Cellar(0, '', '', '', '', this.inputEntryList);
   cellarAdminModel = new CellarAdmin(this.cellarEntryModel, '');
   inputEntryModel = new InputQ(0, this.input);
-  searchInputModel = new Input(0, '', 0, '', '', '');
+  searchInputModel = new Input(0, ' ', 0, ' ', ' ', ' ');
   searchInputModel2 = new Input(0, '', 0, '', '', '');
   localUser = new User('', '', '', '', '', '');
 
@@ -56,6 +56,9 @@ export class InventoryControlComponent implements OnInit {
   /** Aux variables */
   auxQ: number;
 
+  public keyword = 'nombre';
+  autoCompleteInput;
+
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
@@ -66,6 +69,7 @@ export class InventoryControlComponent implements OnInit {
     this.apiService.getInput().subscribe(
       data => {
         this.inputList = data;
+        this.autoCompleteInput = this.inputList;
       }
     );
 
@@ -161,8 +165,8 @@ export class InventoryControlComponent implements OnInit {
     this.inputEntryList.push(this.inputEntryModel);
     this.inputEntryModel = new InputQ(0, this.input);
     this.auxQ = 0;
-    this.searchInputModel2 = new Input(0, '', 0, '', '', '');
-    this.searchInputModel = new Input(0, '', 0, '', '', '');
+    this.searchInputModel2 = new Input(0, ' ', 0, ' ', ' ', ' ');
+    this.searchInputModel = new Input(0, ' ', 0, ' ', ' ', ' ');
     this.validateList();
     this.inputExist = false;
   }
@@ -204,7 +208,7 @@ export class InventoryControlComponent implements OnInit {
       this.auxQ = 0;
     }
   }
-  
+
   validateInputName(){
     for (const i of this.inputEntryList) {
       if (this.searchInputModel.nombre.toUpperCase() === i.insumo.nombre.toUpperCase()) {
@@ -214,5 +218,18 @@ export class InventoryControlComponent implements OnInit {
         this.inputAlreadyAdded = false;
       }
     }
+  }
+
+  selectedInput(item){
+    console.log(item);
+    for (const i of this.inputEntryList){
+      if (item.nombre === i.insumo.nombre) {
+        this.inputAlreadyAdded = true;
+      } else {
+        this.inputAlreadyAdded = false;
+      }
+    }
+    this.inputExist = true;
+    this.searchInputModel2 = item;
   }
 }
