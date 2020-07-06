@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~9.1.4",
     "@angular/platform-browser-dynamic": "~9.1.4",
     "@angular/router": "~9.1.4",
+    "angular-ng-autocomplete": "^2.0.1",
     "html2canvas": "^1.0.0-rc.5",
     "jspdf": "^1.5.3",
     "ng2-search-filter": "^0.5.1",
