@@ -26,6 +26,7 @@ import { ApiService } from './api.service';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AuthService } from './auth.service';
 import { ReportViewComponent } from './report-view/report-view.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { ReportViewComponent } from './report-view/report-view.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    AutocompleteLibModule
   ],
   providers: [ApiService, AuthService],
   bootstrap: [AppComponent]

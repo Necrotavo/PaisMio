@@ -462,7 +462,25 @@
                                     Nombre de insumo
                                 </th>
                                 <td>
-                                    <div class="form-field" *ngIf="!inputExist">
+                                    <div class="form-field">
+                                        <ng-autocomplete [data]="autoCompleteInput" [searchKeyword]="keyword"
+                                            [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                                            placeHolder="Nombre de insumo"
+                                            (selected)='selectedInput($event)'
+                                            name="nombreIQ"
+                                            [(ngModel)]="searchInputModel.nombre"
+                                            #nombreIQ="ngModel"
+                                            >
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.nombre"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                        <!--
                                         <input type="text" (keyup)="searchInput()" required #nombreIQ="ngModel"
                                             class="form-control" [class.is-invalid]="!inputExist && nombreIQ.touched "
                                             placeholder="Nombre de insumo" name="nombreIQ"
@@ -476,13 +494,11 @@
                                                     insumo no
                                                     existe </small></p>
                                         </div>
-                                    </div>
-                                    <div *ngIf="inputExist">
-                                        {{searchInputModel2.nombre}}
+                                        -->
                                     </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="inputExist">
+                            <tr *ngIf="inputExist" >
                                 <th>
                                     Cantidad
                                 </th>

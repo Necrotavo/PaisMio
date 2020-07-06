@@ -73,7 +73,7 @@ export class OrderViewComponent implements OnInit {
   inputRequestDetailsModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, '', '', '', '', '');
   inputRequestDesicionModel = new InputRequestDesicion(this.inputRequestModel, this.user, '');
   userModel = new User('', '', '', '', '', 'default');
-  searchInputModel = new Input(0, '', 0, '', '', '');
+  searchInputModel = new Input(0, ' ', 0, ' ', ' ', ' ');
   searchInputModel2 = new Input(0, '', 0, '', '', '');
   inputEntryModel = new InputQ(0, this.input);
   analysisModel = new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array<AnalysisPC>());
@@ -100,6 +100,9 @@ export class OrderViewComponent implements OnInit {
   router: Router;
 
   Swal = ('sweetalert2');
+
+  public keyword = 'nombre';
+  autoCompleteInput;
 
   ngOnInit(): void {
 
@@ -141,6 +144,7 @@ export class OrderViewComponent implements OnInit {
     this.apiService.getInputA().subscribe(
       data => {
         this.inputList = data;
+        this.autoCompleteInput = this.inputList;
       }
     );
 
@@ -363,6 +367,19 @@ export class OrderViewComponent implements OnInit {
     }
   }
 
+  selectedInput(item){
+    console.log(item);
+    this.inputExist = true;
+    this.searchInputModel2 = item;
+    for (const i of this.cellarEntryModel.listaInsumosEnBodega) {
+      if (item.nombre === i.insumo.nombre) {
+        this.aviableQuantity = i.cantidadDisponible;
+        console.log(this.aviableQuantity);
+      }
+    }
+    return;
+  }
+
   /** Used to push an input into the entry list */
   pushIntoEntryList() {
     this.inputExist = false;
@@ -505,18 +522,18 @@ export class OrderViewComponent implements OnInit {
       icon: 'warning',
       showCancelButton: true,
       showCloseButton: true,
-      confirmButtonText: 'Conforme',
-      cancelButtonText: 'No conforme',
+      confirmButtonText: 'Completo',
+      cancelButtonText: 'Deficiente',
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
-        this.orderModel.estado = 'CONFORME';
+        this.orderModel.estado = 'COMPLETO';
         this.apiService.packOff(this.orderModel).subscribe(
           data => {
             this.objOrder = data;
             this.dispatchSwal.fire(
               'Despachado',
-              'El pedido ha sido despachado como conforme',
+              'El pedido ha sido despachado como completo',
               'success'
             );
           }
@@ -525,13 +542,13 @@ export class OrderViewComponent implements OnInit {
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
-        this.orderModel.estado = 'NO CONFORME';
+        this.orderModel.estado = 'DEFICIENTE';
         this.apiService.packOff(this.orderModel).subscribe(
           data => {
             this.objOrder = data;
             this.dispatchSwal.fire(
               'Despachado',
-              'El pedido ha sido despachado como no conforme',
+              'El pedido ha sido despachado como deficiente',
               'success'
             );
           }
@@ -539,20 +556,16 @@ export class OrderViewComponent implements OnInit {
        // this.newOrder();
       }
     });
-   
-    
   }
 
-  /**
+  /*
    * newOrder() {
     window.location.reload();
-    
   }
-   */
-  
+  */
+
   navreload() {
     this.navbar.navbarReloadOrder();
   }
-
 
 }
