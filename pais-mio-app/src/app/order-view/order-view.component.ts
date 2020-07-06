@@ -558,14 +558,12 @@ export class OrderViewComponent implements OnInit {
     });
   }
 
-  
     newOrder() {
-    //window.location.reload();
+    // window.location.reload();
     this.data.reloadOrderList(true);
     localStorage.setItem('active order', JSON.stringify(this.order));
   }
-   
-  
+
   navreload() {
     this.navbar.navbarReloadOrder();
   }
