@@ -268,7 +268,7 @@ export class AdminViewComponent implements OnInit {
   }
 
   newOrder() {
-    //window.location.reload();
+    // window.location.reload();
     this.data.reloadOrderList(true);
   }
 
