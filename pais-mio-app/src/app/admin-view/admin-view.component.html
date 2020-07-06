@@ -69,7 +69,7 @@
                                     <button class="btn btn-link" data-toggle="collapse"
                                         attr.data-target="#collapseO{{i}}" aria-expanded="true"
                                         attr.aria-controls="collapseO{{i}}" (click)="changeAnalysis(com)">
-                                        {{com.codigo}} | {{com.cliente.nombre}} | {{com.estado}}
+                                        {{com.codigo}} | {{com.cliente.nombre | titlecase}} | {{com.estado | titlecase}}
                                     </button>
                                 </h5>
                             </div>
