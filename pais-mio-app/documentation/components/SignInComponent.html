@@ -1,0 +1,667 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>pais-mio-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">pais-mio-app documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>SignInComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/sign-in/sign-in.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-sign-in</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./sign-in.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./sign-in.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#isWrong">isWrong</a>
+                            </li>
+                            <li>
+                                <a href="#loginUser">loginUser</a>
+                            </li>
+                            <li>
+                                <a href="#objLogin">objLogin</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#login">login</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#resetIsWrong">resetIsWrong</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(auth: <a href="../injectables/AuthService.html">AuthService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/sign-in/sign-in.component.ts:12</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>auth</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="login"></a>
+                    <span class="name">
+                        <b>
+                            login
+                        </b>
+                        <a href="#login"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>login()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/app/sign-in/sign-in.component.ts:28</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/app/sign-in/sign-in.component.ts:22</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetIsWrong"></a>
+                    <span class="name">
+                        <b>
+                            resetIsWrong
+                        </b>
+                        <a href="#resetIsWrong"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetIsWrong()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="46"
+                            class="link-to-prism">src/app/sign-in/sign-in.component.ts:46</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isWrong"></a>
+                        <span class="name">
+                            <b>
+                            isWrong</b>
+                            <a href="#isWrong"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/sign-in/sign-in.component.ts:20</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Validations </p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="loginUser"></a>
+                        <span class="name">
+                            <b>
+                            loginUser</b>
+                            <a href="#loginUser"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new LoginUser(&#x27;&#x27;, &#x27;&#x27;)</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/sign-in/sign-in.component.ts:16</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="objLogin"></a>
+                        <span class="name">
+                            <b>
+                            objLogin</b>
+                            <a href="#objLogin"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new User(&#x27;&#x27;, &#x27;&#x27;, &#x27;&#x27;, &#x27;&#x27;, &#x27;&#x27;, &#x27;default&#x27;)</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/sign-in/sign-in.component.ts:17</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { AuthService } from &#x27;../auth.service&#x27;;
+import { User } from &#x27;../../models/user&#x27;;
+import { LoginUser } from &#x27;../../models/loginUser&#x27;;
+import { Router} from &#x27;@angular/router&#x27;;
+
+@Component({
+  selector: &#x27;app-sign-in&#x27;,
+  templateUrl: &#x27;./sign-in.component.html&#x27;,
+  styleUrls: [&#x27;./sign-in.component.scss&#x27;]
+})
+export class SignInComponent implements OnInit {
+
+  constructor(private auth: AuthService, private router: Router) { }
+
+  loginUser &#x3D; new LoginUser(&#x27;&#x27;, &#x27;&#x27;);
+  objLogin: User &#x3D; new User(&#x27;&#x27;, &#x27;&#x27;, &#x27;&#x27;, &#x27;&#x27;, &#x27;&#x27;, &#x27;default&#x27;);
+
+  /** Validations */
+  isWrong &#x3D; false;
+
+  ngOnInit(): void {
+    if (localStorage.getItem(&#x27;user logged&#x27;) !&#x3D;&#x3D; null){
+      this.router.navigateByUrl(&#x27;/&#x27;);
+    }
+  }
+
+  login(){
+    return this.auth.userLogin(this.loginUser).subscribe(
+      data &#x3D;&gt; {
+        this.objLogin &#x3D; data;
+        if(!this.objLogin){
+          this.isWrong &#x3D; true;
+        } else {
+          this.isWrong &#x3D; false;
+          localStorage.setItem(&#x27;user logged&#x27;, JSON.stringify(this.objLogin));
+          localStorage.setItem(&#x27;logged username&#x27;, JSON.stringify(this.objLogin.nombre));
+          localStorage.setItem(&#x27;logged role&#x27;, JSON.stringify(this.objLogin.rol));
+          this.router.navigateByUrl(&#x27;/&#x27;);
+          this.auth.overloadUser();
+        }
+      }
+    );
+  }
+
+  resetIsWrong(){
+    this.isWrong &#x3D; false;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;signin-page&quot;&gt;
+    &lt;div class&#x3D;&quot;wrapper&quot;&gt;
+        &lt;div class&#x3D;&quot;header&quot;&gt;
+            &lt;a routerLink&#x3D;&quot;/&quot; class&#x3D;&quot;logo&quot;&gt;
+                &lt;img src&#x3D;&quot;assets/images/logo-alt-b.png&quot; /&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+        &lt;form #loginForm&#x3D;&quot;ngForm&quot; (ngSubmit)&#x3D;&quot;login()&quot; novalidate&gt;
+            &lt;div class&#x3D;&quot;form-field&quot;&gt;
+                &lt;input type&#x3D;&quot;text&quot; required #correoU&#x3D;&quot;ngModel&quot; pattern&#x3D;&quot;[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$&quot;
+                 class&#x3D;&quot;form-control&quot; [class.is-invalid]&#x3D;&quot;correoU.invalid &amp;&amp; correoU.touched&quot;
+                 placeholder&#x3D;&quot;correo@mail.com&quot; name&#x3D;&quot;correoU&quot; [(ngModel)]&#x3D;&quot;loginUser.correo&quot;&gt;
+                 &lt;div *ngIf&#x3D;&quot;correoU.errors &amp;&amp; (correoU.invalid || correoU.touched)&quot;&gt;
+                    &lt;p&gt;&lt;small class&#x3D;&quot;text-danger&quot; *ngIf&#x3D;&quot;correoU.errors.required &amp;&amp; correoU.touched&quot;&gt;Correo requerido&lt;/small&gt;&lt;/p&gt;
+                    &lt;p&gt;&lt;small class&#x3D;&quot;text-danger&quot; *ngIf&#x3D;&quot;correoU.errors.pattern&quot;&gt;Correo invalido&lt;/small&gt;&lt;/p&gt;
+                    &lt;p&gt;&lt;small class&#x3D;&quot;text-danger&quot; *ngIf&#x3D;&quot;correoU.errors.pattern&quot;&gt;Ejemplo: xxxx@mail.com&lt;/small&gt;&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/div&gt; 
+
+            &lt;div class&#x3D;&quot;form-field&quot;&gt;
+                &lt;input type&#x3D;&quot;password&quot; required #contrasenaU&#x3D;&quot;ngModel&quot; placeholder&#x3D;&quot;Contraseña&quot;
+                 class&#x3D;&quot;form-control&quot; [class.is-invalid]&#x3D;&quot;contrasenaU.invalid &amp;&amp; contrasenaU.touched&quot;
+                  name&#x3D;&quot;contrasenaU&quot; [(ngModel)]&#x3D;&quot;loginUser.contrasena&quot; (keyup)&#x3D;&quot;resetIsWrong()&quot;&gt;
+                 &lt;div *ngIf&#x3D;&quot;contrasenaU.errors &amp;&amp; (contrasenaU.invalid || contrasenaU.touched)&quot;&gt;
+                    &lt;p&gt;&lt;small class&#x3D;&quot;text-danger&quot; *ngIf&#x3D;&quot;contrasenaU.errors.required &amp;&amp; contrasenaU.touched&quot;&gt;Contraseña invalida&lt;/small&gt;&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div *ngIf&#x3D;&quot;isWrong&quot;&gt;
+                    &lt;p&gt;&lt;small class&#x3D;&quot;text-danger&quot;&gt;La contraseña es errónea&lt;/small&gt;&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/div&gt; 
+            &lt;!--
+            &lt;div class&#x3D;&quot;form-field&quot;&gt;
+                &lt;input [(ngModel)]&#x3D;&quot;loginUser.contrasena&quot; type&#x3D;&quot;password&quot; placeholder&#x3D;&quot;Contraseña&quot; name&#x3D;&quot;contrasenaU&quot;
+                pattern&#x3D;&quot;{8,20}&quot; class&#x3D;&quot;form-control&quot;  [class.is-invalid]&#x3D;&quot;contrasenaU.invalid &amp;&amp; correoU.touched&quot;
+                placeholder&#x3D;&quot;correo@mail.com&quot;&gt; 
+            &lt;/div&gt;
+            --&gt;
+            &lt;div class&#x3D;&quot;form-action&quot;&gt;
+                &lt;input button [disabled]&#x3D;&quot;loginForm.form.invalid&quot; type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-shadow btn-shadow-primary&quot; value&#x3D;&quot;Ingresar&quot;
+                &gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;form-bottom&quot;&gt;
+                &lt;a routerLink&#x3D;&quot;/recover-password/&quot;&gt;¿Olvidó su contraseña?&lt;/a&gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./sign-in.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="signin-page">    <div class="wrapper">        <div class="header">            <a routerLink="/" class="logo">                <img src="assets/images/logo-alt-b.png" />            </a>        </div>        <form #loginForm="ngForm" (ngSubmit)="login()" novalidate>            <div class="form-field">                <input type="text" required #correoU="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"                 class="form-control" [class.is-invalid]="correoU.invalid && correoU.touched"                 placeholder="correo@mail.com" name="correoU" [(ngModel)]="loginUser.correo">                 <div *ngIf="correoU.errors && (correoU.invalid || correoU.touched)">                    <p><small class="text-danger" *ngIf="correoU.errors.required && correoU.touched">Correo requerido</small></p>                    <p><small class="text-danger" *ngIf="correoU.errors.pattern">Correo invalido</small></p>                    <p><small class="text-danger" *ngIf="correoU.errors.pattern">Ejemplo: xxxx@mail.com</small></p>                </div>            </div>             <div class="form-field">                <input type="password" required #contrasenaU="ngModel" placeholder="Contraseña"                 class="form-control" [class.is-invalid]="contrasenaU.invalid && contrasenaU.touched"                  name="contrasenaU" [(ngModel)]="loginUser.contrasena" (keyup)="resetIsWrong()">                 <div *ngIf="contrasenaU.errors && (contrasenaU.invalid || contrasenaU.touched)">                    <p><small class="text-danger" *ngIf="contrasenaU.errors.required && contrasenaU.touched">Contraseña invalida</small></p>                </div>                <div *ngIf="isWrong">                    <p><small class="text-danger">La contraseña es errónea</small></p>                </div>            </div>             <!--            <div class="form-field">                <input [(ngModel)]="loginUser.contrasena" type="password" placeholder="Contraseña" name="contrasenaU"                pattern="{8,20}" class="form-control"  [class.is-invalid]="contrasenaU.invalid && correoU.touched"                placeholder="correo@mail.com">             </div>            -->            <div class="form-action">                <input button [disabled]="loginForm.form.invalid" type="submit" class="btn btn-shadow btn-shadow-primary" value="Ingresar"                >            </div>            <div class="form-bottom">                <a routerLink="/recover-password/">¿Olvidó su contraseña?</a>            </div>        </form>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AdminViewComponent', 'selector': 'app-admin-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChangePasswordComponent', 'selector': 'app-change-password'},{'name': 'ErrorPageComponent', 'selector': 'app-error-page'},{'name': 'IndexPmAppComponent', 'selector': 'app-index-pm-app'},{'name': 'InventoryControlComponent', 'selector': 'app-inventory-control'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'OrderViewComponent', 'selector': 'app-order-view'},{'name': 'RecoverPasswordComponent', 'selector': 'app-recover-password'},{'name': 'ReportComparativeComponent', 'selector': 'app-report-comparative'},{'name': 'ReportMonthlyComponent', 'selector': 'app-report-monthly'},{'name': 'ReportViewComponent', 'selector': 'app-report-view'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'UserViewComponent', 'selector': 'app-user-view'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'SignInComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SignInComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
