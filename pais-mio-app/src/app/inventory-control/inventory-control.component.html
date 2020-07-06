@@ -186,13 +186,11 @@
                             <tr *ngIf="inputExist && !(inputAlreadyAdded)">
                                 <th>
                                 </th>
-                                <td>
-
-                                    <button [disabled]="!(auxQ > 0)"type="button" class="btn btn-success center" (click)="pushIntoEntryList()">
+                                <td *ngIf="auxQ>0">
+                                    <button type="button" class="btn btn-success center" (click)="pushIntoEntryList()">
                                         <i class="icon ion-plus">
                                         </i>
                                         Agregar insumo</button>
-
                                 </td>
                             </tr>
                         </tbody>

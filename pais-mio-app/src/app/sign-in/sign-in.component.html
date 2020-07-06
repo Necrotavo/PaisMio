@@ -20,9 +20,12 @@
             <div class="form-field">
                 <input type="password" required #contrasenaU="ngModel" placeholder="Contraseña"
                  class="form-control" [class.is-invalid]="contrasenaU.invalid && contrasenaU.touched"
-                  name="contrasenaU" [(ngModel)]="loginUser.contrasena">
+                  name="contrasenaU" [(ngModel)]="loginUser.contrasena" (keyup)="resetIsWrong()">
                  <div *ngIf="contrasenaU.errors && (contrasenaU.invalid || contrasenaU.touched)">
                     <p><small class="text-danger" *ngIf="contrasenaU.errors.required && contrasenaU.touched">Contraseña invalida</small></p>
+                </div>
+                <div *ngIf="isWrong">
+                    <p><small class="text-danger">La contraseña es errónea</small></p>
                 </div>
             </div> 
             <!--

@@ -44,8 +44,8 @@
                                 <select class="custom-select" [(ngModel)]="termO2">
                                     <option [ngValue]="undefined">Estado</option>
                                     <option value="En proceso">En proceso</option>
-                                    <option value="Conforme">Conforme</option>
-                                    <option value="No conforme">No conforme</option>
+                                    <option value="Completo">Completo</option>
+                                    <option value="Deficiente">Deficiente</option>
                                 </select>
                             </div>
                             <br>
@@ -106,10 +106,10 @@
                                             </tr>
                                             <tr>
                                                 <th>Estado</th>
-                                                <td *ngIf="com.estado === 'CONFORME'">
+                                                <td *ngIf="com.estado === 'COMPLETO'">
                                                     <span class="badge badge-success">{{com.estado}}</span>
                                                 </td>
-                                                <td *ngIf="com.estado === 'NO CONFORME'">
+                                                <td *ngIf="com.estado === 'DEFICIENTE'">
                                                     <span class="badge badge-danger">{{com.estado}}</span>
                                                 </td>
                                                 <td *ngIf="com.estado === 'EN PROCESO'">
@@ -472,7 +472,7 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" (click)="productForm.reset()"
+                            <button type="button" class="btn btn-success" (click)="productForm.reset();resetExistProductId()"
                                 data-toggle="modal" data-target="#productsModal">
                                 <i class="icon ion-plus">
                                 </i>
@@ -492,7 +492,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let com of productList | filter:termP" (click)="chargeProductToUpdate(com)"
+                            <tr *ngFor="let com of productList | filter:termP" (click)="chargeProductToUpdate(com);resetExistProductId()"
                                 data-toggle="modal" data-target="#productsUpdateModal">
                                 <td>
                                     {{com.id}}
@@ -616,9 +616,9 @@
                             <tr *ngIf="productExist">
                                 <th>
                                 </th>
-                                <td>
+                                <td *ngIf="auxQ > 0">
 
-                                    <button [disabled]="!(auxQ > 0)" type="button" class="btn btn-success center"
+                                    <button type="button" class="btn btn-success center"
                                         (click)="pushIntoEntryList()">
                                         <i class="icon ion-plus">
                                         </i>
@@ -655,7 +655,9 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="orderForm.reset()"
                     data-dismiss="modal">Cerrar</button>
-                <button [disabled]="orderForm.form.invalid || (productEntryList.length === 0)" class="orderForm.invalid"
+                <button disabled *ngIf="orderForm.form.invalid || (productEntryList.length === 0)" class="orderForm.invalid"
+                    type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+                    <button *ngIf="!(orderForm.form.invalid || (productEntryList.length === 0))" class="orderForm.invalid"
                     type="button" class="btn btn-primary" data-dismiss="modal" (click)="orderEntry()">Crear</button>
             </div>
 
@@ -1044,7 +1046,9 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="inputForm.reset();resetinputCodeExist()"
                     data-dismiss="modal">Cerrar</button>
-                <button [disabled]="inputForm.form.invalid || inputCodeExist" type="submit" class="btn btn-primary"
+                <button disabled *ngIf="inputForm.form.invalid || inputCodeExist" type="submit" class="btn btn-primary"
+                    data-dismiss="modal">Crear</button>
+                    <button *ngIf="!(inputForm.form.invalid || inputCodeExist)" type="submit" class="btn btn-primary"
                     data-dismiss="modal" (click)="postInput()">Crear</button>
             </div>
 
@@ -1198,11 +1202,13 @@
                 </form>
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-footer" >
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"
                     (click)="resetinputCodeExist()">Cerrar</button>
-                <button [disabled]="inputUpdateForm.form.invalid || inputCodeExist" type="submit"
-                    class="btn btn-primary" (click)="updateInput()" data-dismiss="modal">Modificar</button>
+                <button type="submit" disabled *ngIf="inputUpdateForm.form.invalid || inputCodeExist"
+                    class="btn btn-primary"  data-dismiss="modal">Actualizar</button>
+                <button type="submit" *ngIf="!(inputUpdateForm.form.invalid || inputCodeExist)"
+                    class="btn btn-primary" (click)="updateInput()" data-dismiss="modal">Actualizar</button>
             </div>
         </div>
     </div>
@@ -1347,7 +1353,9 @@
                 <button type="button" class="btn btn-secondary"
                     (click)="userForm.form.reset();dropdownReset();closeUserEmailExist()" data-dismiss="modal"
                     id="btnClose">Cerrar</button>
-                <button button [disabled]="userForm.form.invalid || userEmailExist" type="submit"
+                <button button disabled *ngIf="userForm.form.invalid || userEmailExist" type="submit"
+                    class="btn btn-primary" data-dismiss="modal">Crear</button>
+                <button button *ngIf="!(userForm.form.invalid || userEmailExist)" type="submit"
                     class="btn btn-primary" data-dismiss="modal"
                     (click)="postUser();userForm.form.reset();dropdownReset();closeUserEmailExist()">Crear</button>
             </div>
@@ -1496,7 +1504,9 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button button [disabled]="userUpdateForm.form.invalid" type="submit" class="btn btn-primary"
+                <button button disabled *ngIf="userUpdateForm.form.invalid" type="submit" class="btn btn-primary"
+                    data-dismiss="modal">Actualizar</button>
+                <button button *ngIf="!(userUpdateForm.form.invalid)" type="submit" class="btn btn-primary"
                     (click)="updateUser()" data-dismiss="modal">Actualizar</button>
             </div>
 
@@ -1646,7 +1656,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="clientForm.reset()"
                     data-dismiss="modal">Cerrar</button>
-                <button [disabled]="clientForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal"
+                <button disabled *ngIf="clientForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal">Crear</button>
+                    <button *ngIf="!(clientForm.form.invalid)" type="submit" class="btn btn-primary" data-dismiss="modal"
                     (click)="postClient()">Crear</button>
             </div>
         </div>
@@ -1822,7 +1833,9 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button [disabled]="clientUpdateForm.form.invalid" type="submit" class="btn btn-primary"
+                <button disabled *ngIf="clientUpdateForm.form.invalid" type="submit" class="btn btn-primary"
+                    data-dismiss="modal">Actualizar</button>
+                    <button *ngIf="!(clientUpdateForm.form.invalid)" type="submit" class="btn btn-primary"
                     data-dismiss="modal" (click)="updateClient()">Actualizar</button>
             </div>
 
@@ -1932,10 +1945,12 @@
                 </form>
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-footer" >
                 <button type="button" class="btn btn-secondary" (click)="productForm.reset()"
                     data-dismiss="modal">Cerrar</button>
-                <button [disabled]="productForm.form.invalid || productIdExist" type="submit" class="btn btn-primary"
+                    <button *ngIf="(productForm.form.invalid || productIdExist)" type="submit" class="btn btn-primary"
+                    data-dismiss="modal" disabled class="btn btn-primary">Crear</button>
+                <button *ngIf="!(productForm.form.invalid || productIdExist)" type="submit" class="btn btn-primary"
                     data-dismiss="modal" (click)="postProduct()" class="btn btn-primary">Crear</button>
             </div>
 
@@ -2068,9 +2083,12 @@
                 </form>
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-footer" >
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button [disabled]="productUpdateForm.form.invalid || productIdExist" type="submit"
+                <button type="submit" *ngIf="productUpdateForm.form.invalid || productIdExist"
+                    class="btn btn-primary" data-dismiss="modal" disabled
+                    class="btn btn-primary">Actualizar</button>
+                <button type="submit" *ngIf="!(productUpdateForm.form.invalid || productIdExist)"
                     class="btn btn-primary" data-dismiss="modal" (click)="updateProduct()"
                     class="btn btn-primary">Actualizar</button>
             </div>
@@ -2184,10 +2202,13 @@
                 </form>
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-footer" >
                 <button type="button" class="btn btn-secondary" (click)="cellarForm.reset();resetCellarNameExist()"
                     data-dismiss="modal">Cerrar</button>
-                <button [disabled]="cellarForm.form.invalid || cellarNameExist" type="submit" class="btn btn-primary"
+                <button type="submit" class="btn btn-primary" *ngIf="cellarForm.form.invalid || cellarNameExist"
+                    data-dismiss="modal" disabled
+                    class="btn btn-primary">Crear</button>
+                <button type="submit" class="btn btn-primary" *ngIf="!(cellarForm.form.invalid || cellarNameExist)"
                     data-dismiss="modal" (click)="postGetCellar();resetCellarNameExist()"
                     class="btn btn-primary">Crear</button>
             </div>
@@ -2323,10 +2344,13 @@
                 </form>
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-footer" >
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"
                     (click)="resetCellarNameExist()">Cerrar</button>
-                <button [disabled]="cellarUpdateForm.form.invalid || cellarNameExist" type="submit"
+                <button type="submit" *ngIf="cellarUpdateForm.form.invalid || cellarNameExist"
+                    class="btn btn-primary" data-dismiss="modal" disabled
+                    class="btn btn-primary">Actualizar</button>
+                <button type="submit" *ngIf="!(cellarUpdateForm.form.invalid || cellarNameExist)"
                     class="btn btn-primary" data-dismiss="modal" (click)="updateCellars();resetCellarNameExist()"
                     class="btn btn-primary">Actualizar</button>
             </div>
@@ -2406,7 +2430,10 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="unitForm.reset();closeUnitExist()"
                     data-dismiss="modal">Cerrar</button>
-                <button [disabled]="unitForm.form.invalid || nombreUn.invalid || unitExist" type="submit"
+                <button disabled *ngIf="unitForm.form.invalid || nombreUn.invalid || unitExist" type="submit"
+                    class="btn btn-primary" data-dismiss="modal"
+                    class="btn btn-primary">Crear</button>
+            <button *ngIf="!(unitForm.form.invalid || nombreUn.invalid || unitExist)" type="submit"
                     class="btn btn-primary" data-dismiss="modal" (click)="postUnit();closeUnitExist()"
                     class="btn btn-primary">Crear</button>
             </div>
