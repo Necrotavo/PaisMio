@@ -526,12 +526,12 @@ export class OrderViewComponent implements OnInit {
     
   }
 
-  /**
-   * newOrder() {
-    window.location.reload();
-    
+  
+    newOrder() {
+    //window.location.reload();
+    this.data.reloadOrderList(true);;
   }
-   */
+   
   
   navreload() {
     this.navbar.navbarReloadOrder();

@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit {
   count: number;
   activeMessage: string;
   activeRole: string;
+  dispach: boolean;
 
   userIn = new User('', '', '', '', '', '');
 
@@ -55,6 +56,12 @@ export class NavbarComponent implements OnInit {
         }
       }
     );
+
+    /** order is dispach */
+    this.data.isDispach.subscribe((dispach) =>{
+      this.dispach = dispach;
+      this.checkReload();
+    });
   }
 
   navbarReloadOrder(){
@@ -71,6 +78,14 @@ export class NavbarComponent implements OnInit {
         }
       }
     );
+  }
+
+  checkReload(){
+    if(this.dispach){
+      console.log("SE HA DESPACHADO UNA ORDEN");
+    }else{
+      console.log("DISPACH ES FALSE");
+    }
   }
 
   newOrder(i: number) {
