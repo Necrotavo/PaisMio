@@ -19,6 +19,7 @@ import { AnalysisPC } from 'src/models/analysisPC';
 import { Analysis } from 'src/models/analysis';
 import { UserRolUpgrade } from 'src/models/userRolUpgrade';
 import Swal from 'sweetalert2';
+import { DataService } from '../data.service';
 
 
 @Component({
@@ -36,7 +37,7 @@ import Swal from 'sweetalert2';
 
 export class AdminViewComponent implements OnInit {
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private data: DataService) { }
 
   /** Declarations for Post and Get web services */
   /** Object declarations */
@@ -260,9 +261,15 @@ export class AdminViewComponent implements OnInit {
     this.apiService.addOrder(this.orderModel).subscribe(
       data => {
         this.objOrder = data;
-        this.getTorder();
       }
     );
+    this.getTorder();
+    this.newOrder();
+  }
+
+  newOrder() {
+    //window.location.reload();
+    this.data.reloadOrderList(true);
   }
 
   changeAnalysis(currentOrder: Order) {
@@ -629,6 +636,8 @@ export class AdminViewComponent implements OnInit {
     this.apiService.addOrder(this.orderModel).subscribe(
       data => {
         this.objOrder = data;
+        this.getTorder();
+        this.newOrder();
         if (this.objOrder) {
           Swal.fire({
             icon: 'success',
