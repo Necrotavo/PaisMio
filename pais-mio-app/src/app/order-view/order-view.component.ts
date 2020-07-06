@@ -90,7 +90,7 @@ export class OrderViewComponent implements OnInit {
   auxQ: number;
   auxN: string;
   aviableQuantity: number;
-  insumoInsuficiente = 'Hacen falta estos insumos:'
+  insumoInsuficiente = 'Hacen falta estos insumos:';
 
   dispatchSwal = Swal.mixin({
     customClass: {
@@ -374,16 +374,16 @@ export class OrderViewComponent implements OnInit {
     );
 
     let  bodega: Cellar;
-    for(const bodegaEnLista of this.cellarList){
-      if(cellarId === bodegaEnLista.codigo){
+    for (const bodegaEnLista of this.cellarList){
+      if (cellarId === bodegaEnLista.codigo){
         bodega = bodegaEnLista;
       }
     }
 
-    for(const insumoConsumidoEnLista of this.inputRequestModel.insumosConsumo){
-      for(const insumoEnBodega of bodega.listaInsumosEnBodega){
-        if(insumoConsumidoEnLista.insumo.codigo === insumoEnBodega.insumo.codigo){
-          if(insumoConsumidoEnLista.cantidadDisponible > insumoEnBodega.cantidadDisponible){
+    for (const insumoConsumidoEnLista of this.inputRequestModel.insumosConsumo){
+      for (const insumoEnBodega of bodega.listaInsumosEnBodega){
+        if (insumoConsumidoEnLista.insumo.codigo === insumoEnBodega.insumo.codigo){
+          if (insumoConsumidoEnLista.cantidadDisponible > insumoEnBodega.cantidadDisponible){
             this.invalidRequest = true;
             this.insumoInsuficiente += ' ' + insumoConsumidoEnLista.insumo.nombre;
           }
@@ -391,10 +391,10 @@ export class OrderViewComponent implements OnInit {
       }
     }
 
-    for(const insumoDescartadoEnLista of this.inputRequestModel.insumosDescarte){
-      for(const insumoEnBodega of bodega.listaInsumosEnBodega){
-        if(insumoDescartadoEnLista.insumo.codigo === insumoEnBodega.insumo.codigo){
-          if(insumoDescartadoEnLista.cantidadDisponible > insumoEnBodega.cantidadDisponible){
+    for (const insumoDescartadoEnLista of this.inputRequestModel.insumosDescarte){
+      for (const insumoEnBodega of bodega.listaInsumosEnBodega){
+        if (insumoDescartadoEnLista.insumo.codigo === insumoEnBodega.insumo.codigo){
+          if (insumoDescartadoEnLista.cantidadDisponible > insumoEnBodega.cantidadDisponible){
             this.invalidRequest = true;
             this.insumoInsuficiente += ' ' + insumoDescartadoEnLista.insumo.nombre;
           }
@@ -460,15 +460,15 @@ export class OrderViewComponent implements OnInit {
         this.aviableQuantity = i.cantidadDisponible;
       }
     }
-    
-    for(const j of this.inputDiscardList){
-      if(j.insumo.codigo === item.codigo){
+
+    for (const j of this.inputDiscardList){
+      if (j.insumo.codigo === item.codigo){
         this.inputInDiscardList = true;
       }
     }
 
-    for(const k of this.inputConsumeList){
-      if(k.insumo.codigo === item.codigo){
+    for (const k of this.inputConsumeList){
+      if (k.insumo.codigo === item.codigo){
         this.inputInConsumeList = true;
       }
     }
@@ -550,15 +550,15 @@ export class OrderViewComponent implements OnInit {
     for (const i of this.cellarList) {
       if (this.auxN.toUpperCase() === i.nombre.toUpperCase()) {
         this.cellarEntryModel = i;
-       for(const j of this.cellarEntryModel.listaInsumosEnBodega){
-          this.autoCompleteInput.push(j.insumo);
+        for (const j of this.cellarEntryModel.listaInsumosEnBodega){
+             this.autoCompleteInput.push(j.insumo);
         }
         this.resetInputRequestModal();
         return;
       }
     }
-    
-    //this.resetInputRequestModal();
+
+    // this.resetInputRequestModal();
   }
 
   /** Used to request for a status on an input request */
@@ -669,7 +669,5 @@ export class OrderViewComponent implements OnInit {
   navreload() {
     this.navbar.navbarReloadOrder();
   }
-
-  
 
 }
