@@ -145,6 +145,23 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
+                                        <ng-autocomplete [data]="autoCompleteInput" [searchKeyword]="keyword"
+                                            [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                                            placeHolder="Nombre de insumo"
+                                            (selected)='selectedInput($event)'
+                                            name="nombreIQ" [(ngModel)]="searchInputModel.nombre"
+                                            #nombreIQ="ngModel"
+                                            >
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.nombre"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                        <!--
                                         <input 
                                         type="text" (keyup)="searchInput();validateInputName()" #nombreIQ="ngModel" 
                                             class="form-control" [class.is-invalid]="!inputExist && nombreIQ.touched "
@@ -158,11 +175,12 @@
                                                     insumo no
                                                     existe </small></p>
                                         </div>
-                                        <div *ngIf="inputAlreadyAdded">
-                                            <p><small class="text-danger">El
-                                                    insumo ya ha sido 
-                                                    agregado</small></p>
-                                        </div>
+                                        -->
+                                    </div>
+                                    <div *ngIf="inputAlreadyAdded">
+                                        <p><small class="text-danger">El
+                                                insumo ya ha sido 
+                                                agregado</small></p>
                                     </div>
                                 </td>
                             </tr>
