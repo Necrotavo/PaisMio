@@ -521,7 +521,7 @@ export class OrderViewComponent implements OnInit {
             );
           }
         );
-       // this.newOrder();
+        this.newOrder();
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
@@ -536,7 +536,7 @@ export class OrderViewComponent implements OnInit {
             );
           }
         );
-       // this.newOrder();
+        this.newOrder();
       }
     });
   }
@@ -544,7 +544,8 @@ export class OrderViewComponent implements OnInit {
   
     newOrder() {
     //window.location.reload();
-    this.data.reloadOrderList(true);;
+    this.data.reloadOrderList(true);
+    localStorage.setItem('active order', JSON.stringify(this.order));
   }
    
   
