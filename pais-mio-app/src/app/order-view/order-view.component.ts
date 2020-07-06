@@ -137,6 +137,9 @@ export class OrderViewComponent implements OnInit {
     /** get Analysis type */
     this.getPQsAnalysis();
 
+    /** get Analysis */
+    this.changeAnalysis();
+
     /** Used to get the active inputs from the API service on init */
     this.apiService.getInputA().subscribe(
       data => {
@@ -172,8 +175,6 @@ export class OrderViewComponent implements OnInit {
     }
   }
 
-
-
   /** Used to get a psyco chemical analysis of an order from the API service */
   getPQsAnalysis() {
     this.apiService.getPQAnalsis().subscribe(
@@ -185,18 +186,48 @@ export class OrderViewComponent implements OnInit {
 
   /** Build and post the analysis of an order */
   postAnalysis() {
-    this.analysisModel.analisisFQs = this.pqsAnalysisList;
-    console.log(`ORDERCODE TO ADD${this.order.codigo}`);
-    this.analysisModel.pedCodigo = this.order.codigo;
-    console.log(`${this.analysisModel}`);
-    this.apiService.addAnalysis(this.analysisModel).subscribe(
+    this.dispatchSwal.fire({
+      title: '¿Desea realizar esta acción?',
+      text: 'Esta decisión no es reversible',
+      icon: 'warning',
+      showCancelButton: true,
+      showCloseButton: true,
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+      reverseButtons: false
+    }).then((result) => {
+      if (result.value) {
+        this.analysisModel.analisisFQs = this.pqsAnalysisList;
+        console.log(`ORDERCODE TO ADD${this.order.codigo}`);
+        this.analysisModel.pedCodigo = this.order.codigo;
+        console.log(`${this.analysisModel}`);
+        this.apiService.addAnalysis(this.analysisModel).subscribe(
       data => {
         this.objAnalysis = data;
+        if (this.objAnalysis) {
+          Swal.fire({
+            icon: 'success',
+            title: '!Listo!',
+            text: '¡Se agregó el análisis con éxito!',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else {
+          Swal.fire({
+            icon: 'warning',
+            title: '!Ups!',
+            text: 'Ocurrió algún error, vuelve a intentarlo',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
         this.changeAnalysis();
       }
     );
-    document.getElementById('botonCerrar').click();
-    this.analysisModel =  new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array<AnalysisPC>());
+        document.getElementById('botonCerrar').click();
+        this.analysisModel =  new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array<AnalysisPC>());
+      }
+    });
   }
 
   /** Used to validate the existance of an analysis in a specific order */
@@ -209,6 +240,17 @@ export class OrderViewComponent implements OnInit {
     }
     console.log(`${this.analysisExist}`);
     return this.analysisExist;
+  }
+
+  dropdownReset() {
+    (document.getElementById('exaVisualSelect') as HTMLSelectElement).value = '0';
+    this.analysisModel.exVisual = 0;
+    (document.getElementById('exaOlfaSelect') as HTMLSelectElement).value = '0';
+    this.analysisModel.exOlfativo = 0;
+    (document.getElementById('exaGustSelect') as HTMLSelectElement).value = '0';
+    this.analysisModel.exGustativo = 0;
+    (document.getElementById('exaArmoSelect') as HTMLSelectElement).value = '0';
+    this.analysisModel.aSensorial = 0;
   }
 
   /** InputRequest CRUD */
@@ -480,18 +522,18 @@ export class OrderViewComponent implements OnInit {
       icon: 'warning',
       showCancelButton: true,
       showCloseButton: true,
-      confirmButtonText: 'Conforme',
-      cancelButtonText: 'No conforme',
+      confirmButtonText: 'Completo',
+      cancelButtonText: 'Deficiente',
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
-        this.orderModel.estado = 'CONFORME';
+        this.orderModel.estado = 'COMPLETO';
         this.apiService.packOff(this.orderModel).subscribe(
           data => {
             this.objOrder = data;
             this.dispatchSwal.fire(
               'Despachado',
-              'El pedido ha sido despachado como conforme',
+              'El pedido ha sido despachado como completo',
               'success'
             );
           }
@@ -500,13 +542,13 @@ export class OrderViewComponent implements OnInit {
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
-        this.orderModel.estado = 'NO CONFORME';
+        this.orderModel.estado = 'DEFICIENTE';
         this.apiService.packOff(this.orderModel).subscribe(
           data => {
             this.objOrder = data;
             this.dispatchSwal.fire(
               'Despachado',
-              'El pedido ha sido despachado como no conforme',
+              'El pedido ha sido despachado como deficiente',
               'success'
             );
           }

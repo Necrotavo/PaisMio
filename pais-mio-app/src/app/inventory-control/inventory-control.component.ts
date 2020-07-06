@@ -54,7 +54,7 @@ export class InventoryControlComponent implements OnInit {
   inputAlreadyAdded = false;
 
   /** Aux variables */
-  auxQ: number;
+  auxQ = 1;
 
   public keyword = 'nombre';
   autoCompleteInput;
@@ -197,6 +197,7 @@ export class InventoryControlComponent implements OnInit {
   }
 
   resetInputEntryList(){
+    this.auxQ = 1;
     this.inputEntryList.length = 0;
     this.listIsNotEmpty = false;
     this.inputExist = false;
