@@ -272,14 +272,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="36"
-                            class="link-to-prism">src/app/index-pm-app/index-pm-app.component.ts:36</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="37"
+                            class="link-to-prism">src/app/index-pm-app/index-pm-app.component.ts:37</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Used to change the order in the observable and set and active order in local storage </p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -486,6 +488,7 @@ export class IndexPmAppComponent implements OnInit {
     console.log(&#x27;Imprimo: &#x27; + this.userIn.correo);
   }
 
+  /** Used to change the order in the observable and set and active order in local storage */
   newOrder(i: number) {
     this.data.changeOrder(this.orderList[i]);
     localStorage.setItem(&#x27;active order&#x27;, JSON.stringify(this.orderList[i]));
