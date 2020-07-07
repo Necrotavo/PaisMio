@@ -504,7 +504,7 @@
                             <tr>
                                 <p><small class="text-danger" *ngIf="inputInConsumeList && inputInDiscardList && auxQ > 0">Ya ingresó ese insumo</small></p>
                             </tr>
-                            <tr *ngIf="inputExist && auxQ > 0">
+                            <tr *ngIf="inputExist && auxQ > 0 && aviableQuantity > 0">
                                 <td>
                                     <button *ngIf="!inputInConsumeList" type="button" class="btn btn-success center" (click)="pushIntoEntryList()">
                                         <i class="icon ion-plus">
@@ -518,10 +518,11 @@
                                         Descartar</button>
                                 </td>
                             </tr>
-                            
-                            
                         </tbody>
                     </table>
+                    <div *ngIf="aviableQuantity < 1">
+                        <p small class="text-danger">No hay disponibilidad de este insumo en esta bodega.</p>
+                    </div>
                     <div *ngIf="listIsNotEmpty">
                         <h6>Insumos a consumir</h6>
                     </div>

@@ -299,6 +299,7 @@ export class OrderViewComponent implements OnInit {
   }
 
   resetInputEntryLists(){
+    this.aviableQuantity = 1;
     this.inputInDiscardList = false;
     this.inputInConsumeList = false;
     this.inputConsumeList.length = 0;
@@ -571,6 +572,8 @@ export class OrderViewComponent implements OnInit {
 
   /** Used to search a cellar */
   searchCellar() {
+    this.getCellarList();
+    this.aviableQuantity = 1;
     this.autoCompleteInput.length = 0;
     for (const i of this.cellarList) {
       if (this.auxN.toUpperCase() === i.nombre.toUpperCase()) {
