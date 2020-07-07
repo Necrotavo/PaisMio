@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit {
 
   order: Order;
   orderList: Order[];
+  userList: User[];
   count: number;
   activeMessage: string;
   activeRole: string;
@@ -107,38 +108,54 @@ export class NavbarComponent implements OnInit {
 
   /** Used to kick any user that has been disabled */
   kickUser() {
+
     this.userIn = JSON.parse(localStorage.getItem('user logged'));
-    if (this.userIn.estado === 'DESHABILITADO') {
-      let timerInterval;
-      Swal.fire({
-        title: 'Error: este usuario ha sido deshabilitado',
-        html: 'Sera redirigido a la de ingreso en <b></b> milisegundos.',
-        timer: 7000,
-        timerProgressBar: true,
-        onBeforeOpen: () => {
-          Swal.showLoading();
-          timerInterval = setInterval(() => {
-            const content = Swal.getContent();
-            if (content) {
-              const b = content.querySelector('b');
-              if (b) {
-                b.textContent = Swal.getTimerLeft().toString();
-              }
+
+    for (const i of this.userList) {
+      if (this.userIn.correo === i.correo) {
+         this.userIn = i;
+         if (this.userIn.estado === 'DESHABILITADO') {
+          let timerInterval;
+          Swal.fire({
+            title: 'Error: este usuario ha sido deshabilitado',
+            html: 'Sera redirigido a la de ingreso en <b></b> milisegundos.',
+            timer: 7000,
+            timerProgressBar: true,
+            onBeforeOpen: () => {
+              Swal.showLoading();
+              timerInterval = setInterval(() => {
+                const content = Swal.getContent();
+                if (content) {
+                  const b = content.querySelector('b');
+                  if (b) {
+                    b.textContent = Swal.getTimerLeft().toString();
+                  }
+                }
+              }, 100);
+            },
+            onClose: () => {
+              clearInterval(timerInterval);
+              this.authService.logout();
+              this.router.navigateByUrl('/');
             }
-          }, 100);
-        },
-        onClose: () => {
-          clearInterval(timerInterval);
-          this.authService.logout();
-          this.router.navigateByUrl('/');
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              console.log('I was closed by the timer');
+            }
+          });
         }
-      }).then((result) => {
-        /* Read more about handling dismissals below */
-        if (result.dismiss === Swal.DismissReason.timer) {
-          console.log('I was closed by the timer :(');
-        }
-      });
+      }
     }
+
+  }
+
+  updateUserList(){
+    this.apiService.getUser().subscribe(
+      data => {
+        this.userList = data;
+      }
+    );
   }
 
 }
