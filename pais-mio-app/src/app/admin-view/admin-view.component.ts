@@ -60,6 +60,7 @@ export class AdminViewComponent implements OnInit {
   clientList: Client[];
   clientAList: Client[];
   productList: Product[];
+  productAList: Product[];
   unitList: Unit[];
   productInOrderList: ProductInOrder[];
   inputQList: InputQ[];
@@ -149,6 +150,7 @@ export class AdminViewComponent implements OnInit {
   public keyword = 'nombre';
   autoCompleteInput;
   autoCompleteProduct;
+  autoCompleteAProduct;
   productAlreadyAdded = false;
 
   ngOnInit(): void {
@@ -183,6 +185,7 @@ export class AdminViewComponent implements OnInit {
 
     /** Gets all products on Init */
     this.getProduct();
+    this.getProductA();
 
     /** Gets all unit types on Init */
     this.getUnits();
@@ -485,6 +488,16 @@ export class AdminViewComponent implements OnInit {
       data => {
         this.productList = data;
         this.autoCompleteProduct = this.productList;
+      }
+    );
+  }
+
+  /** Used to get all products using the API service */
+  getProductA() {
+    this.apiService.getProductA().subscribe(
+      data => {
+        this.productAList = data;
+        this.autoCompleteAProduct = this.productAList;
       }
     );
   }
@@ -910,6 +923,7 @@ export class AdminViewComponent implements OnInit {
           });
         }
         this.getProduct();
+        this.getProductA();
       });
   }
 

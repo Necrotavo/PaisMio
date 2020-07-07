@@ -49,7 +49,7 @@
                             </div>
                             <br>
                             <button type="button" class="btn btn-success"
-                                (click)="orderForm.reset();orderCustomReset();" data-toggle="modal"
+                                (click)="orderForm.reset();orderCustomReset();getProductA();" data-toggle="modal"
                                 data-target="#ordersModal">
                                 <i class="icon ion-plus">
                                 </i>
@@ -575,7 +575,7 @@
                                 </th>
                                 <td>
                                     <div class="form-field">
-                                        <ng-autocomplete [data]="autoCompleteProduct" [searchKeyword]="keyword"
+                                        <ng-autocomplete [data]="autoCompleteAProduct" [searchKeyword]="keyword"
                                             [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
                                             placeHolder="Nombre de producto"
                                             (selected)='selectedProduct($event)'
