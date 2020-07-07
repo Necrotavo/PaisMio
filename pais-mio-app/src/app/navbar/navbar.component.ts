@@ -34,8 +34,6 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.kickUser();
-
     this.data.activeOrder.subscribe(order => this.order = order);
 
     this.isLoggedIn$ = this.authService.isLoggedIn;
@@ -59,6 +57,8 @@ export class NavbarComponent implements OnInit {
         }
       }
     );
+
+    this.kickUser();
 
     /** order is dispach */
     this.data.isDispach.subscribe((dispach) => {
@@ -110,7 +110,7 @@ export class NavbarComponent implements OnInit {
   kickUser() {
 
     this.userIn = JSON.parse(localStorage.getItem('user logged'));
-
+    this.updateUserList();
     for (const i of this.userList) {
       if (this.userIn.correo === i.correo) {
          this.userIn = i;
@@ -118,7 +118,7 @@ export class NavbarComponent implements OnInit {
           let timerInterval;
           Swal.fire({
             title: 'Error: este usuario ha sido deshabilitado',
-            html: 'Sera redirigido a la de ingreso en <b></b> milisegundos.',
+            html: 'Será redirigido a la de ingreso en <b></b> milisegundos.',
             timer: 7000,
             timerProgressBar: true,
             onBeforeOpen: () => {
