@@ -14,7 +14,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#solicitudes" role="tab" data-toggle="tab">Solicitudes</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="localUser.rol == 'ADMINISTRADOR'">
                     <a class="nav-link" href="#analysis" role="tab" data-toggle="tab">Análisis</a>
                 </li>
 
@@ -94,7 +94,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <div *ngIf="analysisExist && (order.estado =='EN PROCESO')" class="float-right">
+                <div *ngIf="analysisExist && (order.estado =='EN PROCESO') && !(localUser.rol == 'OPERARIO')" class="float-right">
                     <button (click)="dispatchOrder()" class="btn btn-primary" >Despachar orden</button>
                 </div>
                 <div *ngIf="analysisExist && !(order.estado === 'EN PROCESO')" class="p-3 mb-2 bg-info text-white">

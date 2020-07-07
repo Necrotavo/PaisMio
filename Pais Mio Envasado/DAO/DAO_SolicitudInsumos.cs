@@ -439,11 +439,12 @@ namespace DAO
         /// </summary>
         /// <param name="operario">Correo del operario</param>
         /// <returns></returns>
-        public List<DO_SolicitudInsumos> listarSolicitudesPorOperario(string operario)
+        public List<DO_SolicitudInsumos> listarSolicitudesPorOperario(DO_SolicitudInsumos solicitudInsumos)
         {
             List<DO_SolicitudInsumos> listaSolicitud = new List<DO_SolicitudInsumos>();
-            SqlCommand comandoBuscar = new SqlCommand("SELECT * FROM SOLICITUD_INSUMO WHERE OPE_CORREO = @operario", conexion);
-            comandoBuscar.Parameters.AddWithValue("@operario", operario);
+            SqlCommand comandoBuscar = new SqlCommand("SELECT * FROM SOLICITUD_INSUMO WHERE OPE_CORREO = @operario AND PED_CODIGO = @pedido", conexion);
+            comandoBuscar.Parameters.AddWithValue("@operario", solicitudInsumos.correoOperario);
+            comandoBuscar.Parameters.AddWithValue("@pedido", solicitudInsumos.codigoPedido);
             try
             {
                 if (conexion.State != ConnectionState.Open)

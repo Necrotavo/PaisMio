@@ -322,8 +322,10 @@ export class OrderViewComponent implements OnInit {
 
   /** Get the input requests from a user from the API service */
   getInputRequestByUser() {
-
-    this.apiService.getInputRequestByUser(this.userModel).subscribe(
+    let inputRequest : InputRequest;
+    inputRequest.operario = this.userModel.correo;
+    inputRequest.bodega = this.order.codigo;
+    this.apiService.getInputRequestByUser(inputRequest).subscribe(
       data => {
         this.objInputRequest = data;
       }
