@@ -22,7 +22,7 @@ export class ErrorPageComponent implements OnInit {
     Swal.fire({
       title: 'Error 404: Pagina no encontrada',
       html: 'Sera redirigido a la pagina principal en <b></b> milisegundos.',
-      timer: 2000,
+      timer: 3000,
       timerProgressBar: true,
       onBeforeOpen: () => {
         Swal.showLoading();

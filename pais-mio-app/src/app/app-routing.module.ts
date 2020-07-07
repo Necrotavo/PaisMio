@@ -22,7 +22,7 @@ import { ReportViewComponent } from './report-view/report-view.component';
 const routes: Routes = [
   {path: '', component: IndexPmAppComponent , canActivate: [TierThreeGuard]},
   {path: 'index-pm-app', component: IndexPmAppComponent, canActivate: [TierThreeGuard]},
-  {path: 'admin-view', component: AdminViewComponent, canActivate: [TierOneGuard]},
+  {path: 'admin-view', component: AdminViewComponent, canActivate: [TierTwoGuard]},
   {path: 'change-password', component: ChangePasswordComponent, canActivate: [TierThreeGuard]},
   {path: 'inventory-control', component: InventoryControlComponent, canActivate: [TierTwoGuard]},
   {path: 'order-view', component: OrderViewComponent, canActivate: [TierThreeGuard]},

@@ -6,6 +6,7 @@ import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +17,7 @@ export class NavbarComponent implements OnInit {
 
   order: Order;
   orderList: Order[];
+  userList: User[];
   count: number;
   activeMessage: string;
   activeRole: string;
@@ -28,12 +30,20 @@ export class NavbarComponent implements OnInit {
   isSupervisor$: Observable<boolean>;
 
   constructor(private data: DataService, private apiService: ApiService, private router: Router,
-              private authService: AuthService) {}
+              private authService: AuthService) { }
 
   ngOnInit(): void {
 
-
     this.data.activeOrder.subscribe(order => this.order = order);
+
+    this.apiService.getUser().subscribe(
+      data => {
+        this.userList = data;
+        console.log('data:' + data);
+        console.log('data:' + this.userList);
+        this.kickUser();
+      }
+    );
 
     this.isLoggedIn$ = this.authService.isLoggedIn;
     this.isAdmin$ = this.authService.isAdmin;
@@ -65,7 +75,7 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  navbarReloadOrder(){
+  navbarReloadOrder() {
     this.apiService.getOrder().subscribe(
       data => {
         this.orderList = data;
@@ -81,10 +91,10 @@ export class NavbarComponent implements OnInit {
     );
   }
 
-  checkReload(){
-    if (this.dispach){
+  checkReload() {
+    if (this.dispach) {
       console.log('SE HA DESPACHADO UNA ORDEN');
-    }else{
+    } else {
       console.log('DISPACH ES FALSE');
     }
   }
@@ -94,13 +104,65 @@ export class NavbarComponent implements OnInit {
     localStorage.setItem('active order', JSON.stringify(this.orderList[i]));
   }
 
-  checkUserRole(){
+  checkUserRole() {
     this.userIn = JSON.parse(localStorage.getItem('user logged'));
     this.activeRole = this.userIn.rol;
   }
 
   logout() {
     this.authService.logout();
+  }
+
+  /** Used to kick any user that has been disabled */
+  kickUser() {
+
+    this.userIn = JSON.parse(localStorage.getItem('user logged'));
+    console.log(this.userList);
+    for (const i of this.userList) {
+      if (this.userIn.correo === i.correo) {
+        console.log('same address');
+        this.userIn = i;
+        if (this.userIn.estado === 'DESHABILITADO') {
+          let timerInterval;
+          Swal.fire({
+            title: 'Error: este usuario ha sido deshabilitado',
+            html: 'Será redirigido a la de ingreso en <b></b> milisegundos.',
+            timer: 7000,
+            timerProgressBar: true,
+            onBeforeOpen: () => {
+              Swal.showLoading();
+              timerInterval = setInterval(() => {
+                const content = Swal.getContent();
+                if (content) {
+                  const b = content.querySelector('b');
+                  if (b) {
+                    b.textContent = Swal.getTimerLeft().toString();
+                  }
+                }
+              }, 100);
+            },
+            onClose: () => {
+              clearInterval(timerInterval);
+              this.authService.logout();
+              this.router.navigateByUrl('/sign-in');
+            }
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              console.log('I was closed by the timer');
+            }
+          });
+        }
+      }
+    }
+  }
+
+  getUser() {
+    this.apiService.getUser().subscribe(
+      data => {
+        this.userList = data;
+      }
+    );
   }
 
 }
