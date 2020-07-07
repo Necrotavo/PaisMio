@@ -6,6 +6,7 @@ import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar',
@@ -28,10 +29,11 @@ export class NavbarComponent implements OnInit {
   isSupervisor$: Observable<boolean>;
 
   constructor(private data: DataService, private apiService: ApiService, private router: Router,
-              private authService: AuthService) {}
+              private authService: AuthService) { }
 
   ngOnInit(): void {
 
+    this.kickUser();
 
     this.data.activeOrder.subscribe(order => this.order = order);
 
@@ -65,7 +67,7 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  navbarReloadOrder(){
+  navbarReloadOrder() {
     this.apiService.getOrder().subscribe(
       data => {
         this.orderList = data;
@@ -81,10 +83,10 @@ export class NavbarComponent implements OnInit {
     );
   }
 
-  checkReload(){
-    if (this.dispach){
+  checkReload() {
+    if (this.dispach) {
       console.log('SE HA DESPACHADO UNA ORDEN');
-    }else{
+    } else {
       console.log('DISPACH ES FALSE');
     }
   }
@@ -94,13 +96,48 @@ export class NavbarComponent implements OnInit {
     localStorage.setItem('active order', JSON.stringify(this.orderList[i]));
   }
 
-  checkUserRole(){
+  checkUserRole() {
     this.userIn = JSON.parse(localStorage.getItem('user logged'));
     this.activeRole = this.userIn.rol;
   }
 
   logout() {
     this.authService.logout();
+  }
+
+  /** Used to kick any user that has been disabled */
+  kickUser() {
+    this.userIn = JSON.parse(localStorage.getItem('user logged'));
+    if (this.userIn.estado === 'DESHABILITADO') {
+      let timerInterval;
+      Swal.fire({
+        title: 'Error: este usuario ha sido deshabilitado',
+        html: 'Sera redirigido a la de ingreso en <b></b> milisegundos.',
+        timer: 7000,
+        timerProgressBar: true,
+        onBeforeOpen: () => {
+          Swal.showLoading();
+          timerInterval = setInterval(() => {
+            const content = Swal.getContent();
+            if (content) {
+              const b = content.querySelector('b');
+              if (b) {
+                b.textContent = Swal.getTimerLeft().toString();
+              }
+            }
+          }, 100);
+        },
+        onClose: () => {
+          clearInterval(timerInterval);
+          this.authService.logout();
+        }
+      }).then((result) => {
+        /* Read more about handling dismissals below */
+        if (result.dismiss === Swal.DismissReason.timer) {
+          console.log('I was closed by the timer');
+        }
+      });
+    }
   }
 
 }
