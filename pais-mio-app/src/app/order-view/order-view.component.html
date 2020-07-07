@@ -719,8 +719,9 @@
                     </div>
                 </form>
             </div>
-            <p><small class="text-danger"
-                *ngIf="invalidRequest"> {{insumoInsuficiente}} </small></p>
+            <div class="form-control" *ngIf="invalidRequest && inputRequestModel.estado === 'PENDIENTE'">
+                <p><small class="text-danger"> No hay suficientes insumos para aceptar esta solicitud </small></p>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button *ngIf="inputRequestModel.estado === 'PENDIENTE' && localUser.rol === 'ADMINISTRADOR'"
