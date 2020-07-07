@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
 
   order: Order;
   orderList: Order[];
-  userList: User[];
+  userList: Array<User> = [];
   count: number;
   activeMessage: string;
   activeRole: string;
