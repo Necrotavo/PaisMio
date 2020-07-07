@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
 
   order: Order;
   orderList: Order[];
-  userList: Array<User> = [];
+  userList: User[];
   count: number;
   activeMessage: string;
   activeRole: string;
@@ -35,6 +35,15 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
 
     this.data.activeOrder.subscribe(order => this.order = order);
+
+    this.apiService.getUser().subscribe(
+      data => {
+        this.userList = data;
+        console.log('data:' + data);
+        console.log('data:' + this.userList);
+        this.kickUser();
+      }
+    );
 
     this.isLoggedIn$ = this.authService.isLoggedIn;
     this.isAdmin$ = this.authService.isAdmin;
@@ -57,8 +66,6 @@ export class NavbarComponent implements OnInit {
         }
       }
     );
-
-    this.kickUser();
 
     /** order is dispach */
     this.data.isDispach.subscribe((dispach) => {
@@ -110,11 +117,12 @@ export class NavbarComponent implements OnInit {
   kickUser() {
 
     this.userIn = JSON.parse(localStorage.getItem('user logged'));
-    this.updateUserList();
+    console.log(this.userList);
     for (const i of this.userList) {
       if (this.userIn.correo === i.correo) {
-         this.userIn = i;
-         if (this.userIn.estado === 'DESHABILITADO') {
+        console.log('same address');
+        this.userIn = i;
+        if (this.userIn.estado === 'DESHABILITADO') {
           let timerInterval;
           Swal.fire({
             title: 'Error: este usuario ha sido deshabilitado',
@@ -136,7 +144,7 @@ export class NavbarComponent implements OnInit {
             onClose: () => {
               clearInterval(timerInterval);
               this.authService.logout();
-              this.router.navigateByUrl('/');
+              this.router.navigateByUrl('/sign-in');
             }
           }).then((result) => {
             /* Read more about handling dismissals below */
@@ -147,10 +155,9 @@ export class NavbarComponent implements OnInit {
         }
       }
     }
-
   }
 
-  updateUserList(){
+  getUser() {
     this.apiService.getUser().subscribe(
       data => {
         this.userList = data;
