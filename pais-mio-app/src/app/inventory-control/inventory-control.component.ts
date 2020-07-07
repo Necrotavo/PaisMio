@@ -145,7 +145,7 @@ export class InventoryControlComponent implements OnInit {
           Swal.fire({
             icon: 'success',
             title: '!Listo!',
-            text: '¡Se agregó el insumo con éxito!',
+            text: '¡Se agregaron los insumos con éxito!',
             showConfirmButton: false,
             timer: 1500
           });
