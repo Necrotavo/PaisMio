@@ -29,7 +29,7 @@ export class SignInComponent implements OnInit {
     return this.auth.userLogin(this.loginUser).subscribe(
       data => {
         this.objLogin = data;
-        if(!this.objLogin){
+        if (!this.objLogin){
           this.isWrong = true;
         } else {
           this.isWrong = false;

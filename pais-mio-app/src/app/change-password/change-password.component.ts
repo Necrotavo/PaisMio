@@ -28,7 +28,8 @@ export class ChangePasswordComponent implements OnInit {
     this.userChangePass.correo = this.localUser.correo;
   }
 
-  postChangePass(){
+  /** Used to post a password change */
+  postChangePass() {
     this.apiService.changePassword(this.userChangePass).subscribe(
       data => {
         this.objUser = data;
@@ -38,8 +39,8 @@ export class ChangePasswordComponent implements OnInit {
     );
   }
 
-  showMessage(isValid: boolean){
-    if (isValid){
+  showMessage(isValid: boolean) {
+    if (isValid) {
       Swal.fire({
         icon: 'success',
         title: '!Listo!',
@@ -58,10 +59,11 @@ export class ChangePasswordComponent implements OnInit {
     }
   }
 
-  comparePass(){
-    if (this.userChangePass.newPass === this.userChangePass.newPassR){
+  /** Used to compare the password */
+  comparePass() {
+    if (this.userChangePass.newPass === this.userChangePass.newPassR) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }

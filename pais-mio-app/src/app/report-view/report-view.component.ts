@@ -51,7 +51,8 @@ export class ReportViewComponent implements OnInit {
 
   /** returns */
   objInputReport = new InputReport(this.listReportedInput, new InfoPaisMio(0, '', '', '', '', '', ''), '', '');
-  objInputComparativeReport = new InputComparativeReport(this.comparedInputList, new InfoPaisMio(0, '', '', '', '', '', ''), '', '', '', '');
+  objInputComparativeReport = new InputComparativeReport(this.comparedInputList,
+                              new InfoPaisMio(0, '', '', '', '', '', ''), '', '', '', '');
   objOrderReport = new OrderReport(this.orderList, new InfoPaisMio(0, '', '', '', '', '', ''), '', '');
   objEntryReport = new InputEntryReport(this.entryList, new InfoPaisMio(0, '', '', '', '', '', ''), '', '');
 
@@ -113,7 +114,7 @@ export class ReportViewComponent implements OnInit {
   }
 
   validateFirstDates(){
-    if(this.R1D1>this.R1D2){
+    if (this.R1D1 > this.R1D2){
       this.date1HasError = true;
     }else{
       this.date1HasError = false;
@@ -121,20 +122,19 @@ export class ReportViewComponent implements OnInit {
   }
 
   validateSecondDates(){
-    if(this.R2D1>this.R2D2){
+    if (this.R2D1 > this.R2D2){
       this.date2HasError = true;
     }else{
       this.date2HasError = false;
     }
   }
 
-    
   validateComparativeDates(){
-    if(this.R1D2 === '' || this.R2D1 === ''){
+    if (this.R1D2 === '' || this.R2D1 === ''){
       this.date3HasError = true;
     } else{
-      if(this.date1HasError === false && this.date2HasError === false){
-        if(this.R1D2<this.R2D1){
+      if (this.date1HasError === false && this.date2HasError === false){
+        if (this.R1D2 < this.R2D1){
           this.date3HasError = false;
         }else{
           this.date3HasError = true;
@@ -150,13 +150,13 @@ export class ReportViewComponent implements OnInit {
     const element = document.getElementById('canvasInputReport');
     html2canvas(element).then((canvas) => {
 
-      var imgData = canvas.toDataURL('image/png');
-      var imgWidth = 150;
-      var pageHeight = 285;
-      var imgHeight = canvas.height * imgWidth / canvas.width;
-      var heightLeft = imgHeight;
-      var doc = new jsPDF('p', 'mm');
-      var position = 0;
+      const imgData = canvas.toDataURL('image/png');
+      const imgWidth = 150;
+      const pageHeight = 285;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight;
+      const doc = new jsPDF('p', 'mm');
+      let position = 0;
 
       doc.addImage(imgData, 'PNG', 25, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
@@ -169,27 +169,19 @@ export class ReportViewComponent implements OnInit {
       }
       doc.save('Reporte de Insumos.pdf');
 
-    })
+    });
   }
-/*
-  openPDF(): void {
-    const DATA = this.pdfInsumos.nativeElement;
-    const doc = new jsPDF('p', 'pt', 'a4');
-    doc.fromHTML(DATA.innerHTML, 15, 15);
-    doc.output('dataurlnewwindow');
-  }
-*/
   openOrderPDF(): void {
     const element = document.getElementById('pdfOrderReport');
     html2canvas(element).then((canvas) => {
 
-      var imgData = canvas.toDataURL('image/png');
-      var imgWidth = 150;
-      var pageHeight = 300;
-      var imgHeight = (canvas.height * imgWidth / canvas.width);
-      var heightLeft = imgHeight;
-      var doc = new jsPDF('p', 'mm');
-      var position = 0;
+      const imgData = canvas.toDataURL('image/png');
+      const imgWidth = 150;
+      const pageHeight = 300;
+      const imgHeight = (canvas.height * imgWidth / canvas.width);
+      let heightLeft = imgHeight;
+      const doc = new jsPDF('p', 'mm');
+      let position = 0;
 
       doc.addImage(imgData, 'PNG', 25, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
@@ -202,26 +194,21 @@ export class ReportViewComponent implements OnInit {
       }
       doc.save('Reporte de Ordenes.pdf');
 
-    })
-    /*
-    const DATA = this.pdfOrderReport.nativeElement;
-    const doc = new jsPDF('p', 'pt', 'a4');
-    doc.fromHTML(DATA.innerHTML, 15, 15);
-    doc.output('dataurlnewwindow');
-    */
+    });
+
   }
 
   openEntryPDF(): void {
     const element = document.getElementById('pdfEntryReport');
     html2canvas(element).then((canvas) => {
 
-      var imgData = canvas.toDataURL('image/png');
-      var imgWidth = 150;
-      var pageHeight = 300;
-      var imgHeight = canvas.height * imgWidth / canvas.width;
-      var heightLeft = imgHeight;
-      var doc = new jsPDF('p', 'mm');
-      var position = 0;
+      const imgData = canvas.toDataURL('image/png');
+      const imgWidth = 150;
+      const pageHeight = 300;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight;
+      const doc = new jsPDF('p', 'mm');
+      let position = 0;
 
       doc.addImage(imgData, 'PNG', 25, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
@@ -234,26 +221,21 @@ export class ReportViewComponent implements OnInit {
       }
       doc.save('Reporte de Entradas.pdf');
 
-    })
-    /*
-    const DATA = this.pdfEntryReport.nativeElement;
-    const doc = new jsPDF('p', 'pt', 'a4');
-    doc.fromHTML(DATA.innerHTML, 15, 15);
-    doc.output('dataurlnewwindow');
-    */
+    });
+
   }
 
   openComparativePDF(): void {
     const element = document.getElementById('pdfComparativeReport');
     html2canvas(element).then((canvas) => {
 
-      var imgData = canvas.toDataURL('image/png');
-      var imgWidth = 150;
-      var pageHeight = 300;
-      var imgHeight = canvas.height * imgWidth / canvas.width;
-      var heightLeft = imgHeight;
-      var doc = new jsPDF('p', 'mm');
-      var position = 0;
+      const imgData = canvas.toDataURL('image/png');
+      const imgWidth = 150;
+      const pageHeight = 300;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight;
+      const doc = new jsPDF('p', 'mm');
+      let position = 0;
 
       doc.addImage(imgData, 'PNG', 25, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
@@ -266,13 +248,7 @@ export class ReportViewComponent implements OnInit {
       }
       doc.save('Reporte comparativo.pdf');
 
-    })
+    });
 
-    /*
-    const DATA = this.pdfComparativeReport.nativeElement;
-    const doc = new jsPDF('p','pt', 'a4');
-    doc.fromHTML(DATA.innerHTML,15,15);
-    doc.output('dataurlnewwindow');
-    */
   }
 }

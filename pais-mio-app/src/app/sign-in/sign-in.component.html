@@ -27,14 +27,7 @@
                 <div *ngIf="isWrong">
                     <p><small class="text-danger">La contraseña es errónea</small></p>
                 </div>
-            </div> 
-            <!--
-            <div class="form-field">
-                <input [(ngModel)]="loginUser.contrasena" type="password" placeholder="Contraseña" name="contrasenaU"
-                pattern="{8,20}" class="form-control"  [class.is-invalid]="contrasenaU.invalid && correoU.touched"
-                placeholder="correo@mail.com"> 
             </div>
-            -->
             <div class="form-action">
                 <input button [disabled]="loginForm.form.invalid" type="submit" class="btn btn-shadow btn-shadow-primary" value="Ingresar"
                 >

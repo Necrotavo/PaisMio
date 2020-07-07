@@ -4,7 +4,7 @@
             <li class="breadcrumb-item">
                 <a routerLink="/index-pm-app/">Inicio</a>
             </li>
-            <li class="breadcrumb-item active">Ingresar insumos</li>
+            <li class="breadcrumb-item active">Manejo de inventario</li>
         </ol>
 
 
@@ -161,21 +161,6 @@
                                         <ng-template #notFoundTemplate let-notFound>
                                             <div [innerHTML]="notFound"></div>
                                         </ng-template>
-                                        <!--
-                                        <input 
-                                        type="text" (keyup)="searchInput();validateInputName()" #nombreIQ="ngModel" 
-                                            class="form-control" [class.is-invalid]="!inputExist && nombreIQ.touched "
-                                            placeholder="Codigo" name="nombreIQ" [(ngModel)]="searchInputModel.nombre">
-                                        <div *ngIf="(nombreIQ.errors && (nombreIQ.invalid || nombreIQ.touched))">
-                                            <p><small class="text-danger"
-                                                    *ngIf="nombreIQ.errors.required && nombreIQ.touched">Nombre de
-                                                    insumo
-                                                    requerido</small></p>
-                                            <p><small class="text-danger" *ngIf="nombreIQ.touched && !inputExist">El
-                                                    insumo no
-                                                    existe </small></p>
-                                        </div>
-                                        -->
                                     </div>
                                     <div *ngIf="inputAlreadyAdded">
                                         <p><small class="text-danger">El

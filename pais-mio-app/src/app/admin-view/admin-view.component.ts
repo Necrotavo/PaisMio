@@ -17,7 +17,6 @@ import { InputRequest } from 'src/models/inputRequest';
 import { InputRequestDesicion } from 'src/models/inputRequestDecision';
 import { AnalysisPC } from 'src/models/analysisPC';
 import { Analysis } from 'src/models/analysis';
-import { UserRolUpgrade } from 'src/models/userRolUpgrade';
 import Swal from 'sweetalert2';
 import { DataService } from '../data.service';
 
@@ -146,10 +145,10 @@ export class AdminViewComponent implements OnInit {
 
   Swal = ('sweetalert2');
 
+  /** Variables for autocomplete  */
   public keyword = 'nombre';
   autoCompleteInput;
   autoCompleteProduct;
-
   productAlreadyAdded = false;
 
   ngOnInit(): void {
@@ -193,7 +192,7 @@ export class AdminViewComponent implements OnInit {
   }
 
   /** Units */
-
+  /** Used to post a new unit using the API service */
   postUnit() {
     this.apiService.addUnit(this.unitModel).subscribe(
       data => {
@@ -211,12 +210,14 @@ export class AdminViewComponent implements OnInit {
 
   }
 
+  /** Used to validate the entry quantity */
   validateEntryQuantity() {
     if (this.auxQ < 0) {
       this.auxQ = 0;
     }
   }
 
+  /** used to reset an order manually */
   orderCustomReset() {
     this.productEntryList.length = 0;
     this.productExist = false;
@@ -224,6 +225,7 @@ export class AdminViewComponent implements OnInit {
     this.listIsNotEmpty = false;
   }
 
+  /** Used to get all units using the API service */
   getUnits() {
     this.apiService.getUnits().subscribe(
       data => {
@@ -233,6 +235,7 @@ export class AdminViewComponent implements OnInit {
 
   }
 
+  /** Used to search units using the API service */
   searchUnit() {
     for (const i of this.unitList) {
       if (this.unitModel.unidad.toUpperCase() === i.unidad.toUpperCase()) {
@@ -247,6 +250,7 @@ export class AdminViewComponent implements OnInit {
     this.unitExist = false;
   }
 
+  /** Used to get all clients using the API service */
   getAllClient() {
 
     this.apiService.getClient().subscribe(
@@ -256,6 +260,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  /** Used to post an order using the API service */
   postOrder() {
 
     this.apiService.addOrder(this.orderModel).subscribe(
@@ -267,11 +272,13 @@ export class AdminViewComponent implements OnInit {
     this.newOrder();
   }
 
+  /** Used to reaload the order list manually */
   newOrder() {
     // window.location.reload();
     this.data.reloadOrderList(true);
   }
 
+  /** Used to change the analysis from a current order */
   changeAnalysis(currentOrder: Order) {
 
     if (currentOrder !== null) {
@@ -286,6 +293,7 @@ export class AdminViewComponent implements OnInit {
     }
   }
 
+  /** Used to validate the existance of an analysis on an order */
   validateAnalysisExistance() {
 
     if (this.analysisModel.fechaEmision !== null) {
@@ -297,6 +305,7 @@ export class AdminViewComponent implements OnInit {
     return this.analysisExist;
   }
 
+  /** Used to get the T orders using the API service */
   getTorder() {
     this.apiService.getTOrder().subscribe(
       data => {
@@ -305,8 +314,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
-
-
+  /** Used to post an input using the API service */
   postInput() {
 
     this.apiService.addInput(this.inputModel).subscribe(
@@ -325,6 +333,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  /** Used to get all inputs using the API service */
   getInput() {
 
     this.apiService.getInput().subscribe(
@@ -335,6 +344,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  /** Used to post an user using the API service */
   postUser() {
 
     this.userModel.estado = 'HABILITADO';
@@ -343,7 +353,6 @@ export class AdminViewComponent implements OnInit {
         this.objUser = data;
         this.getUser();
         document.getElementById('btnClose').click();
-        // this.objUser = new User('', '', '', '', '', 'OPERARIO');
         if (this.objUser) {
           Swal.fire({
             icon: 'success',
@@ -365,11 +374,13 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  /** Used to reset the drop down of user model */
   dropdownReset() {
     (document.getElementById('rolU') as HTMLSelectElement).value = 'OPERARIO';
     this.userModel.rol = 'OPERARIO';
   }
 
+  /** Used to check for email existance to avoid duplication */
   checkEmailExist(){
    if (this.userList.length > 0){
     for (const entry of this.userList) {
@@ -388,6 +399,7 @@ export class AdminViewComponent implements OnInit {
     this.userEmailExist = false;
   }
 
+  /** Used to get all users from API service */
   getUser() {
 
     this.apiService.getUser().subscribe(
@@ -397,6 +409,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  /** Used to post a client using the API service */
   postClient() {
 
     this.clientModel.estado = 'HABILITADO';
@@ -428,6 +441,7 @@ export class AdminViewComponent implements OnInit {
     this.getClient();
   }
 
+  /** Used to get all clients using the API service */
   getClient() {
     this.apiService.getClient().subscribe(
       data => {
@@ -435,6 +449,8 @@ export class AdminViewComponent implements OnInit {
       }
     );
   }
+
+  /** Used to post a product using the API service */
   postProduct() {
 
     this.apiService.addProduct(this.productModel).subscribe(
@@ -463,6 +479,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  /** Used to get all products using the API service */
   getProduct() {
     this.apiService.getProduct().subscribe(
       data => {
@@ -472,11 +489,13 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  /** Used to post a cellar and refresh the cellar list */
   postGetCellar() {
     this.postCellar();
     this.getCellar();
   }
 
+  /** Used to post a cellar using the API service */
   postCellar() {
 
     this.apiService.addCellar(this.cellarModel).subscribe(
@@ -505,6 +524,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  /** Used to get all cellar using the API service */
   getCellar() {
 
     this.apiService.getCellar().subscribe(
@@ -514,6 +534,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  /** Used to get all the avaliable cellars using the API service */
   getACellar() {
 
     this.apiService.getACellar().subscribe(
@@ -523,6 +544,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  /** Used to get a cellar by ID using the API service */
   getOneCellar() {
 
     this.apiService.getOneCellar(this.cellarModel.codigo).subscribe(
@@ -532,6 +554,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  /** Used to update a cellar using the API service */
   updateCellar() {
 
     this.apiService.updateCellar(this.cellarModel).subscribe(
@@ -541,6 +564,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  /** Used to get a cellar status using the API service */
   cellarStatus() {
 
     this.apiService.cellarStatus(this.cellarModel).subscribe(
@@ -550,6 +574,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  /** Used to move an input from a cellar to another using the API service */
   cellarMoveInput() {
 
     this.apiService.cellarMoveInput(this.moveInputModel).subscribe(
@@ -559,6 +584,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  /** Used to get an input list from a cellar using the API service */
   cellarGetInputList() {
 
     this.apiService.getCellarInputList(this.cellarModel).subscribe(
@@ -615,6 +641,7 @@ export class AdminViewComponent implements OnInit {
     }
   }
 
+  /** Used to validate if a cellar has an error */
   validateCellar(value) {
     if (value === 'default') {
       this.cellarHasError = true;
@@ -659,6 +686,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  /** Used to push a product into the product entry list */
   pushIntoEntryList() {
     this.productExist = false;
     this.productEntryModel.cantidad = this.auxQ;
@@ -672,6 +700,7 @@ export class AdminViewComponent implements OnInit {
     this.productExist = false;
   }
 
+  /** Used to search a product */
   searchProduct() {
     for (const i of this.productList) {
       if (this.searchProductModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
@@ -684,6 +713,7 @@ export class AdminViewComponent implements OnInit {
     }
   }
 
+  /** Used to validate if a product already exists in the product entry list */
   selectedProduct(item){
       console.log(item);
       for (const i of this.productEntryList){
@@ -708,6 +738,7 @@ export class AdminViewComponent implements OnInit {
     }
   }
 
+  /** Used to remove a product from the product entry list */
   removeFromList(i: number) {
     this.productEntryList.splice(i, 1);
     this.validateList();
@@ -715,7 +746,7 @@ export class AdminViewComponent implements OnInit {
 
   /** Update methods */
 
-  /** Input */
+  /** Used to set an input to update */
   chargeInputToUpdate(inputToUpdate: Input) {
     this.inputUpdateModel.id = inputToUpdate.id;
     this.inputUpdateModel.codigo = inputToUpdate.codigo;
@@ -725,6 +756,7 @@ export class AdminViewComponent implements OnInit {
     this.inputUpdateModel.cantMinStock = inputToUpdate.cantMinStock;
   }
 
+  /** Used to update an input using the API service */
   updateInput() {
     this.apiService.updateInput(this.inputUpdateModel).subscribe(
       data => {
@@ -750,6 +782,7 @@ export class AdminViewComponent implements OnInit {
 
   /** User */
 
+  /** Used to set an user to update */
   chargeUserToUpdate(userToUpdate: User) {
     this.userUpdateModel.rol = userToUpdate.rol;
     this.userUpdateModel.nombre = userToUpdate.nombre;
@@ -759,6 +792,7 @@ export class AdminViewComponent implements OnInit {
     this.userUpdateModel.apellidos = userToUpdate.apellidos;
   }
 
+  /** Used to update an user using the API service */
   updateUser() {
 
     this.apiService.updateUser(this.userUpdateModel).subscribe(
@@ -785,6 +819,7 @@ export class AdminViewComponent implements OnInit {
 
   /** Client */
 
+  /** Used to set a client to update */
   chargeClientToUpdate(clientToUpdate: Client) {
     this.clientUpdateModel.cedula = clientToUpdate.cedula;
     this.clientUpdateModel.correo = clientToUpdate.correo;
@@ -794,6 +829,7 @@ export class AdminViewComponent implements OnInit {
     this.clientUpdateModel.telefono = clientToUpdate.telefono;
   }
 
+  /** Used to update a client using the API service */
   updateClient() {
 
     this.apiService.updateClient(this.clientUpdateModel).subscribe(
@@ -820,6 +856,7 @@ export class AdminViewComponent implements OnInit {
 
   /** Product */
 
+  /** Used to set a product to update */
   chargeProductToUpdate(productToUpdate: Product) {
     this.productUpdateModel.codigo = productToUpdate.codigo;
     this.productUpdateModel.descripcion = productToUpdate.descripcion;
@@ -828,6 +865,7 @@ export class AdminViewComponent implements OnInit {
     this.productUpdateModel.nombre = productToUpdate.nombre;
   }
 
+  /** Used to check a product code before creation */
   productCodeExist(forCreation: boolean){
     for (const i of this.productList) {
       if (forCreation) {
@@ -848,6 +886,7 @@ export class AdminViewComponent implements OnInit {
     }
   }
 
+  /** Used to update a product using the API service */
   updateProduct() {
 
     this.apiService.updateProduct(this.productUpdateModel).subscribe(
@@ -876,6 +915,7 @@ export class AdminViewComponent implements OnInit {
 
   /** Cellar */
 
+  /** Used to set a cellar to update */
   chargeCellarToUpdate(cellarToUpdate: Cellar) {
     this.cellarUpdateModel.codigo = cellarToUpdate.codigo;
     this.cellarUpdateModel.direccion = cellarToUpdate.direccion;
@@ -885,6 +925,7 @@ export class AdminViewComponent implements OnInit {
     this.cellarUpdateModel.telefono = cellarToUpdate.telefono;
   }
 
+  /** Used to update a cellar using the API service */
   updateCellars() {
 
     this.apiService.updateCellar(this.cellarUpdateModel).subscribe(
@@ -909,6 +950,7 @@ export class AdminViewComponent implements OnInit {
     );
   }
 
+  /** Used to validate the unique name of a cellar before creation */
   validateCeNameUniqueness(forCreation: boolean) {
     for (const i of this.cellarList) {
       if (forCreation){
@@ -929,6 +971,7 @@ export class AdminViewComponent implements OnInit {
     }
   }
 
+  /** Used to reset the cellar name existance variable */
   resetCellarNameExist(){
     this.cellarNameExist = false;
   }
@@ -953,9 +996,13 @@ export class AdminViewComponent implements OnInit {
       }
     }
   }
+
+  /** Used to reset the product ID existance variable */
   resetExistProductId(){
     this.productIdExist = false;
   }
+
+  /** Used to reset the input ID existance variable */
   resetinputCodeExist() {
     this.inputCodeExist = false;
   }

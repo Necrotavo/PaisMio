@@ -56,6 +56,7 @@ export class InventoryControlComponent implements OnInit {
   /** Aux variables */
   auxQ = 1;
 
+  /** variables for autocomplete */
   public keyword = 'nombre';
   autoCompleteInput;
 
@@ -65,7 +66,7 @@ export class InventoryControlComponent implements OnInit {
 
     this.getACellarList();
 
-    /** Gets all Inputs on Init */
+    /** Gets all Inputs on Init from API service */
     this.apiService.getInput().subscribe(
       data => {
         this.inputList = data;
@@ -76,7 +77,8 @@ export class InventoryControlComponent implements OnInit {
     this.localUser = JSON.parse(localStorage.getItem('user logged'));
   }
 
-  getCellarList(){
+  /** Gets all cellars on Init from API service */
+  getCellarList() {
     this.apiService.getCellar().subscribe(
       data => {
         this.cellarList = data;
@@ -89,7 +91,8 @@ export class InventoryControlComponent implements OnInit {
     );
   }
 
-  getACellarList(){
+  /** Gets all avaliable cellars on Init from API service */
+  getACellarList() {
     this.apiService.getACellar().subscribe(
       data => {
         this.cellarList = data;
@@ -102,7 +105,8 @@ export class InventoryControlComponent implements OnInit {
     );
   }
 
-  getInputQOnClick(){
+  /** Used to get all input quantity on click */
+  getInputQOnClick() {
     this.apiService.getInputQ().subscribe(
       data => {
         this.inputQList = data;
@@ -110,7 +114,8 @@ export class InventoryControlComponent implements OnInit {
     );
   }
 
-  postInputQ(){
+  /** Used to post input quantity using API service */
+  postInputQ() {
 
     this.apiService.addInputQ(this.inputQModel).subscribe(
       data => {
@@ -120,8 +125,8 @@ export class InventoryControlComponent implements OnInit {
   }
 
   /** Used to validate combo on cellar */
-  validateCellar(value){
-    if (value === 'default'){
+  validateCellar(value) {
+    if (value === 'default') {
       this.cellarHasError = true;
     } else {
       this.cellarHasError = false;
@@ -158,6 +163,7 @@ export class InventoryControlComponent implements OnInit {
     this.getACellarList();
   }
 
+  /** Used to push an input into de input entry list */
   pushIntoEntryList() {
     this.inputExist = false;
     this.inputEntryModel.cantidadDisponible = this.auxQ;
@@ -183,20 +189,23 @@ export class InventoryControlComponent implements OnInit {
     }
   }
 
-  validateList(){
-    if (this.inputEntryList.length > 0){
+  /** Used to validate if the input entry list is empty */
+  validateList() {
+    if (this.inputEntryList.length > 0) {
       this.listIsNotEmpty = true;
     } else {
       this.listIsNotEmpty = false;
     }
   }
 
-  removeFromList(i: number){
+  /** Used to remove an input from the input entry list */
+  removeFromList(i: number) {
     this.inputEntryList.splice(i, 1);
     this.validateList();
   }
 
-  resetInputEntryList(){
+  /** Used to reset the input entry list */
+  resetInputEntryList() {
     this.auxQ = 1;
     this.inputEntryList.length = 0;
     this.listIsNotEmpty = false;
@@ -204,13 +213,15 @@ export class InventoryControlComponent implements OnInit {
     this.searchInputModel = new Input(0, '', 0, '', '', '');
   }
 
+  /** Used to validate the input quantity */
   validateEntryQuantity() {
     if (this.auxQ < 0) {
       this.auxQ = 0;
     }
   }
 
-  validateInputName(){
+  /** Used to validate if an input is already on list */
+  validateInputName() {
     for (const i of this.inputEntryList) {
       if (this.searchInputModel.nombre.toUpperCase() === i.insumo.nombre.toUpperCase()) {
         this.inputAlreadyAdded = true;
@@ -221,9 +232,10 @@ export class InventoryControlComponent implements OnInit {
     }
   }
 
-  selectedInput(item){
+  /** Used when an input is selected on the autocomplete list */
+  selectedInput(item) {
     console.log(item);
-    for (const i of this.inputEntryList){
+    for (const i of this.inputEntryList) {
       if (item.nombre === i.insumo.nombre) {
         this.inputAlreadyAdded = true;
       } else {

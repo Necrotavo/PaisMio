@@ -481,21 +481,6 @@
                                         <ng-template #notFoundTemplate let-notFound>
                                             <div [innerHTML]="notFound"></div>
                                         </ng-template>
-                                        <!--
-                                        <input type="text" (keyup)="searchInput()" required #nombreIQ="ngModel"
-                                            class="form-control" [class.is-invalid]="!inputExist && nombreIQ.touched "
-                                            placeholder="Nombre de insumo" name="nombreIQ"
-                                            [(ngModel)]="searchInputModel.nombre">
-                                        <div *ngIf="nombreIQ.errors && (nombreIQ.invalid || nombreIQ.touched)">
-                                            <p><small class="text-danger"
-                                                    *ngIf="nombreIQ.errors.required && nombreIQ.touched">Nombre de
-                                                    insumo
-                                                    requerido</small></p>
-                                            <p><small class="text-danger" *ngIf="nombreIQ.touched && !inputExist">El
-                                                    insumo no
-                                                    existe </small></p>
-                                        </div>
-                                        -->
                                     </div>
                                 </td>
                             </tr>
@@ -751,7 +736,6 @@
 
 <!-- Modal Input details End -->
 
-<!--Aquí estoy perro-->
 <!-- Analysis Modal Start -->
 <!-- Modal -->
 <div class="modal fade" id="analysisModal" tabindex="-1" role="dialog">
@@ -815,14 +799,6 @@
                                     <tbody>
                                         <tr>
                                             <th scope="row">
-                                                <!--<select>
-                                                    <option selected>Seleccionar
-                                                    </option>
-                                                    <option value="1">Cliente Físico:
-                                                    </option>
-                                                    <option value="2">Razón Social:
-                                                    </option>
-                                                </select>-->
                                                 <p>Cliente: </p>
                                             <td>
                                                 <div class="form-field">
@@ -909,9 +885,6 @@
                                                 </select>
                                             </td>
                                         </tr>
-                                        <!--[class.is-invalid]="analysisExV.touched"
-                                    [class.is-invalid]="analysisExO.touched"
-                                [class.is-invalid]="analysisExG.touched"-->
                                         <tr>
                                             <th>
                                                 Examen olfativo:

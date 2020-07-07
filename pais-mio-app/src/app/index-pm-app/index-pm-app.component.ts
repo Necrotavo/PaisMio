@@ -33,6 +33,7 @@ export class IndexPmAppComponent implements OnInit {
     console.log('Imprimo: ' + this.userIn.correo);
   }
 
+  /** Used to change the order in the observable and set and active order in local storage */
   newOrder(i: number) {
     this.data.changeOrder(this.orderList[i]);
     localStorage.setItem('active order', JSON.stringify(this.orderList[i]));

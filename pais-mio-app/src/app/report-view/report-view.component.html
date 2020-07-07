@@ -1,6 +1,5 @@
 <div class="account-page">
     <div class="container">
-        <div class="row justify-content-center">
 
             <form #reportForm="ngForm" novalidate>
 
@@ -10,7 +9,6 @@
                     <select #reportName="ngModel" class="custom-select" name="reportName" [(ngModel)]="auxN"
                         (blur)="validateReportType(auxN)" (change)="validateReportType(auxN)"
                         [class.is-invalid]="reportHasError && reportName.touched">
-                        <!--<option value="default">Reporte</option>-->
                         <option value="insumos">Insumos</option>
                         <option value="pedidos">Pedidos</option>
                         <option value="entrada">Entradas de insumos</option>
@@ -79,11 +77,7 @@
                         <p><small class="text-danger" *ngIf="(date2HasError && (R2PF.touched && R2SF.touched)) || (date3HasError && (R2PF.touched && R2SF.touched))">Fechas incorrectas</small></p>
                     </table>
                 </div>
-
-                <!--
-                <button type="button" class="btn btn-success" (click)=" inputRequestForm.reset()"
-                            data-toggle="modal" data-target="#requestModal">
-                            -->
+                
                 <button *ngIf="auxN === 'insumos'" [disabled]="date1HasError" type="button"
                     class="btn btn-success" data-toggle="modal" data-target="#inputReportModal"
                     (click)="getInputReport()">Generar
@@ -105,7 +99,7 @@
                     reporte</button>
             </form>
 
-        </div>
+        
     </div>
 </div>
 
