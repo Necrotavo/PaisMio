@@ -130,6 +130,7 @@ export class NavbarComponent implements OnInit {
         onClose: () => {
           clearInterval(timerInterval);
           this.authService.logout();
+          this.router.navigateByUrl('/');
         }
       }).then((result) => {
         /* Read more about handling dismissals below */
