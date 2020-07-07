@@ -634,7 +634,10 @@ export class OrderViewComponent implements OnInit {
         if (this.auxN.toUpperCase() === i.nombre.toUpperCase()) {
           this.cellarEntryModel = i;
           for (const j of this.cellarEntryModel.listaInsumosEnBodega){
-               this.autoCompleteInput.push(j.insumo);
+            if(j.insumo.estado.toUpperCase() === 'HABILITADO'){
+              this.autoCompleteInput.push(j.insumo);
+            }
+               
           }
           this.resetInputRequestModal();
           return;

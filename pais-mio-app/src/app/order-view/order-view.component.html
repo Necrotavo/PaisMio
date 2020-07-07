@@ -724,10 +724,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button *ngIf="inputRequestModel.estado === 'PENDIENTE' && localUser.rol === 'ADMINISTRADOR'"
+                <button *ngIf="inputRequestModel.estado === 'PENDIENTE' && (localUser.rol === 'ADMINISTRADOR'||localUser.rol === 'SUPERVISOR')"
                     type="button" class="btn btn-danger" data-dismiss="modal"
                     (click)="requestDecision('RECHAZADA')">Rechazar</button>
-                <button *ngIf="inputRequestModel.estado === 'PENDIENTE' && localUser.rol === 'ADMINISTRADOR' && !invalidRequest"
+                <button *ngIf="inputRequestModel.estado === 'PENDIENTE' && (localUser.rol === 'ADMINISTRADOR'||localUser.rol === 'SUPERVISOR') && !invalidRequest"
                     type="button" class="btn btn-success" data-dismiss="modal"
                     (click)="requestDecision('APROBADA')">Aceptar</button>
             </div>
