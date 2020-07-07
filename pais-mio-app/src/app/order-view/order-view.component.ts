@@ -106,7 +106,7 @@ export class OrderViewComponent implements OnInit {
   Swal = ('sweetalert2');
 
   public keyword = 'nombre';
-  autoCompleteInput;
+  autoCompleteInput : Array<Input> = [];
 
   ngOnInit(): void {
 
@@ -148,7 +148,7 @@ export class OrderViewComponent implements OnInit {
     this.apiService.getInputA().subscribe(
       data => {
         this.inputList = data;
-        this.autoCompleteInput = this.inputList;
+        //this.autoCompleteInput = this.inputList;
       }
     );
 
@@ -298,6 +298,7 @@ export class OrderViewComponent implements OnInit {
     this.inputInConsumeList = false;
     this.inputConsumeList.length = 0;
     this.inputDiscardList.length = 0;
+    this.autoCompleteInput.length = 0;
     this.validateList();
     this.validateDiscarList();
   }
