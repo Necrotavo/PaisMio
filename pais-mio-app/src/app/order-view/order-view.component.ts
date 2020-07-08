@@ -13,7 +13,7 @@ import { Analysis } from 'src/models/analysis';
 import { AnalysisPC } from 'src/models/analysisPC';
 import { Cellar } from 'src/models/cellar';
 import Swal from 'sweetalert2';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { NavbarComponent } from 'src/app/navbar/navbar.component';
 
@@ -24,8 +24,6 @@ import { NavbarComponent } from 'src/app/navbar/navbar.component';
 })
 
 export class OrderViewComponent implements OnInit {
-  
-  analysisExist = false;
 
   constructor(private data: DataService, private apiService: ApiService, router: Router) { }
 
@@ -35,8 +33,6 @@ export class OrderViewComponent implements OnInit {
   order: Order;
   inputRequest: InputRequest;
   input: Input;
-
-
   user: User;
   client: Client;
 
@@ -69,6 +65,7 @@ export class OrderViewComponent implements OnInit {
   inputInConsumeList = false;
   inputInDiscardList = false;
   invalidRequest = false;
+  analysisExist = false;
 
   /** Models */
   inputRequestModel = new InputRequest(0, 0, 0, this.consumeList, this.discardList, '', '', '', '', '');
@@ -92,6 +89,7 @@ export class OrderViewComponent implements OnInit {
   auxN: string;
   aviableQuantity: number;
 
+  /** Sweet alert mixin for dispatch swal */
   dispatchSwal = Swal.mixin({
     customClass: {
       confirmButton: 'btn btn-success',
@@ -101,15 +99,17 @@ export class OrderViewComponent implements OnInit {
     buttonsStyling: false
   });
 
-  router: Router;
-
   Swal = ('sweetalert2');
 
+  router: Router;
+
+  /** Autocomplete variables */
   public keyword = 'nombre';
-  autoCompleteInput : Array<Input> = [];
+  autoCompleteInput: Array<Input> = [];
 
   ngOnInit(): void {
 
+    /** Gets the logged user from local storage on init */
     this.localUser = JSON.parse(localStorage.getItem('user logged'));
 
     /** Gets all Orders from API service on Init */
@@ -123,9 +123,11 @@ export class OrderViewComponent implements OnInit {
     this.data.activeOrder.subscribe((order) => {
       this.order = order;
 
+      /** Calls the function on init */
       this.changeAnalysis();
 
-      if(this.order){
+      /** Check if there is an active order to get its input request */
+      if (this.order) {
         this.getInputRequestList();
       }
 
@@ -150,7 +152,7 @@ export class OrderViewComponent implements OnInit {
     this.apiService.getInputA().subscribe(
       data => {
         this.inputList = data;
-        //this.autoCompleteInput = this.inputList;
+        // this.autoCompleteInput = this.inputList;
       }
     );
 
@@ -158,15 +160,17 @@ export class OrderViewComponent implements OnInit {
     this.getCellarList();
   }
 
-  getInputRequestList(){
-    if(this.localUser.rol === 'OPERARIO'){
+  /** Used to get all input request from the API service */
+  getInputRequestList() {
+    if (this.localUser.rol === 'OPERARIO') {
       this.getInputRequestByUser();
     } else {
       this.getInputRequestByOrder();
     }
   }
 
-  getCellarList(){
+  /** Used to get all cellar from the API service */
+  getCellarList() {
     this.apiService.getACellar().subscribe(
       data => {
         this.cellarList = data;
@@ -220,30 +224,30 @@ export class OrderViewComponent implements OnInit {
         this.analysisModel.pedCodigo = this.order.codigo;
         console.log(`${this.analysisModel}`);
         this.apiService.addAnalysis(this.analysisModel).subscribe(
-      data => {
-        this.objAnalysis = data;
-        if (this.objAnalysis) {
-          Swal.fire({
-            icon: 'success',
-            title: '!Listo!',
-            text: '¡Se agregó el análisis con éxito!',
-            showConfirmButton: false,
-            timer: 1500
-          });
-        } else {
-          Swal.fire({
-            icon: 'warning',
-            title: '!Ups!',
-            text: 'Ocurrió algún error, vuelve a intentarlo',
-            showConfirmButton: false,
-            timer: 1500
-          });
-        }
-        this.changeAnalysis();
-      }
-    );
+          data => {
+            this.objAnalysis = data;
+            if (this.objAnalysis) {
+              Swal.fire({
+                icon: 'success',
+                title: '!Listo!',
+                text: '¡Se agregó el análisis con éxito!',
+                showConfirmButton: false,
+                timer: 1500
+              });
+            } else {
+              Swal.fire({
+                icon: 'warning',
+                title: '!Ups!',
+                text: 'Ocurrió algún error, vuelve a intentarlo',
+                showConfirmButton: false,
+                timer: 1500
+              });
+            }
+            this.changeAnalysis();
+          }
+        );
         document.getElementById('botonCerrar').click();
-        this.analysisModel =  new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array<AnalysisPC>());
+        this.analysisModel = new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array<AnalysisPC>());
       }
     });
   }
@@ -260,6 +264,7 @@ export class OrderViewComponent implements OnInit {
     return this.analysisExist;
   }
 
+  /** Used to reset the values of the analysis form */
   dropdownReset() {
     (document.getElementById('exaVisualSelect') as HTMLSelectElement).value = '0';
     this.analysisModel.exVisual = 0;
@@ -285,7 +290,7 @@ export class OrderViewComponent implements OnInit {
       data => {
         this.objInputRequest = data;
         this.getInputRequestList();
-        if (this.objInputRequest){
+        if (this.objInputRequest) {
           Swal.fire({
             icon: 'success',
             title: '!Listo!',
@@ -293,7 +298,7 @@ export class OrderViewComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           });
-        } else{
+        } else {
           Swal.fire({
             icon: 'warning',
             title: '!Ups!',
@@ -307,7 +312,8 @@ export class OrderViewComponent implements OnInit {
     document.getElementById('closeRequestBtn').click();
   }
 
-  resetInputEntryLists(){
+  /** Used to reset an input list */
+  resetInputEntryLists() {
     this.aviableQuantity = 1;
     this.inputInDiscardList = false;
     this.inputInConsumeList = false;
@@ -331,7 +337,7 @@ export class OrderViewComponent implements OnInit {
 
   /** Get the input requests from a user from the API service */
   getInputRequestByUser() {
-    let inputRequest = new InputRequest(0, 0, 0, new Array<InputQ>(), new Array<InputQ>(), '', '', '', '', '');
+    const inputRequest = new InputRequest(0, 0, 0, new Array<InputQ>(), new Array<InputQ>(), '', '', '', '', '');
     inputRequest.operario = this.localUser.correo;
     inputRequest.codigoPedido = this.order.codigo;
     inputRequest.fecha = '/Date(1594161707953-0600)/';
@@ -345,11 +351,11 @@ export class OrderViewComponent implements OnInit {
   /** Get the input requests of an order from the API service */
   getInputRequestByOrder() {
     if (this.order !== null) {
-    this.apiService.getInputRequestByOrder(this.order).subscribe(
-      data => {
-        this.inputRequestListByOrder = data;
-      }
-    );
+      this.apiService.getInputRequestByOrder(this.order).subscribe(
+        data => {
+          this.inputRequestListByOrder = data;
+        }
+      );
     }
   }
 
@@ -382,7 +388,8 @@ export class OrderViewComponent implements OnInit {
     this.searchAvalability(this.inputRequestModel.bodega);
   }
 
-  searchAvalability(cellarId: number){
+  /** Used to search available cellar */
+  searchAvalability(cellarId: number) {
     this.apiService.getCellar().subscribe(
       data => {
         this.cellarList = data;
@@ -394,41 +401,41 @@ export class OrderViewComponent implements OnInit {
       }
     );
 
-    let  bodega: Cellar;
+    let bodega: Cellar;
 
-    for (const bodegaEnLista of this.cellarList){
-      if (cellarId === bodegaEnLista.codigo){
+    for (const bodegaEnLista of this.cellarList) {
+      if (cellarId === bodegaEnLista.codigo) {
         bodega = bodegaEnLista;
       }
     }
 
     let exist = false;
-    for (const insumoConsumidoEnLista of this.inputRequestModel.insumosConsumo){
-      for (const insumoEnBodega of bodega.listaInsumosEnBodega){
-        if(insumoConsumidoEnLista.insumo.codigo === insumoEnBodega.insumo.codigo){
+    for (const insumoConsumidoEnLista of this.inputRequestModel.insumosConsumo) {
+      for (const insumoEnBodega of bodega.listaInsumosEnBodega) {
+        if (insumoConsumidoEnLista.insumo.codigo === insumoEnBodega.insumo.codigo) {
           exist = true;
         }
       }
     }
-    for (const insumoDescartadoEnLista of this.inputRequestModel.insumosDescarte){
-      for (const insumoEnBodega of bodega.listaInsumosEnBodega){
-        if (insumoDescartadoEnLista.insumo.codigo === insumoEnBodega.insumo.codigo){
+    for (const insumoDescartadoEnLista of this.inputRequestModel.insumosDescarte) {
+      for (const insumoEnBodega of bodega.listaInsumosEnBodega) {
+        if (insumoDescartadoEnLista.insumo.codigo === insumoEnBodega.insumo.codigo) {
           exist = true;
         }
       }
     }
 
-    if(!exist){
+    if (!exist) {
       this.invalidRequest = true;
       return;
     }
-    
-    let totalBothList: Array<InputQ> = [];
-    for (const insumoConsumidoEnLista of this.inputRequestModel.insumosConsumo){
-      for (const insumoDescartadoEnLista of this.inputRequestModel.insumosDescarte){
-        if (insumoConsumidoEnLista.insumo.codigo === insumoDescartadoEnLista.insumo.codigo){
-          let tempInputQ = new InputQ(0, new Input(0, '', 0, '', '', ''));
-          tempInputQ.cantidadDisponible = insumoConsumidoEnLista.cantidadDisponible+insumoDescartadoEnLista.cantidadDisponible;
+
+    const totalBothList: Array<InputQ> = [];
+    for (const insumoConsumidoEnLista of this.inputRequestModel.insumosConsumo) {
+      for (const insumoDescartadoEnLista of this.inputRequestModel.insumosDescarte) {
+        if (insumoConsumidoEnLista.insumo.codigo === insumoDescartadoEnLista.insumo.codigo) {
+          const tempInputQ = new InputQ(0, new Input(0, '', 0, '', '', ''));
+          tempInputQ.cantidadDisponible = insumoConsumidoEnLista.cantidadDisponible + insumoDescartadoEnLista.cantidadDisponible;
           tempInputQ.insumo.cantMinStock = insumoConsumidoEnLista.insumo.cantMinStock;
           tempInputQ.insumo.codigo = insumoConsumidoEnLista.insumo.codigo;
           tempInputQ.insumo.estado = insumoConsumidoEnLista.insumo.estado;
@@ -440,10 +447,10 @@ export class OrderViewComponent implements OnInit {
       }
     }
 
-    for(const inputTotal of totalBothList){
-      for (const insumoEnBodega of bodega.listaInsumosEnBodega){
-        if (inputTotal.insumo.codigo === insumoEnBodega.insumo.codigo){
-          if(inputTotal.cantidadDisponible > insumoEnBodega.cantidadDisponible){
+    for (const inputTotal of totalBothList) {
+      for (const insumoEnBodega of bodega.listaInsumosEnBodega) {
+        if (inputTotal.insumo.codigo === insumoEnBodega.insumo.codigo) {
+          if (inputTotal.cantidadDisponible > insumoEnBodega.cantidadDisponible) {
             this.invalidRequest = true;
             return;
           }
@@ -451,13 +458,10 @@ export class OrderViewComponent implements OnInit {
       }
     }
 
-
-
-
-    for (const insumoConsumidoEnLista of this.inputRequestModel.insumosConsumo){
-      for (const insumoEnBodega of bodega.listaInsumosEnBodega){
-        if (insumoConsumidoEnLista.insumo.codigo === insumoEnBodega.insumo.codigo){
-          if(insumoConsumidoEnLista.cantidadDisponible > insumoEnBodega.cantidadDisponible){
+    for (const insumoConsumidoEnLista of this.inputRequestModel.insumosConsumo) {
+      for (const insumoEnBodega of bodega.listaInsumosEnBodega) {
+        if (insumoConsumidoEnLista.insumo.codigo === insumoEnBodega.insumo.codigo) {
+          if (insumoConsumidoEnLista.cantidadDisponible > insumoEnBodega.cantidadDisponible) {
             this.invalidRequest = true;
             return;
           }
@@ -465,10 +469,10 @@ export class OrderViewComponent implements OnInit {
       }
     }
 
-    for (const insumoDescartadoEnLista of this.inputRequestModel.insumosDescarte){
-      for (const insumoEnBodega of bodega.listaInsumosEnBodega){
-        if (insumoDescartadoEnLista.insumo.codigo === insumoEnBodega.insumo.codigo){
-          if (insumoDescartadoEnLista.cantidadDisponible > insumoEnBodega.cantidadDisponible){
+    for (const insumoDescartadoEnLista of this.inputRequestModel.insumosDescarte) {
+      for (const insumoEnBodega of bodega.listaInsumosEnBodega) {
+        if (insumoDescartadoEnLista.insumo.codigo === insumoEnBodega.insumo.codigo) {
+          if (insumoDescartadoEnLista.cantidadDisponible > insumoEnBodega.cantidadDisponible) {
             this.invalidRequest = true;
             return;
           }
@@ -476,40 +480,8 @@ export class OrderViewComponent implements OnInit {
       }
     }
 
-
-
-/*
-    for(const j of this.cellarList ){
-      if(j.codigo === this.inputRequestModel.bodega){
-        for(const i of this.inputRequestModel.insumosConsumo){
-          for(const k of j.listaInsumosEnBodega){
-            if(k.cantidadDisponible === 0){
-              this.invalidRequest = true;
-              return;
-            }
-            if(i.cantidadDisponible > k.cantidadDisponible){
-              this.invalidRequest = true;
-              return;
-            }
-          }
-        }
-
-        for(const i of this.inputRequestModel.insumosDescarte){
-          for(const k of j.listaInsumosEnBodega){
-            if(k.cantidadDisponible === 0){
-              this.invalidRequest = true;
-              return;
-            }
-            if(i.cantidadDisponible > k.cantidadDisponible){
-              this.invalidRequest = true;
-              return;
-            }
-          }
-        }
-      }
-    }
-    */
   }
+
   /** used to search for an input from an specific cellar */
   searchInput() {
     for (const i of this.cellarEntryModel.listaInsumosEnBodega) {
@@ -525,24 +497,31 @@ export class OrderViewComponent implements OnInit {
     }
   }
 
-  deselectedCellar(item){
+  /** Used to reset an input request modal when a cellar is deselected */
+  deselectedCellar(item) {
     this.resetInputRequestModal();
   }
-  selectedCellar(item){
+
+  /** Used when a cellar is selected to reset the input request modal */
+  selectedCellar(item) {
     this.resetInputRequestModal();
     this.cellarEntryModel = item;
-      for (const j of item.listaInsumosEnBodega){
-        if(j.insumo.estado.toUpperCase() === 'HABILITADO'){
-          this.autoCompleteInput.push(j.insumo);
-        }
+    for (const j of item.listaInsumosEnBodega) {
+      if (j.insumo.estado.toUpperCase() === 'HABILITADO') {
+        this.autoCompleteInput.push(j.insumo);
       }
-      this.cellarHasError = true;
-      return;
     }
-  deselectedInput(item){
+    this.cellarHasError = true;
+    return;
+  }
+
+  /** Used when an input is deselected to change the input existance */
+  deselectedInput(item) {
     this.inputExist = false;
   }
-  selectedInput(item){
+
+  /** Used when an input is selected */
+  selectedInput(item) {
     this.inputExist = true;
     this.inputInConsumeList = false;
     this.inputInDiscardList = false;
@@ -554,14 +533,14 @@ export class OrderViewComponent implements OnInit {
       }
     }
 
-    for (const j of this.inputDiscardList){
-      if (j.insumo.codigo === item.codigo){
+    for (const j of this.inputDiscardList) {
+      if (j.insumo.codigo === item.codigo) {
         this.inputInDiscardList = true;
       }
     }
 
-    for (const k of this.inputConsumeList){
-      if (k.insumo.codigo === item.codigo){
+    for (const k of this.inputConsumeList) {
+      if (k.insumo.codigo === item.codigo) {
         this.inputInConsumeList = true;
       }
     }
@@ -595,7 +574,7 @@ export class OrderViewComponent implements OnInit {
 
   /** Used to remove an input from the consume list  */
   removeFromList(i: number) {
-    let consumeInput = this.inputConsumeList.splice(i, 1)[0];
+    const consumeInput = this.inputConsumeList.splice(i, 1)[0];
     this.returnInputToCellar(consumeInput);
     this.validateList();
   }
@@ -625,13 +604,13 @@ export class OrderViewComponent implements OnInit {
 
   /** Used to remove an input from the discard list */
   removeFromDiscardList(i: number) {
-    let discardInput = this.inputDiscardList.splice(i, 1)[0];
+    const discardInput = this.inputDiscardList.splice(i, 1)[0];
     this.returnInputToCellar(discardInput);
     this.validateDiscarList();
   }
 
   /** Used to return a quantity of a input to the input list of a cellar */
-  returnInputToCellar(inpuq: InputQ){
+  returnInputToCellar(inpuq: InputQ) {
     for (const i of this.cellarEntryModel.listaInsumosEnBodega) {
       if (inpuq.insumo.codigo === i.insumo.codigo) {
         i.cantidadDisponible += inpuq.cantidadDisponible;
@@ -660,21 +639,20 @@ export class OrderViewComponent implements OnInit {
     this.aviableQuantity = 1;
     this.autoCompleteInput.length = 0;
     for (const i of this.cellarList) {
-      if(this.auxN)
-      {
+      if (this.auxN) {
         if (this.auxN.toUpperCase() === i.nombre.toUpperCase()) {
           this.cellarEntryModel = i;
-          for (const j of this.cellarEntryModel.listaInsumosEnBodega){
-            if(j.insumo.estado.toUpperCase() === 'HABILITADO'){
+          for (const j of this.cellarEntryModel.listaInsumosEnBodega) {
+            if (j.insumo.estado.toUpperCase() === 'HABILITADO') {
               this.autoCompleteInput.push(j.insumo);
             }
-               
+
           }
           this.resetInputRequestModal();
           return;
         }
       }
-      
+
     }
 
     // this.resetInputRequestModal();
@@ -781,12 +759,13 @@ export class OrderViewComponent implements OnInit {
     });
   }
 
-    newOrder() {
-    // window.location.reload();
+  /** Change the order in the observable */
+  newOrder() {
     this.data.reloadOrderList(true);
     localStorage.setItem('active order', JSON.stringify(this.order));
   }
 
+  /** Used to reload the navbar for the observables */
   navreload() {
     this.navbar.navbarReloadOrder();
   }
