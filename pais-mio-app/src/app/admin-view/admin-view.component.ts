@@ -270,14 +270,24 @@ validateInputMin(){
     this.unitExist = false;
   }
 
-  searchProductName() {
-    for (const i of this.productList) {
-      if (this.productModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
-        this.productNameExists = true;
-        return;
+  searchProductName(forCreation: boolean) {
+    if (forCreation === true){
+      for (const i of this.productList) {
+        if (this.productModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
+          this.productNameExists = true;
+          return;
+        }
       }
+      this.productNameExists = false;
+    } else {
+      for (const i of this.productList) {
+        if (this.productUpdateModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
+          this.productNameExists = true;
+          return;
+        }
+      }
+      this.productNameExists = false;
     }
-    this.productNameExists = false;
   }
 
   closeSearchProductName() {

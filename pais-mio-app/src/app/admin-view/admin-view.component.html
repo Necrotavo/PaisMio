@@ -498,7 +498,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let com of productList | filter:termP" (click)="chargeProductToUpdate(com);resetExistProductId()"
+                            <tr *ngFor="let com of productList | filter:termP" (click)="chargeProductToUpdate(com);resetExistProductId(); closeSearchProductName()"
                                 data-toggle="modal" data-target="#productsUpdateModal">
                                 <td>
                                     {{com.id}}
@@ -1928,7 +1928,7 @@
                                         <input type="text" required #nombreP="ngModel" class="form-control"
                                             [class.is-invalid]="nombreP.invalid && nombreP.touched"
                                             placeholder="Nombre del producto" name="nombreP"
-                                            [(ngModel)]="productModel.nombre" (keyup)="searchProductName()">
+                                            [(ngModel)]="productModel.nombre" (keyup)="searchProductName(true)">
 
                                         <div *ngIf="nombreP.invalid || nombreP.touched || productNameExists">
                                             <p><small class="text-danger"
@@ -1953,13 +1953,12 @@
                                             placeholder="Código del producto" name="idP" [(ngModel)]="productModel.id"
                                             (keyup)="productCodeExist(true)">
 
-                                        <div *ngIf="idP.invalid || idP.touched">
+                                        <div *ngIf="idP.invalid || idP.touched || productIdExist">
                                             <p><small class="text-danger" *ngIf="idP.invalid && idP.touched">Código
                                                     requerido</small></p>
                                             <p><small class="text-danger" *ngIf="productIdExist">Ya existe ese código de
                                                     producto</small></p>
                                         </div>
-
                                     </div>
                                 </td>
                             </tr>
@@ -2046,15 +2045,18 @@
                                         <input type="text" required #nombrePUP="ngModel" class="form-control"
                                             [class.is-invalid]="nombrePUP.invalid && nombrePUP.touched"
                                             placeholder="Nombre del producto" name="nombrePUP"
-                                            [(ngModel)]="productUpdateModel.nombre">
+                                            [(ngModel)]="productUpdateModel.nombre"
+                                            (keyup)="searchProductName(false)">
 
-                                        <div *ngIf="nombrePUP.invalid || nombrePUP.touched">
+                                        <div *ngIf="nombrePUP.invalid || nombrePUP.touched || productNameExists">
                                             <p><small class="text-danger"
                                                     *ngIf="nombrePUP.invalid && nombrePUP.touched">Nombre
                                                     requerido</small>
                                             </p>
+                                            <p><small class="text-danger"
+                                                *ngIf="productNameExists">Este nombre ya ha sido registrado</small>
+                                        </p>
                                         </div>
-
                                     </div>
                                 </td>
                             </tr>
@@ -2127,10 +2129,10 @@
 
             <div class="modal-footer" >
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" *ngIf="productUpdateForm.form.invalid || productIdExist"
+                <button type="submit" *ngIf="productUpdateForm.form.invalid || productIdExist || productNameExists"
                     class="btn btn-primary" data-dismiss="modal" disabled
                     class="btn btn-primary">Actualizar</button>
-                <button type="submit" *ngIf="!(productUpdateForm.form.invalid || productIdExist)"
+                <button type="submit" *ngIf="!(productUpdateForm.form.invalid || productIdExist || productNameExists)"
                     class="btn btn-primary" data-dismiss="modal" (click)="updateProduct()"
                     class="btn btn-primary">Actualizar</button>
             </div>
