@@ -7,7 +7,6 @@ import { InventoryControlComponent } from './inventory-control/inventory-control
 import { OrderViewComponent } from './order-view/order-view.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
 import { UserViewComponent } from './user-view/user-view.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { TierOneGuard } from './tier-one.guard';
@@ -26,7 +25,6 @@ const routes: Routes = [
   {path: 'recover-password', component: RecoverPasswordComponent},
   {path: 'report-view', component: ReportViewComponent, canActivate: [TierOneGuard]},
   {path: 'sign-in', component: SignInComponent},
-  {path: 'sign-up', component: SignUpComponent, canActivate: [TierThreeGuard]},
   {path: 'user-view', component: UserViewComponent, canActivate: [TierThreeGuard]},
   {path: '**', component: ErrorPageComponent}
 ];

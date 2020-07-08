@@ -34,7 +34,6 @@ export class ChangePasswordComponent implements OnInit {
     this.apiService.changePassword(this.userChangePass).subscribe(
       data => {
         this.objUser = data;
-        console.log(this.objUser);
         this.showMessage(this.objUser);
       }
     );
