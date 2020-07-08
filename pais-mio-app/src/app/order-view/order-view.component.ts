@@ -527,6 +527,7 @@ export class OrderViewComponent implements OnInit {
 
 
   selectedCellar(item){
+    this.cellarEntryModel = item;
       for (const j of item.listaInsumosEnBodega){
         if(j.insumo.estado.toUpperCase() === 'HABILITADO'){
           this.autoCompleteInput.push(j.insumo);
