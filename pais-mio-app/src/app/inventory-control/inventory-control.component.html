@@ -25,7 +25,6 @@
             </div>
         </div>
         <br>
-        {{cellarAdminModel | json}}
         <div id="accordion">
             <div class="card" *ngFor="let item of cellarList | filter: termIQ; let i = index;">
                 <div class="card-header" id="headingOne">
@@ -139,11 +138,11 @@
                                             [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
                                             placeHolder="Nombre de bodega"
                                             (selected)='selectedCellar($event)'
+                                            (inputCleared)='deselectedCellar($event)'
                                             name="cellarCod" [(ngModel)]="autoCellarEntryModel.codigo"
                                             #cellarCod="ngModel"
                                             >
-                                        </ng-autocomplete>
-
+                                        </ng-autocomplete> 
                                         <ng-template #itemTemplate let-item>
                                             <a [innerHTML]="item.nombre"></a>
                                         </ng-template>
@@ -165,6 +164,7 @@
                                             [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
                                             placeHolder="Nombre de insumo"
                                             (selected)='selectedInput($event)'
+                                            (inputCleared)='deselectedInput($event)'
                                             name="nombreIQ" [(ngModel)]="searchInputModel.nombre"
                                             #nombreIQ="ngModel"
                                             >
@@ -202,7 +202,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr *ngIf="inputExist && !(inputAlreadyAdded)">
+                            <tr *ngIf="inputExist && !(inputAlreadyAdded) && !inputHasError">
                                 <th>
                                 </th>
                                 <td *ngIf="auxQ>0">
@@ -237,10 +237,10 @@
                 </form>
             </div>
             <div class="modal-footer">
+            
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button [disabled]="inputQForm.form.invalid || !listIsNotEmpty" type="button" class="btn btn-primary" data-dismiss="modal" (click)="inputEntry();getACellarList()">Crear</button>
+                <button [disabled]="inputQForm.form.invalid || !listIsNotEmpty || cellarHasError" type="button" class="btn btn-primary" data-dismiss="modal" (click)="inputEntry();getACellarList()">Crear</button>
             </div>
-
         </div>
     </div>
 </div>

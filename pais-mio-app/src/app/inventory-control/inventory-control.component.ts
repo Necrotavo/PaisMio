@@ -51,7 +51,9 @@ export class InventoryControlComponent implements OnInit {
 
   /** Validations */
   cellarHasError = true;
+  inputHasError = true;
   inputAlreadyAdded = false;
+
 
   /** Aux variables */
   auxQ = 1;
@@ -133,6 +135,8 @@ export class InventoryControlComponent implements OnInit {
     }
   }
 
+
+
   /** Used to add a input entry */
   inputEntry() {
     this.cellarAdminModel.doBodega = this.cellarEntryModel;
@@ -171,8 +175,8 @@ export class InventoryControlComponent implements OnInit {
     this.inputEntryList.push(this.inputEntryModel);
     this.inputEntryModel = new InputQ(0, this.input);
     this.auxQ = 0;
-    this.searchInputModel2 = new Input(0, ' ', 0, ' ', ' ', ' ');
-    this.searchInputModel = new Input(0, ' ', 0, ' ', ' ', ' ');
+    this.searchInputModel2 = new Input(0, '', 0, '', '', '');
+    this.searchInputModel = new Input(0, '', 0, '', '', '');
     this.validateList();
     this.inputExist = false;
   }
@@ -202,6 +206,7 @@ export class InventoryControlComponent implements OnInit {
   removeFromList(i: number) {
     this.inputEntryList.splice(i, 1);
     this.validateList();
+    this.inputAlreadyAdded = false;
   }
 
   /** Used to reset the input entry list */
@@ -211,6 +216,7 @@ export class InventoryControlComponent implements OnInit {
     this.listIsNotEmpty = false;
     this.inputExist = false;
     this.searchInputModel = new Input(0, '', 0, '', '', '');
+    this.inputAlreadyAdded = false;
   }
 
   /** Used to validate the input quantity */
@@ -244,9 +250,20 @@ export class InventoryControlComponent implements OnInit {
     }
     this.inputExist = true;
     this.searchInputModel2 = item;
+    this.inputHasError = false;
+  }
+
+  deselectedInput(item){
+    this.auxQ = 0;
+    this.inputHasError = true;
   }
 
   selectedCellar(item){
     this.cellarEntryModel.codigo = item.codigo;
+    this.cellarHasError = false;
   }
+
+  deselectedCellar(item){
+    this.cellarHasError = true;
+  } 
 }
