@@ -23,13 +23,9 @@ export class AuthService {
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private adminRole: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private supervisorRole: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private adminOrSupervisorRole: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   userIn = new User('', '', '', '', '', '');
-
-  /*
-  private userName = new BehaviorSubject<string>(localStorage.getItem('logged username'));
-  private userRole = new BehaviorSubject<string>(localStorage.getItem('logged role'));
-  */
 
   public userData$: Observable<User>;
 
@@ -56,9 +52,11 @@ export class AuthService {
     if (this.userIn.rol === 'ADMINISTRADOR') {
       console.log('admin overload');
       this.adminRole.next(true);
+      this.adminOrSupervisorRole.next(true);
     } else if (this.userIn.rol === 'SUPERVISOR') {
       console.log('super overload');
       this.supervisorRole.next(true);
+      this.adminOrSupervisorRole.next(true);
     }
   }
 
@@ -75,10 +73,11 @@ export class AuthService {
       console.log('Logged as: ' + this.userIn.rol);
       if (this.userIn.rol === 'ADMINISTRADOR') {
         this.adminRole.next(true);
+        this.adminOrSupervisorRole.next(true);
       } else if (this.userIn.rol === 'SUPERVISOR') {
         this.supervisorRole.next(true);
+        this.adminOrSupervisorRole.next(true);
       }
-      this.supervisorRole.next(true);
     }
   }
 
@@ -90,6 +89,7 @@ export class AuthService {
     this.loggedIn.next(false);
     this.adminRole.next(false);
     this.supervisorRole.next(false);
+    this.adminOrSupervisorRole.next(false);
     this.router.navigateByUrl('/sign-in');
   }
 
@@ -102,7 +102,11 @@ export class AuthService {
   }
 
   get isSupervisor() {
-    return this.supervisorRole.asObservable(), this.adminRole.asObservable();
+    return this.supervisorRole.asObservable();
+  }
+
+  get isAdminOrSupervisor() {
+    return this.adminOrSupervisorRole.asObservable();
   }
 
 }
