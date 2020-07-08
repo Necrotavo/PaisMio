@@ -6,13 +6,10 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { InventoryControlComponent } from './inventory-control/inventory-control.component';
 import { OrderViewComponent } from './order-view/order-view.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
-import { ReportComparativeComponent } from './report-comparative/report-comparative.component';
-import { ReportMonthlyComponent } from './report-monthly/report-monthly.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { UserViewComponent } from './user-view/user-view.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import { RouterGuardGuard } from './router-guard.guard';
 import { TierOneGuard } from './tier-one.guard';
 import { TierTwoGuard } from './tier-two.guard';
 import { TierThreeGuard } from './tier-three.guard';
@@ -28,8 +25,6 @@ const routes: Routes = [
   {path: 'order-view', component: OrderViewComponent, canActivate: [TierThreeGuard]},
   {path: 'recover-password', component: RecoverPasswordComponent},
   {path: 'report-view', component: ReportViewComponent, canActivate: [TierOneGuard]},
-  {path: 'report-comparative', component: ReportComparativeComponent, canActivate: [TierOneGuard]},
-  {path: 'report-monthly', component: ReportMonthlyComponent, canActivate: [TierOneGuard]},
   {path: 'sign-in', component: SignInComponent},
   {path: 'sign-up', component: SignUpComponent, canActivate: [TierThreeGuard]},
   {path: 'user-view', component: UserViewComponent, canActivate: [TierThreeGuard]},
