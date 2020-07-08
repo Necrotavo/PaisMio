@@ -478,7 +478,7 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" (click)="productForm.reset();resetExistProductId()"
+                            <button type="button" class="btn btn-success" (click)="productForm.reset();resetExistProductId();closeSearchProductName()"
                                 data-toggle="modal" data-target="#productsModal">
                                 <i class="icon ion-plus">
                                 </i>
@@ -1928,12 +1928,15 @@
                                         <input type="text" required #nombreP="ngModel" class="form-control"
                                             [class.is-invalid]="nombreP.invalid && nombreP.touched"
                                             placeholder="Nombre del producto" name="nombreP"
-                                            [(ngModel)]="productModel.nombre">
+                                            [(ngModel)]="productModel.nombre" (keyup)="searchProductName()">
 
-                                        <div *ngIf="nombreP.invalid || nombreP.touched">
+                                        <div *ngIf="nombreP.invalid || nombreP.touched || productNameExists">
                                             <p><small class="text-danger"
                                                     *ngIf="nombreP.invalid && nombreP.touched">Nombre requerido</small>
                                             </p>
+                                            <p><small class="text-danger"
+                                                *ngIf="productNameExists">El nombre del producto ya ha sido registrado</small>
+                                        </p>
                                         </div>
 
                                     </div>
@@ -1987,9 +1990,9 @@
             <div class="modal-footer" >
                 <button type="button" class="btn btn-secondary" (click)="productForm.reset()"
                     data-dismiss="modal">Cerrar</button>
-                    <button *ngIf="(productForm.form.invalid || productIdExist)" type="submit" class="btn btn-primary"
+                    <button *ngIf="(productForm.form.invalid || productIdExist || productNameExists)" type="submit" class="btn btn-primary"
                     data-dismiss="modal" disabled class="btn btn-primary">Crear</button>
-                <button *ngIf="!(productForm.form.invalid || productIdExist)" type="submit" class="btn btn-primary"
+                <button *ngIf="!(productForm.form.invalid || productIdExist || productNameExists)" type="submit" class="btn btn-primary"
                     data-dismiss="modal" (click)="postProduct()" class="btn btn-primary">Crear</button>
             </div>
 
