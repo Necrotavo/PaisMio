@@ -1091,6 +1091,9 @@ validateInputMin(){
     this.productIdExist = false;
   }
 
+  resetInputNameExist(){
+    this.inputNameExist = false;
+  }
   /** Used to reset the input ID existance variable */
   resetinputCodeExist() {
     this.inputCodeExist = false;
