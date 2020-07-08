@@ -612,7 +612,7 @@ namespace DAO
 
             try
             {
-                SqlCommand comandoSelect = new SqlCommand("Select * from OPERARIO where OPE_CORREO = @correo AND OPE_CONTRASENA = @pass", conexion);
+                SqlCommand comandoSelect = new SqlCommand("Select * from OPERARIO where OPE_CORREO = @correo AND OPE_CONTRASENA = @pass AND EST_HAB_ESTADO = 'HABILITADO'", conexion);
                 comandoSelect.Parameters.AddWithValue("@correo", correo);
                 comandoSelect.Parameters.AddWithValue("@pass",Encrypt.GetSHA256(pass));
 
