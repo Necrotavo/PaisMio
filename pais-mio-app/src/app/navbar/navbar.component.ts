@@ -70,7 +70,6 @@ export class NavbarComponent implements OnInit {
     /** order is dispach */
     this.data.isDispach.subscribe((dispach) => {
       this.dispach = dispach;
-      this.checkReload();
       this.navbarReloadOrder();
     });
   }
@@ -89,14 +88,6 @@ export class NavbarComponent implements OnInit {
         }
       }
     );
-  }
-
-  checkReload() {
-    if (this.dispach) {
-      console.log('SE HA DESPACHADO UNA ORDEN');
-    } else {
-      console.log('DISPACH ES FALSE');
-    }
   }
 
   newOrder(i: number) {
