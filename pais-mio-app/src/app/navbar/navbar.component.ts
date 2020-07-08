@@ -28,6 +28,7 @@ export class NavbarComponent implements OnInit {
   isLoggedIn$: Observable<boolean>;
   isAdmin$: Observable<boolean>;
   isSupervisor$: Observable<boolean>;
+  isAdminOrSupervisor$: Observable<boolean>;
 
   constructor(private data: DataService, private apiService: ApiService, private router: Router,
               private authService: AuthService) { }
@@ -39,6 +40,7 @@ export class NavbarComponent implements OnInit {
     this.isLoggedIn$ = this.authService.isLoggedIn;
     this.isAdmin$ = this.authService.isAdmin;
     this.isSupervisor$ = this.authService.isSupervisor;
+    this.isAdminOrSupervisor$ = this.authService.isAdminOrSupervisor;
 
     if (this.isLoggedIn$){
     this.apiService.getUser().subscribe(

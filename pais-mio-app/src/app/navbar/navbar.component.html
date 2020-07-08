@@ -38,7 +38,7 @@
                   <a class="dropdown-item" *ngFor="let item of orderList; let i = index" attr.value="{{i}}" routerLink="/order-view/" (click)="newOrder(i)">{{item.codigo}} | {{item.cliente.nombre}}</a>
                 </div>
               </li>
-              <li class="nav-item dropdown" *ngIf="isSupervisor$ | async as isSupervisor">
+              <li class="nav-item dropdown" *ngIf="isAdminOrSupervisor$ | async as isAdminOrSupervisor">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                   Inventario
                   <i class="ion-chevron-down"></i>
@@ -47,7 +47,7 @@
                   <a class="dropdown-item" routerLink="/inventory-control/">Manejo de inventario</a>
                 </div>
               </li>
-              <li class="nav-item dropdown" *ngIf="isSupervisor$ | async as isSupervisor">
+              <li class="nav-item dropdown" *ngIf="isAdminOrSupervisor$ | async as isAdminOrSupervisor">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                   Administración
                   <i class="ion-chevron-down"></i>
