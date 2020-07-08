@@ -14,7 +14,7 @@ namespace DAO
     /// </summary>
     public class DAO_Operario
     {
-        private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ConnectionString);
+        private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ProductionConnection);
 
         private String queryInsertar = "";
 

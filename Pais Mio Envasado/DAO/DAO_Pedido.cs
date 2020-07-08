@@ -14,7 +14,7 @@ namespace DAO
     /// </summary>
     public class DAO_Pedido
     {
-        private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ConnectionString);
+        private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ProductionConnection);
 
         /// <summary>
         /// Método para agregar un nuevo pedido a la base de datos, se encarga de llamar al método para agregar los productos relacionados con el pedido

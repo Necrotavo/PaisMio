@@ -14,7 +14,7 @@ namespace DAO
     /// </summary>
     public class DAO_SolicitudInsumos
     {
-        private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ConnectionString);
+        private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ProductionConnection);
 
         /// <summary>
         /// Permite guardar la solicitud de insumos junto a la lista de descarte y consumo en la base de datos.
