@@ -17,7 +17,8 @@
                 </div>
                 <br>
                 <button type="button" class="btn btn-success" (click)="inputQForm.reset();resetInputEntryList()"
-                data-toggle="modal" data-target="#inputsQModal">
+                data-toggle="modal" data-target="#inputsQModal"
+                *ngIf="localUser.rol === 'ADMINISTRADOR'">
                     <i class="icon ion-plus">
                     </i>
                     Ingresar insumos
