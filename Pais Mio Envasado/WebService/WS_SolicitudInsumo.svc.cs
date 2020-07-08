@@ -54,7 +54,7 @@ namespace WebService
             return blSolicitud.listaSolicitudesPorPedido(pedido.codigo);
         }
 
-        public List<DO_SolicitudInsumos> listarSolicitudesPorOperario( string operario)
+        public List<DO_SolicitudInsumos> listarSolicitudesPorOperario(DO_SolicitudInsumos operario)
         {
             BL_SolicitudInsumos blSolicitud = new BL_SolicitudInsumos();
             return blSolicitud.listaSolicitudesPorOperario(operario);
