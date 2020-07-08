@@ -126,7 +126,9 @@ export class OrderViewComponent implements OnInit {
 
       this.changeAnalysis();
 
-      this.getInputRequestByOrder();
+      if(this.order){
+        this.getInputRequestList();
+      }
 
     });
 
@@ -137,7 +139,7 @@ export class OrderViewComponent implements OnInit {
     }
 
     /** Used to get the analysis of aguardiente from the API service on init */
-    this.getInputRequestByOrder();
+    this.getInputRequestList();
 
     /** get Analysis type */
     this.getPQsAnalysis();
@@ -155,6 +157,14 @@ export class OrderViewComponent implements OnInit {
 
     /** Used to get all cellar from the API service on init */
     this.getCellarList();
+  }
+
+  getInputRequestList(){
+    if(this.localUser.rol === 'OPERARIO'){
+      this.getInputRequestByUser();
+    } else {
+      this.getInputRequestByOrder();
+    }
   }
 
   getCellarList(){
@@ -275,7 +285,7 @@ export class OrderViewComponent implements OnInit {
     this.apiService.addInputRequest(this.inputPostRequestModel).subscribe(
       data => {
         this.objInputRequest = data;
-        this.getInputRequestByOrder();
+        this.getInputRequestList();
         if (this.objInputRequest){
           Swal.fire({
             icon: 'success',
@@ -322,12 +332,13 @@ export class OrderViewComponent implements OnInit {
 
   /** Get the input requests from a user from the API service */
   getInputRequestByUser() {
-    let inputRequest : InputRequest;
-    inputRequest.operario = this.userModel.correo;
-    inputRequest.bodega = this.order.codigo;
+    let inputRequest = new InputRequest(0, 0, 0, new Array<InputQ>(), new Array<InputQ>(), '', '', '', '', '');
+    inputRequest.operario = this.localUser.correo;
+    inputRequest.codigoPedido = this.order.codigo;
+    inputRequest.fecha = '/Date(1594161707953-0600)/';
     this.apiService.getInputRequestByUser(inputRequest).subscribe(
       data => {
-        this.objInputRequest = data;
+        this.inputRequestListByOrder = data;
       }
     );
   }
@@ -611,7 +622,7 @@ export class OrderViewComponent implements OnInit {
         this.apiService.setInputRequestDecision(this.inputRequestDesicionModel).subscribe(
           data => {
             this.objInputRequestDesicion = data;
-            this.getInputRequestByOrder();
+            this.getInputRequestList();
           }
         );
       }
