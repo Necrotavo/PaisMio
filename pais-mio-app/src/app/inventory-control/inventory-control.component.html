@@ -51,6 +51,7 @@
                                     <th>Nombre</th>
                                     <th>Stock</th>
                                     <th>Unidad</th>
+                                    <th>Estado</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -74,6 +75,14 @@
                                     </td>
                                     <td>
                                         {{com.insumo.unidad | titlecase}}
+                                    </td>
+                                    <td *ngIf="com.insumo.estado === 'HABILITADO'">
+                                        <span class="badge badge-success">{{com.insumo.estado}}
+                                        </span>
+                                    </td>
+                                    <td *ngIf="com.insumo.estado === 'DESHABILITADO'">
+                                        <span class="badge badge-danger">{{com.insumo.estado}}
+                                        </span>
                                     </td>
                                 </tr>
                             </tbody>

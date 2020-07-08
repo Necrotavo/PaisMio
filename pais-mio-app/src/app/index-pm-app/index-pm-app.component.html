@@ -57,7 +57,7 @@
 
       <!--Start of option three-->
       <div class="card bg-success text-white text-center mb-3" 
-      *ngIf="userIn.rol === 'ADMINISTRADOR'">
+      *ngIf="userIn.rol === 'ADMINISTRADOR' || userIn.rol === 'SUPERVISOR'">
         <div class="card-header" id="headingThree" data-toggle="collapse" data-parent="#accordion"
           href="#collapseThree">
           <br>

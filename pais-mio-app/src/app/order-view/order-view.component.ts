@@ -79,6 +79,7 @@ export class OrderViewComponent implements OnInit {
   searchInputModel = new Input(0, ' ', 0, ' ', ' ', ' ');
   searchInputModel2 = new Input(0, '', 0, '', '', '');
   inputEntryModel = new InputQ(0, this.input);
+  cellarInputSelected = new InputQ(0, new Input(0, '', 0, '', '', ''));
   analysisModel = new Analysis(0, 0, 0, 0, 0, 0, '', '', '', '', Array<AnalysisPC>());
   localUser = new User('', '', '', '', '', '');
   cellarEntryModel = new Cellar(0, '', '', '', '', this.inputEntryList);
@@ -90,7 +91,6 @@ export class OrderViewComponent implements OnInit {
   auxQ: number;
   auxN: string;
   aviableQuantity: number;
-  insumoInsuficiente = 'Hacen falta estos insumos:';
 
   dispatchSwal = Swal.mixin({
     customClass: {
@@ -106,7 +106,7 @@ export class OrderViewComponent implements OnInit {
   Swal = ('sweetalert2');
 
   public keyword = 'nombre';
-  autoCompleteInput;
+  autoCompleteInput : Array<Input> = [];
 
   ngOnInit(): void {
 
@@ -148,11 +148,15 @@ export class OrderViewComponent implements OnInit {
     this.apiService.getInputA().subscribe(
       data => {
         this.inputList = data;
-        this.autoCompleteInput = this.inputList;
+        //this.autoCompleteInput = this.inputList;
       }
     );
 
     /** Used to get all cellar from the API service on init */
+    this.getCellarList();
+  }
+
+  getCellarList(){
     this.apiService.getCellar().subscribe(
       data => {
         this.cellarList = data;
@@ -294,10 +298,13 @@ export class OrderViewComponent implements OnInit {
   }
 
   resetInputEntryLists(){
+    this.aviableQuantity = 1;
     this.inputInDiscardList = false;
     this.inputInConsumeList = false;
     this.inputConsumeList.length = 0;
     this.inputDiscardList.length = 0;
+    this.getCellarList();
+    this.autoCompleteInput.length = 0;
     this.validateList();
     this.validateDiscarList();
   }
@@ -355,6 +362,7 @@ export class OrderViewComponent implements OnInit {
 
   /** Used to asign a request into an specific order */
   asignRequest(request: InputRequest) {
+    this.getCellarList();
     this.invalidRequest = false;
     this.inputRequestModel = request;
     this.getCellarById(this.inputRequestModel.bodega);
@@ -374,18 +382,71 @@ export class OrderViewComponent implements OnInit {
     );
 
     let  bodega: Cellar;
+
     for (const bodegaEnLista of this.cellarList){
       if (cellarId === bodegaEnLista.codigo){
         bodega = bodegaEnLista;
       }
     }
 
+    let exist = false;
+    for (const insumoConsumidoEnLista of this.inputRequestModel.insumosConsumo){
+      for (const insumoEnBodega of bodega.listaInsumosEnBodega){
+        if(insumoConsumidoEnLista.insumo.codigo === insumoEnBodega.insumo.codigo){
+          exist = true;
+        }
+      }
+    }
+    for (const insumoDescartadoEnLista of this.inputRequestModel.insumosDescarte){
+      for (const insumoEnBodega of bodega.listaInsumosEnBodega){
+        if (insumoDescartadoEnLista.insumo.codigo === insumoEnBodega.insumo.codigo){
+          exist = true;
+        }
+      }
+    }
+
+    if(!exist){
+      this.invalidRequest = true;
+      return;
+    }
+    
+    let totalBothList: Array<InputQ> = [];
+    for (const insumoConsumidoEnLista of this.inputRequestModel.insumosConsumo){
+      for (const insumoDescartadoEnLista of this.inputRequestModel.insumosDescarte){
+        if (insumoConsumidoEnLista.insumo.codigo === insumoDescartadoEnLista.insumo.codigo){
+          let tempInputQ = new InputQ(0, new Input(0, '', 0, '', '', ''));
+          tempInputQ.cantidadDisponible = insumoConsumidoEnLista.cantidadDisponible+insumoDescartadoEnLista.cantidadDisponible;
+          tempInputQ.insumo.cantMinStock = insumoConsumidoEnLista.insumo.cantMinStock;
+          tempInputQ.insumo.codigo = insumoConsumidoEnLista.insumo.codigo;
+          tempInputQ.insumo.estado = insumoConsumidoEnLista.insumo.estado;
+          tempInputQ.insumo.id = insumoConsumidoEnLista.insumo.id;
+          tempInputQ.insumo.nombre = insumoConsumidoEnLista.insumo.nombre;
+          tempInputQ.insumo.unidad = insumoConsumidoEnLista.insumo.unidad;
+          totalBothList.push(tempInputQ);
+        }
+      }
+    }
+
+    for(const inputTotal of totalBothList){
+      for (const insumoEnBodega of bodega.listaInsumosEnBodega){
+        if (inputTotal.insumo.codigo === insumoEnBodega.insumo.codigo){
+          if(inputTotal.cantidadDisponible > insumoEnBodega.cantidadDisponible){
+            this.invalidRequest = true;
+            return;
+          }
+        }
+      }
+    }
+
+
+
+
     for (const insumoConsumidoEnLista of this.inputRequestModel.insumosConsumo){
       for (const insumoEnBodega of bodega.listaInsumosEnBodega){
         if (insumoConsumidoEnLista.insumo.codigo === insumoEnBodega.insumo.codigo){
-          if (insumoConsumidoEnLista.cantidadDisponible > insumoEnBodega.cantidadDisponible){
+          if(insumoConsumidoEnLista.cantidadDisponible > insumoEnBodega.cantidadDisponible){
             this.invalidRequest = true;
-            this.insumoInsuficiente += ' ' + insumoConsumidoEnLista.insumo.nombre;
+            return;
           }
         }
       }
@@ -396,7 +457,7 @@ export class OrderViewComponent implements OnInit {
         if (insumoDescartadoEnLista.insumo.codigo === insumoEnBodega.insumo.codigo){
           if (insumoDescartadoEnLista.cantidadDisponible > insumoEnBodega.cantidadDisponible){
             this.invalidRequest = true;
-            this.insumoInsuficiente += ' ' + insumoDescartadoEnLista.insumo.nombre;
+            return;
           }
         }
       }
@@ -443,6 +504,7 @@ export class OrderViewComponent implements OnInit {
         this.inputExist = true;
         this.searchInputModel2 = i.insumo;
         this.aviableQuantity = i.cantidadDisponible;
+        this.cellarInputSelected = i;
         return;
       } else {
         this.inputExist = false;
@@ -458,6 +520,7 @@ export class OrderViewComponent implements OnInit {
     for (const i of this.cellarEntryModel.listaInsumosEnBodega) {
       if (item.nombre === i.insumo.nombre) {
         this.aviableQuantity = i.cantidadDisponible;
+        this.cellarInputSelected = i;
       }
     }
 
@@ -482,6 +545,7 @@ export class OrderViewComponent implements OnInit {
     this.inputEntryModel.cantidadDisponible = this.auxQ;
     this.inputEntryModel.insumo = this.searchInputModel2;
     this.inputConsumeList.push(this.inputEntryModel);
+    this.cellarInputSelected.cantidadDisponible -= this.auxQ;
     this.inputEntryModel = new InputQ(0, this.input);
     this.auxQ = 0;
     this.searchInputModel2 = new Input(0, '', 0, '', '', '');
@@ -501,7 +565,8 @@ export class OrderViewComponent implements OnInit {
 
   /** Used to remove an input from the consume list  */
   removeFromList(i: number) {
-    this.inputConsumeList.splice(i, 1);
+    let consumeInput = this.inputConsumeList.splice(i, 1)[0];
+    this.returnInputToCellar(consumeInput);
     this.validateList();
   }
 
@@ -510,6 +575,7 @@ export class OrderViewComponent implements OnInit {
     this.inputEntryModel.cantidadDisponible = this.auxQ;
     this.inputEntryModel.insumo = this.searchInputModel2;
     this.inputDiscardList.push(this.inputEntryModel);
+    this.cellarInputSelected.cantidadDisponible -= this.auxQ;
     this.inputEntryModel = new InputQ(0, this.input);
     this.auxQ = 0;
     this.searchInputModel2 = new Input(0, '', 0, '', '', '');
@@ -529,8 +595,21 @@ export class OrderViewComponent implements OnInit {
 
   /** Used to remove an input from the discard list */
   removeFromDiscardList(i: number) {
-    this.inputDiscardList.splice(i, 1);
+    let discardInput = this.inputDiscardList.splice(i, 1)[0];
+    this.returnInputToCellar(discardInput);
     this.validateDiscarList();
+  }
+
+  /** Used to return a quantity of a input to the input list of a cellar */
+  returnInputToCellar(inpuq: InputQ){
+    for (const i of this.cellarEntryModel.listaInsumosEnBodega) {
+      if (inpuq.insumo.codigo === i.insumo.codigo) {
+        i.cantidadDisponible += inpuq.cantidadDisponible;
+      }
+    }
+    this.auxQ = 0;
+    this.searchInputModel2 = new Input(0, '', 0, '', '', '');
+    this.searchInputModel = new Input(0, '', 0, '', '', '');
   }
 
   /** Cellar methods */
@@ -546,16 +625,25 @@ export class OrderViewComponent implements OnInit {
 
   /** Used to search a cellar */
   searchCellar() {
+    this.getCellarList();
+    this.aviableQuantity = 1;
     this.autoCompleteInput.length = 0;
     for (const i of this.cellarList) {
-      if (this.auxN.toUpperCase() === i.nombre.toUpperCase()) {
-        this.cellarEntryModel = i;
-        for (const j of this.cellarEntryModel.listaInsumosEnBodega){
-             this.autoCompleteInput.push(j.insumo);
+      if(this.auxN)
+      {
+        if (this.auxN.toUpperCase() === i.nombre.toUpperCase()) {
+          this.cellarEntryModel = i;
+          for (const j of this.cellarEntryModel.listaInsumosEnBodega){
+            if(j.insumo.estado.toUpperCase() === 'HABILITADO'){
+              this.autoCompleteInput.push(j.insumo);
+            }
+               
+          }
+          this.resetInputRequestModal();
+          return;
         }
-        this.resetInputRequestModal();
-        return;
       }
+      
     }
 
     // this.resetInputRequestModal();
@@ -584,6 +672,7 @@ export class OrderViewComponent implements OnInit {
             this.getInputRequestByOrder();
           }
         );
+        this.getCellarList();
       }
     });
   }
