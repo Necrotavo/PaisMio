@@ -990,7 +990,8 @@
                                     <div class="form-field">
                                         <input type="text" required #nombreI="ngModel" class="form-control"
                                             [class.is-invalid]="nombreI.invalid && nombreI.touched" placeholder="Nombre"
-                                            name="nombreI" [(ngModel)]="inputModel.nombre">
+                                            name="nombreI" [(ngModel)]="inputModel.nombre"
+                                            (keyup)="validateNameUniqueness(true)">
                                         <div *ngIf="nombreI.errors && (nombreI.invalid || nombreI.touched)">
                                             <p><small class="text-danger"
                                                     *ngIf="nombreI.errors.required && nombreI.touched">Nombre
@@ -999,6 +1000,9 @@
                                                     invalido</small></p>
                                             <p><small class="text-danger" *ngIf="nombreI.errors.pattern">50
                                                     dígitos</small></p>
+                                        </div>
+                                        <div *ngIf="inputNameExist">
+                                            <p><small class="text-danger">El nombre ya existe</small></p>
                                         </div>
                                     </div>
                                 </td>
@@ -1036,6 +1040,7 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="number" required #minI="ngModel" class="form-control"
+                                            (keyup)="validateInputMin()" min="0"
                                             [class.is-invalid]="minI.invalid && minI.touched" placeholder="Min"
                                             name="minI" [(ngModel)]="inputModel.cantMinStock">
                                         <div *ngIf="minI.errors && (minI.invalid || minI.touched)">
@@ -1070,9 +1075,9 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="inputForm.reset();resetinputCodeExist()"
                     data-dismiss="modal">Cerrar</button>
-                <button disabled *ngIf="inputForm.form.invalid || inputCodeExist" type="submit" class="btn btn-primary"
+                <button disabled *ngIf="inputForm.form.invalid || inputCodeExist || inputNameExist" type="submit" class="btn btn-primary"
                     data-dismiss="modal">Crear</button>
-                    <button *ngIf="!(inputForm.form.invalid || inputCodeExist)" type="submit" class="btn btn-primary"
+                    <button *ngIf="!(inputForm.form.invalid || inputCodeExist || inputNameExist)" type="submit" class="btn btn-primary"
                     data-dismiss="modal" (click)="postInput()">Crear</button>
             </div>
 
@@ -1124,7 +1129,7 @@
                                     <div class="form-field">
                                         <input type="text" required #nombreIUP="ngModel" class="form-control"
                                             [class.is-invalid]="nombreIUP.invalid && nombreIUP.touched" name="nombreIUP"
-                                            [(ngModel)]="inputUpdateModel.nombre">
+                                            [(ngModel)]="inputUpdateModel.nombre" (keyup)="validateNameUniqueness(false)">
                                         <div *ngIf="nombreIUP.errors && (nombreIUP.invalid || nombreIUP.touched)">
                                             <p><small class="text-danger"
                                                     *ngIf="nombreIUP.errors.required && nombreIUP.touched">Nombre
@@ -1133,6 +1138,9 @@
                                                     invalido</small></p>
                                             <p><small class="text-danger" *ngIf="nombreIUP.errors.pattern">50
                                                     dígitos</small></p>
+                                        </div>
+                                        <div *ngIf="inputNameExist">
+                                            <p><small class="text-danger">El nombre ya existe</small></p>
                                         </div>
                                     </div>
                                 </td>
@@ -1170,6 +1178,7 @@
                                 <td>
                                     <div class="form-field">
                                         <input type="number" required #minIUP="ngModel" class="form-control"
+                                        (keyup)="validateUpdateInputMin()" min="0"
                                             [class.is-invalid]="minIUP.invalid && minIUP.touched" placeholder="Min"
                                             name="minI" [(ngModel)]="inputUpdateModel.cantMinStock">
                                         <div *ngIf="minI.errors && (minIUP.invalid || minIUP.touched)">
@@ -1228,9 +1237,9 @@
             <div class="modal-footer" >
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"
                     (click)="resetinputCodeExist()">Cerrar</button>
-                <button type="submit" disabled *ngIf="inputUpdateForm.form.invalid || inputCodeExist"
+                <button type="submit" disabled *ngIf="inputUpdateForm.form.invalid || inputCodeExist || inputNameExist"
                     class="btn btn-primary"  data-dismiss="modal">Actualizar</button>
-                <button type="submit" *ngIf="!(inputUpdateForm.form.invalid || inputCodeExist)"
+                <button type="submit" *ngIf="!(inputUpdateForm.form.invalid || inputCodeExist || inputNameExist)"
                     class="btn btn-primary" (click)="updateInput()" data-dismiss="modal">Actualizar</button>
             </div>
         </div>
