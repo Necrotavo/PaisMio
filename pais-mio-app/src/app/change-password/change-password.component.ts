@@ -15,7 +15,7 @@ export class ChangePasswordComponent implements OnInit {
 
   /** Object Declaration */
   user: UserChangePass;
-  passEqual: boolean = false;
+  passEqual = false;
 
   /** Models */
   localUser = new User('', '', '', '', '', '');
@@ -70,7 +70,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   checkNewPassR(){
-    if(this.userChangePass.newPassR === "" || this.userChangePass.newPass === ""
+    if (this.userChangePass.newPassR === '' || this.userChangePass.newPass === ''
     || this.userChangePass.newPassR === null || this.userChangePass.newPass === null){
       return false;
     }else{
