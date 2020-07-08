@@ -60,6 +60,7 @@ export class AdminViewComponent implements OnInit {
   clientList: Client[];
   clientAList: Client[];
   productList: Product[];
+  productAList: Product[];
   unitList: Unit[];
   productInOrderList: ProductInOrder[];
   inputQList: InputQ[];
@@ -91,6 +92,7 @@ export class AdminViewComponent implements OnInit {
   termO2: string; // for Orders by Clients
   termI: string; // for Inputs
   termU: string; // for Users
+  termUt: string; // for Users
   termC: string; // for Clients
   termP: string; // for Products
   termB: string; // for Bodegas
@@ -113,6 +115,7 @@ export class AdminViewComponent implements OnInit {
   inputCodeExist = false;
   userEmailExist = false;
   cellarNameExist = false;
+  clientNameExist = false;
 
   productIdExist = false;
   /** Aux variables */
@@ -142,6 +145,7 @@ export class AdminViewComponent implements OnInit {
   productEntryModel = new ProductInOrder(this.product, 0);
   searchProductModel = new Product(0, ' ', ' ', ' ', ' ');
   searchProductModel2 = new Product(0, '', '', '', '');
+  userIn = new User('', '', '', '', '', '');
 
   Swal = ('sweetalert2');
 
@@ -149,12 +153,13 @@ export class AdminViewComponent implements OnInit {
   public keyword = 'nombre';
   autoCompleteInput;
   autoCompleteProduct;
+  autoCompleteAProduct;
   productAlreadyAdded = false;
 
   ngOnInit(): void {
 
     this.localUser = JSON.parse(localStorage.getItem('user logged'));
-
+    
     /** Gets all Orders on Init */
     this.apiService.getOrder().subscribe(
       data => {
@@ -183,6 +188,7 @@ export class AdminViewComponent implements OnInit {
 
     /** Gets all products on Init */
     this.getProduct();
+    this.getProductA();
 
     /** Gets all unit types on Init */
     this.getUnits();
@@ -395,8 +401,24 @@ export class AdminViewComponent implements OnInit {
 
   }
 
+  /** Used to check for client existance to avoid duplication */
+  checkClientExist(){
+    if (this.clientList.length > 0){
+     for (const entry of this.clientList) {
+       if (entry.cedula === this.clientModel.cedula){
+         this.clientNameExist = true;
+         return;
+       }
+     }
+    }
+    this.clientNameExist = false;
+   }
+
   closeUserEmailExist(){
     this.userEmailExist = false;
+  }
+  closeClientExist(){
+    this.clientNameExist = false;
   }
 
   /** Used to get all users from API service */
@@ -485,6 +507,16 @@ export class AdminViewComponent implements OnInit {
       data => {
         this.productList = data;
         this.autoCompleteProduct = this.productList;
+      }
+    );
+  }
+
+  /** Used to get all products using the API service */
+  getProductA() {
+    this.apiService.getProductA().subscribe(
+      data => {
+        this.productAList = data;
+        this.autoCompleteAProduct = this.productAList;
       }
     );
   }
@@ -910,6 +942,7 @@ export class AdminViewComponent implements OnInit {
           });
         }
         this.getProduct();
+        this.getProductA();
       });
   }
 

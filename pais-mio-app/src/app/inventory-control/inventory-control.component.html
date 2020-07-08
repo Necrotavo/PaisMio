@@ -231,7 +231,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button [disabled]="inputQForm.form.invalid || !listIsNotEmpty" type="button" class="btn btn-primary" data-dismiss="modal" (click)="inputEntry()">Crear</button>
+                <button [disabled]="inputQForm.form.invalid || !listIsNotEmpty" type="button" class="btn btn-primary" data-dismiss="modal" (click)="inputEntry();getACellarList()">Crear</button>
             </div>
 
         </div>
