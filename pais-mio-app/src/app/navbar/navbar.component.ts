@@ -117,7 +117,7 @@ export class NavbarComponent implements OnInit {
           let timerInterval;
           Swal.fire({
             title: 'Error: este usuario ha sido deshabilitado',
-            html: 'Será redirigido a la de ingreso en <b></b> milisegundos.',
+            html: 'Será redirigido a la página de ingreso en <b></b> milisegundos.',
             timer: 7000,
             timerProgressBar: true,
             onBeforeOpen: () => {
