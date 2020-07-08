@@ -159,7 +159,7 @@ export class AdminViewComponent implements OnInit {
   ngOnInit(): void {
 
     this.localUser = JSON.parse(localStorage.getItem('user logged'));
-
+    
     /** Gets all Orders on Init */
     this.apiService.getOrder().subscribe(
       data => {

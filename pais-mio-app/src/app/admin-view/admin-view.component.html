@@ -13,22 +13,22 @@
                     <a class="nav-link active" href="#orders" role="tab" data-toggle="tab">Pedidos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#inputs" role="tab" data-toggle="tab" *ngIf="userIn.rol === 'ADMINISTRADOR'">Insumos</a>
+                    <a class="nav-link" href="#inputs" role="tab" data-toggle="tab" *ngIf="localUser.rol === 'ADMINISTRADOR'">Insumos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#users" role="tab" data-toggle="tab" *ngIf="userIn.rol === 'ADMINISTRADOR'">Usuarios</a>
+                    <a class="nav-link" href="#users" role="tab" data-toggle="tab" *ngIf="localUser.rol === 'ADMINISTRADOR'">Usuarios</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#clients" role="tab" data-toggle="tab" *ngIf="userIn.rol === 'ADMINISTRADOR'">Clientes</a>
+                    <a class="nav-link" href="#clients" role="tab" data-toggle="tab" *ngIf="localUser.rol === 'ADMINISTRADOR'">Clientes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#products" role="tab" data-toggle="tab" *ngIf="userIn.rol === 'ADMINISTRADOR'">Productos</a>
+                    <a class="nav-link" href="#products" role="tab" data-toggle="tab" *ngIf="localUser.rol === 'ADMINISTRADOR'">Productos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#cellars" role="tab" data-toggle="tab" *ngIf="userIn.rol === 'ADMINISTRADOR'">Bodegas</a>
+                    <a class="nav-link" href="#cellars" role="tab" data-toggle="tab" *ngIf="localUser.rol === 'ADMINISTRADOR'">Bodegas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#units" role="tab" data-toggle="tab" *ngIf="userIn.rol === 'ADMINISTRADOR'">Unidades de Medida</a>
+                    <a class="nav-link" href="#units" role="tab" data-toggle="tab" *ngIf="localUser.rol === 'ADMINISTRADOR'">Unidades de Medida</a>
                 </li>
             </ul>
 
@@ -164,7 +164,7 @@
                 </div>
 
 
-                <div role="tabpane1" class="tab-pane" id="inputs" *ngIf="userIn.rol === 'ADMINISTRADOR'">
+                <div role="tabpane1" class="tab-pane" id="inputs" *ngIf="localUser.rol === 'ADMINISTRADOR'">
                     <div class="tab-header clearfix">
                         <div class="float-left">
                             <div>
@@ -221,7 +221,7 @@
 
                 </div>
 
-                <div role="tabpanel" class="tab-pane" id="users" *ngIf="userIn.rol === 'ADMINISTRADOR'">
+                <div role="tabpanel" class="tab-pane" id="users" *ngIf="localUser.rol === 'ADMINISTRADOR'">
 
                     <div class="tab-header clearfix">
                         <div class="float-left">
@@ -285,7 +285,7 @@
 
                 </div>
 
-                <div role="tabpanel" class="tab-pane" id="cellars" *ngIf="userIn.rol === 'ADMINISTRADOR'">
+                <div role="tabpanel" class="tab-pane" id="cellars" *ngIf="localUser.rol === 'ADMINISTRADOR'">
 
                     <div class="tab-header clearfix">
                         <div class="float-left">
@@ -339,7 +339,7 @@
 
                 </div>
 
-                <div role="tabpanel" class="tab-pane" id="units" *ngIf="userIn.rol === 'ADMINISTRADOR'">
+                <div role="tabpanel" class="tab-pane" id="units" *ngIf="localUser.rol === 'ADMINISTRADOR'">
 
                     <div class="tab-header clearfix">
                         <div class="float-left">
@@ -376,7 +376,7 @@
 
                 </div>
 
-                <div role="tabpanel" class="tab-pane" id="clients" *ngIf="userIn.rol === 'ADMINISTRADOR'">
+                <div role="tabpanel" class="tab-pane" id="clients" *ngIf="localUser.rol === 'ADMINISTRADOR'">
 
                     <div class="tab-header clearfix">
 
@@ -469,7 +469,7 @@
                     </div>
                 </div>
 
-                <div role="tabpane1" class="tab-pane" id="products" *ngIf="userIn.rol === 'ADMINISTRADOR'">
+                <div role="tabpane1" class="tab-pane" id="products" *ngIf="localUser.rol === 'ADMINISTRADOR'">
                     <div class="tab-header clearfix">
                         <div class="float-left">
                             <div class="search-field">
