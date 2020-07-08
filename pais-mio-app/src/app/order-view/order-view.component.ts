@@ -167,7 +167,7 @@ export class OrderViewComponent implements OnInit {
   }
 
   getCellarList(){
-    this.apiService.getCellar().subscribe(
+    this.apiService.getACellar().subscribe(
       data => {
         this.cellarList = data;
         this.cellarList.forEach(element => {
@@ -525,6 +525,19 @@ export class OrderViewComponent implements OnInit {
     }
   }
 
+
+  selectedCellar(item){
+    this.cellarEntryModel = item;
+      for (const j of item.listaInsumosEnBodega){
+        if(j.insumo.estado.toUpperCase() === 'HABILITADO'){
+          this.autoCompleteInput.push(j.insumo);
+        }
+      }
+      this.resetInputRequestModal();
+      return;
+    }
+  
+
   selectedInput(item){
     this.inputExist = true;
     this.inputInConsumeList = false;
@@ -627,8 +640,8 @@ export class OrderViewComponent implements OnInit {
 
   /** Cellar methods */
   /** Used to validate combo on cellar */
-  validateCellar(value) {
-    if (value === 'default') {
+  validateCellar(value: Cellar) {
+    if (value.nombre === '') {
       this.cellarHasError = true;
     } else {
       this.cellarHasError = false;

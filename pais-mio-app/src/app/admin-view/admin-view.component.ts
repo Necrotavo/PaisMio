@@ -105,6 +105,7 @@ export class AdminViewComponent implements OnInit {
   cellarHasError = true;
   statusHasError = true;
   statusUHasError = true;
+  productHasError = true;
 
   /** Input list validations */
 
@@ -672,6 +673,12 @@ export class AdminViewComponent implements OnInit {
       this.clientHasError = false;
     }
   }
+  deselectedClient(item){
+    this.clientHasError = true;
+  }
+  selectedClient(item: Client){
+      this.clientHasError = false;
+  }
 
   /** Used to validate if a cellar has an error */
   validateCellar(value) {
@@ -685,12 +692,7 @@ export class AdminViewComponent implements OnInit {
   /** Used to add a product entry */
   orderEntry() {
 
-    for (const i of this.clientAList) {
-      if (this.clientEntryModel.cedula.toUpperCase() === i.cedula.toUpperCase()) {
-        this.orderModel.cliente = i;
-      }
-    }
-
+    this.orderModel.cliente = this.clientEntryModel;
     this.orderModel.correoAdminIngreso = this.localUser.correo;
     this.apiService.addOrder(this.orderModel).subscribe(
       data => {
@@ -744,12 +746,13 @@ export class AdminViewComponent implements OnInit {
       }
     }
   }
-
+  deselectedProduct(item){
+      this.productHasError = true;
+  }
   /** Used to validate if a product already exists in the product entry list */
   selectedProduct(item){
-      console.log(item);
+
       for (const i of this.productEntryList){
-        console.log(i.producto.nombre);
         if (item.nombre === i.producto.nombre) {
           this.productAlreadyAdded = true;
         } else {
@@ -758,6 +761,7 @@ export class AdminViewComponent implements OnInit {
       }
       this.productExist = true;
       this.searchProductModel2 = item;
+      this.productHasError = false;
       return;
   }
 
@@ -772,8 +776,11 @@ export class AdminViewComponent implements OnInit {
 
   /** Used to remove a product from the product entry list */
   removeFromList(i: number) {
+    
     this.productEntryList.splice(i, 1);
+    this.productAlreadyAdded = false;
     this.validateList();
+
   }
 
   /** Update methods */
