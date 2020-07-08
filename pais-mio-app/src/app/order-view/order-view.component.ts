@@ -729,6 +729,7 @@ export class OrderViewComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.orderModel.estado = 'COMPLETO';
+        this.order = this.orderModel;
         this.apiService.packOff(this.orderModel).subscribe(
           data => {
             this.objOrder = data;
@@ -744,6 +745,7 @@ export class OrderViewComponent implements OnInit {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         this.orderModel.estado = 'DEFICIENTE';
+        this.order = this.orderModel;
         this.apiService.packOff(this.orderModel).subscribe(
           data => {
             this.objOrder = data;
