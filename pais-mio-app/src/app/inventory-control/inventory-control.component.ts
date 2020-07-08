@@ -265,5 +265,5 @@ export class InventoryControlComponent implements OnInit {
 
   deselectedCellar(item){
     this.cellarHasError = true;
-  } 
+  }
 }

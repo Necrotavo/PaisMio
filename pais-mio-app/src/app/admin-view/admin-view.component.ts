@@ -117,6 +117,8 @@ export class AdminViewComponent implements OnInit {
   userEmailExist = false;
   cellarNameExist = false;
   clientNameExist = false;
+  inputNameExist = false;
+  productNameExists = false;
 
   productIdExist = false;
   /** Aux variables */
@@ -217,6 +219,17 @@ export class AdminViewComponent implements OnInit {
 
   }
 
+  validateUpdateInputMin(){
+    if (this.inputUpdateModel.cantMinStock < 0) {
+      this.inputUpdateModel.cantMinStock = 0;
+    }
+  }
+
+validateInputMin(){
+  if (this.inputModel.cantMinStock < 0) {
+    this.inputModel.cantMinStock = 0;
+  }
+}
   /** Used to validate the entry quantity */
   validateEntryQuantity() {
     if (this.auxQ < 0) {
@@ -255,6 +268,30 @@ export class AdminViewComponent implements OnInit {
 
   closeUnitExist() {
     this.unitExist = false;
+  }
+
+  searchProductName(forCreation: boolean) {
+    if (forCreation === true){
+      for (const i of this.productList) {
+        if (this.productModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
+          this.productNameExists = true;
+          return;
+        }
+      }
+      this.productNameExists = false;
+    } else {
+      for (const i of this.productList) {
+        if (this.productUpdateModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
+          this.productNameExists = true;
+          return;
+        }
+      }
+      this.productNameExists = false;
+    }
+  }
+
+  closeSearchProductName() {
+    this.productNameExists = false;
   }
 
   /** Used to get all clients using the API service */
@@ -1016,7 +1053,29 @@ export class AdminViewComponent implements OnInit {
     this.cellarNameExist = false;
   }
 
+
+
   /** Input validations */
+  validateNameUniqueness(forCreation: boolean) {
+    for (const i of this.inputList) {
+      if (forCreation) {
+        if (this.inputModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
+          this.inputNameExist = true;
+          return;
+        } else {
+          this.inputNameExist = false;
+        }
+      } else {
+        if (this.inputUpdateModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
+          this.inputNameExist = true;
+          return;
+        } else {
+          this.inputNameExist = false;
+        }
+      }
+    }
+  }
+
   validateCodeUniqueness(forCreation: boolean) {
     for (const i of this.inputList) {
       if (forCreation) {
@@ -1042,6 +1101,9 @@ export class AdminViewComponent implements OnInit {
     this.productIdExist = false;
   }
 
+  resetInputNameExist(){
+    this.inputNameExist = false;
+  }
   /** Used to reset the input ID existance variable */
   resetinputCodeExist() {
     this.inputCodeExist = false;
