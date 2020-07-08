@@ -92,6 +92,7 @@ export class AdminViewComponent implements OnInit {
   termO2: string; // for Orders by Clients
   termI: string; // for Inputs
   termU: string; // for Users
+  termUt: string; // for Users
   termC: string; // for Clients
   termP: string; // for Products
   termB: string; // for Bodegas
@@ -114,6 +115,7 @@ export class AdminViewComponent implements OnInit {
   inputCodeExist = false;
   userEmailExist = false;
   cellarNameExist = false;
+  clientNameExist = false;
 
   productIdExist = false;
   /** Aux variables */
@@ -398,8 +400,24 @@ export class AdminViewComponent implements OnInit {
 
   }
 
+  /** Used to check for client existance to avoid duplication */
+  checkClientExist(){
+    if (this.clientList.length > 0){
+     for (const entry of this.clientList) {
+       if (entry.cedula === this.clientModel.cedula){
+         this.clientNameExist = true;
+         return;
+       }
+     }
+    }
+    this.clientNameExist = false;
+   }
+
   closeUserEmailExist(){
     this.userEmailExist = false;
+  }
+  closeClientExist(){
+    this.clientNameExist = false;
   }
 
   /** Used to get all users from API service */

@@ -229,7 +229,13 @@
                                 <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="termU">
                             </div>
                             <br>
-
+                            <select class="custom-select" [(ngModel)]="termUt">
+                                <option [ngValue]="undefined">Estado</option>
+                                <option value="Habilitado">Habilitado</option>
+                                <option value="Deshabilitado">Deshabilitado</option>  
+                            </select>
+                            <br>
+                            <br>
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#usersModal"
                                 (click)="userForm.form.reset();dropdownReset();closeUserEmailExist()">
                                 <i class="icon ion-plus">
@@ -251,7 +257,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of userList | filter:termU"
+                            <tr *ngFor="let user of userList | filter:termU | filter:termUt"
                                 (click)="chargeUserToUpdate(user);resetinputCodeExist()" data-toggle="modal"
                                 data-target="#usersUpdateModal">
                                 <td>
@@ -380,7 +386,7 @@
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success" (click)="clientForm.reset()"
+                            <button type="button" class="btn btn-success" (click)="clientForm.reset();closeClientExist()"
                                 data-toggle="modal" data-target="#clientsModal">
                                 <i class="icon ion-plus">
                                 </i>
@@ -1564,7 +1570,8 @@
                                     <div class="form-field">
                                         <input type="text" required #cedula="ngModel" pattern="[0-9-]{9,}"
                                             class="form-control" [class.is-invalid]="cedula.invalid && cedula.touched"
-                                            placeholder="123456789" name="cedula" [(ngModel)]="clientModel.cedula">
+                                            placeholder="123456789" name="cedula" [(ngModel)]="clientModel.cedula"
+                                            (keyup)="checkClientExist()">
                                         <div *ngIf="cedula.errors && (cedula.invalid || cedula.touched)">
                                             <p><small class="text-danger"
                                                     *ngIf="cedula.errors.required && cedula.touched">Cédula
@@ -1574,6 +1581,13 @@
                                             <p><small class="text-danger" *ngIf="cedula.errors.pattern">Al menos 9
                                                     dígitos, sin
                                                     cero al inicio ni guiones</small></p>
+                                                    
+                                        </div>
+                                        <div>
+                                            <p><small class="text-danger" *ngIf="clientNameExist">Esta cédula ya se encuentra registrada
+                                                </small>
+                                            </p>
+                                                        
                                         </div>
                                     </div>
                                 </td>
@@ -1660,8 +1674,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="clientForm.reset()"
                     data-dismiss="modal">Cerrar</button>
-                <button disabled *ngIf="clientForm.form.invalid" type="submit" class="btn btn-primary" data-dismiss="modal">Crear</button>
-                    <button *ngIf="!(clientForm.form.invalid)" type="submit" class="btn btn-primary" data-dismiss="modal"
+                <button disabled *ngIf="clientForm.form.invalid || clientNameExist" type="submit" class="btn btn-primary" data-dismiss="modal">Crear</button>
+                    <button *ngIf="!(clientForm.form.invalid || clientNameExist)" type="submit" class="btn btn-primary" data-dismiss="modal"
                     (click)="postClient()">Crear</button>
             </div>
         </div>
