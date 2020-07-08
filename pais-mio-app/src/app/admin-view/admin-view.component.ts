@@ -117,6 +117,7 @@ export class AdminViewComponent implements OnInit {
   userEmailExist = false;
   cellarNameExist = false;
   clientNameExist = false;
+  productNameExists = false;
 
   productIdExist = false;
   /** Aux variables */
@@ -255,6 +256,20 @@ export class AdminViewComponent implements OnInit {
 
   closeUnitExist() {
     this.unitExist = false;
+  }
+
+  searchProductName() {
+    for (const i of this.productList) {
+      if (this.productModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
+        this.productNameExists = true;
+        return;
+      }
+    }
+    this.productNameExists = false;
+  }
+
+  closeSearchProductName() {
+    this.productNameExists = false;
   }
 
   /** Used to get all clients using the API service */
