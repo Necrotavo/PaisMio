@@ -160,7 +160,7 @@ export class AdminViewComponent implements OnInit {
   ngOnInit(): void {
 
     this.localUser = JSON.parse(localStorage.getItem('user logged'));
-    
+
     /** Gets all Orders on Init */
     this.apiService.getOrder().subscribe(
       data => {
@@ -253,7 +253,7 @@ export class AdminViewComponent implements OnInit {
     this.unitExist = false;
   }
 
-  closeUnitExist(){
+  closeUnitExist() {
     this.unitExist = false;
   }
 
@@ -388,37 +388,37 @@ export class AdminViewComponent implements OnInit {
   }
 
   /** Used to check for email existance to avoid duplication */
-  checkEmailExist(){
-   if (this.userList.length > 0){
-    for (const entry of this.userList) {
+  checkEmailExist() {
+    if (this.userList.length > 0) {
+      for (const entry of this.userList) {
 
-      if (entry.correo.toUpperCase() === this.userModel.correo.toUpperCase()){
-        this.userEmailExist = true;
-        return;
+        if (entry.correo.toUpperCase() === this.userModel.correo.toUpperCase()) {
+          this.userEmailExist = true;
+          return;
+        }
       }
     }
-   }
-   this.userEmailExist = false;
+    this.userEmailExist = false;
 
   }
 
   /** Used to check for client existance to avoid duplication */
-  checkClientExist(){
-    if (this.clientList.length > 0){
-     for (const entry of this.clientList) {
-       if (entry.cedula === this.clientModel.cedula){
-         this.clientNameExist = true;
-         return;
-       }
-     }
+  checkClientExist() {
+    if (this.clientList.length > 0) {
+      for (const entry of this.clientList) {
+        if (entry.cedula === this.clientModel.cedula) {
+          this.clientNameExist = true;
+          return;
+        }
+      }
     }
     this.clientNameExist = false;
-   }
+  }
 
-  closeUserEmailExist(){
+  closeUserEmailExist() {
     this.userEmailExist = false;
   }
-  closeClientExist(){
+  closeClientExist() {
     this.clientNameExist = false;
   }
 
@@ -536,7 +536,7 @@ export class AdminViewComponent implements OnInit {
         let auxBool: Cellar;
         auxBool = data;
         this.getCellar();
-        if (auxBool){
+        if (auxBool) {
           Swal.fire({
             icon: 'success',
             title: '!Listo!',
@@ -544,7 +544,7 @@ export class AdminViewComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           });
-        }else{
+        } else {
           Swal.fire({
             icon: 'warning',
             title: '!Ups!',
@@ -673,11 +673,11 @@ export class AdminViewComponent implements OnInit {
       this.clientHasError = false;
     }
   }
-  deselectedClient(item){
+  deselectedClient(item) {
     this.clientHasError = true;
   }
-  selectedClient(item: Client){
-      this.clientHasError = false;
+  selectedClient(item: Client) {
+    this.clientHasError = false;
   }
 
   /** Used to validate if a cellar has an error */
@@ -746,23 +746,23 @@ export class AdminViewComponent implements OnInit {
       }
     }
   }
-  deselectedProduct(item){
-      this.productHasError = true;
+  deselectedProduct(item) {
+    this.productHasError = true;
   }
   /** Used to validate if a product already exists in the product entry list */
-  selectedProduct(item){
+  selectedProduct(item) {
 
-      for (const i of this.productEntryList){
-        if (item.nombre === i.producto.nombre) {
-          this.productAlreadyAdded = true;
-        } else {
-          this.productAlreadyAdded = false;
-        }
+    for (const i of this.productEntryList) {
+      if (item.nombre === i.producto.nombre) {
+        this.productAlreadyAdded = true;
+      } else {
+        this.productAlreadyAdded = false;
       }
-      this.productExist = true;
-      this.searchProductModel2 = item;
-      this.productHasError = false;
-      return;
+    }
+    this.productExist = true;
+    this.searchProductModel2 = item;
+    this.productHasError = false;
+    return;
   }
 
   /** Validations for inputs in order */
@@ -776,7 +776,7 @@ export class AdminViewComponent implements OnInit {
 
   /** Used to remove a product from the product entry list */
   removeFromList(i: number) {
-    
+
     this.productEntryList.splice(i, 1);
     this.productAlreadyAdded = false;
     this.validateList();
@@ -905,7 +905,7 @@ export class AdminViewComponent implements OnInit {
   }
 
   /** Used to check a product code before creation */
-  productCodeExist(forCreation: boolean){
+  productCodeExist(forCreation: boolean) {
     for (const i of this.productList) {
       if (forCreation) {
         if (this.productModel.id.toUpperCase() === i.id.toUpperCase()) {
@@ -993,7 +993,7 @@ export class AdminViewComponent implements OnInit {
   /** Used to validate the unique name of a cellar before creation */
   validateCeNameUniqueness(forCreation: boolean) {
     for (const i of this.cellarList) {
-      if (forCreation){
+      if (forCreation) {
         if (this.cellarModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
           this.cellarNameExist = true;
           return;
@@ -1012,7 +1012,7 @@ export class AdminViewComponent implements OnInit {
   }
 
   /** Used to reset the cellar name existance variable */
-  resetCellarNameExist(){
+  resetCellarNameExist() {
     this.cellarNameExist = false;
   }
 
@@ -1038,7 +1038,7 @@ export class AdminViewComponent implements OnInit {
   }
 
   /** Used to reset the product ID existance variable */
-  resetExistProductId(){
+  resetExistProductId() {
     this.productIdExist = false;
   }
 
