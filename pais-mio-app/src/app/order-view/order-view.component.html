@@ -450,6 +450,7 @@
                                             [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
                                             placeHolder="Nombre de Bodega"
                                             (selected)='selectedCellar($event)'
+                                            (inputCleared)='deselectedCellar($event)'
                                             name="cellarAC"
                                             [(ngModel)]="auxN"
                                             #cellarAC="ngModel"
@@ -476,6 +477,7 @@
                                             [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
                                             placeHolder="Nombre de insumo"
                                             (selected)='selectedInput($event)'
+                                            (inputCleared)='deselectedInput($event)'
                                             name="nombreIQ"
                                             [(ngModel)]="searchInputModel.nombre"
                                             #nombreIQ="ngModel"
