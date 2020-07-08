@@ -40,7 +40,7 @@ export class InventoryControlComponent implements OnInit {
   searchInputModel = new Input(0, ' ', 0, ' ', ' ', ' ');
   searchInputModel2 = new Input(0, '', 0, '', '', '');
   localUser = new User('', '', '', '', '', '');
-
+  autoCellarEntryModel = new Cellar(0, '', '', '', '', new Array<InputQ>());
   /** Data return objects */
   objInputQ: InputQ;
   objCellarAdmin: CellarAdmin;
@@ -244,5 +244,9 @@ export class InventoryControlComponent implements OnInit {
     }
     this.inputExist = true;
     this.searchInputModel2 = item;
+  }
+
+  selectedCellar(item){
+    this.cellarEntryModel.codigo = item.codigo;
   }
 }

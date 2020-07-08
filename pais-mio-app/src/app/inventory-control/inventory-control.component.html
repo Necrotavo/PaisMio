@@ -25,7 +25,7 @@
             </div>
         </div>
         <br>
-
+        {{cellarAdminModel | json}}
         <div id="accordion">
             <div class="card" *ngFor="let item of cellarList | filter: termIQ; let i = index;">
                 <div class="card-header" id="headingOne">
@@ -133,19 +133,26 @@
                                     Bodega
                                 </th>
                                 <td>
+                                    <!--Agregando autocomplete cellarList-->
                                     <div class="form-field">
-                                        <select (blur)="validateCellar(cellarC.value)"
-                                            (change)="validateCellar(cellarC.value)" required #cellarC="ngModel"
-                                            [class.is-invalid]="cellarHasError && cellarC.touched" class="form-control"
-                                            name="cellarC" [(ngModel)]="cellarEntryModel.codigo">
-                                            
-                                            <option *ngFor="let com of cellarList" value="{{com.codigo}}">{{com.nombre}}
-                                            </option>
-                                        </select>
-                                        <p><small class="text-danger"
-                                                [class.d-none]="!cellarHasError || cellarC.untouched">Bodega
-                                                Requerida</small></p>
+                                        <ng-autocomplete [data]="cellarList" [searchKeyword]="keyword"
+                                            [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                                            placeHolder="Nombre de bodega"
+                                            (selected)='selectedCellar($event)'
+                                            name="cellarCod" [(ngModel)]="autoCellarEntryModel.codigo"
+                                            #cellarCod="ngModel"
+                                            >
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.nombre"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
                                     </div>
+                                    <!--Fin autocomplete cellarList-->
                                 </td>
                             </tr>
                             <tr>
