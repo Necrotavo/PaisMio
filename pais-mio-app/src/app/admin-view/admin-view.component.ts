@@ -145,6 +145,7 @@ export class AdminViewComponent implements OnInit {
   productEntryModel = new ProductInOrder(this.product, 0);
   searchProductModel = new Product(0, ' ', ' ', ' ', ' ');
   searchProductModel2 = new Product(0, '', '', '', '');
+  userIn = new User('', '', '', '', '', '');
 
   Swal = ('sweetalert2');
 
