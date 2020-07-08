@@ -637,6 +637,7 @@ export class OrderViewComponent implements OnInit {
         i.cantidadDisponible += inpuq.cantidadDisponible;
       }
     }
+    this.inputExist = false;
     this.auxQ = 0;
     this.searchInputModel2 = new Input(0, '', 0, '', '', '');
     this.searchInputModel = new Input(0, '', 0, '', '', '');
