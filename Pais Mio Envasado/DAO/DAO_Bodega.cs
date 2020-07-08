@@ -14,7 +14,7 @@ namespace DAO
     /// </summary>
     public class DAO_Bodega
     {
-        private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ConnectionString);
+        private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ProductionConnection);
 
         /// <summary>
         /// Verifica si existe registro de un insumo dado en una bodega dada

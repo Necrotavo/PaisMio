@@ -14,7 +14,7 @@ namespace DAO
     /// </summary>
     public class DAO_Producto
     {
-        private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ConnectionString);
+        private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ProductionConnection);
         
         /// <summary>
         /// Este metodo permite registrar un producto en la base de datos

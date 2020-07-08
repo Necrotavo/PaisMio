@@ -16,7 +16,7 @@ namespace DAO
     public class DAO_Administrador
     {
 
-        private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ConnectionString);
+        private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ProductionConnection);
 
         private string queryInsertar = "";
 

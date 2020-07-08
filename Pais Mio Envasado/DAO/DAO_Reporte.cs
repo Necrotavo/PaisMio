@@ -14,7 +14,7 @@ namespace DAO
     /// </summary>
     public class DAO_Reporte
     {
-        private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ConnectionString);
+        private SqlConnection conexion = new SqlConnection(DAO.Properties.Settings.Default.ProductionConnection);
         
         public List<DO_InsumoReportable> reporteInsumos(String inicio, String final) {
             try

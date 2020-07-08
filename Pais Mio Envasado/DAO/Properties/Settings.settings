@@ -10,5 +10,13 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=sql5005.site4now.net;Initial Catalog=DB_A6158F_spePaismio;Persist Security Info=True;User ID=DB_A6158F_spePaismio_admin;Password=spepaismio1.</Value>
     </Setting>
+    <Setting Name="ProductionConnection" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=sql5049.site4now.net;Initial Catalog=db_a624e9_Paismio;Persist Security Info=True;User ID=DB_A624E9_Paismio_admin;Password=pepito123&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=sql5049.site4now.net;Initial Catalog=db_a624e9_Paismio;Persist Security Info=True;User ID=DB_A624E9_Paismio_admin;Password=pepito123</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
