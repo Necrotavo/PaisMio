@@ -421,7 +421,7 @@
 
             <div class="modal-body">
                 <div>
-                    <h6>Ingrese los insumo</h6>
+                    <h6>Ingrese los insumos</h6>
                 </div>
                 <form #inputRequestForm="ngForm" (ngSubmit)="postInputRequest()" novalidate>
                     <div class="form-group">
@@ -450,6 +450,7 @@
                                             [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
                                             placeHolder="Nombre de Bodega"
                                             (selected)='selectedCellar($event)'
+                                            (inputCleared)='deselectedCellar($event)'
                                             name="cellarAC"
                                             [(ngModel)]="auxN"
                                             #cellarAC="ngModel"
@@ -476,6 +477,7 @@
                                             [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
                                             placeHolder="Nombre de insumo"
                                             (selected)='selectedInput($event)'
+                                            (inputCleared)='deselectedInput($event)'
                                             name="nombreIQ"
                                             [(ngModel)]="searchInputModel.nombre"
                                             #nombreIQ="ngModel"
@@ -494,7 +496,7 @@
                             </tr>
                             <tr *ngIf="inputExist" >
                                 <th>
-                                    Cantidad
+                                    Cantidad en {{searchInputModel2.unidad | lowercase}}
                                 </th>
                                 <td>
                                     <div class="form-field">
@@ -582,7 +584,7 @@
                     <table class="table table-striped table-responsive">
                         <tr>
                             <td>
-                                Notas
+                                <strong>Notas</strong> 
                             </td>
                             <td>
                                 <textarea class="form-control" id="request-text" #nameInputR="ngModel" name="nameInputR"

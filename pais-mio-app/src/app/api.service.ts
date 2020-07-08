@@ -18,7 +18,6 @@ import { Cellar } from 'src/models/cellar';
 import { CellarAdmin } from 'src/models/cellarAdmin';
 import { MoveInput } from 'src/models/moveInput';
 import { InputRequestDesicion } from 'src/models/inputRequestDecision';
-import { UserRolUpgrade } from 'src/models/userRolUpgrade';
 import { LoginUser } from 'src/models/loginUser';
 import { AnalysisPC } from 'src/models/analysisPC';
 import { OrderReport } from 'src/models/orderReport';

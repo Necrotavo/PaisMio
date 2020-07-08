@@ -8,10 +8,7 @@ import { AppComponent } from './app.component';
 import { IndexPmAppComponent } from './index-pm-app/index-pm-app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
-import { ReportComparativeComponent } from './report-comparative/report-comparative.component';
-import { ReportMonthlyComponent } from './report-monthly/report-monthly.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { InventoryControlComponent } from './inventory-control/inventory-control.component';
@@ -34,10 +31,7 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     IndexPmAppComponent,
     NavbarComponent,
     SignInComponent,
-    SignUpComponent,
     RecoverPasswordComponent,
-    ReportComparativeComponent,
-    ReportMonthlyComponent,
     AdminViewComponent,
     ChangePasswordComponent,
     InventoryControlComponent,

@@ -30,7 +30,6 @@ export class IndexPmAppComponent implements OnInit {
     );
 
     this.userIn = JSON.parse(localStorage.getItem('user logged'));
-    console.log('Imprimo: ' + this.userIn.correo);
   }
 
   /** Used to change the order in the observable and set and active order in local storage */

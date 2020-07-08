@@ -44,8 +44,6 @@ export class NavbarComponent implements OnInit {
     this.apiService.getUser().subscribe(
       data => {
         this.userList = data;
-        console.log('data:' + data);
-        console.log('data:' + this.userList);
         this.kickUser();
       }
       );
@@ -72,7 +70,6 @@ export class NavbarComponent implements OnInit {
     /** order is dispach */
     this.data.isDispach.subscribe((dispach) => {
       this.dispach = dispach;
-      this.checkReload();
       this.navbarReloadOrder();
     });
   }
@@ -93,14 +90,6 @@ export class NavbarComponent implements OnInit {
     );
   }
 
-  checkReload() {
-    if (this.dispach) {
-      console.log('SE HA DESPACHADO UNA ORDEN');
-    } else {
-      console.log('DISPACH ES FALSE');
-    }
-  }
-
   newOrder(i: number) {
     this.data.changeOrder(this.orderList[i]);
     localStorage.setItem('active order', JSON.stringify(this.orderList[i]));
@@ -119,10 +108,8 @@ export class NavbarComponent implements OnInit {
   kickUser() {
 
     this.userIn = JSON.parse(localStorage.getItem('user logged'));
-    console.log(this.userList);
     for (const i of this.userList) {
       if (this.userIn.correo === i.correo) {
-        console.log('same address');
         this.userIn = i;
         if (this.userIn.estado === 'DESHABILITADO') {
           let timerInterval;

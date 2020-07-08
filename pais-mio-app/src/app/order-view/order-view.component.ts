@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService } from '../data.service';
 import { Order } from 'src/models/order';
 import { ApiService } from '../api.service';
@@ -11,7 +11,6 @@ import { Client } from 'src/models/client';
 import { ProductInOrder } from 'src/models/productInOrder';
 import { Analysis } from 'src/models/analysis';
 import { AnalysisPC } from 'src/models/analysisPC';
-
 import { Cellar } from 'src/models/cellar';
 import Swal from 'sweetalert2';
 import { Router, RouterLink } from '@angular/router';
@@ -23,8 +22,9 @@ import { NavbarComponent } from 'src/app/navbar/navbar.component';
   templateUrl: './order-view.component.html',
   styleUrls: ['./order-view.component.scss']
 })
-export class OrderViewComponent implements OnInit {
 
+export class OrderViewComponent implements OnInit {
+  
   analysisExist = false;
 
   constructor(private data: DataService, private apiService: ApiService, router: Router) { }
@@ -525,19 +525,23 @@ export class OrderViewComponent implements OnInit {
     }
   }
 
-
+  deselectedCellar(item){
+    this.resetInputRequestModal();
+  }
   selectedCellar(item){
+    this.resetInputRequestModal();
     this.cellarEntryModel = item;
       for (const j of item.listaInsumosEnBodega){
         if(j.insumo.estado.toUpperCase() === 'HABILITADO'){
           this.autoCompleteInput.push(j.insumo);
         }
       }
-      this.resetInputRequestModal();
+      this.cellarHasError = true;
       return;
     }
-  
-
+  deselectedInput(item){
+    this.inputExist = false;
+  }
   selectedInput(item){
     this.inputExist = true;
     this.inputInConsumeList = false;
@@ -633,6 +637,7 @@ export class OrderViewComponent implements OnInit {
         i.cantidadDisponible += inpuq.cantidadDisponible;
       }
     }
+    this.inputExist = false;
     this.auxQ = 0;
     this.searchInputModel2 = new Input(0, '', 0, '', '', '');
     this.searchInputModel = new Input(0, '', 0, '', '', '');
@@ -705,6 +710,7 @@ export class OrderViewComponent implements OnInit {
 
   /** Used to reset the input model */
   resetInputRequestModal() {
+    this.autoCompleteInput.length = 0;
     this.inputExist = false;
     this.searchInputModel.nombre = '';
     this.inputConsumeList = new Array<InputQ>();
