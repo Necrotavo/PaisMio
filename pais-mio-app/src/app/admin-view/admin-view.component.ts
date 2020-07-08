@@ -510,6 +510,15 @@ validateInputMin(){
     );
   }
 
+  /** Used to get all available clients using the API service */
+  getAClient(){
+    this.apiService.getAClient().subscribe(
+      data => {
+        this.clientAList = data;
+      }
+    );
+  }
+
   /** Used to post a product using the API service */
   postProduct() {
 
