@@ -24,6 +24,7 @@ export class RecoverPasswordComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /** Used to recover an account by email using the API service */
   passwordRecover(){
     this.apiService.passwordRecovery(this.userModel).subscribe(
       data => {
