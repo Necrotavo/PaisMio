@@ -70,7 +70,7 @@ namespace BL
             lista = dao_Solicitud.listarSolicitudesPorPedido(idPedido);
             return lista;
         }
-        public List<DO_SolicitudInsumos> listaSolicitudesPorOperario(string idOpe)
+        public List<DO_SolicitudInsumos> listaSolicitudesPorOperario(DO_SolicitudInsumos idOpe)
         {
             List<DO_SolicitudInsumos> lista = new List<DO_SolicitudInsumos>();
             DAO_SolicitudInsumos dao_Solicitud = new DAO_SolicitudInsumos();

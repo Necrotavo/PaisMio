@@ -36,7 +36,7 @@ namespace WebService
             BodyStyle = WebMessageBodyStyle.Bare,
             Method = "POST",
             UriTemplate = "solicitudPorOperario")]
-        List<DO_SolicitudInsumos> listarSolicitudesPorOperario(string operario);//tested
+        List<DO_SolicitudInsumos> listarSolicitudesPorOperario(DO_SolicitudInsumos operario);//tested
         /*
          {
         "operario":"jm_rc@yahoo.es"

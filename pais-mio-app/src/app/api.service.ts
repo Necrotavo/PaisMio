@@ -408,10 +408,10 @@ export class ApiService {
     );
   }
 
-  getInputRequestByUser(user: User): Observable<InputRequest> {
-    return this.http.post<InputRequest>(inputRequestGETBYUSER, user, HttpOptions).pipe(
-      tap((i: InputRequest) => console.log(`searched input request w/ id=${i.codigo} by user`)),
-      catchError(this.handleErrors<InputRequest>(`getInputRequestByUser`))
+  getInputRequestByUser(inputRequestByOrder: InputRequest): Observable<InputRequest[]> {
+    return this.http.post<InputRequest[]>(inputRequestGETBYUSER, inputRequestByOrder, HttpOptions).pipe(
+      tap((i: InputRequest[]) => console.log(`searched input request w/ id=${i} by user`)),
+      catchError(this.handleErrors<InputRequest[]>(`getInputRequestByUser`))
     );
   }
 

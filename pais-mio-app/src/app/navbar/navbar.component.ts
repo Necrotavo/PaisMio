@@ -36,6 +36,11 @@ export class NavbarComponent implements OnInit {
 
     this.data.activeOrder.subscribe(order => this.order = order);
 
+    this.isLoggedIn$ = this.authService.isLoggedIn;
+    this.isAdmin$ = this.authService.isAdmin;
+    this.isSupervisor$ = this.authService.isSupervisor;
+
+    if (this.isLoggedIn$){
     this.apiService.getUser().subscribe(
       data => {
         this.userList = data;
@@ -43,11 +48,8 @@ export class NavbarComponent implements OnInit {
         console.log('data:' + this.userList);
         this.kickUser();
       }
-    );
-
-    this.isLoggedIn$ = this.authService.isLoggedIn;
-    this.isAdmin$ = this.authService.isAdmin;
-    this.isSupervisor$ = this.authService.isSupervisor;
+      );
+    }
 
     /** Checks user status for navbar */
     this.authService.isLoggedInMethod();

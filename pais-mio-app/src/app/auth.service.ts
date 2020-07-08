@@ -102,7 +102,7 @@ export class AuthService {
   }
 
   get isSupervisor() {
-    return this.supervisorRole.asObservable();
+    return this.supervisorRole.asObservable(), this.adminRole.asObservable();
   }
 
 }
