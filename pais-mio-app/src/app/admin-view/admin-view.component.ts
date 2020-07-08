@@ -117,11 +117,8 @@ export class AdminViewComponent implements OnInit {
   userEmailExist = false;
   cellarNameExist = false;
   clientNameExist = false;
-<<<<<<< HEAD
   inputNameExist = false;
-=======
   productNameExists = false;
->>>>>>> master
 
   productIdExist = false;
   /** Aux variables */
