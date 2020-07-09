@@ -263,14 +263,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="28"
-                            class="link-to-prism">src/app/sign-in/sign-in.component.ts:28</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="30"
+                            class="link-to-prism">src/app/sign-in/sign-in.component.ts:30</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Used login into the app and also to set the information on local storage </p>
+</div>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
@@ -302,8 +304,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="22"
-                            class="link-to-prism">src/app/sign-in/sign-in.component.ts:22</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="23"
+                            class="link-to-prism">src/app/sign-in/sign-in.component.ts:23</a></div>
                 </td>
             </tr>
 
@@ -341,14 +343,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="46"
-                            class="link-to-prism">src/app/sign-in/sign-in.component.ts:46</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="49"
+                            class="link-to-prism">src/app/sign-in/sign-in.component.ts:49</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Used to reset the variable isWrong </p>
+</div>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -383,7 +387,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/sign-in/sign-in.component.ts:20</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/sign-in/sign-in.component.ts:21</a></div>
                             </td>
                         </tr>
 
@@ -415,10 +419,16 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/sign-in/sign-in.component.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/sign-in/sign-in.component.ts:17</a></div>
                             </td>
                         </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Models </p>
+</div>
+                    </td>
+                </tr>
 
             </tbody>
         </table>
@@ -447,7 +457,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/sign-in/sign-in.component.ts:17</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/sign-in/sign-in.component.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -475,6 +485,7 @@ export class SignInComponent implements OnInit {
 
   constructor(private auth: AuthService, private router: Router) { }
 
+  /** Models */
   loginUser &#x3D; new LoginUser(&#x27;&#x27;, &#x27;&#x27;);
   objLogin: User &#x3D; new User(&#x27;&#x27;, &#x27;&#x27;, &#x27;&#x27;, &#x27;&#x27;, &#x27;&#x27;, &#x27;default&#x27;);
 
@@ -487,6 +498,7 @@ export class SignInComponent implements OnInit {
     }
   }
 
+  /** Used login into the app and also to set the information on local storage */
   login(){
     return this.auth.userLogin(this.loginUser).subscribe(
       data &#x3D;&gt; {
@@ -505,6 +517,7 @@ export class SignInComponent implements OnInit {
     );
   }
 
+  /** Used to reset the variable isWrong */
   resetIsWrong(){
     this.isWrong &#x3D; false;
   }
@@ -540,7 +553,7 @@ export class SignInComponent implements OnInit {
                     &lt;p&gt;&lt;small class&#x3D;&quot;text-danger&quot; *ngIf&#x3D;&quot;contrasenaU.errors.required &amp;&amp; contrasenaU.touched&quot;&gt;Contraseña invalida&lt;/small&gt;&lt;/p&gt;
                 &lt;/div&gt;
                 &lt;div *ngIf&#x3D;&quot;isWrong&quot;&gt;
-                    &lt;p&gt;&lt;small class&#x3D;&quot;text-danger&quot;&gt;La contraseña es errónea&lt;/small&gt;&lt;/p&gt;
+                    &lt;p&gt;&lt;small class&#x3D;&quot;text-danger&quot;&gt;Credenciales incorrectas!&lt;/small&gt;&lt;/p&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
             &lt;div class&#x3D;&quot;form-action&quot;&gt;
@@ -587,8 +600,8 @@ export class SignInComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="signin-page">    <div class="wrapper">        <div class="header">            <a routerLink="/" class="logo">                <img src="assets/images/logo-alt-b.png" />            </a>        </div>        <form #loginForm="ngForm" (ngSubmit)="login()" novalidate>            <div class="form-field">                <input type="text" required #correoU="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"                 class="form-control" [class.is-invalid]="correoU.invalid && correoU.touched"                 placeholder="correo@mail.com" name="correoU" [(ngModel)]="loginUser.correo">                 <div *ngIf="correoU.errors && (correoU.invalid || correoU.touched)">                    <p><small class="text-danger" *ngIf="correoU.errors.required && correoU.touched">Correo requerido</small></p>                    <p><small class="text-danger" *ngIf="correoU.errors.pattern">Correo invalido</small></p>                    <p><small class="text-danger" *ngIf="correoU.errors.pattern">Ejemplo: xxxx@mail.com</small></p>                </div>            </div>             <div class="form-field">                <input type="password" required #contrasenaU="ngModel" placeholder="Contraseña"                 class="form-control" [class.is-invalid]="contrasenaU.invalid && contrasenaU.touched"                  name="contrasenaU" [(ngModel)]="loginUser.contrasena" (keyup)="resetIsWrong()">                 <div *ngIf="contrasenaU.errors && (contrasenaU.invalid || contrasenaU.touched)">                    <p><small class="text-danger" *ngIf="contrasenaU.errors.required && contrasenaU.touched">Contraseña invalida</small></p>                </div>                <div *ngIf="isWrong">                    <p><small class="text-danger">La contraseña es errónea</small></p>                </div>            </div>            <div class="form-action">                <input button [disabled]="loginForm.form.invalid" type="submit" class="btn btn-shadow btn-shadow-primary" value="Ingresar"                >            </div>            <div class="form-bottom">                <a routerLink="/recover-password/">¿Olvidó su contraseña?</a>            </div>        </form>    </div></div></div>'
-    var COMPONENTS = [{'name': 'AdminViewComponent', 'selector': 'app-admin-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChangePasswordComponent', 'selector': 'app-change-password'},{'name': 'ErrorPageComponent', 'selector': 'app-error-page'},{'name': 'IndexPmAppComponent', 'selector': 'app-index-pm-app'},{'name': 'InventoryControlComponent', 'selector': 'app-inventory-control'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'OrderViewComponent', 'selector': 'app-order-view'},{'name': 'RecoverPasswordComponent', 'selector': 'app-recover-password'},{'name': 'ReportComparativeComponent', 'selector': 'app-report-comparative'},{'name': 'ReportMonthlyComponent', 'selector': 'app-report-monthly'},{'name': 'ReportViewComponent', 'selector': 'app-report-view'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'UserViewComponent', 'selector': 'app-user-view'}];
+        var COMPONENT_TEMPLATE = '<div><div class="signin-page">    <div class="wrapper">        <div class="header">            <a routerLink="/" class="logo">                <img src="assets/images/logo-alt-b.png" />            </a>        </div>        <form #loginForm="ngForm" (ngSubmit)="login()" novalidate>            <div class="form-field">                <input type="text" required #correoU="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"                 class="form-control" [class.is-invalid]="correoU.invalid && correoU.touched"                 placeholder="correo@mail.com" name="correoU" [(ngModel)]="loginUser.correo">                 <div *ngIf="correoU.errors && (correoU.invalid || correoU.touched)">                    <p><small class="text-danger" *ngIf="correoU.errors.required && correoU.touched">Correo requerido</small></p>                    <p><small class="text-danger" *ngIf="correoU.errors.pattern">Correo invalido</small></p>                    <p><small class="text-danger" *ngIf="correoU.errors.pattern">Ejemplo: xxxx@mail.com</small></p>                </div>            </div>             <div class="form-field">                <input type="password" required #contrasenaU="ngModel" placeholder="Contraseña"                 class="form-control" [class.is-invalid]="contrasenaU.invalid && contrasenaU.touched"                  name="contrasenaU" [(ngModel)]="loginUser.contrasena" (keyup)="resetIsWrong()">                 <div *ngIf="contrasenaU.errors && (contrasenaU.invalid || contrasenaU.touched)">                    <p><small class="text-danger" *ngIf="contrasenaU.errors.required && contrasenaU.touched">Contraseña invalida</small></p>                </div>                <div *ngIf="isWrong">                    <p><small class="text-danger">Credenciales incorrectas!</small></p>                </div>            </div>            <div class="form-action">                <input button [disabled]="loginForm.form.invalid" type="submit" class="btn btn-shadow btn-shadow-primary" value="Ingresar"                >            </div>            <div class="form-bottom">                <a routerLink="/recover-password/">¿Olvidó su contraseña?</a>            </div>        </form>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AdminViewComponent', 'selector': 'app-admin-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChangePasswordComponent', 'selector': 'app-change-password'},{'name': 'ErrorPageComponent', 'selector': 'app-error-page'},{'name': 'IndexPmAppComponent', 'selector': 'app-index-pm-app'},{'name': 'InventoryControlComponent', 'selector': 'app-inventory-control'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'OrderViewComponent', 'selector': 'app-order-view'},{'name': 'RecoverPasswordComponent', 'selector': 'app-recover-password'},{'name': 'ReportViewComponent', 'selector': 'app-report-view'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'UserViewComponent', 'selector': 'app-user-view'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'SignInComponent'};
 </script>

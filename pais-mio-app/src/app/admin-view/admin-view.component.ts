@@ -219,12 +219,14 @@ export class AdminViewComponent implements OnInit {
 
   }
 
+  /** Used to update the minimun quantity of an input */
   validateUpdateInputMin(){
     if (this.inputUpdateModel.cantMinStock < 0) {
       this.inputUpdateModel.cantMinStock = 0;
     }
   }
 
+/** Used to validate the minimun quantity of an input */
 validateInputMin(){
   if (this.inputModel.cantMinStock < 0) {
     this.inputModel.cantMinStock = 0;
@@ -266,10 +268,12 @@ validateInputMin(){
     this.unitExist = false;
   }
 
+  /** Used to change the existance of an unit */
   closeUnitExist() {
     this.unitExist = false;
   }
 
+  /** Used to search a product by name */
   searchProductName(forCreation: boolean) {
     if (forCreation === true){
       for (const i of this.productList) {
@@ -290,6 +294,7 @@ validateInputMin(){
     }
   }
 
+  /** Used to change the existance of a product name */
   closeSearchProductName() {
     this.productNameExists = false;
   }
@@ -452,9 +457,12 @@ validateInputMin(){
     this.clientNameExist = false;
   }
 
+  /** Used to change the existance of an email on close */
   closeUserEmailExist() {
     this.userEmailExist = false;
   }
+
+  /** Used to change the existance of a client on close */
   closeClientExist() {
     this.clientNameExist = false;
   }
@@ -1085,6 +1093,7 @@ validateInputMin(){
     }
   }
 
+  /** Used to validate and change the existance of a code */
   validateCodeUniqueness(forCreation: boolean) {
     for (const i of this.inputList) {
       if (forCreation) {

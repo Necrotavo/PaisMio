@@ -13,6 +13,7 @@ export class SignInComponent implements OnInit {
 
   constructor(private auth: AuthService, private router: Router) { }
 
+  /** Models */
   loginUser = new LoginUser('', '');
   objLogin: User = new User('', '', '', '', '', 'default');
 
@@ -25,6 +26,7 @@ export class SignInComponent implements OnInit {
     }
   }
 
+  /** Used login into the app and also to set the information on local storage */
   login(){
     return this.auth.userLogin(this.loginUser).subscribe(
       data => {
@@ -43,6 +45,7 @@ export class SignInComponent implements OnInit {
     );
   }
 
+  /** Used to reset the variable isWrong */
   resetIsWrong(){
     this.isWrong = false;
   }

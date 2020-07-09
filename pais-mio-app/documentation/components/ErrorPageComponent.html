@@ -267,14 +267,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="20"
-                            class="link-to-prism">src/app/error-page/error-page.component.ts:20</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="21"
+                            class="link-to-prism">src/app/error-page/error-page.component.ts:21</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Used to show and redirect after a 404 error </p>
+</div>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -309,12 +311,13 @@ export class ErrorPageComponent implements OnInit {
     this.show404();
   }
 
+  /** Used to show and redirect after a 404 error */
   show404() {
     let timerInterval;
     Swal.fire({
       title: &#x27;Error 404: Pagina no encontrada&#x27;,
       html: &#x27;Sera redirigido a la pagina principal en &lt;b&gt;&lt;/b&gt; milisegundos.&#x27;,
-      timer: 2000,
+      timer: 3000,
       timerProgressBar: true,
       onBeforeOpen: () &#x3D;&gt; {
         Swal.showLoading();
@@ -382,7 +385,7 @@ export class ErrorPageComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div></div>'
-    var COMPONENTS = [{'name': 'AdminViewComponent', 'selector': 'app-admin-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChangePasswordComponent', 'selector': 'app-change-password'},{'name': 'ErrorPageComponent', 'selector': 'app-error-page'},{'name': 'IndexPmAppComponent', 'selector': 'app-index-pm-app'},{'name': 'InventoryControlComponent', 'selector': 'app-inventory-control'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'OrderViewComponent', 'selector': 'app-order-view'},{'name': 'RecoverPasswordComponent', 'selector': 'app-recover-password'},{'name': 'ReportComparativeComponent', 'selector': 'app-report-comparative'},{'name': 'ReportMonthlyComponent', 'selector': 'app-report-monthly'},{'name': 'ReportViewComponent', 'selector': 'app-report-view'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'UserViewComponent', 'selector': 'app-user-view'}];
+    var COMPONENTS = [{'name': 'AdminViewComponent', 'selector': 'app-admin-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChangePasswordComponent', 'selector': 'app-change-password'},{'name': 'ErrorPageComponent', 'selector': 'app-error-page'},{'name': 'IndexPmAppComponent', 'selector': 'app-index-pm-app'},{'name': 'InventoryControlComponent', 'selector': 'app-inventory-control'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'OrderViewComponent', 'selector': 'app-order-view'},{'name': 'RecoverPasswordComponent', 'selector': 'app-recover-password'},{'name': 'ReportViewComponent', 'selector': 'app-report-view'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'UserViewComponent', 'selector': 'app-user-view'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ErrorPageComponent'};
 </script>
