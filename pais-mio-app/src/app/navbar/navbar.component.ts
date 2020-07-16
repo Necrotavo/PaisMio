@@ -74,7 +74,6 @@ export class NavbarComponent implements OnInit {
     /** order is dispach */
     this.data.isDispach.subscribe((dispach) => {
       this.dispach = dispach;
-      console.log(dispach);
       this.navbarReloadOrder();
     });
   }
@@ -117,6 +116,9 @@ export class NavbarComponent implements OnInit {
   kickUser() {
 
     this.userIn = JSON.parse(localStorage.getItem('user logged'));
+    if(!this.userIn){
+      return;
+    }
     for (const i of this.userList) {
       if (this.userIn.correo === i.correo) {
         this.userIn = i;
