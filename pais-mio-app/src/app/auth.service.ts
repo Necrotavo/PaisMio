@@ -62,6 +62,7 @@ export class AuthService {
 
   async isLoggedInMethod() {
     this.userData$ = JSON.parse(localStorage.getItem('user logged'));
+    console.log('Imprimo: ' + this.userData$);
     if (localStorage.getItem('user logged') === null) {
       this.loggedIn.next(false);
       this.adminRole.next(false);

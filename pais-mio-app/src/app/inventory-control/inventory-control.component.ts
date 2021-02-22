@@ -241,7 +241,6 @@ export class InventoryControlComponent implements OnInit {
 
   /** Used when an input is selected on the autocomplete list */
   selectedInput(item) {
-    console.log(item);
     for (const i of this.inputEntryList) {
       if (item.nombre === i.insumo.nombre) {
         this.inputAlreadyAdded = true;

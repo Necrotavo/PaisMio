@@ -74,6 +74,7 @@ export class NavbarComponent implements OnInit {
     /** order is dispach */
     this.data.isDispach.subscribe((dispach) => {
       this.dispach = dispach;
+      console.log(dispach);
       this.navbarReloadOrder();
     });
   }

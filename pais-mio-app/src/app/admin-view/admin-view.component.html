@@ -300,7 +300,7 @@
                                 data-target="#cellarModal">
                                 <i class="icon ion-plus">
                                 </i>
-                                Crear Bodega
+                                Crear bodega
                             </button>
 
                         </div>
@@ -323,7 +323,7 @@
                                     {{bodega.nombre | titlecase}}
                                 </td>
                                 <td>
-                                    {{bodega.direccion | lowercase}}
+                                    {{bodega.direccion | titlecase}}
                                 </td>
                                 <td>
                                     {{bodega.telefono}}
@@ -354,7 +354,7 @@
                                 data-target="#unitModal">
                                 <i class="icon ion-plus">
                                 </i>
-                                Crear Unidad de Medida
+                                Crear unidad de medida
                             </button>
 
                         </div>
@@ -391,7 +391,7 @@
                                 data-toggle="modal" data-target="#clientsModal">
                                 <i class="icon ion-plus">
                                 </i>
-                                Crear Cliente
+                                Crear cliente
                             </button>
 
                         </div>
@@ -447,7 +447,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th>Correo electronico</th>
+                                                <th>Correo electrónico</th>
                                                 <td>
                                                     {{item.correo}}
                                                 </td>
@@ -2154,7 +2154,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title" id="cellarsModallabel1">Crear Bodega</h5>
+                <h5 class="modal-title" id="cellarsModallabel1">Crear bodega</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -2220,13 +2220,13 @@
                             </tr>
                             <tr>
                                 <th>
-                                    Telefono
+                                    Teléfono
                                 </th>
                                 <td>
                                     <div class="form-field">
                                         <input type="tel" required #telC="ngModel" pattern="[0-9()-]{8,}"
                                             class="form-control" [class.is-invalid]="telC.invalid && telC.touched"
-                                            placeholder="(506) 5555-5555" name="telC"
+                                            placeholder="(506)5555-5555" name="telC"
                                             [(ngModel)]="cellarModel.telefono">
 
                                         <div *ngIf="telC.errors && (telC.invalid || telC.touched)">
@@ -2417,7 +2417,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title" id="unitsModallabel1">Crear Unidad</h5>
+                <h5 class="modal-title" id="unitsModallabel1">Crear unidad</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                     (click)="unitForm.reset();closeUnitExist()">
                     <span aria-hidden="true">×</span>

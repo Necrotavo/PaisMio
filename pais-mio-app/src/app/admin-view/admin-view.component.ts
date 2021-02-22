@@ -350,7 +350,6 @@ validateInputMin(){
     } else {
       this.analysisExist = false;
     }
-    console.log(`${this.analysisExist}`);
     return this.analysisExist;
   }
 
@@ -481,7 +480,6 @@ validateInputMin(){
   postClient() {
 
     this.clientModel.estado = 'HABILITADO';
-    console.log(this.clientModel);
     this.apiService.addClient(this.clientModel).subscribe(
       data => {
         this.objClient = data;
