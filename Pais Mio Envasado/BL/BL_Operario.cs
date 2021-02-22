@@ -127,10 +127,13 @@ namespace BL
 
         public void enviarCorreo(string correoDestino, string subject, string body)
         {
-            string correoOrigen = "passcontrolSPE@gmail.com";
-            string contrasena = "Pepito123.";
+            //string correoOrigen = "passcontrolSPE@gmail.com";
+            //string contrasena = "Pepito123.";
+            string correoOrigen = "kevinjag21j@gmail.com";
+            string contrasena = "hgutlsytclasmkdp";
 
-            
+
+
             MailMessage message = new MailMessage(correoOrigen, correoDestino, subject,
                 body);
             message.IsBodyHtml = true;
