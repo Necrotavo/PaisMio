@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class NavbarComponent implements OnInit {
 
+  /** Object declarations */
   order: Order;
   orderList: Order[];
   userList: User[];
@@ -25,6 +26,7 @@ export class NavbarComponent implements OnInit {
 
   userIn = new User('', '', '', '', '', '');
 
+  /** Observables declarations */
   isLoggedIn$: Observable<boolean>;
   isAdmin$: Observable<boolean>;
   isSupervisor$: Observable<boolean>;
@@ -72,11 +74,11 @@ export class NavbarComponent implements OnInit {
     /** order is dispach */
     this.data.isDispach.subscribe((dispach) => {
       this.dispach = dispach;
-      console.log(dispach);
       this.navbarReloadOrder();
     });
   }
 
+  /** Used to reload an order on the navbar to show */
   navbarReloadOrder() {
     this.apiService.getOrder().subscribe(
       data => {
@@ -93,16 +95,19 @@ export class NavbarComponent implements OnInit {
     );
   }
 
+  /** Used to change the active order */
   newOrder(i: number) {
     this.data.changeOrder(this.orderList[i]);
     localStorage.setItem('active order', JSON.stringify(this.orderList[i]));
   }
 
+  /** Used to set and check the role user */
   checkUserRole() {
     this.userIn = JSON.parse(localStorage.getItem('user logged'));
     this.activeRole = this.userIn.rol;
   }
 
+  /** Used to log out using the auth service */
   logout() {
     this.authService.logout();
   }
@@ -111,6 +116,9 @@ export class NavbarComponent implements OnInit {
   kickUser() {
 
     this.userIn = JSON.parse(localStorage.getItem('user logged'));
+    if(!this.userIn){
+      return;
+    }
     for (const i of this.userList) {
       if (this.userIn.correo === i.correo) {
         this.userIn = i;
@@ -149,6 +157,7 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  /** Used to get the user list using the API service */
   getUser() {
     this.apiService.getUser().subscribe(
       data => {

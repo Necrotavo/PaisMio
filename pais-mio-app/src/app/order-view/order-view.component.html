@@ -509,10 +509,8 @@
                                                     requerida</small></p>
                                         </div>
                                     </div>
+                                    <p><small class="text-danger center" *ngIf="inputInConsumeList && inputInDiscardList && auxQ > 0">Ya ingresó ese insumo</small></p>
                                 </td>
-                            </tr>
-                            <tr>
-                                <p><small class="text-danger" *ngIf="inputInConsumeList && inputInDiscardList && auxQ > 0">Ya ingresó ese insumo</small></p>
                             </tr>
                             <tr *ngIf="inputExist && auxQ > 0 && aviableQuantity > 0">
                                 <td>

@@ -68,6 +68,7 @@ export class ChangePasswordComponent implements OnInit {
     }
   }
 
+  /** Used to validate and check the new password */
   checkNewPassR(){
     if (this.userChangePass.newPassR === '' || this.userChangePass.newPass === ''
     || this.userChangePass.newPassR === null || this.userChangePass.newPass === null){

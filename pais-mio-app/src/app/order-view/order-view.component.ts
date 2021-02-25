@@ -654,8 +654,6 @@ export class OrderViewComponent implements OnInit {
       }
 
     }
-
-    // this.resetInputRequestModal();
   }
 
   /** Used to request for a status on an input request */

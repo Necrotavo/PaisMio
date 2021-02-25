@@ -16,6 +16,7 @@ export class UserViewComponent implements OnInit {
 
   ngOnInit(): void {
 
+    /** Gets the user information from local storage */
     this.userIn = JSON.parse(localStorage.getItem('user logged'));
 
   }

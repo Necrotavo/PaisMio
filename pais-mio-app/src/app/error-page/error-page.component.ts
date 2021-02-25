@@ -17,6 +17,7 @@ export class ErrorPageComponent implements OnInit {
     this.show404();
   }
 
+  /** Used to show and redirect after a 404 error */
   show404() {
     let timerInterval;
     Swal.fire({

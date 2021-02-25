@@ -3,7 +3,6 @@ import { DataService } from '../data.service';
 import { Order } from 'src/models/order';
 import { ApiService } from '../api.service';
 import { User } from 'src/models/user';
-import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 
 @Component({

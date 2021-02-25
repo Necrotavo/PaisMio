@@ -181,6 +181,7 @@ export class InventoryControlComponent implements OnInit {
     this.inputExist = false;
   }
 
+  /** Used to search and input and validate existance */
   searchInput() {
     for (const i of this.inputList) {
       if (this.searchInputModel.nombre.toUpperCase() === i.nombre.toUpperCase()) {
@@ -253,16 +254,19 @@ export class InventoryControlComponent implements OnInit {
     this.inputHasError = false;
   }
 
+  /** Used when an input is deselected */
   deselectedInput(item){
     this.auxQ = 0;
     this.inputHasError = true;
   }
 
+  /** Used when an input is selected to inject the code in the cellar entry model */
   selectedCellar(item){
     this.cellarEntryModel.codigo = item.codigo;
     this.cellarHasError = false;
   }
 
+  /** Used when an cellar is deselected */
   deselectedCellar(item){
     this.cellarHasError = true;
   }

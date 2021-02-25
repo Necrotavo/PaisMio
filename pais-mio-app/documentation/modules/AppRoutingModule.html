@@ -78,13 +78,9 @@ import { ChangePasswordComponent } from &#x27;./change-password/change-password.
 import { InventoryControlComponent } from &#x27;./inventory-control/inventory-control.component&#x27;;
 import { OrderViewComponent } from &#x27;./order-view/order-view.component&#x27;;
 import { RecoverPasswordComponent } from &#x27;./recover-password/recover-password.component&#x27;;
-import { ReportComparativeComponent } from &#x27;./report-comparative/report-comparative.component&#x27;;
-import { ReportMonthlyComponent } from &#x27;./report-monthly/report-monthly.component&#x27;;
 import { SignInComponent } from &#x27;./sign-in/sign-in.component&#x27;;
-import { SignUpComponent } from &#x27;./sign-up/sign-up.component&#x27;;
 import { UserViewComponent } from &#x27;./user-view/user-view.component&#x27;;
 import { ErrorPageComponent } from &#x27;./error-page/error-page.component&#x27;;
-import { RouterGuardGuard } from &#x27;./router-guard.guard&#x27;;
 import { TierOneGuard } from &#x27;./tier-one.guard&#x27;;
 import { TierTwoGuard } from &#x27;./tier-two.guard&#x27;;
 import { TierThreeGuard } from &#x27;./tier-three.guard&#x27;;
@@ -94,16 +90,13 @@ import { ReportViewComponent } from &#x27;./report-view/report-view.component&#x
 const routes: Routes &#x3D; [
   {path: &#x27;&#x27;, component: IndexPmAppComponent , canActivate: [TierThreeGuard]},
   {path: &#x27;index-pm-app&#x27;, component: IndexPmAppComponent, canActivate: [TierThreeGuard]},
-  {path: &#x27;admin-view&#x27;, component: AdminViewComponent, canActivate: [TierOneGuard]},
+  {path: &#x27;admin-view&#x27;, component: AdminViewComponent, canActivate: [TierTwoGuard]},
   {path: &#x27;change-password&#x27;, component: ChangePasswordComponent, canActivate: [TierThreeGuard]},
   {path: &#x27;inventory-control&#x27;, component: InventoryControlComponent, canActivate: [TierTwoGuard]},
   {path: &#x27;order-view&#x27;, component: OrderViewComponent, canActivate: [TierThreeGuard]},
   {path: &#x27;recover-password&#x27;, component: RecoverPasswordComponent},
   {path: &#x27;report-view&#x27;, component: ReportViewComponent, canActivate: [TierOneGuard]},
-  {path: &#x27;report-comparative&#x27;, component: ReportComparativeComponent, canActivate: [TierOneGuard]},
-  {path: &#x27;report-monthly&#x27;, component: ReportMonthlyComponent, canActivate: [TierOneGuard]},
   {path: &#x27;sign-in&#x27;, component: SignInComponent},
-  {path: &#x27;sign-up&#x27;, component: SignUpComponent, canActivate: [TierThreeGuard]},
   {path: &#x27;user-view&#x27;, component: UserViewComponent, canActivate: [TierThreeGuard]},
   {path: &#x27;**&#x27;, component: ErrorPageComponent}
 ];

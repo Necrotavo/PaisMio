@@ -179,7 +179,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/index-pm-app/index-pm-app.component.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/index-pm-app/index-pm-app.component.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -272,8 +272,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="37"
-                            class="link-to-prism">src/app/index-pm-app/index-pm-app.component.ts:37</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="35"
+                            class="link-to-prism">src/app/index-pm-app/index-pm-app.component.ts:35</a></div>
                 </td>
             </tr>
 
@@ -344,8 +344,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="22"
-                            class="link-to-prism">src/app/index-pm-app/index-pm-app.component.ts:22</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="21"
+                            class="link-to-prism">src/app/index-pm-app/index-pm-app.component.ts:21</a></div>
                 </td>
             </tr>
 
@@ -387,7 +387,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/index-pm-app/index-pm-app.component.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/index-pm-app/index-pm-app.component.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -414,7 +414,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/index-pm-app/index-pm-app.component.ts:17</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/index-pm-app/index-pm-app.component.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -440,7 +440,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/index-pm-app/index-pm-app.component.ts:18</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/index-pm-app/index-pm-app.component.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -458,7 +458,6 @@ import { DataService } from &#x27;../data.service&#x27;;
 import { Order } from &#x27;src/models/order&#x27;;
 import { ApiService } from &#x27;../api.service&#x27;;
 import { User } from &#x27;src/models/user&#x27;;
-import { Observable } from &#x27;rxjs&#x27;;
 import { AuthService } from &#x27;../auth.service&#x27;;
 
 @Component({
@@ -485,7 +484,6 @@ export class IndexPmAppComponent implements OnInit {
     );
 
     this.userIn &#x3D; JSON.parse(localStorage.getItem(&#x27;user logged&#x27;));
-    console.log(&#x27;Imprimo: &#x27; + this.userIn.correo);
   }
 
   /** Used to change the order in the observable and set and active order in local storage */
@@ -558,7 +556,7 @@ export class IndexPmAppComponent implements OnInit {
 
       &lt;!--Start of option three--&gt;
       &lt;div class&#x3D;&quot;card bg-success text-white text-center mb-3&quot; 
-      *ngIf&#x3D;&quot;userIn.rol &#x3D;&#x3D;&#x3D; &#x27;ADMINISTRADOR&#x27;&quot;&gt;
+      *ngIf&#x3D;&quot;userIn.rol &#x3D;&#x3D;&#x3D; &#x27;ADMINISTRADOR&#x27;  || userIn.rol &#x3D;&#x3D;&#x3D; &#x27;SUPERVISOR&#x27;&quot;&gt;
         &lt;div class&#x3D;&quot;card-header&quot; id&#x3D;&quot;headingThree&quot; data-toggle&#x3D;&quot;collapse&quot; data-parent&#x3D;&quot;#accordion&quot;
           href&#x3D;&quot;#collapseThree&quot;&gt;
           &lt;br&gt;
@@ -606,28 +604,7 @@ export class IndexPmAppComponent implements OnInit {
 
     &lt;/div&gt;
   &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;!--
-&lt;div id&#x3D;&quot;settings-module&quot;&gt;
-  &lt;a href&#x3D;&quot;#&quot; id&#x3D;&quot;open-settings&quot;&gt;
-    &lt;i class&#x3D;&quot;fa fa-cog&quot;&gt;&lt;/i&gt;
-  &lt;/a&gt;
-  &lt;div class&#x3D;&quot;menu-wrap&quot;&gt;
-    &lt;nav class&#x3D;&quot;menu&quot;&gt;
-      &lt;div class&#x3D;&quot;title&quot;&gt;Slider Effect&lt;/div&gt;
-      &lt;div class&#x3D;&quot;options&quot;&gt;
-        &lt;div class&#x3D;&quot;float-left&quot;&gt;
-          &lt;a href&#x3D;&quot;#&quot; data-option&#x3D;&quot;slider-effect&quot; data-class&#x3D;&quot;fxSideSwing&quot;&gt;Side Swing&lt;/a&gt;
-        &lt;/div&gt;
-        &lt;div class&#x3D;&quot;float-right&quot;&gt;
-          &lt;a href&#x3D;&quot;#&quot; data-option&#x3D;&quot;slider-effect&quot; data-class&#x3D;&quot;fxFortuneWheel&quot;&gt;Fortune Wheel&lt;/a&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/nav&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
---&gt;</code></pre>
+&lt;/div&gt;</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
@@ -662,8 +639,8 @@ export class IndexPmAppComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="account-page">  <div class="container">    <div id="accordion">      <!--Start of option one-->      <div class="card bg-dark text-white text-center mb-3">        <div class="card-header" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">          <br>          <i class="ion-stats-bars"></i>          <h5 class="mb-0">            Pedidos          </h5>          <br>        </div>        <!--you can add "show" class if you want to show the active orders when someone opens the app-->        <div id="collapseOne" class="collapse" role="tabpanel">          <div class="card-body">            <!--Buttons here are the ACTIVE orders-->            <a *ngFor="let item of orderList; let i = index" attr.value="{{i}}" routerLink="/order-view/" class="btn btn-lg btn-outline-light btn-block" (click)="newOrder(i)">              <div class="row">                <div class="col-1">                  {{item.codigo}}                </div>                <div class="col-6">                  {{item.cliente.nombre}}                </div>                <div class="col">                  {{item.codigo}}                </div>              </div>            </a>          </div>        </div>      </div>      <!--End of option one-->      <!--Start of option two-->      <div class="card bg-primary text-white text-center mb-3"       *ngIf="userIn.rol === \'ADMINISTRADOR\' || userIn.rol === \'SUPERVISOR\'">        <div class="card-header" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">          <br>          <i class="ion-monitor"></i>          <h5 class="mb-0">            Inventario          </h5>          <br>        </div>        <div id="collapseTwo" class="collapse">          <div class="card-body">            <a routerLink="/inventory-control/" class="btn-shadow btn-shadow-primary btn-block">Manejo de inventario</a>          </div>        </div>      </div>      <!--End of option one-->      <!--Start of option three-->      <div class="card bg-success text-white text-center mb-3"       *ngIf="userIn.rol === \'ADMINISTRADOR\'">        <div class="card-header" id="headingThree" data-toggle="collapse" data-parent="#accordion"          href="#collapseThree">          <br>          <i class="ion-settings"></i>          <h5 class="mb-0">            <a class="collapsed">              Administración            </a>          </h5>          <br>        </div>        <div id="collapseThree" class="collapse">          <div class="card-body">            <a routerLink="/admin-view/" style="background-color: #11ad5a;" class="btn-shadow btn-block">Panel de Administración</a>          </div>        </div>      </div>      <!--End of option three-->      <!--Start of option four-->      <div class="card bg-info text-white text-center mb-3"       *ngIf="userIn.rol === \'ADMINISTRADOR\'">        <div class="card-header" id="headingFour" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">          <br>          <i class="ion-pie-graph"></i>          <h5 class="mb-0">            <a class="collapsed">              Reportes            </a>          </h5>          <br>        </div>        <div id="collapseFour" class="collapse">          <div class="card-body">            <a routerLink="/report-view/" class="btn-shadow btn-shadow-info btn-block">Generar reportes</a>          </div>        </div>      </div>      <!--End of option four-->      <!-- For user experiencse purpose focus on operator -->      <div class="content" *ngIf="userIn.rol === \'OPERARIO\'">        <!---->      </div>    </div>  </div></div><!--<div id="settings-module">  <a href="#" id="open-settings">    <i class="fa fa-cog"></i>  </a>  <div class="menu-wrap">    <nav class="menu">      <div class="title">Slider Effect</div>      <div class="options">        <div class="float-left">          <a href="#" data-option="slider-effect" data-class="fxSideSwing">Side Swing</a>        </div>        <div class="float-right">          <a href="#" data-option="slider-effect" data-class="fxFortuneWheel">Fortune Wheel</a>        </div>      </div>    </nav>  </div></div>--></div>'
-    var COMPONENTS = [{'name': 'AdminViewComponent', 'selector': 'app-admin-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChangePasswordComponent', 'selector': 'app-change-password'},{'name': 'ErrorPageComponent', 'selector': 'app-error-page'},{'name': 'IndexPmAppComponent', 'selector': 'app-index-pm-app'},{'name': 'InventoryControlComponent', 'selector': 'app-inventory-control'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'OrderViewComponent', 'selector': 'app-order-view'},{'name': 'RecoverPasswordComponent', 'selector': 'app-recover-password'},{'name': 'ReportComparativeComponent', 'selector': 'app-report-comparative'},{'name': 'ReportMonthlyComponent', 'selector': 'app-report-monthly'},{'name': 'ReportViewComponent', 'selector': 'app-report-view'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'UserViewComponent', 'selector': 'app-user-view'}];
+        var COMPONENT_TEMPLATE = '<div><div class="account-page">  <div class="container">    <div id="accordion">      <!--Start of option one-->      <div class="card bg-dark text-white text-center mb-3">        <div class="card-header" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">          <br>          <i class="ion-stats-bars"></i>          <h5 class="mb-0">            Pedidos          </h5>          <br>        </div>        <!--you can add "show" class if you want to show the active orders when someone opens the app-->        <div id="collapseOne" class="collapse" role="tabpanel">          <div class="card-body">            <!--Buttons here are the ACTIVE orders-->            <a *ngFor="let item of orderList; let i = index" attr.value="{{i}}" routerLink="/order-view/" class="btn btn-lg btn-outline-light btn-block" (click)="newOrder(i)">              <div class="row">                <div class="col-1">                  {{item.codigo}}                </div>                <div class="col-6">                  {{item.cliente.nombre}}                </div>                <div class="col">                  {{item.codigo}}                </div>              </div>            </a>          </div>        </div>      </div>      <!--End of option one-->      <!--Start of option two-->      <div class="card bg-primary text-white text-center mb-3"       *ngIf="userIn.rol === \'ADMINISTRADOR\' || userIn.rol === \'SUPERVISOR\'">        <div class="card-header" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">          <br>          <i class="ion-monitor"></i>          <h5 class="mb-0">            Inventario          </h5>          <br>        </div>        <div id="collapseTwo" class="collapse">          <div class="card-body">            <a routerLink="/inventory-control/" class="btn-shadow btn-shadow-primary btn-block">Manejo de inventario</a>          </div>        </div>      </div>      <!--End of option one-->      <!--Start of option three-->      <div class="card bg-success text-white text-center mb-3"       *ngIf="userIn.rol === \'ADMINISTRADOR\'  || userIn.rol === \'SUPERVISOR\'">        <div class="card-header" id="headingThree" data-toggle="collapse" data-parent="#accordion"          href="#collapseThree">          <br>          <i class="ion-settings"></i>          <h5 class="mb-0">            <a class="collapsed">              Administración            </a>          </h5>          <br>        </div>        <div id="collapseThree" class="collapse">          <div class="card-body">            <a routerLink="/admin-view/" style="background-color: #11ad5a;" class="btn-shadow btn-block">Panel de Administración</a>          </div>        </div>      </div>      <!--End of option three-->      <!--Start of option four-->      <div class="card bg-info text-white text-center mb-3"       *ngIf="userIn.rol === \'ADMINISTRADOR\'">        <div class="card-header" id="headingFour" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">          <br>          <i class="ion-pie-graph"></i>          <h5 class="mb-0">            <a class="collapsed">              Reportes            </a>          </h5>          <br>        </div>        <div id="collapseFour" class="collapse">          <div class="card-body">            <a routerLink="/report-view/" class="btn-shadow btn-shadow-info btn-block">Generar reportes</a>          </div>        </div>      </div>      <!--End of option four-->      <!-- For user experiencse purpose focus on operator -->      <div class="content" *ngIf="userIn.rol === \'OPERARIO\'">        <!---->      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AdminViewComponent', 'selector': 'app-admin-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChangePasswordComponent', 'selector': 'app-change-password'},{'name': 'ErrorPageComponent', 'selector': 'app-error-page'},{'name': 'IndexPmAppComponent', 'selector': 'app-index-pm-app'},{'name': 'InventoryControlComponent', 'selector': 'app-inventory-control'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'OrderViewComponent', 'selector': 'app-order-view'},{'name': 'RecoverPasswordComponent', 'selector': 'app-recover-password'},{'name': 'ReportViewComponent', 'selector': 'app-report-view'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'UserViewComponent', 'selector': 'app-user-view'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'IndexPmAppComponent'};
 </script>

@@ -59,6 +59,7 @@ export class ReportViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /** Used to get a list of input reports using the API service */
   getInputReport() {
     this.inputReport.fechaInicio = this.R1D1;
     this.inputReport.fechaFinal = this.R1D2;
@@ -70,6 +71,7 @@ export class ReportViewComponent implements OnInit {
     );
   }
 
+  /** Used to get a list of order reports using the API service */
   getOrderReport() {
     this.orderReport.fechaInicio = this.R1D1;
     this.orderReport.fechaFinal = this.R1D2;
@@ -81,6 +83,7 @@ export class ReportViewComponent implements OnInit {
     );
   }
 
+  /** Used to get a list of entry reports using the API service */
   getEntryReport() {
     this.entryReport.fechaInicio = this.R1D1;
     this.entryReport.fechaFinal = this.R1D2;
@@ -92,6 +95,7 @@ export class ReportViewComponent implements OnInit {
     );
   }
 
+  /** Used to get a list of comparative reports using the API service */
   getInputComparativeReport() {
     this.inputComparativeReport.inicioMes1 = this.R1D1;
     this.inputComparativeReport.finalMes1 = this.R1D2;
@@ -105,6 +109,7 @@ export class ReportViewComponent implements OnInit {
     );
   }
 
+  /** Used to validate the report type when selected */
   validateReportType(value) {
     if (value === 'default') {
       this.reportHasError = true;
@@ -113,6 +118,7 @@ export class ReportViewComponent implements OnInit {
     }
   }
 
+  /** Used to validate the first date of a new report when selected */
   validateFirstDates(){
     if (this.R1D1 > this.R1D2){
       this.date1HasError = true;
@@ -121,6 +127,7 @@ export class ReportViewComponent implements OnInit {
     }
   }
 
+  /** Used to validate the second date of a new report when selected */
   validateSecondDates(){
     if (this.R2D1 > this.R2D2){
       this.date2HasError = true;
@@ -129,6 +136,7 @@ export class ReportViewComponent implements OnInit {
     }
   }
 
+  /** Used to validate the dates of a comparative report */
   validateComparativeDates(){
     if (this.R1D2 === '' || this.R2D1 === ''){
       this.date3HasError = true;
@@ -145,6 +153,7 @@ export class ReportViewComponent implements OnInit {
     }
   }
 
+  /** Used to call canvas and jsPDF to download a report as PDF */
   downloadPDF() {
 
     const element = document.getElementById('canvasInputReport');
@@ -171,6 +180,8 @@ export class ReportViewComponent implements OnInit {
 
     });
   }
+
+  /** Used to open a PDF order report */
   openOrderPDF(): void {
     const element = document.getElementById('pdfOrderReport');
     html2canvas(element).then((canvas) => {
@@ -198,6 +209,7 @@ export class ReportViewComponent implements OnInit {
 
   }
 
+  /** Used to open a PDF entry report */
   openEntryPDF(): void {
     const element = document.getElementById('pdfEntryReport');
     html2canvas(element).then((canvas) => {
@@ -225,6 +237,7 @@ export class ReportViewComponent implements OnInit {
 
   }
 
+  /** Used to open a PDF comparative report */
   openComparativePDF(): void {
     const element = document.getElementById('pdfComparativeReport');
     html2canvas(element).then((canvas) => {
