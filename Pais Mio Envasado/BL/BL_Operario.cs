@@ -35,7 +35,7 @@ namespace BL
                 string subject = "Contraseña País Mío";
 
                 string body = "<p>Su contraseña temporal es: " + pass + "</p><br>" +
-                    "<a href =https://pais-mio.web.app/ >Click aquí para ir al sitio de País Mío</a><br>" +
+                    "<a href =https://pais-mio-industria-artesanal.web.app/ >Click aquí para ir al sitio de País Mío</a><br>" +
                     "<p>Saludos!</p>";
 
                 enviarCorreo(doOperario.correo,subject,body);
@@ -107,7 +107,7 @@ namespace BL
             if (!operario.correo.Equals(""))
             {
                 string subject = "Recuperación de contraseña";
-                string url = "https://pais-mio.web.app/";
+                string url = "https://pais-mio-industria-artesanal.web.app/";
                 string body = "<p>Su nueva contraseña es: " + operario.contrasena + "</p><br>" +
                 "<p>:" +
                 "<a href='" + url + "'>Click aquí para continuar</a>" +
@@ -130,7 +130,6 @@ namespace BL
             string correoOrigen = "passcontrolSPE@gmail.com";
             string contrasena = "Pepito123.";
 
-            
             MailMessage message = new MailMessage(correoOrigen, correoDestino, subject,
                 body);
             message.IsBodyHtml = true;
