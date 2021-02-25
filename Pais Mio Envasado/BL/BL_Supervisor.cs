@@ -36,7 +36,7 @@ namespace BL
                 string subject = "Contraseña País Mío";
 
                 string body = "<p>Su contraseña temporal es: " + pass + "</p><br>" +
-                    "<a href =https://pais-mio.web.app/ >Click aquí para ir al sitio de País Mío</a><br>" +
+                    "<a href =https://pais-mio-industria-artesanal.web.app/ >Click aquí para ir al sitio de País Mío</a><br>" +
                     "<p>Saludos!</p>";
 
                 BLoperario.enviarCorreo(doOperario.correo, subject, body);
