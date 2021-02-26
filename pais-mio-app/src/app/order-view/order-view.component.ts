@@ -229,7 +229,7 @@ export class OrderViewComponent implements OnInit {
             if (this.objAnalysis) {
               Swal.fire({
                 icon: 'success',
-                title: '!Listo!',
+                title: '¡Listo!',
                 text: '¡Se agregó el análisis con éxito!',
                 showConfirmButton: false,
                 timer: 1500
@@ -293,7 +293,7 @@ export class OrderViewComponent implements OnInit {
         if (this.objInputRequest) {
           Swal.fire({
             icon: 'success',
-            title: '!Listo!',
+            title: '¡Listo!',
             text: 'Solicitud enviada con éxito',
             showConfirmButton: false,
             timer: 1500

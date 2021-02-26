@@ -209,7 +209,7 @@ export class AdminViewComponent implements OnInit {
         this.getUnits();
         Swal.fire({
           icon: 'success',
-          title: '!Listo!',
+          title: '¡Listo!',
           text: 'Unidad agregada con éxito',
           showConfirmButton: false,
           timer: 1500
@@ -372,7 +372,7 @@ validateInputMin(){
         this.objInput = new Input(0, '', 0, '', '', '');
         Swal.fire({
           icon: 'success',
-          title: '!Listo!',
+          title: '¡Listo!',
           text: 'Insumo agregado con éxito',
           showConfirmButton: false,
           timer: 1500
@@ -404,7 +404,7 @@ validateInputMin(){
         if (this.objUser) {
           Swal.fire({
             icon: 'success',
-            title: '!Listo!',
+            title: '¡Listo!',
             text: 'Usuario agregado con éxito',
             showConfirmButton: false,
             timer: 1500
@@ -487,7 +487,7 @@ validateInputMin(){
         if (this.objClient) {
           Swal.fire({
             icon: 'success',
-            title: '!Listo!',
+            title: '¡Listo!',
             text: 'Cliente agregado con éxito',
             showConfirmButton: false,
             timer: 1500
@@ -536,7 +536,7 @@ validateInputMin(){
         if (this.objProduct) {
           Swal.fire({
             icon: 'success',
-            title: '!Listo!',
+            title: '¡Listo!',
             text: 'Producto agregado con éxito',
             showConfirmButton: false,
             timer: 1500
@@ -591,7 +591,7 @@ validateInputMin(){
         if (auxBool) {
           Swal.fire({
             icon: 'success',
-            title: '!Listo!',
+            title: '¡Listo!',
             text: 'Bodega agregada con éxito',
             showConfirmButton: false,
             timer: 1500
@@ -754,7 +754,7 @@ validateInputMin(){
         if (this.objOrder) {
           Swal.fire({
             icon: 'success',
-            title: '!Listo!',
+            title: '¡Listo!',
             text: 'Se ingresó el pedido con éxito!',
             showConfirmButton: false,
             timer: 1500
@@ -986,7 +986,7 @@ validateInputMin(){
         if (this.objProduct) {
           Swal.fire({
             icon: 'success',
-            title: '!Listo!',
+            title: '¡Listo!',
             text: 'Producto actualizado con éxito',
             showConfirmButton: false,
             timer: 1500

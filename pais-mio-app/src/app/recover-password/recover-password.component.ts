@@ -31,7 +31,7 @@ export class RecoverPasswordComponent implements OnInit {
         this.objUser = data;
         Swal.fire({
           icon: 'success',
-          title: '!Listo!',
+          title: '¡Listo!',
           text: 'una nueva contraseña ha sido enviada a tu correo, revisa tu email por favor',
           showConfirmButton: false,
           timer: 2500

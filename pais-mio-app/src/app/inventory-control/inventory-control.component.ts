@@ -148,7 +148,7 @@ export class InventoryControlComponent implements OnInit {
         if (this.objCellarAdmin) {
           Swal.fire({
             icon: 'success',
-            title: '!Listo!',
+            title: '¡Listo!',
             text: '¡Se agregaron los insumos con éxito!',
             showConfirmButton: false,
             timer: 1500

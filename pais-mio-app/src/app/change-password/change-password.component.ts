@@ -43,7 +43,7 @@ export class ChangePasswordComponent implements OnInit {
     if (isValid) {
       Swal.fire({
         icon: 'success',
-        title: '!Listo!',
+        title: '¡Listo!',
         text: 'Cambio de contraseña efectuado',
         showConfirmButton: false,
         timer: 1500
