@@ -20,10 +20,10 @@
                     <div class="card-body">
                         <form id="form1" runat="server" class="form-label-group">
                             <div class="form-label-group">
-                                    <h3>Usted ha solicitado un nueva contreña</h3>
+                                    <h3>Usted ha solicitado un nueva contraseña.</h3>
                             </div>
                              <div class="form-label-group">
-                                    <p>Por favor revise nuevamente su correo</p>
+                                    <p>Por favor revise nuevamente su correo.</p>
                             </div>
 
                           <%-- <div class="form-label-group">

@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\CSS\Recovery.css" />
+    <Content Include="Admin\Img\logo PM-01.png" />
     <Content Include="Admin\Img\logo-pais-mio.png" />
     <Content Include="Admin\Recovery.aspx" />
     <Content Include="Global.asax" />
