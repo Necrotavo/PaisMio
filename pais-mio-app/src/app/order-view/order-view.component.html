@@ -375,8 +375,11 @@
                             <tbody>
 
                                 <tr *ngFor="let afq of analysisModel.analisisFQs">
-                                    <th>
+                                    <th *ngIf="afq.tipoAnalisisFQ != 'pH'">
                                         {{afq.tipoAnalisisFQ | titlecase}}
+                                    </th>
+                                    <th *ngIf="afq.tipoAnalisisFQ == 'pH'">
+                                        {{afq.tipoAnalisisFQ}}
                                     </th>
                                     <td>
                                         {{afq.medicionResultado}}
@@ -974,8 +977,11 @@
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let pq of pqsAnalysisList">
-                                            <th>
+                                            <th *ngIf="pq.tipoAnalisisFQ != 'pH'">
                                                 {{pq.tipoAnalisisFQ | titlecase}}
+                                            </th>
+                                            <th *ngIf="pq.tipoAnalisisFQ == 'pH'">
+                                                {{pq.tipoAnalisisFQ}}
                                             </th>
 
                                             <td>
