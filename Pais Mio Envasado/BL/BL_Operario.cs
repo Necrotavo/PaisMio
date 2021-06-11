@@ -87,7 +87,7 @@ namespace BL
                 DAOoperario.generarToken(correo);
 
                 string subject = "Recuperación de contraseña";
-                string url = "https://spepaismio.tk/Admin/Recovery.aspx?token=" + DAOoperario.generarToken(correo);
+                string url = "https://spepaismio.com/Admin/Recovery.aspx?token=" + DAOoperario.generarToken(correo);
                 string body = "<p>¿Usted ha solicilitado la recuperación de contraseña?</p><br>" +
                 "<p>De ser así, por favor haga click:" +
                 "<a href='" + url + "'>Click aquí para continuar</a>" +

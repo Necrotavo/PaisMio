@@ -15,9 +15,12 @@ namespace WebService.Admin
             if (!IsPostBack) {
                
                 string token = Request.QueryString["token"];
-                if (!token.Equals("")) {
-                    BL_Operario BLoperario = new BL_Operario();
-                    BLoperario.enviarNuevaContrasena(token);
+                if (token != null) {
+                    if (!token.Equals(""))
+                    {
+                        BL_Operario BLoperario = new BL_Operario();
+                        BLoperario.enviarNuevaContrasena(token);
+                    }
                 }
             }
         }
