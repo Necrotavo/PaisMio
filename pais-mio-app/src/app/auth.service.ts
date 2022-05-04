@@ -13,7 +13,11 @@ const HttpOptions = {
   headers: new HttpHeaders({ 'Content-type': 'application/json' })
 };
 
+<<<<<<< HEAD
 const userLoginPOST = 'http://paismio-001-site1.gtempurl.com/WS_Usuario.svc/Login';
+=======
+const userLoginPOST = 'https://www.spepaismio.com/WS_Usuario.svc/Login';
+>>>>>>> 5d47af089c8323ef5b21de9078d1a309928b1855
 
 @Injectable({
   providedIn: 'root'

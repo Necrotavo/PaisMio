@@ -31,6 +31,7 @@ const HttpOptions = {
 
 /*** Api URL constants */
 /** Base API URL */
+<<<<<<< HEAD
 const apiURL = 'http://paismio-001-site1.gtempurl.com/WS_Cliente.svc/ListarClientes';
 
 /** Client API URLs */
@@ -117,6 +118,94 @@ const cellarSTATUS = 'http://paismio-001-site1.gtempurl.com/WS_Bodega.svc/cambia
 const cellarGetOne = 'http://paismio-001-site1.gtempurl.com/WS_Bodega.svc/obtenerBodega';
 const cellarGetInputList = 'http://paismio-001-site1.gtempurl.com/WS_Bodega.svc/obtenerInsumosBodega';
 const cellarMoveInput = 'http://paismio-001-site1.gtempurl.com/WS_Bodega.svc/moverInsumoDeBodega';
+=======
+const apiURL = 'https://www.spepaismio.com/WS_Cliente.svc/ListarClientes';
+
+/** Client API URLs */
+const clientPOST = 'https://www.spepaismio.com/WS_Cliente.svc/Agregar';
+const clientGET = 'https://www.spepaismio.com/WS_Cliente.svc/ListarClientes';
+const clientAGET = 'https://www.spepaismio.com/WS_Cliente.svc/ListarClientesHabilitados';
+const clientUPDATE = 'https://www.spepaismio.com/WS_Cliente.svc/Modificar';
+const clientSTATUS = 'https://www.spepaismio.com/WS_Cliente.svc/ModificarEstado';
+const clientSEARCH = 'https://www.spepaismio.com/WS_Cliente.svc/Buscar';
+
+/** User API URLs */
+const userPOST = 'https://spepaismio.com/WS_Usuario.svc/CrearOperario';
+const userGET = 'https://www.spepaismio.com/WS_Usuario.svc/Lista';
+const userLoginPOST = 'https://www.spepaismio.com/WS_Usuario.svc/Login';
+const userUpdatePOST = 'https://www.spepaismio.com/WS_Usuario.svc/modificarUsuario';
+const passwordRecoveryPOST = 'https://www.spepaismio.com/WS_Usuario.svc/RecuperarContrasena';
+const generatePasswordPOST = 'https://www.spepaismio.com/WS_Usuario.svc/GenerarPass';
+const changePasswordPOST = 'https://www.spepaismio.com/WS_Usuario.svc/cambiarContrasena';
+const searchUserPOST = 'https://www.spepaismio.com/WS_Usuario.svc/Consultar';
+const modifyStatePOST = 'https://www.spepaismio.com/WS_Usuario.svc/modificarEstado';
+const upgradeSupervisorRolPOST = 'https://www.spepaismio.com/WS_Usuario.svc/supervisorRolUpgrade';
+const upgradeOperatorRolPOST = 'https://www.spepaismio.com/WS_Usuario.svc/operarioRolUpgrade';
+
+/** Input API URLs */
+const inputPOST = 'https://www.spepaismio.com/WS_Insumo.svc/agregarInsumo';
+const inputGET = 'https://www.spepaismio.com/WS_Insumo.svc/obtenerListaInsumos';
+const inputSEARCH = 'https://www.spepaismio.com/WS_Insumo.svc/buscarInsumo';
+const inputUPDATE = 'https://www.spepaismio.com/WS_Insumo.svc/modificarInsumo';
+const inputGetA = 'https://www.spepaismio.com/WS_Insumo.svc/obtenerListaInsumosHabilitados';
+
+
+/** InputQ API URLs */
+const inputQPOST = 'https://www.spepaismio.com/WS_Insumo.svc/agregarInsumo';
+const inputQGET = 'https://www.spepaismio.com/WS_Insumo.svc/obtenerListaInsumosHabilitados';
+const inputQUPDATE = 'https://www.spepaismio.com/WS_Insumo.svc/modificarInsumo';
+const inputQSEARCH = 'https://www.spepaismio.com/WS_Insumo.svc/buscarInsumo';
+
+/** Units Request URLs */
+const unitPOST = 'https://www.spepaismio.com/WS_Insumo.svc/agregarUnidad';
+const unitGET = 'https://www.spepaismio.com/WS_Insumo.svc/listarUnidades';
+
+/** Input Request URLs */
+const inputRequestPost = 'https://www.spepaismio.com/WS_SolicitudInsumo.svc/ingresoSolicitud';
+const inputRequestDESICION = 'https://www.spepaismio.com/WS_SolicitudInsumo.svc/decisionAdmin';
+const inputRequestGET = 'https://www.spepaismio.com/WS_SolicitudInsumo.svc/listarSolicitudes';
+const inputRequestGETBYUSER = 'https://www.spepaismio.com/WS_SolicitudInsumo.svc/solicitudPorOperario';
+const inputRequestGETBYORDER = 'https://www.spepaismio.com/WS_SolicitudInsumo.svc/solicitudPorPedido';
+const inputRequestSEARCH = 'https://www.spepaismio.com/WS_SolicitudInsumo.svc/solicitudSingular';
+
+/** Order API URLs */
+const orderPOST = 'https://www.spepaismio.com/WS_Pedido.svc/agregarPedido';
+const orderGET = 'https://www.spepaismio.com/WS_Pedido.svc/listarPedidos';
+const orderGETtotalList = 'https://www.spepaismio.com/WS_Pedido.svc/listarPedidosTotales';
+const orderUPDATE = 'https://www.spepaismio.com/WS_Pedido.svc/Modificar';
+const orderDELETE = 'https://www.spepaismio.com/WS_Pedido.svc/Eliminar';
+const orderSEARCH = 'https://www.spepaismio.com/WS_Pedido.svc/Consultar';
+const orderPACKOFF = 'https://www.spepaismio.com/WS_Pedido.svc/Despachar';
+
+/** Falta Analysis API URLs */
+const analysisPost = 'https://www.spepaismio.com/WS_Pedido.svc/AgregarAnalisisAA';
+const analysisAASEARCH = 'https://www.spepaismio.com/WS_Pedido.svc/BuscarAnalisisAA';
+const analysisPQSEARCH = 'https://www.spepaismio.com/WS_Pedido.svc/AnalisisFQs';
+
+/** Product API URLs */
+const productPost = 'https://www.spepaismio.com/WS_Producto.svc/ingresarProducto';
+const productGET = 'https://www.spepaismio.com/WS_Producto.svc/listaProductos';
+const productGetA = 'https://www.spepaismio.com/WS_Producto.svc/listaProductosHabilitados';
+const productSEARCH = 'https://www.spepaismio.com/WS_Producto.svc/buscarProducto';
+const productUPDATE = 'https://www.spepaismio.com/WS_Producto.svc/modificarProducto';
+
+/** Reports API URLs */
+const inputReportPOST = 'https://www.spepaismio.com/WS_Reporte.svc/reporteInsumos';
+const orderReportPOST = 'https://www.spepaismio.com/WS_Reporte.svc/reportePedidos';
+const entryReportPOST = 'https://www.spepaismio.com/WS_Reporte.svc/reporteEntradaInsumos';
+const comparativeInputReportPOST = 'https://www.spepaismio.com/WS_Reporte.svc/reporteInsumosComparativo';
+
+/** Cellar API URLs */
+const cellarGET = 'https://www.spepaismio.com/WS_Bodega.svc/obtenerListaBodegas';
+const cellarAGET = 'https://www.spepaismio.com/WS_Bodega.svc/obtenerListaBodegasHabilitados';
+const cellarInputPUT = 'https://www.spepaismio.com/WS_Bodega.svc/entradaInsumos';
+const cellarPOST = 'https://www.spepaismio.com/WS_Bodega.svc/registrarBodega';
+const cellarUPDATE = 'https://www.spepaismio.com/WS_Bodega.svc/modificarBodega';
+const cellarSTATUS = 'https://www.spepaismio.com/WS_Bodega.svc/cambiarEstadoBodega';
+const cellarGetOne = 'https://www.spepaismio.com/WS_Bodega.svc/obtenerBodega';
+const cellarGetInputList = 'https://www.spepaismio.com/WS_Bodega.svc/obtenerInsumosBodega';
+const cellarMoveInput = 'https://www.spepaismio.com/WS_Bodega.svc/moverInsumoDeBodega';
+>>>>>>> 5d47af089c8323ef5b21de9078d1a309928b1855
 
 @Injectable({
   providedIn: 'root'
