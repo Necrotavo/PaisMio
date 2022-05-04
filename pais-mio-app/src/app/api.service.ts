@@ -31,92 +31,92 @@ const HttpOptions = {
 
 /*** Api URL constants */
 /** Base API URL */
-const apiURL = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientes';
+const apiURL = 'http://paismio-001-site1.gtempurl.com/WS_Cliente.svc/ListarClientes';
 
 /** Client API URLs */
-const clientPOST = 'https://www.spepaismio.tk/WS_Cliente.svc/Agregar';
-const clientGET = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientes';
-const clientAGET = 'https://www.spepaismio.tk/WS_Cliente.svc/ListarClientesHabilitados';
-const clientUPDATE = 'https://www.spepaismio.tk/WS_Cliente.svc/Modificar';
-const clientSTATUS = 'https://www.spepaismio.tk/WS_Cliente.svc/ModificarEstado';
-const clientSEARCH = 'https://www.spepaismio.tk/WS_Cliente.svc/Buscar';
+const clientPOST = 'http://paismio-001-site1.gtempurl.com/WS_Cliente.svc/Agregar';
+const clientGET = 'http://paismio-001-site1.gtempurl.com/WS_Cliente.svc/ListarClientes';
+const clientAGET = 'http://paismio-001-site1.gtempurl.com/WS_Cliente.svc/ListarClientesHabilitados';
+const clientUPDATE = 'http://paismio-001-site1.gtempurl.com/WS_Cliente.svc/Modificar';
+const clientSTATUS = 'http://paismio-001-site1.gtempurl.com/WS_Cliente.svc/ModificarEstado';
+const clientSEARCH = 'http://paismio-001-site1.gtempurl.com/WS_Cliente.svc/Buscar';
 
 /** User API URLs */
 const userPOST = 'https://spepaismio.tk/WS_Usuario.svc/CrearOperario';
-const userGET = 'https://www.spepaismio.tk/WS_Usuario.svc/Lista';
-const userLoginPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/Login';
-const userUpdatePOST = 'https://www.spepaismio.tk/WS_Usuario.svc/modificarUsuario';
-const passwordRecoveryPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/RecuperarContrasena';
-const generatePasswordPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/GenerarPass';
-const changePasswordPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/cambiarContrasena';
-const searchUserPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/Consultar';
-const modifyStatePOST = 'https://www.spepaismio.tk/WS_Usuario.svc/modificarEstado';
-const upgradeSupervisorRolPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/supervisorRolUpgrade';
-const upgradeOperatorRolPOST = 'https://www.spepaismio.tk/WS_Usuario.svc/operarioRolUpgrade';
+const userGET = 'http://paismio-001-site1.gtempurl.com/WS_Usuario.svc/Lista';
+const userLoginPOST = 'http://paismio-001-site1.gtempurl.com/WS_Usuario.svc/Login';
+const userUpdatePOST = 'http://paismio-001-site1.gtempurl.com/WS_Usuario.svc/modificarUsuario';
+const passwordRecoveryPOST = 'http://paismio-001-site1.gtempurl.com/WS_Usuario.svc/RecuperarContrasena';
+const generatePasswordPOST = 'http://paismio-001-site1.gtempurl.com/WS_Usuario.svc/GenerarPass';
+const changePasswordPOST = 'http://paismio-001-site1.gtempurl.com/WS_Usuario.svc/cambiarContrasena';
+const searchUserPOST = 'http://paismio-001-site1.gtempurl.com/WS_Usuario.svc/Consultar';
+const modifyStatePOST = 'http://paismio-001-site1.gtempurl.com/WS_Usuario.svc/modificarEstado';
+const upgradeSupervisorRolPOST = 'http://paismio-001-site1.gtempurl.com/WS_Usuario.svc/supervisorRolUpgrade';
+const upgradeOperatorRolPOST = 'http://paismio-001-site1.gtempurl.com/WS_Usuario.svc/operarioRolUpgrade';
 
 /** Input API URLs */
-const inputPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarInsumo';
-const inputGET = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumos';
-const inputSEARCH = 'https://www.spepaismio.tk/WS_Insumo.svc/buscarInsumo';
-const inputUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
-const inputGetA = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
+const inputPOST = 'http://paismio-001-site1.gtempurl.com/WS_Insumo.svc/agregarInsumo';
+const inputGET = 'http://paismio-001-site1.gtempurl.com/WS_Insumo.svc/obtenerListaInsumos';
+const inputSEARCH = 'http://paismio-001-site1.gtempurl.com/WS_Insumo.svc/buscarInsumo';
+const inputUPDATE = 'http://paismio-001-site1.gtempurl.com/WS_Insumo.svc/modificarInsumo';
+const inputGetA = 'http://paismio-001-site1.gtempurl.com/WS_Insumo.svc/obtenerListaInsumosHabilitados';
 
 
 /** InputQ API URLs */
-const inputQPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarInsumo';
-const inputQGET = 'https://www.spepaismio.tk/WS_Insumo.svc/obtenerListaInsumosHabilitados';
-const inputQUPDATE = 'https://www.spepaismio.tk/WS_Insumo.svc/modificarInsumo';
-const inputQSEARCH = 'https://www.spepaismio.tk/WS_Insumo.svc/buscarInsumo';
+const inputQPOST = 'http://paismio-001-site1.gtempurl.com/WS_Insumo.svc/agregarInsumo';
+const inputQGET = 'http://paismio-001-site1.gtempurl.com/WS_Insumo.svc/obtenerListaInsumosHabilitados';
+const inputQUPDATE = 'http://paismio-001-site1.gtempurl.com/WS_Insumo.svc/modificarInsumo';
+const inputQSEARCH = 'http://paismio-001-site1.gtempurl.com/WS_Insumo.svc/buscarInsumo';
 
 /** Units Request URLs */
-const unitPOST = 'https://www.spepaismio.tk/WS_Insumo.svc/agregarUnidad';
-const unitGET = 'https://www.spepaismio.tk/WS_Insumo.svc/listarUnidades';
+const unitPOST = 'http://paismio-001-site1.gtempurl.com/WS_Insumo.svc/agregarUnidad';
+const unitGET = 'http://paismio-001-site1.gtempurl.com/WS_Insumo.svc/listarUnidades';
 
 /** Input Request URLs */
-const inputRequestPost = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/ingresoSolicitud';
-const inputRequestDESICION = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/decisionAdmin';
-const inputRequestGET = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/listarSolicitudes';
-const inputRequestGETBYUSER = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudPorOperario';
-const inputRequestGETBYORDER = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudPorPedido';
-const inputRequestSEARCH = 'https://www.spepaismio.tk/WS_SolicitudInsumo.svc/solicitudSingular';
+const inputRequestPost = 'http://paismio-001-site1.gtempurl.com/WS_SolicitudInsumo.svc/ingresoSolicitud';
+const inputRequestDESICION = 'http://paismio-001-site1.gtempurl.com/WS_SolicitudInsumo.svc/decisionAdmin';
+const inputRequestGET = 'http://paismio-001-site1.gtempurl.com/WS_SolicitudInsumo.svc/listarSolicitudes';
+const inputRequestGETBYUSER = 'http://paismio-001-site1.gtempurl.com/WS_SolicitudInsumo.svc/solicitudPorOperario';
+const inputRequestGETBYORDER = 'http://paismio-001-site1.gtempurl.com/WS_SolicitudInsumo.svc/solicitudPorPedido';
+const inputRequestSEARCH = 'http://paismio-001-site1.gtempurl.com/WS_SolicitudInsumo.svc/solicitudSingular';
 
 /** Order API URLs */
-const orderPOST = 'https://www.spepaismio.tk/WS_Pedido.svc/agregarPedido';
-const orderGET = 'https://www.spepaismio.tk/WS_Pedido.svc/listarPedidos';
-const orderGETtotalList = 'https://www.spepaismio.tk/WS_Pedido.svc/listarPedidosTotales';
-const orderUPDATE = 'https://www.spepaismio.tk/WS_Pedido.svc/Modificar';
-const orderDELETE = 'https://www.spepaismio.tk/WS_Pedido.svc/Eliminar';
-const orderSEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/Consultar';
-const orderPACKOFF = 'https://www.spepaismio.tk/WS_Pedido.svc/Despachar';
+const orderPOST = 'http://paismio-001-site1.gtempurl.com/WS_Pedido.svc/agregarPedido';
+const orderGET = 'http://paismio-001-site1.gtempurl.com/WS_Pedido.svc/listarPedidos';
+const orderGETtotalList = 'http://paismio-001-site1.gtempurl.com/WS_Pedido.svc/listarPedidosTotales';
+const orderUPDATE = 'http://paismio-001-site1.gtempurl.com/WS_Pedido.svc/Modificar';
+const orderDELETE = 'http://paismio-001-site1.gtempurl.com/WS_Pedido.svc/Eliminar';
+const orderSEARCH = 'http://paismio-001-site1.gtempurl.com/WS_Pedido.svc/Consultar';
+const orderPACKOFF = 'http://paismio-001-site1.gtempurl.com/WS_Pedido.svc/Despachar';
 
 /** Falta Analysis API URLs */
-const analysisPost = 'https://www.spepaismio.tk/WS_Pedido.svc/AgregarAnalisisAA';
-const analysisAASEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/BuscarAnalisisAA';
-const analysisPQSEARCH = 'https://www.spepaismio.tk/WS_Pedido.svc/AnalisisFQs';
+const analysisPost = 'http://paismio-001-site1.gtempurl.com/WS_Pedido.svc/AgregarAnalisisAA';
+const analysisAASEARCH = 'http://paismio-001-site1.gtempurl.com/WS_Pedido.svc/BuscarAnalisisAA';
+const analysisPQSEARCH = 'http://paismio-001-site1.gtempurl.com/WS_Pedido.svc/AnalisisFQs';
 
 /** Product API URLs */
-const productPost = 'https://www.spepaismio.tk/WS_Producto.svc/ingresarProducto';
-const productGET = 'https://www.spepaismio.tk/WS_Producto.svc/listaProductos';
-const productGetA = 'https://www.spepaismio.tk/WS_Producto.svc/listaProductosHabilitados';
-const productSEARCH = 'https://www.spepaismio.tk/WS_Producto.svc/buscarProducto';
-const productUPDATE = 'https://www.spepaismio.tk/WS_Producto.svc/modificarProducto';
+const productPost = 'http://paismio-001-site1.gtempurl.com/WS_Producto.svc/ingresarProducto';
+const productGET = 'http://paismio-001-site1.gtempurl.com/WS_Producto.svc/listaProductos';
+const productGetA = 'http://paismio-001-site1.gtempurl.com/WS_Producto.svc/listaProductosHabilitados';
+const productSEARCH = 'http://paismio-001-site1.gtempurl.com/WS_Producto.svc/buscarProducto';
+const productUPDATE = 'http://paismio-001-site1.gtempurl.com/WS_Producto.svc/modificarProducto';
 
 /** Reports API URLs */
-const inputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumos';
-const orderReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reportePedidos';
-const entryReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteEntradaInsumos';
-const comparativeInputReportPOST = 'https://www.spepaismio.tk/WS_Reporte.svc/reporteInsumosComparativo';
+const inputReportPOST = 'http://paismio-001-site1.gtempurl.com/WS_Reporte.svc/reporteInsumos';
+const orderReportPOST = 'http://paismio-001-site1.gtempurl.com/WS_Reporte.svc/reportePedidos';
+const entryReportPOST = 'http://paismio-001-site1.gtempurl.com/WS_Reporte.svc/reporteEntradaInsumos';
+const comparativeInputReportPOST = 'http://paismio-001-site1.gtempurl.com/WS_Reporte.svc/reporteInsumosComparativo';
 
 /** Cellar API URLs */
-const cellarGET = 'https://www.spepaismio.tk/WS_Bodega.svc/obtenerListaBodegas';
-const cellarAGET = 'https://www.spepaismio.tk/WS_Bodega.svc/obtenerListaBodegasHabilitados';
-const cellarInputPUT = 'https://www.spepaismio.tk/WS_Bodega.svc/entradaInsumos';
-const cellarPOST = 'https://www.spepaismio.tk/WS_Bodega.svc/registrarBodega';
-const cellarUPDATE = 'https://www.spepaismio.tk/WS_Bodega.svc/modificarBodega';
-const cellarSTATUS = 'https://www.spepaismio.tk/WS_Bodega.svc/cambiarEstadoBodega';
-const cellarGetOne = 'https://www.spepaismio.tk/WS_Bodega.svc/obtenerBodega';
-const cellarGetInputList = 'https://www.spepaismio.tk/WS_Bodega.svc/obtenerInsumosBodega';
-const cellarMoveInput = 'https://www.spepaismio.tk/WS_Bodega.svc/moverInsumoDeBodega';
+const cellarGET = 'http://paismio-001-site1.gtempurl.com/WS_Bodega.svc/obtenerListaBodegas';
+const cellarAGET = 'http://paismio-001-site1.gtempurl.com/WS_Bodega.svc/obtenerListaBodegasHabilitados';
+const cellarInputPUT = 'http://paismio-001-site1.gtempurl.com/WS_Bodega.svc/entradaInsumos';
+const cellarPOST = 'http://paismio-001-site1.gtempurl.com/WS_Bodega.svc/registrarBodega';
+const cellarUPDATE = 'http://paismio-001-site1.gtempurl.com/WS_Bodega.svc/modificarBodega';
+const cellarSTATUS = 'http://paismio-001-site1.gtempurl.com/WS_Bodega.svc/cambiarEstadoBodega';
+const cellarGetOne = 'http://paismio-001-site1.gtempurl.com/WS_Bodega.svc/obtenerBodega';
+const cellarGetInputList = 'http://paismio-001-site1.gtempurl.com/WS_Bodega.svc/obtenerInsumosBodega';
+const cellarMoveInput = 'http://paismio-001-site1.gtempurl.com/WS_Bodega.svc/moverInsumoDeBodega';
 
 @Injectable({
   providedIn: 'root'

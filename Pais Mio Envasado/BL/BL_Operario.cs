@@ -87,7 +87,7 @@ namespace BL
                 DAOoperario.generarToken(correo);
 
                 string subject = "Recuperación de contraseña";
-                string url = "https://spepaismio.tk/Admin/Recovery.aspx?token=" + DAOoperario.generarToken(correo);
+                string url = "https://www.spepaismio.com/Admin/Recovery.aspx?token=" + DAOoperario.generarToken(correo);
                 string body = "<p>¿Usted ha solicilitado la recuperación de contraseña?</p><br>" +
                 "<p>De ser así, por favor haga click:" +
                 "<a href='" + url + "'>Click aquí para continuar</a>" +
@@ -127,8 +127,8 @@ namespace BL
 
         public void enviarCorreo(string correoDestino, string subject, string body)
         {
-            string correoOrigen = "passcontrolSPE@gmail.com";
-            string contrasena = "Pepito123.";
+            string correoOrigen = "passcontrolspe@gmail.com";
+            string contrasena = "yowlvmzlnrrhlmtn";
 
             MailMessage message = new MailMessage(correoOrigen, correoDestino, subject,
                 body);
